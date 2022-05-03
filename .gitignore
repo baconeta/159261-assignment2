@@ -61,7 +61,6 @@ hs_err_pid*
 .idea/modules.xml
 .idea/*.iml
 .idea/modules
-\.idea\*
 *.iml
 *.ipr
 
@@ -102,6 +101,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # Maven
+.idea/
 target/
 pom.xml.tag
 pom.xml.releaseBackup
