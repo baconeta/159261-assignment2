@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public final class FontBook {
     private static final String FONT_NAME = "Revamped.otf";
+    private static final String DEFAULT = "Arial";
 
     private static FontBook singleton = null;
 
@@ -30,6 +31,10 @@ public final class FontBook {
         } catch (IOException | FontFormatException e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    public Font defaultFont() {
+        return new Font(DEFAULT, Font.PLAIN, 12);
     }
 
     public Font titleFont() {
