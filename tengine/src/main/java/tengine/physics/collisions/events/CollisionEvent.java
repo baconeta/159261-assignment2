@@ -13,7 +13,7 @@ public class CollisionEvent {
     private Point impactSide;
 
     public CollisionEvent(PhysicsComponent p1, PhysicsComponent p2) {
-        this(p1, p2, new Vector(), new Point());
+        this(p1, p2, new Vector(0,0), new Point());
     }
 
     public CollisionEvent(PhysicsComponent p1, PhysicsComponent p2, Vector impactVector, Point impactSide) {
