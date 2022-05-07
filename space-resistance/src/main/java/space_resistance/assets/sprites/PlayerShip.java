@@ -1,6 +1,6 @@
 package space_resistance.assets.sprites;
 
-import tengine.graphics.entities.sprites.Sprite;
+import tengine.graphics.components.sprites.Sprite;
 
 import java.awt.*;
 import java.io.InputStream;

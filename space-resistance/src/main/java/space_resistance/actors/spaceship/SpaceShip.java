@@ -6,8 +6,8 @@ import space_resistance.game.GameWorld;
 import space_resistance.player.Player;
 import space_resistance.player.PlayerNumber;
 import tengine.Actor;
-import tengine.graphics.entities.TGraphicCompound;
-import tengine.graphics.entities.sprites.Sprite;
+import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.sprites.Sprite;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

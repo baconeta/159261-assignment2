@@ -5,7 +5,7 @@ import space_resistance.assets.FontBook;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.utils.Notifier;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.text.TLabel;
 import tengine.world.World;
 
 import java.awt.*;
