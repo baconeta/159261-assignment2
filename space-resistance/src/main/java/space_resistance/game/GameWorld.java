@@ -46,7 +46,7 @@ public class GameWorld extends World {
     }
 
     private void initPlayers() {
-        playerOne = SpaceShip.spawnAt(this, new Point(300, 300), gameState.playerOne());
+        playerOne = SpaceShip.spawnAt(this, new Point(300, 600), gameState.playerOne()); // Changed spawn location of ship
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             playerTwo = SpaceShip.spawnAt(this, new Point(300, 300), gameState.playerTwo());
