@@ -119,5 +119,3 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
-
-.run/Run Game.run.xml
