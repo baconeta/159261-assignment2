@@ -1,8 +1,8 @@
 package space_resistance.assets.animated_sprites;
 
 import space_resistance.assets.AssetLoader;
-import tengine.graphics.entities.sprites.AnimatedSprite;
-import tengine.graphics.entities.sprites.SpriteSequence;
+import tengine.graphics.components.sprites.AnimatedSprite;
+import tengine.graphics.components.sprites.SpriteSequence;
 import tengine.world.GridSquare;
 
 import java.awt.*;

@@ -5,7 +5,7 @@ import space_resistance.settings.MultiplayerMode;
 import space_resistance.settings.Settings;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
-import tengine.graphics.entities.TGraphicCompound;
+import tengine.graphics.components.TGraphicCompound;
 
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;

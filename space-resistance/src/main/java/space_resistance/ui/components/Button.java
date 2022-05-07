@@ -2,7 +2,7 @@ package space_resistance.ui.components;
 
 import space_resistance.assets.Colors;
 import space_resistance.assets.FontBook;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.text.TLabel;
 
 public class Button extends TLabel {
     public enum State {

@@ -6,8 +6,8 @@ import space_resistance.game.GameWorld;
 import space_resistance.player.Player;
 import space_resistance.player.PlayerNumber;
 import tengine.Actor;
-import tengine.graphics.entities.TGraphicCompound;
-import tengine.graphics.entities.sprites.Sprite;
+import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.sprites.Sprite;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,7 +16,8 @@ import java.util.Optional;
 public class SpaceShip extends Actor {
     private static final String PLAYER_SHIP = "Player.png";
     // TODO: idk if this is correct? Gotta sort out sizing and scale
-    private static final Dimension DIMENSION = new Dimension(512, 512);
+    // I setup the player size to be smaller and the correct size
+    private static final Dimension DIMENSION = new Dimension(64, 64);
 
     private final GameWorld world;
     private final Player player;
@@ -28,16 +29,14 @@ public class SpaceShip extends Actor {
                 player);
 
         world.add(spaceShip);
-
         return spaceShip;
     }
 
     private SpaceShip(GameWorld world, Point origin, Player player) {
         this.world = world;
         this.player = player;
-        setOrigin(origin);
-
         graphicEntity = initSprite();
+        setOrigin(origin); // Placed this line after graphicEntity = initSprite() to fix glitch of spaceship not spawning in specified area
     }
 
     private TGraphicCompound initSprite() {
@@ -46,6 +45,7 @@ public class SpaceShip extends Actor {
         Sprite spaceship = new PlayerShip(AssetLoader.load(PLAYER_SHIP), DIMENSION);
 
         // Any other stuff you want here
+        setOrigin(origin);
 
         playerSprite.add(spaceship);
 

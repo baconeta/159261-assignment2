@@ -1,6 +1,7 @@
 package tengine.physics;
 
 import tengine.physics.collisions.shapes.CollisionRect;
+import tengine.physics.kinematics.Vector;
 import tengine.physics.kinematics.Velocity;
 
 import java.util.Objects;
@@ -14,7 +15,7 @@ public class PhysicsComponent {
     public CollisionRect collisionShape;
 
     public PhysicsComponent() {
-        this(new Velocity(), true, null, false);
+        this(new Velocity(0.0, new Vector(0,0)), true, null, false);
     }
 
     public PhysicsComponent(Velocity velocity, boolean isStatic,
