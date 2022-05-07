@@ -6,7 +6,7 @@ import space_resistance.assets.SoundEffects;
 import space_resistance.settings.Settings;
 import space_resistance.ui.components.Button;
 import space_resistance.ui.components.ButtonGroup;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.text.TLabel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

@@ -3,8 +3,8 @@ package space_resistance.ui.screens.gameplay;
 import space_resistance.assets.FontBook;
 import space_resistance.game.GameConfig;
 import space_resistance.player.Player;
-import tengine.graphics.entities.TGraphicCompound;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.text.TLabel;
 
 import java.awt.*;
 
