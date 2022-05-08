@@ -18,7 +18,7 @@ public class Game extends GameEngine {
     private Screen activeScreen;
 
     public static void main(String[] args) {
-        createGame(new Game(), 10);
+        createGame(new Game(), 30);
     }
 
     @Override
@@ -36,7 +36,12 @@ public class Game extends GameEngine {
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        activeScreen.handleKeyEvent(keyEvent);
+        activeScreen.handleKeyPressed(keyEvent);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+        activeScreen.handleKeyReleased(keyEvent);
     }
 
     public void requestScreenChange(ScreenIdentifier newScreen) {
