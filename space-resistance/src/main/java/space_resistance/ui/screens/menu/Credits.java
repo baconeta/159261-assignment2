@@ -17,13 +17,13 @@ class Credits extends Menu {
         TLabel title = new TLabel("credits");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
-        title.setOrigin(new Point(180, 180));
+        title.setOrigin(new Point(200, 180));
 
         initContent();
 
         Button close = new Button("close");
         close.setState(Button.State.FOCUSSED);
-        close.setOrigin(new Point(220, 490));
+        close.setOrigin(new Point(290, 490));
 
         addAll(title, close);
     }
@@ -33,11 +33,11 @@ class Credits extends Menu {
         // drawing multiline strings, hence the following ugliness.
         TLabel originalArtAndSounds1 = bodyText("Original artwork and sound effects");
         TLabel originalArtAndSounds2 = bodyText("by Ali Soltanian Fard Jahromi");
-        originalArtAndSounds1.setOrigin(new Point(70, 280));
-        originalArtAndSounds2.setOrigin(new Point(70, 300));
+        originalArtAndSounds1.setOrigin(new Point(105, 280));
+        originalArtAndSounds2.setOrigin(new Point(140, 300));
 
         TLabel fontAttr = bodyText("Revamped Font by Chequered Ink");
-        fontAttr.setOrigin(new Point(100, 330));
+        fontAttr.setOrigin(new Point(125, 330));
 
         addAll(originalArtAndSounds1, originalArtAndSounds2, fontAttr);
     }

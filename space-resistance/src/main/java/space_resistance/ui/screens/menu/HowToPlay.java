@@ -17,13 +17,13 @@ class HowToPlay extends Menu {
         TLabel title = new TLabel("How to play");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
-        title.setOrigin(new Point(140, 180));
+        title.setOrigin(new Point(175, 180));
 
         initContent();
 
         Button close = new Button("close");
         close.setState(Button.State.FOCUSSED);
-        close.setOrigin(new Point(220, 490));
+        close.setOrigin(new Point(290, 490));
 
         addAll(title, close);
     }
@@ -31,13 +31,13 @@ class HowToPlay extends Menu {
     public void initContent() {
         TLabel onePlayer = bodyText("PLAYER 1");
         TLabel onePlayerKeys = bodyText("Use the arrow keys to move, press enter to fire");
-        onePlayer.setOrigin(new Point(210, 300));
-        onePlayerKeys.setOrigin(new Point(90, 320));
+        onePlayer.setOrigin(new Point(255, 300));
+        onePlayerKeys.setOrigin(new Point(40, 320));
 
         TLabel twoPlayer = bodyText("PLAYER 2");
         TLabel twoPlayerKeys = bodyText("Use the W-A-S-D keys to move, press shift to fire");
-        twoPlayer.setOrigin(new Point(210, 350));
-        twoPlayerKeys.setOrigin(new Point(80, 370));
+        twoPlayer.setOrigin(new Point(255, 350));
+        twoPlayerKeys.setOrigin(new Point(35, 370));
 
         addAll(onePlayer, onePlayerKeys, twoPlayer, twoPlayerKeys);
     }

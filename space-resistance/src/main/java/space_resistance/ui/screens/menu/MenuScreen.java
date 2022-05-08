@@ -1,5 +1,7 @@
 package space_resistance.ui.screens.menu;
 
+import space_resistance.assets.AssetLoader;
+import space_resistance.assets.sprites.Background;
 import space_resistance.game.Game;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.settings.Settings;
@@ -7,12 +9,16 @@ import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
 import tengine.graphics.components.TGraphicCompound;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
 public class MenuScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final Game engine;
+    private final String BACKGROUND = "SpaceBackground.png";
+    private static final Dimension DIMENSION = new Dimension(600, 800);
+    Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
 
     private final TGraphicCompound container;
 
@@ -36,6 +42,7 @@ public class MenuScreen implements Screen {
         // Graphic
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
         activeMenu = mainMenu;
+        container.add(background);
         container.add(activeMenu);
     }
 
