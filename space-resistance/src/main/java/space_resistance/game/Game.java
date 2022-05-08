@@ -18,7 +18,7 @@ public class Game extends GameEngine {
     private Screen activeScreen;
 
     public static void main(String[] args) {
-        createGame(new Game(), 30);
+        createGame(new Game(), 60);
     }
 
     @Override
