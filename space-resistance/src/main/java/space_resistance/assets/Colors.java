@@ -17,7 +17,7 @@ public class Colors {
     // Tweak these however you like! These are just placeholders.
     public static class Text {
         // Primary color for most UI text elements
-        public static final Color PRIMARY = TARANTULA_GREY;
+        public static final Color PRIMARY = BEAU_BLUE;
 
         // Add other categories of font colors here
     }
@@ -27,7 +27,7 @@ public class Colors {
     // Tweak these however you like! These are just placeholders.
     public static class Button {
         // Primary color for button elements which are not selected/active
-        public static final Color PRIMARY = MITE_GREEN;
+        public static final Color PRIMARY = BEAU_BLUE;
 
         // Color for selected/active button elements
         public static final Color FOCUSSED = GRASSHOPPER_GREEN;
