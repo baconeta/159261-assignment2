@@ -18,6 +18,7 @@ public class MenuScreen implements Screen {
     private final Game engine;
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
+    Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
 
     private final TGraphicCompound container;
 
@@ -41,7 +42,6 @@ public class MenuScreen implements Screen {
         // Graphic
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
         activeMenu = mainMenu;
-        Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
         container.add(background);
         container.add(activeMenu);
     }
