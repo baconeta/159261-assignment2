@@ -7,6 +7,10 @@ public class Colors {
     private static final Color GRASSHOPPER_GREEN = new Color(188, 196, 14);
     public static final Color SPACESHIP_PURPLE = new Color(84, 47, 80);
     public static final Color TARANTULA_GREY = new Color(97, 96, 101);
+    public static final Color BEAU_BLUE = new Color(200, 218, 226);
+    public static final Color DARK_VIOLET = new Color(114, 14, 196);
+    public static final Color DENIM = new Color(14, 96, 196);
+
 
     // We centrally manage all text colors here, so we can swap out
     // a color once, and it will update everywhere.
