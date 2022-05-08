@@ -8,12 +8,12 @@ public class EnemySpawningSystem {
     private EnemyWave currentWave;
     private long timeLastWaveGenerated;
     private long timeLastEnemySpawned;
-    private GameWorld gameWorld;
+    private GameWorld gameWorld; // TODO is there a better way to handle this?
     private SpawnState currentState = SpawnState.DEFAULT;
 
     public EnemySpawningSystem(GameWorld gw) {
         gameWorld = gw;
-        currentLevel = 1;
+        currentLevel = 1; // TODO magic number
         generateEnemyWave();
     }
 
@@ -22,6 +22,8 @@ public class EnemySpawningSystem {
     }
 
     public void update() {
+        // this could be a LOT more efficient, particularly in reference to calling a System function every frame
+        // for now, this is sufficient until we have more implemented in the game
         long currentTime = System.currentTimeMillis();
         switch (currentState) {
             case PRE_WAVE:

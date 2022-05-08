@@ -13,9 +13,10 @@ public class EnemyWave {
     // private Boss boss;
 
     public EnemyWave(int currentLevel) {
-        // TODO implement wave spawning based on level parameters
-        msBetweenEnemySpawn = 5000;
-        msBeforeWaveStarts = 5000;
+        wave = new ArrayList<>(); // TODO implement wave spawning based on level parameters
+        msBetweenEnemySpawn = 5000; // TODO magic number
+        msBeforeWaveStarts = 5000; // TODO magic number
+        enemiesRemaining = wave.size();
     }
 
     public ArrayList<Enemy> getWave() {
