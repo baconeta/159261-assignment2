@@ -46,15 +46,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>co.tessapower.159261.a1</groupId>
-            <artifactId>tengine</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.3.0</version>
             <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>nz.ac.massey.pewpew</groupId>
+            <artifactId>tengine</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

@@ -6,7 +6,7 @@ import space_resistance.assets.SoundEffects;
 import space_resistance.settings.Settings;
 import space_resistance.ui.components.Button;
 import space_resistance.ui.components.ButtonGroup;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.text.TLabel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -20,23 +20,22 @@ class MainMenu extends Menu {
 
     public MainMenu(Consumer<SubmenuOption> submenuSelectionNotifier) {
         super(submenuSelectionNotifier);
-
         TLabel title = new TLabel("Space Resistance");
         title.setColor(Colors.Text.PRIMARY);
-        title.setFont(FontBook.shared().defaultFont());
+        title.setFont(FontBook.shared().titleFont());
 
         // The origin of text is unfortunately manual as we cannot query
         // the size of the text beforehand to properly align it
         title.setOrigin(new Point(100, 180));
 
         onePlayer = new Button("ONE PLAYER");
-        onePlayer.setOrigin(new Point(220, 300));
+        onePlayer.setOrigin(new Point(240, 300));
 
         howToPlay = new Button("HOW TO PLAY");
-        howToPlay.setOrigin(new Point(190, 420));
+        howToPlay.setOrigin(new Point(240, 350));
 
         credits = new Button("CREDITS");
-        credits.setOrigin(new Point(210, 460));
+        credits.setOrigin(new Point(250, 400));
 
         // The button group manages which button is currently selected and moving between buttons
         buttons = new ButtonGroup(onePlayer, howToPlay, credits/*, twoPlayer, highscores*/);
