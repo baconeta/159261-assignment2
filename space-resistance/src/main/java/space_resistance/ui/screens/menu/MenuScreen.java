@@ -42,8 +42,9 @@ public class MenuScreen implements Screen {
         // Graphic
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
         activeMenu = mainMenu;
-        container.add(background);
         container.add(activeMenu);
+        container.add(background);
+
     }
 
     @Override
