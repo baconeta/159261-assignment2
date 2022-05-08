@@ -8,10 +8,14 @@ import java.util.Random;
 public class EnemyWave {
     private ArrayList<Enemy> wave;
     private int enemiesRemaining;
+    private int msBetweenEnemySpawn;
+    private int msBeforeWaveStarts;
     // private Boss boss;
 
     public EnemyWave(int currentLevel) {
         // TODO implement wave spawning based on level parameters
+        msBetweenEnemySpawn = 5000;
+        msBeforeWaveStarts = 5000;
     }
 
     public ArrayList<Enemy> getWave() {
@@ -23,10 +27,23 @@ public class EnemyWave {
         int index = random.nextInt(0, enemiesRemaining);
         Enemy enemy = wave.get(index);
         wave.remove(index);
+        enemiesRemaining -= 1;
         return enemy;
     }
 
-    //public Boss getBoss() {
+    // public Boss getBoss() {
     //    return boss;
-    //}
+    // }
+
+    public int getEnemiesRemaining() {
+        return enemiesRemaining;
+    }
+
+    public int getMsBetweenEnemySpawn() {
+        return msBetweenEnemySpawn;
+    }
+
+    public int getMsBeforeWaveStarts() {
+        return msBeforeWaveStarts;
+    }
 }
