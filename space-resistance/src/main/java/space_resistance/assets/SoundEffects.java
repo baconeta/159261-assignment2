@@ -16,6 +16,9 @@ public class SoundEffects {
     private static final String MENU_SELECT = "menu-select.wav";
     private static final AudioClip menuSelect = new AudioClip(AssetLoader.load(MENU_SELECT));
 
+    private static final String DEFAULT_SHOT = "PlayerShootingSound.wav";
+    private static final AudioClip playerShootingSound = new AudioClip(AssetLoader.load(DEFAULT_SHOT));
+
     private static SoundEffects singleton = null;
 
     public static SoundEffects shared() {
@@ -43,4 +46,6 @@ public class SoundEffects {
     public AudioClip menuSelect() {
         return menuSelect;
     }
+
+    public AudioClip defaultPlayerShootingSound(){ return playerShootingSound; }
 }
