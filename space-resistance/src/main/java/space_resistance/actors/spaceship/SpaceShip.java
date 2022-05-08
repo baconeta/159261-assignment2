@@ -20,8 +20,7 @@ public class SpaceShip extends Actor {
     private final GameWorld world;
     private final Player player;
 
-    private int velocityX = 0;
-    private int velocityY = 0;
+    private Point velocity = new Point(0, 0);
 
     public static SpaceShip spawnAt(GameWorld world, Point origin, Player player) {
         SpaceShip spaceShip = new SpaceShip(
@@ -51,7 +50,7 @@ public class SpaceShip extends Actor {
     }
 
     public void update() {
-        this.setOrigin(new Point(this.origin.x + velocityX, this.origin.y+ velocityY)); // Update player position based on velocity
+        this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y+ velocity.y)); // Update player position based on velocity
     }
 
     public boolean handleKeyPressed(KeyEvent keyEvent) {
@@ -70,16 +69,16 @@ public class SpaceShip extends Actor {
         switch(action) {
             // If movement keys are pressed, set player velocity for corresponding axis to 10 or -10 (arbitrary value, can be changed later) depending on direction
             case MOVE_UP -> {
-                velocityY = -10;
+                velocity.y = -10;
             }
             case MOVE_DOWN -> {
-                velocityY = 10;
+                velocity.y = 10;
             }
             case MOVE_LEFT -> {
-                velocityX = -10;
+                velocity.x = -10;
             }
             case MOVE_RIGHT -> {
-                velocityX = 10;
+                velocity.x = 10;
             }
             case SHOOT -> {
                 /* do something */
@@ -90,17 +89,11 @@ public class SpaceShip extends Actor {
     public void movementKeyReleasedAction(Action action){
         switch(action) {
             // If movement keys are released set player velocity for corresponding axis to 0
-            case MOVE_UP -> {
-                velocityY = 0;
+            case MOVE_UP, MOVE_DOWN -> {
+                velocity.y = 0;
             }
-            case MOVE_DOWN -> {
-                velocityY = 0;
-            }
-            case MOVE_LEFT -> {
-                velocityX = 0;
-            }
-            case MOVE_RIGHT -> {
-                velocityX = 0;
+            case MOVE_LEFT, MOVE_RIGHT -> {
+                velocity.x = 0;
             }
         }
     }
