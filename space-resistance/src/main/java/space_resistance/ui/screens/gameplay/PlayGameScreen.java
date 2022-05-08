@@ -35,14 +35,21 @@ public class PlayGameScreen implements Screen {
     }
 
     @Override
-    public void handleKeyEvent(KeyEvent keyEvent) {
+    public void handleKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
             paused = !paused;
         } else if (!paused) {
-            world.handleKeyEvent(keyEvent);
+            world.handleKeyPressed(keyEvent);
         }
     }
-
+    @Override
+    public void handleKeyReleased(KeyEvent keyEvent) {
+        if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
+            paused = !paused;
+        } else if (!paused) {
+            world.handleKeyReleased(keyEvent);
+        }
+    }
     @Override
     public void addToCanvas() {
         engine.loadWorld(world);

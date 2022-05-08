@@ -15,11 +15,13 @@ import java.util.Optional;
 
 public class SpaceShip extends Actor {
     private static final String PLAYER_SHIP = "Player.png";
-    // TODO: idk if this is correct? Gotta sort out sizing and scale
     private static final Dimension DIMENSION = new Dimension(64, 64);
 
     private final GameWorld world;
     private final Player player;
+
+    private int velocityX = 0;
+    private int velocityY = 0;
 
     public static SpaceShip spawnAt(GameWorld world, Point origin, Player player) {
         SpaceShip spaceShip = new SpaceShip(
@@ -49,32 +51,56 @@ public class SpaceShip extends Actor {
     }
 
     public void update() {
-
+        this.setOrigin(new Point(this.origin.x + velocityX, this.origin.y+ velocityY)); // Update player position based on velocity
     }
 
-    public boolean handleKeyEvent(KeyEvent keyEvent) {
+    public boolean handleKeyPressed(KeyEvent keyEvent) {
         Optional<Action> action = player.controls().mappedAction(keyEvent.getKeyCode());
         action.ifPresent(this::performAction);
 
         return action.isPresent();
     }
+    public boolean handleKeyReleased(KeyEvent keyEvent) {
+        Optional<Action> action = player.controls().mappedAction(keyEvent.getKeyCode());
+        action.ifPresent(this::movementKeyReleasedAction);
 
+        return action.isPresent();
+    }
     private void performAction(Action action) {
         switch(action) {
+            // If movement keys are pressed, set player velocity for corresponding axis to 10 or -10 (arbitrary value, can be changed later) depending on direction
             case MOVE_UP -> {
-                /* do something */
+                velocityY = -10;
             }
             case MOVE_DOWN -> {
-                /* do something */
+                velocityY = 10;
             }
             case MOVE_LEFT -> {
-                /* do something */
+                velocityX = -10;
             }
             case MOVE_RIGHT -> {
-                /* do something */
+                velocityX = 10;
             }
             case SHOOT -> {
                 /* do something */
+            }
+        }
+    }
+
+    public void movementKeyReleasedAction(Action action){
+        switch(action) {
+            // If movement keys are released set player velocity for corresponding axis to 0
+            case MOVE_UP -> {
+                velocityY = 0;
+            }
+            case MOVE_DOWN -> {
+                velocityY = 0;
+            }
+            case MOVE_LEFT -> {
+                velocityX = 0;
+            }
+            case MOVE_RIGHT -> {
+                velocityX = 0;
             }
         }
     }

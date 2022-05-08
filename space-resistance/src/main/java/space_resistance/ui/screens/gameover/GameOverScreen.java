@@ -69,7 +69,7 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void handleKeyEvent(KeyEvent keyEvent) {
+    public void handleKeyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
             case KeyEvent.VK_LEFT -> buttonGroup.previous();
             case KeyEvent.VK_RIGHT -> buttonGroup.next();
@@ -82,6 +82,11 @@ public class GameOverScreen implements Screen {
                 }
             }
         }
+    }
+
+    @Override
+    public void handleKeyReleased(KeyEvent event) {
+
     }
 
     @Override

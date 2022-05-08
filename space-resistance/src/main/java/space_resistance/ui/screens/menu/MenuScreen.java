@@ -40,8 +40,13 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-    public void handleKeyEvent(KeyEvent keyEvent) {
+    public void handleKeyPressed(KeyEvent keyEvent) {
         activeMenu.handleKeyEvent(keyEvent);
+    }
+
+    @Override
+    public void handleKeyReleased(KeyEvent event) {
+
     }
 
     @Override

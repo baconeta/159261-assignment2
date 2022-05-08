@@ -72,14 +72,20 @@ public class GameWorld extends World {
     }
 
     // Dispatch relevant key events to the appropriate actors
-    public void handleKeyEvent(KeyEvent keyEvent) {
-        if (playerOne.handleKeyEvent(keyEvent)) return;
+    public void handleKeyPressed(KeyEvent keyEvent) {
+        if (playerOne.handleKeyPressed(keyEvent)) return;
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwo.handleKeyEvent(keyEvent);
+            playerTwo.handleKeyPressed(keyEvent);
         }
     }
+    public void handleKeyReleased(KeyEvent keyEvent) {
+        if (playerOne.handleKeyReleased(keyEvent)) return;
 
+        if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            playerTwo.handleKeyReleased(keyEvent);
+        }
+    }
     public GameConfig gameConfig() {
         return gameConfig;
     }
