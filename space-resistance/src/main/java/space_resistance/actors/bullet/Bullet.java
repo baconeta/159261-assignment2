@@ -14,6 +14,7 @@ import java.util.Random;
 public class Bullet extends Actor {
     private static final String PLAYER_DEFAULT_SHOT = "PlayerDefaultShots.png";
     private static final Dimension DIMENSION = new Dimension(64, 64);
+    private static final Random RANDOM = new Random();
 
     private final GameWorld world;
 
@@ -34,10 +35,10 @@ public class Bullet extends Actor {
         SoundEffects.shared().defaultPlayerShootingSound().play(5);
         this.world = world;
         graphic = initSprite();
-        Point variedOrigin = origin;
-        variedOrigin.x += new Random().nextInt(1 + 1) - 1; // Variation in the shots
+        // Variation in the shots
+        origin.x += RANDOM.nextInt(1 + 1) - 1;
         startTime = System.currentTimeMillis();
-        setOrigin(variedOrigin);
+        setOrigin(origin);
     }
     public void update(){
         this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y+ velocity.y)); // Update bullet position based on velocity
