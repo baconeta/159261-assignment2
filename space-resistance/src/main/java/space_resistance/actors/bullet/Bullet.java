@@ -1,12 +1,9 @@
 package space_resistance.actors.bullet;
 
-import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.SoundEffects;
 import space_resistance.assets.sprites.DefaultShot;
-import space_resistance.assets.sprites.PlayerShip;
 import space_resistance.game.GameWorld;
-import space_resistance.player.Player;
 import tengine.Actor;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.sprites.Sprite;
