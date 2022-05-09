@@ -80,6 +80,6 @@ public class EnemySpawningSystem {
     }
 
     private enum SpawnState {
-        PRE_WAVE, SPAWNING, BOSS, POST_WAVE, DEFAULT;
+        PRE_WAVE, SPAWNING, BOSS, POST_WAVE, DEFAULT
     }
 }
