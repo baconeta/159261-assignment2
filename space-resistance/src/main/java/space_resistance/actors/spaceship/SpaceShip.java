@@ -67,8 +67,9 @@ public class SpaceShip extends Actor {
                 if (bullets.get(bullets.size() - 1).timeExisted() > 50) {
                     bullets.add(Bullet.spawnAt(world, new Point(this.origin.x, this.origin.y - 5)));
                 }
-            } else
+            } else {
                 bullets.add(Bullet.spawnAt(world, new Point(this.origin.x, this.origin.y - 5)));
+            }
         }
     }
 
@@ -78,29 +79,22 @@ public class SpaceShip extends Actor {
         keyPressed = keyEvent;
         return action.isPresent();
     }
+
     public boolean handleKeyReleased(KeyEvent keyEvent) {
         Optional<Action> action = player.controls().mappedAction(keyEvent.getKeyCode());
         action.ifPresent(this::movementKeyReleasedAction);
         keyReleased = keyEvent;
         return action.isPresent();
     }
-    KeyEvent keyPressed = null;
-    KeyEvent keyReleased = null;
+
     private void performAction(Action action) {
         switch(action) {
-            // If movement keys are pressed, set player velocity for corresponding axis to 10 or -10 (arbitrary value, can be changed later) depending on direction
-            case MOVE_UP -> {
-                velocity.y = -10;
-            }
-            case MOVE_DOWN -> {
-                velocity.y = 10;
-            }
-            case MOVE_LEFT -> {
-                velocity.x = -10;
-            }
-            case MOVE_RIGHT -> {
-                velocity.x = 10;
-            }
+            // Set player velocity for corresponding axis to 10 or -10 depending on direction
+            // (arbitrary value, can be changed later)
+            case MOVE_UP -> velocity.y = -10;
+            case MOVE_DOWN -> velocity.y = 10;
+            case MOVE_LEFT -> velocity.x = -10;
+            case MOVE_RIGHT -> velocity.x = 10;
             case SHOOT -> {
                 if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
                     // Check if player 2 is pressing left shift
