@@ -3,6 +3,7 @@ package space_resistance.game;
 import space_resistance.actors.enemy.Enemy;
 import java.awt.*;
 
+// TODO remove all println statements before publish
 public class EnemySpawningSystem {
     private int currentLevel;
     private EnemyWave currentWave;
