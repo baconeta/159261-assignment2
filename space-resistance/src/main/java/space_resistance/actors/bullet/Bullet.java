@@ -31,6 +31,7 @@ public class Bullet extends Actor {
         world.add(bullet);
         return bullet;
     }
+
     private Bullet(GameWorld world, Point origin) {
         SoundEffects.shared().defaultPlayerShootingSound().play(5);
         this.world = world;

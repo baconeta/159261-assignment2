@@ -42,6 +42,7 @@ public class PlayGameScreen implements Screen {
             world.handleKeyPressed(keyEvent);
         }
     }
+
     @Override
     public void handleKeyReleased(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
@@ -50,6 +51,7 @@ public class PlayGameScreen implements Screen {
             world.handleKeyReleased(keyEvent);
         }
     }
+
     @Override
     public void addToCanvas() {
         engine.loadWorld(world);
