@@ -49,9 +49,7 @@ public class SpaceShip extends Actor {
 
     private TGraphicCompound initSprite() {
         TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
-
         Sprite spaceship = new PlayerShip(AssetLoader.load(PLAYER_SHIP), DIMENSION);
-
         playerSprite.add(spaceship);
 
         return playerSprite;
