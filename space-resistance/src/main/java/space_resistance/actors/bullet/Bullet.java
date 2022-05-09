@@ -17,10 +17,11 @@ public class Bullet extends Actor {
 
     private final GameWorld world;
 
-    private Point velocity = new Point(0, -10);
+    private final Point velocity = new Point(0, -10);
 
-    private long startTime = 0;
-    private long currentTime = 0; // Keeps track of how long bullet actor has existed
+    private final long startTime;
+    // Keeps track of how long bullet actor has existed
+    private long currentTime = 0;
 
     public static Bullet spawnAt(GameWorld world, Point origin) {
         Bullet bullet = new Bullet(
