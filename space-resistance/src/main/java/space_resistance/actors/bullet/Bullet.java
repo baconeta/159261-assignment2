@@ -58,7 +58,8 @@ public class Bullet extends Actor {
 
         return playerSprite;
     }
-    public long getTimeExisted(){
+
+    public long timeExisted(){
         return currentTime - startTime;
     }
 }
