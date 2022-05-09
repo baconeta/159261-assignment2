@@ -84,6 +84,7 @@ public class GameWorld extends World {
             playerTwo.handleKeyPressed(keyEvent);
         }
     }
+
     public void handleKeyReleased(KeyEvent keyEvent) {
         if (playerOne.handleKeyReleased(keyEvent)) return;
 
@@ -91,6 +92,7 @@ public class GameWorld extends World {
             playerTwo.handleKeyReleased(keyEvent);
         }
     }
+
     public GameConfig gameConfig() {
         return gameConfig;
     }

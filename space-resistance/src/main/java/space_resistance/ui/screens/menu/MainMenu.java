@@ -3,7 +3,6 @@ package space_resistance.ui.screens.menu;
 import space_resistance.assets.Colors;
 import space_resistance.assets.FontBook;
 import space_resistance.assets.SoundEffects;
-import space_resistance.settings.Settings;
 import space_resistance.ui.components.Button;
 import space_resistance.ui.components.ButtonGroup;
 import tengine.graphics.components.text.TLabel;

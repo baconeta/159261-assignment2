@@ -21,10 +21,12 @@ public class SpaceShip extends Actor {
 
     private final GameWorld world;
     private final Player player;
+    private final Point velocity = new Point(0, 0);
+    private final ArrayList<Bullet> bullets = new ArrayList<>();
 
-    private Point velocity = new Point(0, 0);
-
-    private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+    // TODO: maybe rework the player controls mapping so we don't need to store these on the class
+    KeyEvent keyPressed = null;
+    KeyEvent keyReleased = null;
 
     private boolean shootKeyDown = false;
 
@@ -47,26 +49,27 @@ public class SpaceShip extends Actor {
 
     private TGraphicCompound initSprite() {
         TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
-
         Sprite spaceship = new PlayerShip(AssetLoader.load(PLAYER_SHIP), DIMENSION);
-
         playerSprite.add(spaceship);
 
         return playerSprite;
     }
 
     public void update() {
-        this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y+ velocity.y)); // Update player position based on velocity
-        for (Bullet bullet : bullets){
+        this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y+ velocity.y));
+        for (var bullet : bullets) {
             bullet.update();
         }
-        if (shootKeyDown ){
-            if (bullets.size() >= 1){
-                if (bullets.get(bullets.size() - 1).getTimeExisted() > 50) { // Delay shots of bullets so that thousands don't spawn when the player holds down the shooting key
+
+        if (shootKeyDown) {
+            if (bullets.size() >= 1) {
+                // Delay shots of bullets so that thousands don't spawn when the player holds down the shooting key
+                if (bullets.get(bullets.size() - 1).timeExisted() > 50) {
                     bullets.add(Bullet.spawnAt(world, new Point(this.origin.x, this.origin.y - 5)));
                 }
-            } else
+            } else {
                 bullets.add(Bullet.spawnAt(world, new Point(this.origin.x, this.origin.y - 5)));
+            }
         }
     }
 
@@ -76,32 +79,26 @@ public class SpaceShip extends Actor {
         keyPressed = keyEvent;
         return action.isPresent();
     }
+
     public boolean handleKeyReleased(KeyEvent keyEvent) {
         Optional<Action> action = player.controls().mappedAction(keyEvent.getKeyCode());
         action.ifPresent(this::movementKeyReleasedAction);
         keyReleased = keyEvent;
         return action.isPresent();
     }
-    KeyEvent keyPressed = null;
-    KeyEvent keyReleased = null;
+
     private void performAction(Action action) {
         switch(action) {
-            // If movement keys are pressed, set player velocity for corresponding axis to 10 or -10 (arbitrary value, can be changed later) depending on direction
-            case MOVE_UP -> {
-                velocity.y = -10;
-            }
-            case MOVE_DOWN -> {
-                velocity.y = 10;
-            }
-            case MOVE_LEFT -> {
-                velocity.x = -10;
-            }
-            case MOVE_RIGHT -> {
-                velocity.x = 10;
-            }
+            // Set player velocity for corresponding axis to 10 or -10 depending on direction
+            // (arbitrary value, can be changed later)
+            case MOVE_UP -> velocity.y = -10;
+            case MOVE_DOWN -> velocity.y = 10;
+            case MOVE_LEFT -> velocity.x = -10;
+            case MOVE_RIGHT -> velocity.x = 10;
             case SHOOT -> {
-                if (player.playerNumber() == PlayerNumber.PLAYER_TWO){
-                    if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT){ // Check if player 2 is pressing left shift
+                if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
+                    // Check if player 2 is pressing left shift
+                    if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
                         shootKeyDown = true;
                     }
                 } else {
@@ -111,18 +108,15 @@ public class SpaceShip extends Actor {
         }
     }
 
-    public void movementKeyReleasedAction(Action action){
+    public void movementKeyReleasedAction(Action action) {
         switch(action) {
-            // If movement keys are released set player velocity for corresponding axis to 0
-            case MOVE_UP, MOVE_DOWN -> {
-                velocity.y = 0;
-            }
-            case MOVE_LEFT, MOVE_RIGHT -> {
-                velocity.x = 0;
-            }
+            // Set player velocity for corresponding axis to 0
+            case MOVE_UP, MOVE_DOWN -> velocity.y = 0;
+            case MOVE_LEFT, MOVE_RIGHT -> velocity.x = 0;
             case  SHOOT -> {
-                if (player.playerNumber() == PlayerNumber.PLAYER_TWO){
-                    if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT){ // Check if player 2 is pressing left shift
+                if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
+                    // Check if player 2 is pressing left shift
+                    if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
                         shootKeyDown = false;
                     }
                 } else {

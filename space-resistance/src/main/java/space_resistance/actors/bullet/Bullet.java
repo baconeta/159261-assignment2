@@ -1,12 +1,9 @@
 package space_resistance.actors.bullet;
 
-import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.SoundEffects;
 import space_resistance.assets.sprites.DefaultShot;
-import space_resistance.assets.sprites.PlayerShip;
 import space_resistance.game.GameWorld;
-import space_resistance.player.Player;
 import tengine.Actor;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.sprites.Sprite;
@@ -17,13 +14,15 @@ import java.util.Random;
 public class Bullet extends Actor {
     private static final String PLAYER_DEFAULT_SHOT = "PlayerDefaultShots.png";
     private static final Dimension DIMENSION = new Dimension(64, 64);
+    private static final Random RANDOM = new Random();
 
     private final GameWorld world;
 
-    private Point velocity = new Point(0, -10);
+    private final Point velocity = new Point(0, -10);
 
-    private long startTime = 0;
-    private long currentTime = 0; // Keeps track of how long bullet actor has existed
+    private final long startTime;
+    // Keeps track of how long bullet actor has existed
+    private long currentTime = 0;
 
     public static Bullet spawnAt(GameWorld world, Point origin) {
         Bullet bullet = new Bullet(
@@ -32,22 +31,25 @@ public class Bullet extends Actor {
         world.add(bullet);
         return bullet;
     }
+
     private Bullet(GameWorld world, Point origin) {
         SoundEffects.shared().defaultPlayerShootingSound().play(5);
         this.world = world;
         graphic = initSprite();
-        Point variedOrigin = origin;
-        variedOrigin.x += new Random().nextInt(1 + 1) - 1; // Variation in the shots
+        // Variation in the shots
+        origin.x += RANDOM.nextInt(1 + 1) - 1;
         startTime = System.currentTimeMillis();
-        setOrigin(variedOrigin);
+        setOrigin(origin);
     }
-    public void update(){
-        this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y+ velocity.y)); // Update bullet position based on velocity
+
+    public void update() {
+        this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y + velocity.y));
         if (this.origin.y < 0 || this.origin.y > 800 || this.origin.x > 600 || this.origin.x < 0){
             this.destroy();
         }
         currentTime = System.currentTimeMillis();
     }
+
     private TGraphicCompound initSprite() {
         TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
 
@@ -57,7 +59,8 @@ public class Bullet extends Actor {
 
         return playerSprite;
     }
-    public long getTimeExisted(){
+
+    public long timeExisted(){
         return currentTime - startTime;
     }
 }
