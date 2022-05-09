@@ -21,10 +21,12 @@ public class SpaceShip extends Actor {
 
     private final GameWorld world;
     private final Player player;
+    private final Point velocity = new Point(0, 0);
+    private final ArrayList<Bullet> bullets = new ArrayList<>();
 
-    private Point velocity = new Point(0, 0);
-
-    private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+    // TODO: maybe rework the player controls mapping so we don't need to store these on the class
+    KeyEvent keyPressed = null;
+    KeyEvent keyReleased = null;
 
     private boolean shootKeyDown = false;
 
