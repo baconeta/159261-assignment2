@@ -40,13 +40,15 @@ public class Bullet extends Actor {
         startTime = System.currentTimeMillis();
         setOrigin(origin);
     }
-    public void update(){
-        this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y+ velocity.y)); // Update bullet position based on velocity
+
+    public void update() {
+        this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y + velocity.y));
         if (this.origin.y < 0 || this.origin.y > 800 || this.origin.x > 600 || this.origin.x < 0){
             this.destroy();
         }
         currentTime = System.currentTimeMillis();
     }
+
     private TGraphicCompound initSprite() {
         TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
 
