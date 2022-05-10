@@ -15,6 +15,7 @@ public class EnemyWave {
     private ArrayList<Enemy> wave;
     private int enemiesRemaining;
     private int level;
+    private int enemiesPerSpawn;
 
     // private Boss boss;
 
@@ -22,6 +23,7 @@ public class EnemyWave {
         level = currentLevel;
         GenerateWave();
         enemiesRemaining = wave.size();
+        enemiesPerSpawn = level;
     }
 
     private void GenerateWave() {
@@ -62,5 +64,9 @@ public class EnemyWave {
 
     public int delayBeforeWave() {
         return initialMillisecondsBeforeWave;
+    }
+
+    public int enemiesPerSpawn() {
+        return enemiesPerSpawn;
     }
 }
