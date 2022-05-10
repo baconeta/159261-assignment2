@@ -6,24 +6,27 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class EnemyWave {
+    // Game design settings
+    private static final int minEnemiesPerWave = 10;
+    private final int initialMillisecondsBetweenSpawns = 5000;
+    private final int initialMillisecondsBeforeWave = 5000;
+
     private static final Random RANDOM = new Random();
     private ArrayList<Enemy> wave;
     private int enemiesRemaining;
-    private final int msBetweenEnemySpawn;
-    private final int msBeforeWaveStarts;
+    private int level;
+
     // private Boss boss;
 
     public EnemyWave(int currentLevel) {
-        GenerateWave(currentLevel);
-        msBetweenEnemySpawn = 5000; // TODO magic number
-        msBeforeWaveStarts = 5000; // TODO magic number
+        level = currentLevel;
+        GenerateWave();
         enemiesRemaining = wave.size();
     }
 
-    private void GenerateWave(int currentLevel) {
+    private void GenerateWave() {
         wave = new ArrayList<>();
-        // TODO magic numbers and kinda weird logic
-        int totalEnemies = RANDOM.nextInt(currentLevel + 5, currentLevel + 10);
+        int totalEnemies = RANDOM.nextInt(minEnemiesPerWave, minEnemiesPerWave + level);
         for (int i = 0; i < totalEnemies; i++) {
             // TODO this should be a specific enemy and not the parent class.
             // This should also select an enemy type based on weight. Could some
@@ -37,7 +40,7 @@ public class EnemyWave {
         return wave;
     }
 
-    public Enemy getRandomEnemyFromWave() {
+    public Enemy randomEnemyFromWave() {
         int index = RANDOM.nextInt(0, enemiesRemaining);
         Enemy enemy = wave.get(index);
         wave.remove(index);
@@ -49,15 +52,15 @@ public class EnemyWave {
     //    return boss;
     // }
 
-    public int getEnemiesRemaining() {
+    public int enemiesRemaining() {
         return enemiesRemaining;
     }
 
-    public int getMsBetweenEnemySpawn() {
-        return msBetweenEnemySpawn;
+    public int delayBetweenSpawns() {
+        return initialMillisecondsBetweenSpawns;
     }
 
-    public int getMsBeforeWaveStarts() {
-        return msBeforeWaveStarts;
+    public int delayBeforeWave() {
+        return initialMillisecondsBeforeWave;
     }
 }

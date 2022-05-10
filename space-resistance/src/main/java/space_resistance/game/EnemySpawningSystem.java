@@ -28,12 +28,12 @@ public class EnemySpawningSystem {
         long currentTime = System.currentTimeMillis();
         switch (currentState) {
             case PRE_WAVE:
-                if ((currentTime - timeLastWaveGenerated) > currentWave.getMsBeforeWaveStarts()) {
+                if ((currentTime - timeLastWaveGenerated) > currentWave.delayBeforeWave()) {
                     currentState = SpawnState.SPAWNING;
                 }
                 break;
             case SPAWNING:
-                if ((currentTime - timeLastEnemySpawned) > currentWave.getMsBetweenEnemySpawn()) {
+                if ((currentTime - timeLastEnemySpawned) > currentWave.delayBetweenSpawns()) {
                     SpawnEnemy();
                 }
                 break;
@@ -63,8 +63,8 @@ public class EnemySpawningSystem {
 
     private void SpawnEnemy() {
         // System.out.println("Spawn enemy:");
-        if (currentWave.getEnemiesRemaining() > 0) {
-            Enemy enemy = currentWave.getRandomEnemyFromWave();
+        if (currentWave.enemiesRemaining() > 0) {
+            Enemy enemy = currentWave.randomEnemyFromWave();
             // System.out.println("Spawned mite.");
             Point spawnLocation = new Point(0, 0); // TODO generalise and randomise spawnLocation
             //        enemy.spawnAt(gameWorld, spawnLocation)
