@@ -1,5 +1,7 @@
 package space_resistance.game;
 
+import space_resistance.actors.enemy.GrassHopperEnemy;
+import space_resistance.actors.enemy.MiteEnemy;
 import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.FontBook;
 import space_resistance.settings.MultiplayerMode;
@@ -24,6 +26,10 @@ public class GameWorld extends World {
     private SpaceShip playerTwo = null;
 
     // Enemies
+    /* Test enemies
+    private GrassHopperEnemy testEnemy = null;
+    private MiteEnemy testEnemy2 = null;
+     */
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
@@ -33,7 +39,10 @@ public class GameWorld extends World {
         gameConfig = gameState.gameConfig();
 
         initPlayers();
-
+        /* Test Enemies
+        testEnemy  = GrassHopperEnemy.spawnAt(this, new Point(20, 50));
+        testEnemy2 = MiteEnemy.spawnAt(this, new Point(150, 50));
+         */
         TLabel placeholderLabel = new TLabel("Gameplay Screen");
         placeholderLabel.setFont(FontBook.shared().defaultFont());
         placeholderLabel.setColor(Color.BLACK);
@@ -59,6 +68,10 @@ public class GameWorld extends World {
 
     public void update() {
         playerOne.update();
+        /* Test enemies
+        testEnemy.update();
+        testEnemy2.update();
+         */
         if (gameState.playerOne().healthRemaining() == 0) {
             setGameOver();
         }
