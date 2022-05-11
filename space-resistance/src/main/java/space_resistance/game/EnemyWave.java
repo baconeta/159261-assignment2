@@ -8,13 +8,14 @@ import java.util.Random;
 public class EnemyWave {
     // Game design settings
     private static final int minEnemiesPerWave = 10;
-    private final int initialMillisecondsBetweenSpawns = 5000;
+    private final int initialMillisecondsBetweenSpawns = 5100;
     private final int initialMillisecondsBeforeWave = 5000;
+    private final int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
 
     private static final Random RANDOM = new Random();
     private ArrayList<Enemy> wave;
     private int enemiesRemaining;
-    private int level;
+    private final int level;
     private int enemiesPerSpawn;
 
     // private Boss boss;
@@ -59,7 +60,7 @@ public class EnemyWave {
     }
 
     public int delayBetweenSpawns() {
-        return initialMillisecondsBetweenSpawns;
+        return initialMillisecondsBetweenSpawns - spawnSpeedStep * level;
     }
 
     public int delayBeforeWave() {
