@@ -40,7 +40,7 @@ public class EnemyWave {
             // enemy parameters be set based on the current level or difficulty?
             wave.add(new MiteEnemy(gw, new Point()));
         }
-        // boss = new Boss();
+        // boss = new Boss(); // only create one boss per level
     }
 
     public ArrayList<Enemy> getWave() {
