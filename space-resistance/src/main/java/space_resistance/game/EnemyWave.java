@@ -1,7 +1,10 @@
 package space_resistance.game;
 
 import space_resistance.actors.enemy.Enemy;
+import space_resistance.actors.enemy.GoliathEnemy;
+import space_resistance.actors.enemy.MiteEnemy;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -23,21 +26,20 @@ public class EnemyWave {
 
     // private Boss boss;
 
-    public EnemyWave(int currentLevel) {
+    public EnemyWave(int currentLevel, GameWorld gw) {
         level = currentLevel;
-        GenerateWave();
+        GenerateWave(gw);
         enemiesRemaining = wave.size();
         enemiesPerSpawn = level;
     }
 
-    private void GenerateWave() {
+    private void GenerateWave(GameWorld gw) {
         wave = new ArrayList<>();
         int totalEnemies = RANDOM.nextInt(minEnemiesPerWave, minEnemiesPerWave + level);
         for (int i = 0; i < totalEnemies; i++) {
-            // TODO this should be a specific enemy and not the parent class.
             // This should also select an enemy type based on weight. Could some
             // enemy parameters be set based on the current level or difficulty?
-            wave.add(new Enemy());
+            wave.add(new MiteEnemy(gw, new Point()));
         }
         // boss = new Boss();
     }

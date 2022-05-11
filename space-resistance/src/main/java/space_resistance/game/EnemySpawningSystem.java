@@ -48,7 +48,7 @@ public class EnemySpawningSystem {
 
     private void generateEnemyWave() {
         // System.out.println("Generate Wave");
-        currentWave = new EnemyWave(currentLevel);
+        currentWave = new EnemyWave(currentLevel, gameWorld);
         // System.out.println("Has " + currentWave.getEnemiesRemaining() + " enemies.");
         currentState = SpawnState.PRE_WAVE;
         timeLastWaveGenerated = System.currentTimeMillis();
