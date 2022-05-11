@@ -1,6 +1,5 @@
 package space_resistance.game;
 
-import space_resistance.actors.enemy.Enemy;
 import java.awt.*;
 
 // TODO remove all println statements before publish
@@ -62,15 +61,12 @@ public class EnemySpawningSystem {
     }
 
     private void SpawnEnemy() {
-        // System.out.println("Spawn enemy:");
         if (currentWave.enemiesRemaining() > 0) {
-            Enemy enemy = currentWave.randomEnemyFromWave();
-            // System.out.println("Spawned mite.");
-            Point spawnLocation = new Point(0, 0); // TODO generalise and randomise spawnLocation
-            //        enemy.spawnAt(gameWorld, spawnLocation)
+            var enemy = currentWave.randomEnemyFromWave();
+            Point spawnLocation = new Point(200, 0);
+            enemy.spawnAt(gameWorld, spawnLocation);
         } else {
             currentState = SpawnState.BOSS;
-            // System.out.println("Spawned boss.");
             //            Boss boss = currentWave.getBoss();
             Point spawnLocation = new Point(0, 0); // TODO generalise and randomise spawnLocation?
             //        boss.spawnAt(gameWorld, spawnLocation)

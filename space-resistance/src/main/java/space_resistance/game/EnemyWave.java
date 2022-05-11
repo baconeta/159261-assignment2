@@ -1,7 +1,6 @@
 package space_resistance.game;
 
 import space_resistance.actors.enemy.Enemy;
-import space_resistance.actors.enemy.GoliathEnemy;
 import space_resistance.actors.enemy.MiteEnemy;
 
 import java.awt.*;
@@ -50,7 +49,7 @@ public class EnemyWave {
 
     public Enemy randomEnemyFromWave() {
         int index = RANDOM.nextInt(0, enemiesRemaining);
-        Enemy enemy = wave.get(index);
+        var enemy = wave.get(index);
         wave.remove(index);
         enemiesRemaining -= 1;
         return enemy;
