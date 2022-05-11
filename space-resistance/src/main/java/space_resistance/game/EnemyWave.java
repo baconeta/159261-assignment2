@@ -5,9 +5,12 @@ import space_resistance.actors.enemy.Enemy;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Integer.max;
+
 public class EnemyWave {
     // Game design settings
     private static final int minEnemiesPerWave = 10;
+    private static final int minBetweenSpawnMs = 500;
     private final int initialMillisecondsBetweenSpawns = 5100;
     private final int initialMillisecondsBeforeWave = 5000;
     private final int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
@@ -60,7 +63,7 @@ public class EnemyWave {
     }
 
     public int delayBetweenSpawns() {
-        return initialMillisecondsBetweenSpawns - spawnSpeedStep * level;
+        return max(initialMillisecondsBetweenSpawns - spawnSpeedStep * level, minBetweenSpawnMs);
     }
 
     public int delayBeforeWave() {
