@@ -2,12 +2,15 @@ package space_resistance.actors.spaceship;
 
 import space_resistance.actors.bullet.Bullet;
 import space_resistance.assets.AssetLoader;
+import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.PlayerShip;
+import space_resistance.game.Game;
 import space_resistance.game.GameWorld;
 import space_resistance.player.Player;
 import space_resistance.player.PlayerNumber;
 import tengine.Actor;
 import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.sprites.AnimatedSprite;
 import tengine.graphics.components.sprites.Sprite;
 
 import java.awt.*;
@@ -48,11 +51,30 @@ public class SpaceShip extends Actor {
     }
 
     private TGraphicCompound initSprite() {
+        // Player Ship
         TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
         Sprite spaceship = new PlayerShip(AssetLoader.load(PLAYER_SHIP), DIMENSION);
         playerSprite.add(spaceship);
-
+        // Player Thrust
+        AnimatedSprite spaceshipThrusters = new PlayerThruster();
+        spaceshipThrusters.setOrigin(new Point(this.origin.x, this.origin.y + 30));
+        playerSprite.add(spaceshipThrusters);
         return playerSprite;
+    }
+
+    public void checkBoundaries(){
+        if (this.origin.x < 0){
+            this.origin.x = 0;
+        }
+        if (this.origin.y < 0){
+            this.origin.y = 0;
+        }
+        if (this.origin.x > Game.WINDOW_DIMENSION.width - DIMENSION.width){
+            this.origin.x = Game.WINDOW_DIMENSION.width - DIMENSION.width;
+        }
+        if (this.origin.y > Game.WINDOW_DIMENSION.height - DIMENSION.height){
+            this.origin.y = Game.WINDOW_DIMENSION.height - DIMENSION.height;
+        }
     }
 
     public void update() {
@@ -60,7 +82,7 @@ public class SpaceShip extends Actor {
         for (var bullet : bullets) {
             bullet.update();
         }
-
+        checkBoundaries();
         if (shootKeyDown) {
             if (bullets.size() >= 1) {
                 // Delay shots of bullets so that thousands don't spawn when the player holds down the shooting key
