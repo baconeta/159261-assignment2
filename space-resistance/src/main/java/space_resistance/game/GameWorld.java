@@ -17,6 +17,7 @@ public class GameWorld extends World {
     private final Notifier gameOverNotifier;
     private final GameState gameState;
     private final GameConfig gameConfig;
+    private EnemySpawningSystem enemySpawningSystem;
 
     private final HeadsUpDisplay hud;
 
@@ -52,6 +53,9 @@ public class GameWorld extends World {
 
         // Display graphics and actors by adding them to the canvas.
         canvas.addAll(placeholderLabel, hud);
+
+        // Enemy Spawning System set up and binding to canvas
+        enemySpawningSystem = new EnemySpawningSystem(this);
     }
 
     private void initPlayers() {
@@ -78,6 +82,7 @@ public class GameWorld extends World {
                 setGameOver();
             }
         }
+        enemySpawningSystem.update();
     }
 
     private void setGameOver() {
