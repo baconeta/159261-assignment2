@@ -9,13 +9,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PlayerThruster extends AnimatedSprite {
-    public static final int DEFAULT_FPS = 5;
+    public static final int DEFAULT_FPS = 60;
 
     // If you need to scale this bigger or smaller, change this value
-    private static final double SCALE = 1.0;
+    private static final double SCALE = 0.125;
     private static final Dimension SEQUENCE_GRID = new Dimension(4, 5);
     private static final Dimension FRAME_DIMENSION_PIXELS = new Dimension(512, 512);
-    private static final String PLAYER_THRUSTER = "PlayerShipThrust.png";
+    private static final String PLAYER_THRUSTER = "PlayershipThrust.png";
 
     private static final SpriteSequence SEQUENCE = new SpriteSequence("", generateSequence(), true);
 
