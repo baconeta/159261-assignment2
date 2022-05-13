@@ -1,15 +1,19 @@
 package space_resistance.game;
 
 import space_resistance.actors.spaceship.SpaceShip;
+import space_resistance.assets.AssetLoader;
 import space_resistance.assets.FontBook;
+import space_resistance.assets.sprites.Background;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.utils.Notifier;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
+import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
 import tengine.world.World;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class GameWorld extends World {
     private final Notifier gameOverNotifier;
@@ -28,10 +32,23 @@ public class GameWorld extends World {
     //private MiteEnemy testEnemy2 = null;
     //private TarantulaEnemy testEnemy3 = null;
 
+    private final String BACKGROUND = "SpaceBackground.png";
+    private static final Dimension DIMENSION = new Dimension(600, 800);
+    ArrayList<Background> background = new ArrayList<Background>();
+
+    private final TGraphicCompound container;
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
-
+        // Space Background
+        container = new TGraphicCompound(Game.WINDOW_DIMENSION);
+        background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
+        background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
+        background.get(1).setOrigin(new Point(0, -800));
+        for (Background b : background){
+            container.add(b);
+        }
+        canvas.add(container);
         this.gameOverNotifier = gameOverNotifier;
         this.gameState = gameState;
         gameConfig = gameState.gameConfig();
@@ -49,6 +66,7 @@ public class GameWorld extends World {
         hud = new HeadsUpDisplay(canvas.dimension(),  gameState);
 
         // Display graphics and actors by adding them to the canvas.
+
         canvas.addAll(placeholderLabel, hud);
 
         // Enemy Spawning System set up and binding to canvas
@@ -64,6 +82,13 @@ public class GameWorld extends World {
     }
 
     public void update() {
+        for (int i = 0; i < background.size(); i ++){
+            background.get(i).setOrigin(new Point(background.get(i).origin().x, background.get(i).origin().y + 1));
+            if (background.get(0).origin().y == 800){
+                background.get(0).setOrigin(new Point(0, 0));
+                background.get(1).setOrigin(new Point(0, -800));
+            }
+        }
         playerOne.update();
         // Test enemies
         // testEnemy.update();
