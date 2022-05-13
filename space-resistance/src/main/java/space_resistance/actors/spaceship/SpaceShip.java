@@ -72,8 +72,8 @@ public class SpaceShip extends Actor {
         if (this.origin.x > Game.WINDOW_DIMENSION.width - DIMENSION.width){
             this.origin.x = Game.WINDOW_DIMENSION.width - DIMENSION.width;
         }
-        if (this.origin.y > Game.WINDOW_DIMENSION.height - DIMENSION.height){
-            this.origin.y = Game.WINDOW_DIMENSION.height - DIMENSION.height;
+        if (this.origin.y > Game.WINDOW_DIMENSION.height - DIMENSION.height * 2){
+            this.origin.y = Game.WINDOW_DIMENSION.height - DIMENSION.height * 2;
         }
     }
 
