@@ -24,7 +24,7 @@ public class SpaceShip extends Actor {
 
     private final GameWorld world;
     private final Player player;
-    private final Point velocity = new Point(0, 0);
+    private Point velocity = new Point(0, 0);
     private final ArrayList<Bullet> bullets = new ArrayList<>();
 
     // TODO: maybe rework the player controls mapping so we don't need to store these on the class
@@ -77,7 +77,17 @@ public class SpaceShip extends Actor {
         }
     }
 
+    public void normaliseVelocity(){
+        try {
+            double magnitude = Math.sqrt(((velocity.x * velocity.x) + (velocity.y * velocity.y)));
+            velocity = new Point((int) (velocity.x * 10 / magnitude), (int) (velocity.y * 10 / magnitude));
+        } catch (ArithmeticException e){
+
+        }
+    }
+
     public void update() {
+        normaliseVelocity();
         this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y+ velocity.y));
         for (var bullet : bullets) {
             bullet.update();
