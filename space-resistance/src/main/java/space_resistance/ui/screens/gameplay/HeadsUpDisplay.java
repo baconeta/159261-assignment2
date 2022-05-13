@@ -19,7 +19,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
         // Add pause instruction
         // This is just an example, feel free to do what you like with it!
-        TLabel pauseLabel = new TLabel("p: pause");
+        TLabel pauseLabel = new TLabel("P: pause");
         pauseLabel.setFont(FontBook.shared().defaultFont());
         pauseLabel.setColor(Colors.Text.PRIMARY);
         // TEngine doesn't support calculating a label width yet, so we always have to manually place TLabels.
