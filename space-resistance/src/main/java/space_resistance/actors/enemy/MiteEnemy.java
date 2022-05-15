@@ -15,7 +15,8 @@ public class MiteEnemy extends Enemy{
 
     private final ArrayList<MiteEnemyBullet> bullets = new ArrayList<>();
 
-    public static MiteEnemy spawnAt(GameWorld world, Point origin) {
+    @Override
+    public MiteEnemy spawnAt(GameWorld world, Point origin) {
         MiteEnemy enemy = new MiteEnemy(
                 world,
                 origin);

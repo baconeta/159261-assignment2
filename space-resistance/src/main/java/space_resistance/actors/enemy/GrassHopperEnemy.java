@@ -15,7 +15,8 @@ public class GrassHopperEnemy extends Enemy{
 
     private final ArrayList<GrassHopperEnemyBullet> bullets = new ArrayList<>();
 
-    public static GrassHopperEnemy spawnAt(GameWorld world, Point origin) {
+    @Override
+    public GrassHopperEnemy spawnAt(GameWorld world, Point origin) {
         GrassHopperEnemy enemy = new GrassHopperEnemy(
                 world,
                 origin);

@@ -11,25 +11,25 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TarantulaEnemy extends Enemy{
+public class TarantulaEnemy extends Enemy {
 
     private final ArrayList<TarantulaEnemyBullet> bullets = new ArrayList<>();
 
-    public static TarantulaEnemy spawnAt(GameWorld world, Point origin) {
-        TarantulaEnemy enemy = new TarantulaEnemy(
-                world,
-                origin);
+    public TarantulaEnemy(GameWorld world, Point origin) {
+        super(world, origin);
+        graphic = initSprite();
+        this.scoreWorth = 500;
+    }
+
+    @Override
+    public TarantulaEnemy spawnAt(GameWorld world, Point origin) {
+        TarantulaEnemy enemy = new TarantulaEnemy(world, origin);
 
         world.add(enemy);
         return enemy;
     }
 
-    public TarantulaEnemy(GameWorld world, Point origin){
-        super(world, origin);
-        graphic = initSprite();
-        this.scoreWorth = 500;
-    }
-    public TGraphicCompound initSprite(){
+    public TGraphicCompound initSprite() {
         SHIP_SPRITE = "TarantulaEnemy.png";
         TGraphicCompound tarantulaEnemy = new TGraphicCompound(DIMENSION);
         Sprite tarantulaShip = new TarantulaShip(AssetLoader.load(SHIP_SPRITE), DIMENSION);
@@ -37,6 +37,7 @@ public class TarantulaEnemy extends Enemy{
 
         return tarantulaEnemy;
     }
+
     @Override
     public void update() {
         super.update();
@@ -47,15 +48,20 @@ public class TarantulaEnemy extends Enemy{
             if (bullets.size() >= 1) {
                 // Delay shots
                 if (bullets.get(bullets.size() - 1).timeExisted() > 150) {
-                    bullets.add(TarantulaEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
+                    bullets.add(
+                            TarantulaEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
                 }
             } else {
-                bullets.add(TarantulaEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
+                bullets.add(
+                        TarantulaEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
             }
         } else {
             final Random RANDOM = new Random();
-            if (bullets.get(bullets.size() - 1).timeExisted() > RANDOM.nextInt(2100 - 1300) + 1300) { // Shoot in bursts so that player isn't bombarded with constant shots from the enemy ship
-                for (TarantulaEnemyBullet bullet: bullets){
+            if (bullets.get(bullets.size() - 1).timeExisted()
+                    > RANDOM.nextInt(2100 - 1300)
+                    + 1300) { // Shoot in bursts so that player isn't bombarded with constant shots from
+                // the enemy ship
+                for (TarantulaEnemyBullet bullet : bullets) {
                     bullet.destroy();
                 }
                 bullets.clear();

@@ -16,9 +16,7 @@ public abstract class Enemy extends Actor {
 
     protected final GameWorld world;
     protected Point velocity = new Point(0, 1);
-    public static Enemy spawnAt(GameWorld world, Point origin) {
-        return null;
-    }
+    public abstract Enemy spawnAt(GameWorld world, Point origin);
 
     protected Enemy(GameWorld world, Point origin) {
         this.world = world;
