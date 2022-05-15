@@ -46,15 +46,12 @@ public class EnemySpawningSystem {
     }
 
     private void generateEnemyWave() {
-        // System.out.println("Generate Wave");
         currentWave = new EnemyWave(currentLevel, gameWorld);
-        // System.out.println("Has " + currentWave.getEnemiesRemaining() + " enemies.");
         currentState = SpawnState.PRE_WAVE;
         timeLastWaveGenerated = System.currentTimeMillis();
     }
 
     public void bossDestroyed() {
-        // System.out.println("Boss destroyed.");
         currentState = SpawnState.POST_WAVE;
         currentLevel += 1;
         generateEnemyWave();
@@ -64,7 +61,7 @@ public class EnemySpawningSystem {
         if (currentWave.enemiesRemaining() > 0) {
             var enemy = currentWave.randomEnemyFromWave();
             Point spawnLocation = new Point(200, 0); // TODO generalise and randomise spawnLocation?
-            enemy.spawnAt(gameWorld, spawnLocation); // TODO broken, to fix
+            enemy.spawnAt(gameWorld, spawnLocation);
         } else {
             currentState = SpawnState.BOSS;
             //            Boss boss = currentWave.getBoss();
