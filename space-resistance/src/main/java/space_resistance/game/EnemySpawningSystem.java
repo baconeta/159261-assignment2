@@ -77,8 +77,7 @@ public class EnemySpawningSystem {
     private void SpawnEnemy() {
         if (currentWave.enemiesRemaining() > 0) {
             Enemy enemy = currentWave.randomEnemyFromWave();
-            Point spawnLocation = new Point(200, 0); // TODO generalise and randomise spawnLocation?
-            enemy.spawnAt(gameWorld, spawnLocation);
+            enemy.spawnAt(gameWorld, enemy.origin());
             enemiesSpawned.add(enemy);
         } else {
             currentState = SpawnState.BOSS;

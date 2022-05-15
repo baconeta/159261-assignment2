@@ -23,10 +23,8 @@ public class GrassHopperEnemy extends Enemy {
 
     @Override
     public GrassHopperEnemy spawnAt(GameWorld world, Point origin) {
-        GrassHopperEnemy enemy = new GrassHopperEnemy(world, origin);
-
-        world.add(enemy);
-        return enemy;
+        world.add(this);
+        return this;
     }
 
     public TGraphicCompound initSprite() {

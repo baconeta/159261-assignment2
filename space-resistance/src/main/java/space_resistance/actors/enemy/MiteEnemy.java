@@ -23,10 +23,8 @@ public class MiteEnemy extends Enemy {
 
     @Override
     public MiteEnemy spawnAt(GameWorld world, Point origin) {
-        MiteEnemy enemy = new MiteEnemy(world, origin);
-
-        world.add(enemy);
-        return enemy;
+        world.add(this);
+        return this;
     }
 
     public TGraphicCompound initSprite() {

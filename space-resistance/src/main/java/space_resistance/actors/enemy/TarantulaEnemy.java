@@ -23,10 +23,8 @@ public class TarantulaEnemy extends Enemy {
 
     @Override
     public TarantulaEnemy spawnAt(GameWorld world, Point origin) {
-        TarantulaEnemy enemy = new TarantulaEnemy(world, origin);
-
-        world.add(enemy);
-        return enemy;
+        world.add(this);
+        return this;
     }
 
     public TGraphicCompound initSprite() {
