@@ -11,26 +11,25 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GrassHopperEnemy extends Enemy{
+public class GrassHopperEnemy extends Enemy {
 
     private final ArrayList<GrassHopperEnemyBullet> bullets = new ArrayList<>();
 
+    public GrassHopperEnemy(GameWorld world, Point origin) {
+        super(world, origin);
+        graphic = initSprite();
+        this.scoreWorth = 300;
+    }
+
     @Override
     public GrassHopperEnemy spawnAt(GameWorld world, Point origin) {
-        GrassHopperEnemy enemy = new GrassHopperEnemy(
-                world,
-                origin);
+        GrassHopperEnemy enemy = new GrassHopperEnemy(world, origin);
 
         world.add(enemy);
         return enemy;
     }
 
-    public GrassHopperEnemy(GameWorld world, Point origin){
-        super(world, origin);
-        graphic = initSprite();
-        this.scoreWorth = 300;
-    }
-    public TGraphicCompound initSprite(){
+    public TGraphicCompound initSprite() {
         SHIP_SPRITE = "GrasshopperEnemy.png";
         TGraphicCompound grassHopperSprite = new TGraphicCompound(DIMENSION);
         Sprite grasshoppership = new GrassHopperShip(AssetLoader.load(SHIP_SPRITE), DIMENSION);
@@ -38,6 +37,7 @@ public class GrassHopperEnemy extends Enemy{
 
         return grassHopperSprite;
     }
+
     @Override
     public void update() {
         super.update();
@@ -48,15 +48,20 @@ public class GrassHopperEnemy extends Enemy{
             if (bullets.size() >= 1) {
                 // Delay shots
                 if (bullets.get(bullets.size() - 1).timeExisted() > 150) {
-                    bullets.add(GrassHopperEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
+                    bullets.add(
+                            GrassHopperEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
                 }
             } else {
-                bullets.add(GrassHopperEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
+                bullets.add(
+                        GrassHopperEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
             }
         } else {
             final Random RANDOM = new Random();
-            if (bullets.get(bullets.size() - 1).timeExisted() > RANDOM.nextInt(2100 - 1300) + 1300) { // Shoot in bursts so that player isn't bombarded with constant shots from the enemy ship
-                for (GrassHopperEnemyBullet bullet: bullets){
+            if (bullets.get(bullets.size() - 1).timeExisted()
+                    > RANDOM.nextInt(2100 - 1300)
+                    + 1300) { // Shoot in bursts so that player isn't bombarded with constant shots from
+                // the enemy ship
+                for (GrassHopperEnemyBullet bullet : bullets) {
                     bullet.destroy();
                 }
                 bullets.clear();
