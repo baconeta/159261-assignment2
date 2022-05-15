@@ -1,20 +1,25 @@
 package space_resistance.game;
 
+import space_resistance.actors.enemy.Enemy;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 // TODO remove all println statements before publish
 public class EnemySpawningSystem {
+    private final GameWorld gameWorld;
     private int currentLevel;
     private EnemyWave currentWave;
     private long timeLastWaveGenerated;
     private long timeLastEnemySpawned;
-    private final GameWorld gameWorld;
     private SpawnState currentState = SpawnState.DEFAULT;
+    private ArrayList<Enemy> enemiesSpawned;
 
     public EnemySpawningSystem(GameWorld gw) {
         gameWorld = gw;
         currentLevel = 1;
         generateEnemyWave();
+        enemiesSpawned = new ArrayList<>();
     }
 
     public SpawnState getCurrentState() {
@@ -22,7 +27,8 @@ public class EnemySpawningSystem {
     }
 
     public void update() {
-        // this could be a LOT more efficient, particularly in reference to calling a System function each frame.
+        // this could be a LOT more efficient, particularly in reference to calling a System function
+        // each frame.
         // for now, this is sufficient until we have more implemented in the game...
         long currentTime = System.currentTimeMillis();
         switch (currentState) {
@@ -43,6 +49,17 @@ public class EnemySpawningSystem {
             case DEFAULT:
                 break;
         }
+        updateEnemiesInWorld(); // this should probably be done a different way but for now it works
+    }
+
+    private void updateEnemiesInWorld() {
+        for (Enemy e : enemiesSpawned) {
+            if (e != null) {
+                e.update();
+                // This is bad because we have no way to remove the enemy from the list
+                // when it dies. But for now it works...
+            }
+        }
     }
 
     private void generateEnemyWave() {
@@ -59,9 +76,10 @@ public class EnemySpawningSystem {
 
     private void SpawnEnemy() {
         if (currentWave.enemiesRemaining() > 0) {
-            var enemy = currentWave.randomEnemyFromWave();
+            Enemy enemy = currentWave.randomEnemyFromWave();
             Point spawnLocation = new Point(200, 0); // TODO generalise and randomise spawnLocation?
             enemy.spawnAt(gameWorld, spawnLocation);
+            enemiesSpawned.add(enemy);
         } else {
             currentState = SpawnState.BOSS;
             //            Boss boss = currentWave.getBoss();
