@@ -1,24 +1,26 @@
 package tengine.graphics;
 
+import tengine.geom.TPoint;
+
 import java.awt.*;
 
 public class Bounds {
-    protected Point origin;
+    protected TPoint origin;
     protected Dimension dimension;
 
     public Bounds() {
-        this(new Point(0, 0), new Dimension(0, 0));
+        this(new TPoint(0, 0), new Dimension(0, 0));
     }
 
-    public Bounds(Point origin) {
+    public Bounds(TPoint origin) {
         this(origin, new Dimension(0, 0));
     }
 
     public Bounds(Dimension dimension) {
-        this(new Point(0, 0), dimension);
+        this(new TPoint(0, 0), dimension);
     }
 
-    public Bounds(Point origin, Dimension dimension) {
+    public Bounds(TPoint origin, Dimension dimension) {
         this.origin = origin;
         this.dimension = dimension;
     }
