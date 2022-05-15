@@ -13,6 +13,7 @@ public abstract class Actor {
     protected TVelocity velocity = null;
     protected TPoint origin = new TPoint();
     protected World world = null;
+    protected boolean destroyWhenOffScreen = false;
 
     public Actor() {}
 
@@ -53,6 +54,14 @@ public abstract class Actor {
 
     public CollisionShape bounds() {
         return physics.collisionShape();
+    }
+
+    public void setDestroyWhenOffScreen(boolean b) {
+        destroyWhenOffScreen = b;
+    }
+
+    public boolean shouldDestroyWhenOffScreen() {
+        return destroyWhenOffScreen;
     }
 
     public void removeFromWorld() {
