@@ -3,18 +3,31 @@ package tengine.physics.collisions.detection;
 import tengine.Actor;
 import tengine.physics.collisions.events.CollisionEvent;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class CollisionDetector {
-     public Collection<CollisionEvent> detectCollisions(Set<Actor> actors) {
-        Map<Actor, CollisionEvent> collisions = new HashMap<>();
+     public Set<CollisionEvent> detectCollisions(List<Actor> actors) {
+        Set<CollisionEvent> collisions = new HashSet<>();
 
-        // TODO: implement the following!
-        // Create a set of overlapping actors with broad phase detector
-        // For each overlapping actor
-            // Create a map of moving actors with a set of collision events
+        for (var actorA : actors) {
+            if (actorA.physics().hasCollisions()) {
+                for (var actorB : actors) {
+                    if (actorA == actorB || !actorB.physics().hasCollisions()) continue;
 
-        return Collections.unmodifiableCollection(collisions.values());
+                    if (BroadPhaseDetector.detect(actorA.physics(), actorB.physics())) {
+                        if (actorA.hashCode() < actorB.hashCode()) {
+                            collisions.add(new CollisionEvent(actorA, actorB));
+                        } else {
+                            collisions.add(new CollisionEvent(actorB, actorA));
+                        }
+                    }
+                }
+            }
+        }
+
+        return Collections.unmodifiableSet(collisions);
      }
-
 }

@@ -14,16 +14,17 @@ public class PhysicsEngine {
 
     public PhysicsEngine() {}
 
+    public void processCollisions(List<Actor> actors, double dtMillis) {
         // Step 2: Detect collisions
-//         Collection<CollisionEvent> collisions = collisionDetector.detectCollisions(actors);
+         Set<CollisionEvent> collisions = collisionDetector.detectCollisions(actors);
 
         // Step 3: Resolve collisions
         // resolveCollisions(collisions);
 
         // Step 4: Notify collisions
-//        if (collisionEventNotifier != null) {
-//             collisions.forEach(event -> collisionEventNotifier.notifyCollision(event));
-//        }
+        if (collisionEventNotifier != null) {
+             collisions.forEach(event -> collisionEventNotifier.notifyCollision(event));
+        }
     }
 
     public void setCollisionEventNotifier(CollisionEventNotifier eventNotifier) {
