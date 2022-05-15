@@ -1,51 +1,48 @@
 package tengine;
 
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicObject;
-import tengine.physics.PhysicsComponent;
+import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionShape;
 import tengine.world.World;
 
-import java.awt.*;
-
 public abstract class Actor {
-    protected Point origin;
-    protected PhysicsComponent physicsComponent;
-    protected TGraphicObject graphic;
-    protected World world;
+    protected TPhysicsComponent physics = null;
+    protected TGraphicObject graphic = null;
+    protected TPoint origin = new TPoint();
+    protected World world = null;
 
-    public Actor() {
-        origin = new Point();
-        physicsComponent = new PhysicsComponent();
-        graphic = null;
-        world = null;
-    }
+    public Actor() {}
 
-    public void setOrigin(Point origin) {
+    /**
+     * Use this method when you want to manually set the origin of the Actor and its components.
+     */
+    public void setOrigin(TPoint origin) {
         this.origin = origin;
 
         if (graphic != null) {
             graphic.setOrigin(origin);
         }
 
-//        if (this.physicsComponent.collisionShape != null) {
-//            physicsComponent.collisionShape.setOrigin(origin);
-//        }
+        if (physics != null) {
+            physics.collisionShape().setOrigin(origin);
+        }
     }
 
-    public Point origin() {
+    public TPoint origin() {
         return origin;
     }
 
-    public int x() {
+    public double x() {
         return origin.x;
     }
 
-    public int y() {
+    public double y() {
         return origin.y;
     }
 
     public CollisionShape bounds() {
-        return physicsComponent.collisionShape;
+        return physics.collisionShape();
     }
 
     public void removeFromWorld() {
@@ -58,11 +55,14 @@ public abstract class Actor {
 
     public void destroy() {
         graphic.removeFromParent();
-        // TODO: Eventually include physicsComponent.removeFromSystem()
         world = null;
     }
 
     public TGraphicObject graphic() {
         return graphic;
+    }
+
+    public TPhysicsComponent physics() {
+        return physics;
     }
 }

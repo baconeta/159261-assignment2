@@ -41,4 +41,8 @@ public class World {
     public TGraphicCompound canvas() {
         return canvas;
     }
+
+    public List<Actor> actors() {
+        return actors;
+    }
 }
