@@ -27,6 +27,7 @@ public class GrassHopperEnemy extends Enemy{
     public GrassHopperEnemy(GameWorld world, Point origin){
         super(world, origin);
         graphic = initSprite();
+        this.scoreWorth = 300;
     }
     public TGraphicCompound initSprite(){
         SHIP_SPRITE = "GrasshopperEnemy.png";

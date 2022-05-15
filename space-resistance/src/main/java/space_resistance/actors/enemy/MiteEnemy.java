@@ -27,6 +27,7 @@ public class MiteEnemy extends Enemy{
     public MiteEnemy(GameWorld world, Point origin){
         super(world, origin);
         graphic = initSprite();
+        this.scoreWorth = 100;
     }
     public TGraphicCompound initSprite(){
         SHIP_SPRITE = "MiteEnemy.png";
