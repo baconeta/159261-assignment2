@@ -27,6 +27,7 @@ public class TarantulaEnemy extends Enemy{
     public TarantulaEnemy(GameWorld world, Point origin){
         super(world, origin);
         graphic = initSprite();
+        this.scoreWorth = 500;
     }
     public TGraphicCompound initSprite(){
         SHIP_SPRITE = "TarantulaEnemy.png";
