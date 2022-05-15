@@ -4,11 +4,13 @@ import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicObject;
 import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionShape;
+import tengine.physics.kinematics.TVelocity;
 import tengine.world.World;
 
 public abstract class Actor {
     protected TPhysicsComponent physics = null;
     protected TGraphicObject graphic = null;
+    protected TVelocity velocity = null;
     protected TPoint origin = new TPoint();
     protected World world = null;
 
@@ -39,6 +41,14 @@ public abstract class Actor {
 
     public double y() {
         return origin.y;
+    }
+
+    public TVelocity velocity() {
+        return velocity;
+    }
+
+    public void setVelocity(TVelocity velocity) {
+        this.velocity = velocity;
     }
 
     public CollisionShape bounds() {
