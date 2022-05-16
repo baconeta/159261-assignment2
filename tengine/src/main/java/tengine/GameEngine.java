@@ -28,12 +28,12 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     private static final Dimension DEFAULT_WINDOW_DIMENSION = new Dimension(500, 500);
     private static final int DEFAULT_FRAMERATE = 30;
 
-    JFrame jFrame;
-    GamePanel gamePanel;
-    int width, height;
-    Graphics2D graphics2D;
-    boolean initialized = false;
-    Stack<AffineTransform> transforms;
+    private JFrame jFrame;
+    private GamePanel gamePanel;
+    private Dimension dimension = DEFAULT_WINDOW_DIMENSION;
+    private Graphics2D graphics2D;
+    private boolean initialized = false;
+    private Stack<AffineTransform> transforms;
 
     private GraphicsEngine graphicsEngine;
     private final PhysicsEngine physicsEngine = new PhysicsEngine();
@@ -156,12 +156,11 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         jFrame = new JFrame();
         gamePanel = new GamePanel();
 
-        width = dimension.width;
-        height = dimension.height;
+        this.dimension = dimension;
 
-        jFrame.setSize(width, height);
+        jFrame.setSize(this.dimension.width, this.dimension.height);
         jFrame.setResizable(false);
-        jFrame.setLocation(200, 0);
+        jFrame.setLocation(200, 200);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.add(gamePanel);
         jFrame.setVisible(true);
@@ -190,16 +189,15 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         });
 
         Insets insets = jFrame.getInsets();
-        jFrame.setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
+        jFrame.setSize(dimension.width + insets.left + insets.right, dimension.height + insets.top + insets.bottom);
     }
 
     public void setWindowProperties(Dimension dimension, String title) {
         SwingUtilities.invokeLater(() -> {
             Insets insets = jFrame.getInsets();
-            width = dimension.width;
-            height = dimension.height;
-            jFrame.setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
-            gamePanel.setSize(width, height);
+            this.dimension = dimension;
+            jFrame.setSize(dimension.width + insets.left + insets.right, dimension.height + insets.top + insets.bottom);
+            gamePanel.setSize(dimension.width, dimension.height);
             jFrame.setTitle(title);
 
             // TODO: Set the size of the GraphicsEngine canvas
@@ -207,11 +205,11 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     }
 
     public int windowWidth() {
-        return width;
+        return dimension.width;
     }
 
     public int windowHeight() {
-        return height;
+        return dimension.height;
     }
 
     public void startGameLoop(int framerate) {
@@ -227,7 +225,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         TPoint actorPos = actor.origin();
         Dimension actorSize = actor.graphic().dimension();
         return actorPos.x >= 0 && actorPos.x + actorSize.width <= windowWidth()
-            && actorPos.y >= 0 && actorPos.y + actorSize.height <= windowHeight();
+                && actorPos.y >= 0 && actorPos.y + actorSize.height <= windowHeight();
     }
 
     //------------------------------------------------------------------------------ Methods that can be overridden --//
