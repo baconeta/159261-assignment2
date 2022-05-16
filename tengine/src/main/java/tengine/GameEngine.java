@@ -37,7 +37,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     private GraphicsEngine graphicsEngine;
     private final PhysicsEngine physicsEngine = new PhysicsEngine();
-    private List<Actor> actors = new ArrayList<>();
     private World activeWorld = null;
 
     long lastUpdateMillis = 0;
@@ -62,9 +61,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public GameEngine() {
         transforms = new Stack<>();
 
-        // TODO: Reimplement the physics engine!
-        //   physicsEngine = new PhysicsEngine()
-        //   physicsEngine.setCollisionEventNotifier(this::onCollision)
+        physicsEngine.setCollisionEventNotifier(this::onCollision);
 
         SwingUtilities.invokeLater(() -> setupWindow(DEFAULT_WINDOW_DIMENSION));
     }
@@ -112,7 +109,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         }
     }
 
-
     //------------------------------------------------------------------------------------- World Loading/Unloading --//
 
     public void loadWorld(World world) {
@@ -120,12 +116,10 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             unloadWorld();
         }
         activeWorld = world;
-        actors = world.actors();
         graphicsEngine.add(world.canvas());
     }
 
     public void unloadWorld() {
-        actors.clear();
         activeWorld.canvas().removeFromParent();
         activeWorld = null;
     }
@@ -133,20 +127,23 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------------------ Tick Methods --//
 
     public void update(double dtMillis) {
-        actors.forEach(actor -> {
-            actor.physics().update(physicsEngine, dtMillis);
-            if (actor.destroyWhenOffScreen && !isOnScreen(actor)) {
-                activeWorld.remove(actor);
-            }
-        });
+        if (activeWorld != null) {
+            List<Actor> actors = new ArrayList<>(activeWorld.actors());
+            actors.forEach(actor -> {
+                actor.physics().update(physicsEngine, dtMillis);
+                if (actor.destroyWhenOffScreen && !isOnScreen(actor)) {
+                    activeWorld.remove(actor);
+                }
+            });
 
-        physicsEngine.processCollisions(actors, dtMillis);
+            physicsEngine.processCollisions(actors, dtMillis);
+        }
         // Allow graphical objects, e.g. AnimatedSprite, to make time-based updates if necessary
         graphicsEngine.update(dtMillis);
     }
 
     public void paint(GraphicsCtx ctx) {
-        clearBackground(width, height);
+        clearBackground(dimension.width, dimension.height);
         graphicsEngine.paint(ctx);
     }
 

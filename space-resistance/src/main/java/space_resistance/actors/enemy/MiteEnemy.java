@@ -15,23 +15,25 @@ public class MiteEnemy extends Enemy {
 
     private final ArrayList<MiteEnemyBullet> bullets = new ArrayList<>();
 
-    public MiteEnemy(GameWorld world, TPoint origin) {
+    private MiteEnemy(GameWorld world, TPoint origin) {
         super(world, origin);
-        graphic = initSprite();
         this.scoreWorth = 100;
     }
 
-    @Override
-    public MiteEnemy spawnAt(GameWorld world, TPoint origin) {
-        world.add(this);
-        return this;
+    public static Enemy spawnAt(GameWorld world, TPoint origin) {
+        var miteEnemy = new MiteEnemy(
+                world,
+                origin);
+        world.add(miteEnemy);
+        return miteEnemy;
     }
 
+    @Override
     public TGraphicCompound initSprite() {
         SHIP_SPRITE = "MiteEnemy.png";
         TGraphicCompound miteSprite = new TGraphicCompound(DIMENSION);
-        Sprite miteship = new MiteShip(AssetLoader.load(SHIP_SPRITE), DIMENSION);
-        miteSprite.add(miteship);
+        Sprite miteShip = new MiteShip(AssetLoader.load(SHIP_SPRITE), DIMENSION);
+        miteSprite.add(miteShip);
 
         return miteSprite;
     }

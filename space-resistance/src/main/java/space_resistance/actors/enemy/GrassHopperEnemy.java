@@ -15,18 +15,20 @@ public class GrassHopperEnemy extends Enemy {
 
     private final ArrayList<GrassHopperEnemyBullet> bullets = new ArrayList<>();
 
-    public GrassHopperEnemy(GameWorld world, TPoint origin) {
+    private GrassHopperEnemy(GameWorld world, TPoint origin) {
         super(world, origin);
-        graphic = initSprite();
         this.scoreWorth = 300;
     }
 
-    @Override
-    public GrassHopperEnemy spawnAt(GameWorld world, TPoint origin) {
-        world.add(this);
-        return this;
+    public static Enemy spawnAt(GameWorld world, TPoint origin) {
+        var grassHopperEnemy = new GrassHopperEnemy(
+                world,
+                origin);
+        world.add(grassHopperEnemy);
+        return grassHopperEnemy;
     }
 
+    @Override
     public TGraphicCompound initSprite() {
         SHIP_SPRITE = "GrasshopperEnemy.png";
         TGraphicCompound grassHopperSprite = new TGraphicCompound(DIMENSION);

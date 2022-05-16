@@ -76,8 +76,8 @@ public class EnemySpawningSystem {
 
     private void SpawnEnemy() {
         if (currentWave.enemiesRemaining() > 0) {
-            Enemy enemy = currentWave.randomEnemyFromWave();
-            enemy.spawnAt(gameWorld, enemy.origin());
+            var enemy = currentWave.randomEnemyFromWave();
+            gameWorld.add(enemy);
             enemiesSpawned.add(enemy);
         } else {
             currentState = SpawnState.BOSS;

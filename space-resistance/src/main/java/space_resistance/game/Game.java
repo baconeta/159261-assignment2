@@ -31,8 +31,10 @@ public class Game extends GameEngine {
 
     @Override
     public void update(double dtMillis) {
-        activeScreen.update(dtMillis);
-        graphicsEngine().update(dtMillis);
+        super.update(dtMillis);
+        if (activeScreen != null) {
+            activeScreen.update(dtMillis);
+        }
     }
 
     @Override
