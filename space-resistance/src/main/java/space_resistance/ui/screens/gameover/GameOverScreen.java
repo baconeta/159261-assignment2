@@ -9,10 +9,10 @@ import space_resistance.ui.components.Button;
 import space_resistance.ui.components.ButtonGroup;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
@@ -38,7 +38,7 @@ public class GameOverScreen implements Screen {
         TLabel score = new TLabel("Score: " + gameState.maxScore());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().defaultFont());
-        score.setOrigin(new Point(95, 300));
+        score.setOrigin(new TPoint(95, 300));
 
         switch(gameState.gameConfig().multiplayerMode()) {
             case SINGLE_PLAYER -> {
@@ -49,16 +49,16 @@ public class GameOverScreen implements Screen {
             },
             () -> {
                 title.setText("It's a draw!");
-                title.setOrigin(new Point(140, 180));
+                title.setOrigin(new TPoint(140, 180));
             });
         }
 
         // Buttons
         playAgain = new Button("Play again");
-        playAgain.setOrigin(new Point(80, 490));
+        playAgain.setOrigin(new TPoint(80, 490));
 
         quit = new Button("Quit to menu");
-        quit.setOrigin(new Point(290, 490));
+        quit.setOrigin(new TPoint(290, 490));
 
         buttonGroup = new ButtonGroup(playAgain, quit);
 

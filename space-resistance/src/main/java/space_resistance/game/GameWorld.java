@@ -5,8 +5,9 @@ import space_resistance.assets.AssetLoader;
 import space_resistance.assets.FontBook;
 import space_resistance.assets.sprites.Background;
 import space_resistance.settings.MultiplayerMode;
-import space_resistance.utils.Notifier;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
+import space_resistance.utils.Notifier;
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
 import tengine.world.World;
@@ -44,7 +45,7 @@ public class GameWorld extends World {
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
         background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
         background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
-        background.get(1).setOrigin(new Point(0, -800));
+        background.get(1).setOrigin(new TPoint(0, -800));
         for (Background b : background){
             container.add(b);
         }
@@ -54,13 +55,13 @@ public class GameWorld extends World {
         gameConfig = gameState.gameConfig();
 
         initPlayers();
-        //testEnemy  = GrassHopperEnemy.spawnAt(this, new Point(20, 50));
-        //testEnemy2 = MiteEnemy.spawnAt(this, new Point(150, 50));
-        //testEnemy3 = TarantulaEnemy.spawnAt(this, new Point(150, 50));
+        //testEnemy  = GrassHopperEnemy.spawnAt(this, new TPoint(20, 50));
+        //testEnemy2 = MiteEnemy.spawnAt(this, new TPoint(150, 50));
+        //testEnemy3 = TarantulaEnemy.spawnAt(this, new TPoint(150, 50));
         TLabel placeholderLabel = new TLabel("Gameplay Screen");
         placeholderLabel.setFont(FontBook.shared().defaultFont());
         placeholderLabel.setColor(Color.BLACK);
-        placeholderLabel.setOrigin(new Point(20, 20));
+        placeholderLabel.setOrigin(new TPoint(20, 20));
 
         // HUD
         hud = new HeadsUpDisplay(canvas.dimension(),  gameState);
@@ -74,19 +75,19 @@ public class GameWorld extends World {
     }
 
     private void initPlayers() {
-        playerOne = SpaceShip.spawnAt(this, new Point(300, 600), gameState.playerOne());
+        playerOne = SpaceShip.spawnAt(this, new TPoint(300, 600), gameState.playerOne());
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwo = SpaceShip.spawnAt(this, new Point(300, 300), gameState.playerTwo());
+            playerTwo = SpaceShip.spawnAt(this, new TPoint(300, 300), gameState.playerTwo());
         }
     }
 
     public void update() {
         for (int i = 0; i < background.size(); i ++){
-            background.get(i).setOrigin(new Point(background.get(i).origin().x, background.get(i).origin().y + 1));
+            background.get(i).setOrigin(new TPoint(background.get(i).origin().x, background.get(i).origin().y + 1));
             if (background.get(0).origin().y == 800){
-                background.get(0).setOrigin(new Point(0, 0));
-                background.get(1).setOrigin(new Point(0, -800));
+                background.get(0).setOrigin(new TPoint(0, 0));
+                background.get(1).setOrigin(new TPoint(0, -800));
             }
         }
         playerOne.update();

@@ -9,6 +9,7 @@ import space_resistance.game.GameWorld;
 import space_resistance.player.Player;
 import space_resistance.player.PlayerNumber;
 import tengine.Actor;
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.sprites.AnimatedSprite;
 import tengine.graphics.components.sprites.Sprite;
@@ -24,7 +25,7 @@ public class SpaceShip extends Actor {
 
     private final GameWorld world;
     private final Player player;
-    private Point velocity = new Point(0, 0);
+    private TPoint velocity = new TPoint(0, 0);
     private final ArrayList<Bullet> bullets = new ArrayList<>();
 
     // TODO: maybe rework the player controls mapping so we don't need to store these on the class
@@ -33,7 +34,7 @@ public class SpaceShip extends Actor {
 
     private boolean shootKeyDown = false;
 
-    public static SpaceShip spawnAt(GameWorld world, Point origin, Player player) {
+    public static SpaceShip spawnAt(GameWorld world, TPoint origin, Player player) {
         SpaceShip spaceShip = new SpaceShip(
                 world,
                 origin,
@@ -43,7 +44,7 @@ public class SpaceShip extends Actor {
         return spaceShip;
     }
 
-    private SpaceShip(GameWorld world, Point origin, Player player) {
+    private SpaceShip(GameWorld world, TPoint origin, Player player) {
         this.world = world;
         this.player = player;
         graphic = initSprite();
@@ -57,7 +58,7 @@ public class SpaceShip extends Actor {
         playerSprite.add(spaceship);
         // Player Thrust
         AnimatedSprite spaceshipThrusters = new PlayerThruster();
-        spaceshipThrusters.setOrigin(new Point(this.origin.x, this.origin.y + 30));
+        spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + 30));
         playerSprite.add(spaceshipThrusters);
         return playerSprite;
     }
@@ -80,7 +81,7 @@ public class SpaceShip extends Actor {
     public void normaliseVelocity(){
         try {
             double magnitude = Math.sqrt(((velocity.x * velocity.x) + (velocity.y * velocity.y)));
-            velocity = new Point((int) (velocity.x * 10 / magnitude), (int) (velocity.y * 10 / magnitude));
+            velocity = new TPoint((int) (velocity.x * 10 / magnitude), (int) (velocity.y * 10 / magnitude));
         } catch (ArithmeticException e){
 
         }
@@ -88,7 +89,7 @@ public class SpaceShip extends Actor {
 
     public void update() {
         normaliseVelocity();
-        this.setOrigin(new Point(this.origin.x + velocity.x, this.origin.y+ velocity.y));
+        this.setOrigin(new TPoint(this.origin.x + velocity.x, this.origin.y+ velocity.y));
         for (var bullet : bullets) {
             bullet.update();
         }
@@ -97,10 +98,10 @@ public class SpaceShip extends Actor {
             if (bullets.size() >= 1) {
                 // Delay shots of bullets so that thousands don't spawn when the player holds down the shooting key
                 if (bullets.get(bullets.size() - 1).timeExisted() > 50) {
-                    bullets.add(Bullet.spawnAt(world, new Point(this.origin.x, this.origin.y - 5)));
+                    bullets.add(Bullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y - 5)));
                 }
             } else {
-                bullets.add(Bullet.spawnAt(world, new Point(this.origin.x, this.origin.y - 5)));
+                bullets.add(Bullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y - 5)));
             }
         }
     }

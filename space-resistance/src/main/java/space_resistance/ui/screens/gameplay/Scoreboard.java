@@ -3,6 +3,7 @@ package space_resistance.ui.screens.gameplay;
 import space_resistance.assets.FontBook;
 import space_resistance.game.GameConfig;
 import space_resistance.player.Player;
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
 
@@ -28,7 +29,7 @@ class Scoreboard extends TGraphicCompound {
         score = new TLabel("");
         score.setFont(FontBook.shared().defaultFont());
         score.setColor(Color.BLACK);
-        score.setOrigin(new Point(100, 100));
+        score.setOrigin(new TPoint(100, 100));
 
         addAll(score);
     }

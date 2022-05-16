@@ -59,7 +59,7 @@ public class PlayGameScreen implements Screen {
 
     @Override
     public void removeFromCanvas() {
-        engine.unloadWorld(world);
+        engine.unloadWorld();
     }
 
     @Override
