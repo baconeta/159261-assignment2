@@ -34,6 +34,7 @@ public class PlayGameScreen implements Screen {
         screenChangeCallback.accept(ScreenIdentifier.SHOWING_GAME_OVER);
     }
 
+    // TODO: Implement pause functionality properly
     @Override
     public void handleKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_P) {

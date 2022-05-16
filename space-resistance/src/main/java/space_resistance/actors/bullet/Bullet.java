@@ -16,6 +16,9 @@ import tengine.physics.kinematics.TVelocity;
 import java.awt.*;
 import java.util.Random;
 
+// TODO: Merge other bullet classes into this one
+//   Create a new constructor that takes a CharacterType enum
+//   Switch over the CharacterType to know which enemy shot image to load
 public class Bullet extends Actor {
     private static final String PLAYER_DEFAULT_SHOT = "PlayerDefaultShots.png";
     private static final Dimension DIMENSION = new Dimension(64, 64);

@@ -38,6 +38,7 @@ public class GrassHopperEnemy extends Enemy {
         return grassHopperSprite;
     }
 
+    // TODO: Remove magic numbers
     @Override
     public void update() {
         super.update();
