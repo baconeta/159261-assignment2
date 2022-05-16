@@ -38,6 +38,7 @@ public class MiteEnemy extends Enemy {
         return miteSprite;
     }
 
+    // TODO: Remove magic numbers
     @Override
     public void update() {
         super.update();

@@ -38,6 +38,7 @@ public class TarantulaEnemy extends Enemy {
         return tarantulaEnemy;
     }
 
+    // TODO: Remove magic numbers
     @Override
     public void update() {
         super.update();
