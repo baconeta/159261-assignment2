@@ -6,13 +6,14 @@ import space_resistance.ui.screens.gameover.GameOverScreen;
 import space_resistance.ui.screens.gameplay.PlayGameScreen;
 import space_resistance.ui.screens.menu.MenuScreen;
 import tengine.GameEngine;
+import tengine.geom.TPoint;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Game extends GameEngine {
     public static final Dimension WINDOW_DIMENSION = new Dimension(600, 800);
-    public static final Point WINDOW_CENTER = new Point(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
+    public static final TPoint WINDOW_CENTER = new TPoint(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Space Resistance by Team Pew Pew!";
 
     private Screen activeScreen;

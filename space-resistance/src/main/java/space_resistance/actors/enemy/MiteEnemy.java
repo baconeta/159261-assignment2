@@ -4,10 +4,10 @@ import space_resistance.actors.bullet.MiteEnemyBullet;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.sprites.MiteShip;
 import space_resistance.game.GameWorld;
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.sprites.Sprite;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,14 +15,14 @@ public class MiteEnemy extends Enemy {
 
     private final ArrayList<MiteEnemyBullet> bullets = new ArrayList<>();
 
-    public MiteEnemy(GameWorld world, Point origin) {
+    public MiteEnemy(GameWorld world, TPoint origin) {
         super(world, origin);
         graphic = initSprite();
         this.scoreWorth = 100;
     }
 
     @Override
-    public MiteEnemy spawnAt(GameWorld world, Point origin) {
+    public MiteEnemy spawnAt(GameWorld world, TPoint origin) {
         world.add(this);
         return this;
     }
@@ -46,10 +46,10 @@ public class MiteEnemy extends Enemy {
             if (bullets.size() >= 1) {
                 // Delay shots
                 if (bullets.get(bullets.size() - 1).timeExisted() > 150) {
-                    bullets.add(MiteEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
+                    bullets.add(MiteEnemyBullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y + 20)));
                 }
             } else {
-                bullets.add(MiteEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
+                bullets.add(MiteEnemyBullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y + 20)));
             }
         } else {
             final Random RANDOM = new Random();

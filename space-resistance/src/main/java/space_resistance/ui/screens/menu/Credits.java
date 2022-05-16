@@ -4,9 +4,9 @@ import space_resistance.assets.Colors;
 import space_resistance.assets.FontBook;
 import space_resistance.assets.SoundEffects;
 import space_resistance.ui.components.Button;
+import tengine.geom.TPoint;
 import tengine.graphics.components.text.TLabel;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
@@ -17,13 +17,13 @@ class Credits extends Menu {
         TLabel title = new TLabel("credits");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
-        title.setOrigin(new Point(200, 180));
+        title.setOrigin(new TPoint(200, 180));
 
         initContent();
 
         Button close = new Button("close");
         close.setState(Button.State.FOCUSSED);
-        close.setOrigin(new Point(290, 490));
+        close.setOrigin(new TPoint(290, 490));
 
         addAll(title, close);
     }
@@ -33,11 +33,11 @@ class Credits extends Menu {
         // drawing multiline strings, hence the following ugliness.
         TLabel originalArtAndSounds1 = bodyText("Original artwork and sound effects");
         TLabel originalArtAndSounds2 = bodyText("by Ali Soltanian Fard Jahromi");
-        originalArtAndSounds1.setOrigin(new Point(105, 280));
-        originalArtAndSounds2.setOrigin(new Point(140, 300));
+        originalArtAndSounds1.setOrigin(new TPoint(105, 280));
+        originalArtAndSounds2.setOrigin(new TPoint(140, 300));
 
         TLabel fontAttr = bodyText("Revamped Font by Chequered Ink");
-        fontAttr.setOrigin(new Point(125, 330));
+        fontAttr.setOrigin(new TPoint(125, 330));
 
         addAll(originalArtAndSounds1, originalArtAndSounds2, fontAttr);
     }

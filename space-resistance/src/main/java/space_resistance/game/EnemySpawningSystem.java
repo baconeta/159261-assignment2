@@ -1,8 +1,8 @@
 package space_resistance.game;
 
 import space_resistance.actors.enemy.Enemy;
+import tengine.geom.TPoint;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 // TODO remove all println statements before publish
@@ -82,7 +82,7 @@ public class EnemySpawningSystem {
         } else {
             currentState = SpawnState.BOSS;
             //            Boss boss = currentWave.getBoss();
-            Point spawnLocation = new Point(0, 0); // TODO generalise and randomise spawnLocation?
+            TPoint spawnLocation = new TPoint(0, 0); // TODO generalise and randomise spawnLocation?
             //        boss.spawnAt(gameWorld, spawnLocation)
 
         }

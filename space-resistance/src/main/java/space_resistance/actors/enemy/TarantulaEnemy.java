@@ -4,10 +4,10 @@ import space_resistance.actors.bullet.TarantulaEnemyBullet;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.sprites.TarantulaShip;
 import space_resistance.game.GameWorld;
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.sprites.Sprite;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,14 +15,14 @@ public class TarantulaEnemy extends Enemy {
 
     private final ArrayList<TarantulaEnemyBullet> bullets = new ArrayList<>();
 
-    public TarantulaEnemy(GameWorld world, Point origin) {
+    public TarantulaEnemy(GameWorld world, TPoint origin) {
         super(world, origin);
         graphic = initSprite();
         this.scoreWorth = 500;
     }
 
     @Override
-    public TarantulaEnemy spawnAt(GameWorld world, Point origin) {
+    public TarantulaEnemy spawnAt(GameWorld world, TPoint origin) {
         world.add(this);
         return this;
     }
@@ -47,11 +47,11 @@ public class TarantulaEnemy extends Enemy {
                 // Delay shots
                 if (bullets.get(bullets.size() - 1).timeExisted() > 150) {
                     bullets.add(
-                            TarantulaEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
+                            TarantulaEnemyBullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y + 20)));
                 }
             } else {
                 bullets.add(
-                        TarantulaEnemyBullet.spawnAt(world, new Point(this.origin.x, this.origin.y + 20)));
+                        TarantulaEnemyBullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y + 20)));
             }
         } else {
             final Random RANDOM = new Random();

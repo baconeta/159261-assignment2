@@ -5,9 +5,9 @@ import space_resistance.assets.FontBook;
 import space_resistance.assets.SoundEffects;
 import space_resistance.ui.components.Button;
 import space_resistance.ui.components.ButtonGroup;
+import tengine.geom.TPoint;
 import tengine.graphics.components.text.TLabel;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
@@ -25,16 +25,16 @@ class MainMenu extends Menu {
 
         // The origin of text is unfortunately manual as we cannot query
         // the size of the text beforehand to properly align it
-        title.setOrigin(new Point(100, 180));
+        title.setOrigin(new TPoint(100, 180));
 
         onePlayer = new Button("ONE PLAYER");
-        onePlayer.setOrigin(new Point(240, 300));
+        onePlayer.setOrigin(new TPoint(240, 300));
 
         howToPlay = new Button("HOW TO PLAY");
-        howToPlay.setOrigin(new Point(240, 350));
+        howToPlay.setOrigin(new TPoint(240, 350));
 
         credits = new Button("CREDITS");
-        credits.setOrigin(new Point(250, 400));
+        credits.setOrigin(new TPoint(250, 400));
 
         // The button group manages which button is currently selected and moving between buttons
         buttons = new ButtonGroup(onePlayer, howToPlay, credits/*, twoPlayer, highscores*/);
