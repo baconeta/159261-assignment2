@@ -9,7 +9,6 @@ import java.util.List;
 
 public class World {
     protected TGraphicCompound canvas;
-    // TODO: Add PhysicsCompound
     protected List<Actor> actors;
 
     public World(Dimension dimension) {

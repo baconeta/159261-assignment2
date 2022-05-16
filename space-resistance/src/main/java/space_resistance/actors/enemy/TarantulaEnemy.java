@@ -15,18 +15,20 @@ public class TarantulaEnemy extends Enemy {
 
     private final ArrayList<TarantulaEnemyBullet> bullets = new ArrayList<>();
 
-    public TarantulaEnemy(GameWorld world, TPoint origin) {
+    private TarantulaEnemy(GameWorld world, TPoint origin) {
         super(world, origin);
-        graphic = initSprite();
         this.scoreWorth = 500;
     }
 
-    @Override
-    public TarantulaEnemy spawnAt(GameWorld world, TPoint origin) {
-        world.add(this);
-        return this;
+    public static Enemy spawnAt(GameWorld world, TPoint origin) {
+        var tarantulaEnemy = new TarantulaEnemy(
+                world,
+                origin);
+        world.add(tarantulaEnemy);
+        return tarantulaEnemy;
     }
 
+    @Override
     public TGraphicCompound initSprite() {
         SHIP_SPRITE = "TarantulaEnemy.png";
         TGraphicCompound tarantulaEnemy = new TGraphicCompound(DIMENSION);
@@ -50,8 +52,7 @@ public class TarantulaEnemy extends Enemy {
                             TarantulaEnemyBullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y + 20)));
                 }
             } else {
-                bullets.add(
-                        TarantulaEnemyBullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y + 20)));
+                bullets.add(TarantulaEnemyBullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y + 20)));
             }
         } else {
             final Random RANDOM = new Random();

@@ -39,7 +39,7 @@ public class EnemyWave {
         for (int i = 0; i < totalEnemies; i++) {
             // This should also select an enemy type based on weight. Could some
             // enemy parameters be set based on the current level or difficulty?
-            wave.add(new MiteEnemy(gw, new TPoint(RANDOM.nextInt(50,450), 50)));
+            wave.add(MiteEnemy.spawnAt(gw, new TPoint(RANDOM.nextInt(50,450), 50)));
         }
         // boss = new Boss(); // only create one boss per level
     }

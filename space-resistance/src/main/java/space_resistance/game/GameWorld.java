@@ -58,17 +58,12 @@ public class GameWorld extends World {
         //testEnemy  = GrassHopperEnemy.spawnAt(this, new TPoint(20, 50));
         //testEnemy2 = MiteEnemy.spawnAt(this, new TPoint(150, 50));
         //testEnemy3 = TarantulaEnemy.spawnAt(this, new TPoint(150, 50));
-        TLabel placeholderLabel = new TLabel("Gameplay Screen");
-        placeholderLabel.setFont(FontBook.shared().defaultFont());
-        placeholderLabel.setColor(Color.BLACK);
-        placeholderLabel.setOrigin(new TPoint(20, 20));
 
         // HUD
         hud = new HeadsUpDisplay(canvas.dimension(),  gameState);
 
         // Display graphics and actors by adding them to the canvas.
-
-        canvas.addAll(placeholderLabel, hud);
+        canvas.addAll(hud);
 
         // Enemy Spawning System set up and binding to canvas
         enemySpawningSystem = new EnemySpawningSystem(this);
