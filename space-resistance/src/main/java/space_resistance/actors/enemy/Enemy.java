@@ -33,6 +33,7 @@ public class Enemy extends Actor {
         this.type = type;
         this.dimension = dimension;
         this.scoreWorth = scoreWorth;
+        destroyWhenOffScreen = true;
         graphic = new EnemyShip(type, this.dimension);
         physics = initPhysics();
         setOrigin(origin);
