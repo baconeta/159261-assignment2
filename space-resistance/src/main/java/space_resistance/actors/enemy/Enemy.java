@@ -35,8 +35,11 @@ public class Enemy extends Actor {
         this.scoreWorth = scoreWorth;
         destroyWhenOffScreen = true;
         graphic = new EnemyShip(type, this.dimension);
-        physics = initPhysics();
         setOrigin(origin);
+    }
+
+    public void spawnInWorld() {
+        physics = initPhysics();
         world.add(this);
     }
 

@@ -67,7 +67,7 @@ public class EnemyWave {
     }
 
     public int delayBetweenSpawns() {
-        return max(initialMillisecondsBetweenSpawns - spawnSpeedStep * level, minBetweenSpawnMs);
+        return max(initialMillisecondsBetweenSpawns - (spawnSpeedStep * level), minBetweenSpawnMs);
     }
 
     public int delayBeforeWave() {
