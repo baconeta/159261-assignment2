@@ -105,10 +105,10 @@ public class SpaceShip extends Actor {
             if (bullets.size() >= 1) {
                 // Delay shots of bullets so that thousands don't spawn when the player holds down the shooting key
                 if (bullets.get(bullets.size() - 1).timeExisted() > 50) {
-                    bullets.add(Bullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y - 5)));
+                    bullets.add(new Bullet(world, new TPoint(this.origin.x, this.origin.y - 5)));
                 }
             } else {
-                bullets.add(Bullet.spawnAt(world, new TPoint(this.origin.x, this.origin.y - 5)));
+                bullets.add(new Bullet(world, new TPoint(this.origin.x, this.origin.y - 5)));
             }
         }
     }

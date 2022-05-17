@@ -1,13 +1,14 @@
 package space_resistance.game;
 
 import space_resistance.actors.enemy.Enemy;
-import space_resistance.actors.enemy.MiteEnemy;
 import tengine.geom.TPoint;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Integer.max;
+import static space_resistance.actors.enemy.EnemyType.Mite;
 
 public class EnemyWave {
     // Game design settings
@@ -39,7 +40,8 @@ public class EnemyWave {
         for (int i = 0; i < totalEnemies; i++) {
             // This should also select an enemy type based on weight. Could some
             // enemy parameters be set based on the current level or difficulty?
-            wave.add(MiteEnemy.spawnAt(gw, new TPoint(RANDOM.nextInt(50,450), 50)));
+            wave.add(new Enemy(Mite, gw, new TPoint(RANDOM.nextInt(50,450), 50), new Dimension(72, 72), 100));
+            //wave.add(MiteEnemy.spawnAt(gw, new TPoint(RANDOM.nextInt(50,450), 50))); Old code
         }
         // boss = new Boss(); // only create one boss per level
     }

@@ -1,8 +1,7 @@
 package space_resistance.actors.bullet;
 
-import space_resistance.assets.AssetLoader;
-import space_resistance.assets.SoundEffects;
-import space_resistance.assets.sprites.DefaultShot;
+import space_resistance.actors.enemy.EnemyType;
+import space_resistance.assets.sprites.EnemyShot;
 import space_resistance.game.GameWorld;
 import tengine.Actor;
 import tengine.geom.TPoint;
@@ -16,12 +15,9 @@ import tengine.physics.kinematics.TVelocity;
 import java.awt.*;
 import java.util.Random;
 
-// TODO: Merge other bullet classes into this one
-//   Create a new constructor that takes a CharacterType enum
-//   Switch over the CharacterType to know which enemy shot image to load
-public class Bullet extends Actor {
-    private static final String PLAYER_DEFAULT_SHOT = "PlayerDefaultShots.png";
-    private static final Dimension DIMENSION = new Dimension(64, 64);
+public class EnemyBullet extends Actor {
+    private static final String ENEMY_SHOT[] = {"MiteEnemyShot.png", "GrasshopperEnemyShot.png", "TarantulaEnemyShot.png"};
+    private static final Dimension DIMENSION = new Dimension(72, 72);
     private static final Random RANDOM = new Random();
 
     private final GameWorld world;
@@ -29,9 +25,10 @@ public class Bullet extends Actor {
     private final long startTime;
     // Keeps track of how long bullet actor has existed
     private long currentTime = 0;
+    private EnemyType type;
 
-    public Bullet(GameWorld world, TPoint origin) {
-        SoundEffects.shared().defaultPlayerShootingSound().play(5);
+    public EnemyBullet(EnemyType type, GameWorld world, TPoint origin) {
+        this.type = type;
         this.world = world;
         graphic = initSprite();
         physics = initPhysics();
@@ -41,10 +38,8 @@ public class Bullet extends Actor {
         startTime = System.currentTimeMillis();
 
         destroyWhenOffScreen = true;
-
         setOrigin(origin);
         world.add(this);
-
     }
 
     public void update() {
@@ -52,18 +47,18 @@ public class Bullet extends Actor {
     }
 
     private TGraphicCompound initSprite() {
-        TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
-        Sprite playerDefaultShot = new DefaultShot(AssetLoader.load(PLAYER_DEFAULT_SHOT), DIMENSION);
-        playerSprite.add(playerDefaultShot);
+        TGraphicCompound enemyBulletSprite = new TGraphicCompound(DIMENSION);
+        Sprite enemyShot = new EnemyShot(type, new Dimension(72, 72));
+        enemyBulletSprite.add(enemyShot);
 
-        return playerSprite;
+        return enemyBulletSprite;
     }
 
     private TPhysicsComponent initPhysics() {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(500, new TVector(0, -1));
+        velocity = new TVelocity(500, new TVector(0, 1));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
