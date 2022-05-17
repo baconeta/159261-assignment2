@@ -1,15 +1,15 @@
 package space_resistance.game;
 
+import space_resistance.actors.enemy.Enemy;
+import space_resistance.actors.enemy.EnemyType;
 import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.AssetLoader;
-import space_resistance.assets.FontBook;
 import space_resistance.assets.sprites.Background;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
 import space_resistance.utils.Notifier;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
-import tengine.graphics.components.text.TLabel;
 import tengine.world.World;
 
 import java.awt.*;
@@ -28,16 +28,14 @@ public class GameWorld extends World {
     private SpaceShip playerOne;
     private SpaceShip playerTwo = null;
 
-    // Enemies
-    //private GrassHopperEnemy testEnemy = null;
-    //private MiteEnemy testEnemy2 = null;
-    //private TarantulaEnemy testEnemy3 = null;
 
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
     ArrayList<Background> background = new ArrayList<Background>();
 
     private final TGraphicCompound container;
+    //Test Enemy
+    //private Enemy testEnemy;
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
@@ -55,9 +53,8 @@ public class GameWorld extends World {
         gameConfig = gameState.gameConfig();
 
         initPlayers();
-        //testEnemy  = GrassHopperEnemy.spawnAt(this, new TPoint(20, 50));
-        //testEnemy2 = MiteEnemy.spawnAt(this, new TPoint(150, 50));
-        //testEnemy3 = TarantulaEnemy.spawnAt(this, new TPoint(150, 50));
+        //Test Enemy
+        //testEnemy = new Enemy(EnemyType.Grasshopper, this, new TPoint(0, 0), new Dimension(72,72), 300);
 
         // HUD
         hud = new HeadsUpDisplay(canvas.dimension(),  gameState);
@@ -78,6 +75,8 @@ public class GameWorld extends World {
     }
 
     public void update() {
+        //Test Enemy
+        //testEnemy.update();
         for (int i = 0; i < background.size(); i ++){
             background.get(i).setOrigin(new TPoint(background.get(i).origin().x, background.get(i).origin().y + 1));
             if (background.get(0).origin().y == 800){
@@ -86,10 +85,6 @@ public class GameWorld extends World {
             }
         }
         playerOne.update();
-        // Test enemies
-        // testEnemy.update();
-        // testEnemy2.update();
-        // testEnemy3.update();
         if (gameState.playerOne().healthRemaining() == 0) {
             setGameOver();
         }
