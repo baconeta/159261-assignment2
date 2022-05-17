@@ -41,7 +41,6 @@ public class EnemyWave {
             // This should also select an enemy type based on weight. Could some
             // enemy parameters be set based on the current level or difficulty?
             wave.add(new Enemy(Mite, gw, new TPoint(RANDOM.nextInt(50,450), 50), new Dimension(72, 72), 100));
-            //wave.add(MiteEnemy.spawnAt(gw, new TPoint(RANDOM.nextInt(50,450), 50))); Old code
         }
         // boss = new Boss(); // only create one boss per level
     }
@@ -67,7 +66,7 @@ public class EnemyWave {
     }
 
     public int delayBetweenSpawns() {
-        return max(initialMillisecondsBetweenSpawns - (spawnSpeedStep * level), minBetweenSpawnMs);
+        return max(initialMillisecondsBetweenSpawns - spawnSpeedStep * level, minBetweenSpawnMs);
     }
 
     public int delayBeforeWave() {

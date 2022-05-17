@@ -55,6 +55,7 @@ public class EnemySpawningSystem {
 
     private void updateEnemiesInWorld() {
         Iterator<Enemy> iterator = enemiesSpawned.iterator();
+        // An iterator is required to allow removing an element during iteration
         while (iterator.hasNext()) {
             Enemy e = iterator.next();
             if (e == null) { continue; }
