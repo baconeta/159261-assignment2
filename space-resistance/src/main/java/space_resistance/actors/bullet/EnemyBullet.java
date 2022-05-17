@@ -16,7 +16,6 @@ import java.awt.*;
 import java.util.Random;
 
 public class EnemyBullet extends Actor {
-    private static final String ENEMY_SHOT[] = {"MiteEnemyShot.png", "GrasshopperEnemyShot.png", "TarantulaEnemyShot.png"};
     private static final Dimension DIMENSION = new Dimension(72, 72);
     private static final Random RANDOM = new Random();
 
