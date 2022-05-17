@@ -89,7 +89,7 @@ public class Enemy extends Actor {
 
     @Override
     public void destroy() {
-        health = 0;
+        health = 0; // This can be temporary but helps the Spawner detect dead enemies
         super.destroy();
     }
 }
