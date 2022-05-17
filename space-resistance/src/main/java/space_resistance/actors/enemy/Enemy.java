@@ -53,9 +53,11 @@ public class Enemy extends Actor {
     }
 
     public void update() {
-        if (health < 0){
+        if (health <= 0) {
             this.destroy();
+            return;
         }
+
         for (EnemyBullet bullet : bullets) {
             bullet.update();
         }
@@ -80,5 +82,14 @@ public class Enemy extends Actor {
                 bullets.clear();
             }
         }
+    }
+
+    public int scoreValue() { return scoreWorth; }
+    public int healthRemaining() { return health; }
+
+    @Override
+    public void destroy() {
+        health = 0;
+        super.destroy();
     }
 }
