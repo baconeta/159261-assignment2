@@ -81,7 +81,7 @@ public class Enemy extends Actor {
         for (EnemyBullet bullet : bullets) {
             bullet.update();
         }
-        if (bullets.size() < (Math.random() * 25)) {
+        if (bullets.size() < (Math.random() * 20)) {
             if (bullets.size() >= 1) {
                 // Delay shots
                 if (bullets.get(bullets.size() - 1).timeExisted() > 0) {
@@ -93,8 +93,8 @@ public class Enemy extends Actor {
         } else {
             final Random RANDOM = new Random();
             if (bullets.get(bullets.size() - 1).timeExisted()
-                    > RANDOM.nextInt(2100 - 1300)
-                    + 1300) { // Shoot in bursts so that player isn't bombarded with constant shots from
+                    > RANDOM.nextInt(2400 - 1700)
+                    + 1700) { // Shoot in bursts so that player isn't bombarded with constant shots from
                 // the enemy ship
                 for (EnemyBullet bullet : bullets) {
                     bullet.destroy();
