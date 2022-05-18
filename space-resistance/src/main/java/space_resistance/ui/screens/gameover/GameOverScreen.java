@@ -1,8 +1,10 @@
 package space_resistance.ui.screens.gameover;
 
+import space_resistance.assets.AssetLoader;
 import space_resistance.assets.Colors;
 import space_resistance.assets.FontBook;
 import space_resistance.assets.SoundEffects;
+import space_resistance.assets.sprites.Background;
 import space_resistance.game.Game;
 import space_resistance.game.GameState;
 import space_resistance.ui.components.Button;
@@ -14,6 +16,7 @@ import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
 import tengine.physics.collisions.events.CollisionEvent;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
@@ -25,7 +28,9 @@ public class GameOverScreen implements Screen {
     private final ButtonGroup buttonGroup;
     private final Button playAgain;
     private final Button quit;
-
+    private final String BACKGROUND = "SpaceBackground.png";
+    private static final Dimension DIMENSION = new Dimension(600, 800);
+    Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
     public GameOverScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
@@ -33,13 +38,14 @@ public class GameOverScreen implements Screen {
         // Title
         TLabel title = new TLabel("Game over!");
         title.setColor(Colors.Text.PRIMARY);
-        title.setFont(FontBook.shared().defaultFont());
+        title.setFont(FontBook.shared().bodyFont());
+        title.setOrigin(new TPoint(250, 300));
 
         // Score
         TLabel score = new TLabel("Score: " + gameState.maxScore());
         score.setColor(Colors.Text.PRIMARY);
-        score.setFont(FontBook.shared().defaultFont());
-        score.setOrigin(new TPoint(95, 300));
+        score.setFont(FontBook.shared().bodyFont());
+        score.setOrigin(new TPoint(265, 340));
 
         switch(gameState.gameConfig().multiplayerMode()) {
             case SINGLE_PLAYER -> {
@@ -59,13 +65,13 @@ public class GameOverScreen implements Screen {
         playAgain.setOrigin(new TPoint(80, 490));
 
         quit = new Button("Quit to menu");
-        quit.setOrigin(new TPoint(290, 490));
+        quit.setOrigin(new TPoint(470, 490));
 
         buttonGroup = new ButtonGroup(playAgain, quit);
 
         // Graphic
         graphic = new TGraphicCompound(Game.WINDOW_DIMENSION);
-
+        graphic.add(background);
         graphic.addAll(title, score, playAgain, quit);
     }
 
