@@ -1,6 +1,8 @@
 package space_resistance.actors.spaceship;
 
 import space_resistance.actors.bullet.Bullet;
+import space_resistance.actors.bullet.EnemyBullet;
+import space_resistance.actors.enemy.Enemy;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.PlayerShip;
@@ -168,5 +170,17 @@ public class SpaceShip extends Actor {
 
     public PlayerNumber playerNumber() {
         return player.playerNumber();
+    }
+
+    public void collision(Actor actorB) {
+        if (actorB instanceof EnemyBullet) {
+            EnemyBullet bullet = (EnemyBullet) actorB;
+            player.reduceHealth(1);
+            bullet.destroy();
+        }
+        if (actorB instanceof Enemy){
+            player.reduceHealth(100);
+            actorB.destroy();
+        }
     }
 }
