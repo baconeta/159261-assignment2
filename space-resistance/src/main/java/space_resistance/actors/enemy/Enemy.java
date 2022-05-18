@@ -35,6 +35,8 @@ public class Enemy extends Actor {
     protected boolean contributed = false;
     protected EnemyType type;
 
+    private boolean isDead;
+
     private ArrayList<EnemyBullet> bullets = new ArrayList<EnemyBullet>();
 
     public Enemy(EnemyType type, GameWorld world, TPoint origin, Dimension dimension, int scoreWorth) {
@@ -46,6 +48,7 @@ public class Enemy extends Actor {
         graphic = initSprite();
         setOrigin(origin);
     }
+
     private TGraphicCompound initSprite() {
         // Player Ship
         TGraphicCompound enemySprite = new TGraphicCompound(dimension);
@@ -53,9 +56,11 @@ public class Enemy extends Actor {
         enemySprite.add(enemy);
         return enemySprite;
     }
+
     public void spawnInWorld() {
         physics = initPhysics();
         world.add(this);
+        isDead = false;
     }
 
     protected TPhysicsComponent initPhysics() {
@@ -69,7 +74,7 @@ public class Enemy extends Actor {
 
     public void update() {
         if (health <= 0) {
-            this.destroy();
+            this.removeFromWorld();
             return;
         }
 
@@ -101,7 +106,7 @@ public class Enemy extends Actor {
 
     public int scoreValue() { return scoreWorth; }
 
-    public int healthRemaining() { return health; }
+    public boolean isDead() { return isDead; }
 
     public void takeDamage(int damageToDeal) {
         health -= damageToDeal;
@@ -118,7 +123,7 @@ public class Enemy extends Actor {
     }
     @Override
     public void destroy() {
-        health = 0; // This can be temporary but helps the Spawner detect dead enemies
+        isDead = true;
         Explosion e = new Explosion(world, this.origin);
         velocity.setSpeed(10000); // Temporary fix for invisible enemies being destroyed again
         super.destroy();
