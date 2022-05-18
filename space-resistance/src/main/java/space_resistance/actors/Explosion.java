@@ -1,13 +1,11 @@
-package space_resistance.actors.bullet;
+package space_resistance.actors;
 
-import space_resistance.assets.AssetLoader;
-import space_resistance.assets.SoundEffects;
-import space_resistance.assets.sprites.DefaultShot;
+import space_resistance.assets.animated_sprites.ExplosionSprite;
 import space_resistance.game.GameWorld;
 import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
-import tengine.graphics.components.sprites.Sprite;
+import tengine.graphics.components.sprites.AnimatedSprite;
 import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionRect;
 import tengine.physics.kinematics.TVector;
@@ -15,12 +13,7 @@ import tengine.physics.kinematics.TVelocity;
 
 import java.awt.*;
 import java.util.Random;
-
-// TODO: Merge other bullet classes into this one
-//   Create a new constructor that takes a CharacterType enum
-//   Switch over the CharacterType to know which enemy shot image to load
-public class Bullet extends Actor {
-    private static final String PLAYER_DEFAULT_SHOT = "PlayerDefaultShots.png";
+public class Explosion extends Actor {
     private static final Dimension DIMENSION = new Dimension(64, 64);
     private static final Random RANDOM = new Random();
 
@@ -32,16 +25,12 @@ public class Bullet extends Actor {
 
     private final int damageToDeal = 10;
 
-    public Bullet(GameWorld world, TPoint origin) {
-        SoundEffects.shared().defaultPlayerShootingSound().play(5);
+    public Explosion(GameWorld world, TPoint origin) {
+        //SoundEffects.shared().explosionSound.play
         this.world = world;
         graphic = initSprite();
         physics = initPhysics();
-
-        // Variation in the shots
-        origin.x += RANDOM.nextInt(1 + 1) - 1;
         startTime = System.currentTimeMillis();
-
         destroyWhenOffScreen = true;
 
         setOrigin(origin);
@@ -51,21 +40,24 @@ public class Bullet extends Actor {
 
     public void update() {
         currentTime = System.currentTimeMillis();
+        if (timeExisted() / 100 > 5){
+            this.destroy();
+            this.removeFromWorld();
+        }
     }
 
     private TGraphicCompound initSprite() {
-        TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
-        Sprite playerDefaultShot = new DefaultShot(AssetLoader.load(PLAYER_DEFAULT_SHOT), DIMENSION);
-        playerSprite.add(playerDefaultShot);
-
-        return playerSprite;
+        TGraphicCompound explosion = new TGraphicCompound(DIMENSION);
+        AnimatedSprite explosionSprite = new ExplosionSprite();
+        explosion.add(explosionSprite);
+        return explosion;
     }
 
     private TPhysicsComponent initPhysics() {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(500, new TVector(0, -1));
+        velocity = new TVelocity(0, new TVector(0, 0));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
@@ -73,6 +65,4 @@ public class Bullet extends Actor {
     public long timeExisted(){
         return currentTime - startTime;
     }
-
-    public int damageToDeal() { return damageToDeal; }
 }

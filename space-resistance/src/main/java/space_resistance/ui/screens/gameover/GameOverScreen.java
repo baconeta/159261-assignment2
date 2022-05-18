@@ -12,6 +12,7 @@ import space_resistance.ui.screens.ScreenIdentifier;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
+import tengine.physics.collisions.events.CollisionEvent;
 
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
@@ -106,4 +107,7 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void update(double dtMillis) {}
+
+    @Override
+    public void handleCollisionEvent(CollisionEvent event) {}
 }

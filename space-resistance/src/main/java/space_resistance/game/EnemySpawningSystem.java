@@ -4,6 +4,7 @@ import space_resistance.actors.enemy.Enemy;
 import tengine.geom.TPoint;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // TODO remove all println statements before publish
 public class EnemySpawningSystem {
@@ -53,12 +54,16 @@ public class EnemySpawningSystem {
     }
 
     private void updateEnemiesInWorld() {
-        for (Enemy e : enemiesSpawned) {
-            if (e != null) {
-                e.update();
-                // This is bad because we have no way to remove the enemy from the list
-                // when it dies. But for now it works...
+        Iterator<Enemy> iterator = enemiesSpawned.iterator();
+        // An iterator is required to allow removing an element during iteration
+        while (iterator.hasNext()) {
+            Enemy e = iterator.next();
+            if (e == null) { continue; }
+            if (e.healthRemaining() <= 0) {
+                iterator.remove();
+                continue;
             }
+            e.update();
         }
     }
 
@@ -77,7 +82,7 @@ public class EnemySpawningSystem {
     private void SpawnEnemy() {
         if (currentWave.enemiesRemaining() > 0) {
             var enemy = currentWave.randomEnemyFromWave();
-            gameWorld.add(enemy);
+            enemy.spawnInWorld();
             enemiesSpawned.add(enemy);
         } else {
             currentState = SpawnState.BOSS;

@@ -7,6 +7,7 @@ import space_resistance.game.GameWorld;
 import space_resistance.settings.Settings;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
+import tengine.physics.collisions.events.CollisionEvent;
 
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
@@ -68,6 +69,11 @@ public class PlayGameScreen implements Screen {
         if (!paused) {
             world.update();
         }
+    }
+
+    @Override
+    public void handleCollisionEvent(CollisionEvent event) {
+        world.handleCollisions(event);
     }
 
     @Override

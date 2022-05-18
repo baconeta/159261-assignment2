@@ -8,6 +8,7 @@ import space_resistance.settings.Settings;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
 import tengine.graphics.components.TGraphicCompound;
+import tengine.physics.collisions.events.CollisionEvent;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -75,6 +76,9 @@ public class MenuScreen implements Screen {
     public void update(double dtMillis) {
         container.update(dtMillis);
     }
+
+    @Override
+    public void handleCollisionEvent(CollisionEvent event) {}
 
     private void onSubmenuSelection(SubmenuOption submenuOption) {
         activeMenu.removeFromParent();

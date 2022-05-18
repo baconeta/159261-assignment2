@@ -1,15 +1,18 @@
 package space_resistance.game;
 
+import space_resistance.actors.Explosion;
+import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.enemy.Enemy;
-import space_resistance.actors.enemy.EnemyType;
 import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.sprites.Background;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
 import space_resistance.utils.Notifier;
+import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
+import tengine.physics.collisions.events.CollisionEvent;
 import tengine.world.World;
 
 import java.awt.*;
@@ -75,8 +78,17 @@ public class GameWorld extends World {
     }
 
     public void update() {
+        for ( Actor a : this.actors){
+            try {
+                Explosion b = (Explosion) a;
+                b.update();
+            } catch (Exception e){
+                continue;
+            }
+        }
         //Test Enemy
         //testEnemy.update();
+        hud.update(gameState);
         for (int i = 0; i < background.size(); i ++){
             background.get(i).setOrigin(new TPoint(background.get(i).origin().x, background.get(i).origin().y + 1));
             if (background.get(0).origin().y == 800){
@@ -85,7 +97,7 @@ public class GameWorld extends World {
             }
         }
         playerOne.update();
-        if (gameState.playerOne().healthRemaining() == 0) {
+        if (gameState.playerOne().healthRemaining() <= 0) {
             setGameOver();
         }
 
@@ -121,5 +133,13 @@ public class GameWorld extends World {
 
     public GameConfig gameConfig() {
         return gameConfig;
+    }
+
+    public void handleCollisions(CollisionEvent event) {
+        if (event.actorA() == playerOne) { playerOne.collision(event.actorB()); }
+        if (event.actorA() instanceof Enemy && event.actorB() instanceof Bullet) {
+            event.actorB().destroy();
+            ((Enemy) event.actorA()).collision((Bullet) event.actorB(), gameState.playerOne(),((Enemy) event.actorA()).scoreValue());
+        }
     }
 }

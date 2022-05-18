@@ -7,6 +7,7 @@ import space_resistance.ui.screens.gameplay.PlayGameScreen;
 import space_resistance.ui.screens.menu.MenuScreen;
 import tengine.GameEngine;
 import tengine.geom.TPoint;
+import tengine.physics.collisions.events.CollisionEvent;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -46,6 +47,9 @@ public class Game extends GameEngine {
     public void keyReleased(KeyEvent keyEvent) {
         activeScreen.handleKeyReleased(keyEvent);
     }
+
+    @Override
+    public void onCollision(CollisionEvent event) { activeScreen.handleCollisionEvent(event); }
 
     public void requestScreenChange(ScreenIdentifier newScreen) {
         if (activeScreen != null && activeScreen.screen() == newScreen) return;

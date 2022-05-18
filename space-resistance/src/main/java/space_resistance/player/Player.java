@@ -15,12 +15,12 @@ public class Player {
         score = 0;
     }
 
-    public void increaseScore() {
-        score++;
+    public void increaseScore(int increaseAmount) {
+        score+= increaseAmount;
     }
 
-    public void reduceHealth() {
-        health--;
+    public void reduceHealth(int damage) {
+        health -= damage;
     }
 
     public int score() {
