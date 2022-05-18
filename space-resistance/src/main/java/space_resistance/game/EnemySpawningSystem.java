@@ -59,7 +59,7 @@ public class EnemySpawningSystem {
         while (iterator.hasNext()) {
             Enemy e = iterator.next();
             if (e == null) { continue; }
-            if (e.healthRemaining() <= 0) {
+            if (e.isDead()) {
                 iterator.remove();
                 continue;
             }
