@@ -26,6 +26,8 @@ public class Enemy extends Actor {
 
     protected EnemyType type;
 
+    private boolean isDead;
+
     private ArrayList<EnemyBullet> bullets = new ArrayList<EnemyBullet>();
 
     public Enemy(EnemyType type, GameWorld world, TPoint origin, Dimension dimension, int scoreWorth) {
@@ -41,6 +43,7 @@ public class Enemy extends Actor {
     public void spawnInWorld() {
         physics = initPhysics();
         world.add(this);
+        isDead = false;
     }
 
     protected TPhysicsComponent initPhysics() {
@@ -54,7 +57,7 @@ public class Enemy extends Actor {
 
     public void update() {
         if (health <= 0) {
-            this.destroy();
+            this.removeFromWorld();
             return;
         }
 
@@ -85,11 +88,11 @@ public class Enemy extends Actor {
     }
 
     public int scoreValue() { return scoreWorth; }
-    public int healthRemaining() { return health; }
+    public boolean isDead() { return isDead; }
 
     @Override
     public void destroy() {
-        health = 0; // This can be temporary but helps the Spawner detect dead enemies
+        isDead = true; // This can be temporary but helps the Spawner detect dead enemies
         super.destroy();
     }
 }
