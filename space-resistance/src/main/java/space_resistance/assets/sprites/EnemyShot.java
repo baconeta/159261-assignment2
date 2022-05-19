@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.InputStream;
 
 public class EnemyShot extends Sprite {
-    private static final String[] ENEMY_SHIP_SPRITES = {"MiteEnemyShot.png", "GrasshopperEnemyShot.png", "TarantulaEnemyShot.png"};
+    private static final String[] ENEMY_SHIP_SPRITES = {"MiteEnemyShot.png", "GrasshopperEnemyShot.png", "TarantulaEnemyShot.png", "GrasshopperEnemyShot.png"};
     public EnemyShot(EnemyType enemyType, Dimension dimension) {
         super(getShipSprite(enemyType), dimension);
     }
@@ -22,6 +22,9 @@ public class EnemyShot extends Sprite {
             }
             case Tarantula -> {
                 return AssetLoader.load(ENEMY_SHIP_SPRITES[2]);
+            }
+            case BossGoliath -> {
+                return AssetLoader.load(ENEMY_SHIP_SPRITES[3]); // TODO temporary sprite
             }
         }
         return null;
