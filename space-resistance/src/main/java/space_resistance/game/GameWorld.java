@@ -137,6 +137,7 @@ public class GameWorld extends World {
 
     public void handleCollisions(CollisionEvent event) {
         if (event.actorA() == playerOne) { playerOne.collision(event.actorB()); }
+        if (event.actorB() == playerOne){ playerOne.collision(event.actorA()); }
         if (event.actorA() instanceof Enemy && event.actorB() instanceof Bullet) {
             event.actorB().destroy();
             ((Enemy) event.actorA()).collision((Bullet) event.actorB(), gameState.playerOne(),((Enemy) event.actorA()).scoreValue());

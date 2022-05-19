@@ -56,7 +56,7 @@ public class EnemyBullet extends Actor {
     private TPhysicsComponent initPhysics() {
         boolean isStatic = false;
         boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
+        CollisionRect collisionRect = new CollisionRect(origin, new Dimension(35, graphic().dimension().height / 2));
         velocity = new TVelocity(500, new TVector(0, 1));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
