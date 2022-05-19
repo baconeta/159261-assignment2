@@ -1,6 +1,7 @@
 package space_resistance.game;
 
 import space_resistance.actors.enemy.Enemy;
+import space_resistance.actors.enemy.GoliathEnemy;
 import tengine.geom.TPoint;
 
 import java.util.ArrayList;
@@ -86,11 +87,9 @@ public class EnemySpawningSystem {
             enemiesSpawned.add(enemy);
         } else {
             currentState = SpawnState.BOSS;
-            //            Boss boss = currentWave.getBoss();
-            TPoint spawnLocation = new TPoint(0, 0); // TODO generalise and randomise spawnLocation?
-            //        boss.spawnAt(gameWorld, spawnLocation)
-
-        }
+            GoliathEnemy boss = currentWave.getBoss();
+            boss.spawnBoss(this);
+    }
         timeLastEnemySpawned = System.currentTimeMillis();
     }
 

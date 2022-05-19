@@ -106,6 +106,8 @@ public class Enemy extends Actor {
 
     public int scoreValue() { return scoreWorth; }
 
+    public void setMaxHealth(int maxHealth) { health = maxHealth; }
+
     public boolean isDead() { return isDead; }
 
     public void takeDamage(int damageToDeal) {
