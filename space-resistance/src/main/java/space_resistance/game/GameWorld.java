@@ -140,6 +140,9 @@ public class GameWorld extends World {
         if (event.actorA() instanceof Enemy && event.actorB() instanceof Bullet) {
             event.actorB().destroy();
             ((Enemy) event.actorA()).collision((Bullet) event.actorB(), gameState.playerOne(),((Enemy) event.actorA()).scoreValue());
+        } else if (event.actorA() instanceof Bullet && event.actorB() instanceof Enemy){
+            event.actorA().destroy();
+            ((Enemy) event.actorB()).collision((Bullet) event.actorA(), gameState.playerOne(),((Enemy) event.actorB()).scoreValue());
         }
     }
 }

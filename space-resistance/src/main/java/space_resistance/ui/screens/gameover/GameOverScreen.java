@@ -45,7 +45,7 @@ public class GameOverScreen implements Screen {
         TLabel score = new TLabel("Score: " + gameState.maxScore());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().bodyFont());
-        score.setOrigin(new TPoint(265, 340));
+        score.setOrigin(new TPoint(265 - gameState.maxScore() / 10, 340));
 
         switch(gameState.gameConfig().multiplayerMode()) {
             case SINGLE_PLAYER -> {
@@ -61,10 +61,10 @@ public class GameOverScreen implements Screen {
         }
 
         // Buttons
-        playAgain = new Button("Play again");
+        playAgain = new Button("PLAY AGAIN");
         playAgain.setOrigin(new TPoint(80, 490));
 
-        quit = new Button("Quit to menu");
+        quit = new Button("QUIT TO MENU");
         quit.setOrigin(new TPoint(470, 490));
 
         buttonGroup = new ButtonGroup(playAgain, quit);
