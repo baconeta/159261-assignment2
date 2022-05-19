@@ -45,8 +45,6 @@ public class EnemySpawningSystem {
                 }
                 break;
             case BOSS:
-                // TODO Check if the boss exists in the world? or implement a notifier?
-                break;
             case POST_WAVE:
             case DEFAULT:
                 break;
