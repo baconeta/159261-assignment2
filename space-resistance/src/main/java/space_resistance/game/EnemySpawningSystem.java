@@ -89,6 +89,7 @@ public class EnemySpawningSystem {
             currentState = SpawnState.BOSS;
             GoliathEnemy boss = currentWave.getBoss();
             boss.spawnBoss(this);
+            enemiesSpawned.add(boss);
     }
         timeLastEnemySpawned = System.currentTimeMillis();
     }
