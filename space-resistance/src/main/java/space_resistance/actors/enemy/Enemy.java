@@ -7,11 +7,13 @@ import space_resistance.assets.AssetLoader;
 import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.EnemyShip;
 import space_resistance.assets.sprites.PlayerShip;
+import space_resistance.game.Game;
 import space_resistance.game.GameWorld;
 import space_resistance.player.Player;
 import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.shapes.TRect;
 import tengine.graphics.components.sprites.AnimatedSprite;
 import tengine.graphics.components.sprites.Sprite;
 import tengine.physics.TPhysicsComponent;
@@ -54,6 +56,9 @@ public class Enemy extends Actor {
         TGraphicCompound enemySprite = new TGraphicCompound(dimension);
         EnemyShip enemy = new EnemyShip(type, this.dimension);
         enemySprite.add(enemy);
+        if (Game.DEBUG_MODE) {
+            enemySprite.add(new TRect(new Dimension((int) (dimension.width * 0.5), (int) (dimension.height * 0.5))));
+        }
         return enemySprite;
     }
 

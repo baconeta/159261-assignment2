@@ -13,6 +13,7 @@ import space_resistance.player.PlayerNumber;
 import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.shapes.TRect;
 import tengine.graphics.components.sprites.AnimatedSprite;
 import tengine.graphics.components.sprites.Sprite;
 import tengine.physics.TPhysicsComponent;
@@ -68,6 +69,7 @@ public class SpaceShip extends Actor {
         AnimatedSprite spaceshipThrusters = new PlayerThruster();
         spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + 30));
         playerSprite.add(spaceshipThrusters);
+        if (Game.DEBUG_MODE) { playerSprite.add(new TRect(DIMENSION)); }
         return playerSprite;
     }
 
