@@ -74,7 +74,7 @@ public class SpaceShip extends Actor {
     protected TPhysicsComponent initPhysics() {
         boolean isStatic = false;
         boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, new Dimension(graphic.dimension().width / 2, graphic.dimension().height));
+        CollisionRect collisionRect = new CollisionRect(origin, DIMENSION);
 
         // Feel free to change this if the speed isn't right
         velocity = new TVelocity(200, new TVector(0, 0));
