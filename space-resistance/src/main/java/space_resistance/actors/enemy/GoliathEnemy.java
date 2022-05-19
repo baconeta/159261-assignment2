@@ -7,8 +7,8 @@ import tengine.geom.TPoint;
 import java.awt.*;
 
 public class GoliathEnemy extends Enemy {
-    EnemySpawningSystem enemySpawningSystem;
     private final int maxTravelDistance = 150;
+    EnemySpawningSystem enemySpawningSystem;
 
     public GoliathEnemy(
             EnemyType type, GameWorld world, TPoint origin, Dimension dimension, int scoreWorth) {

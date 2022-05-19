@@ -2,7 +2,6 @@ package space_resistance.game;
 
 import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.enemy.GoliathEnemy;
-import tengine.geom.TPoint;
 
 import java.util.ArrayList;
 import java.util.Iterator;
