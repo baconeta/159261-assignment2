@@ -7,7 +7,6 @@ import tengine.geom.TPoint;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-// TODO remove all println statements before publish
 public class EnemySpawningSystem {
     private final GameWorld gameWorld;
     private int currentLevel;
@@ -29,9 +28,6 @@ public class EnemySpawningSystem {
     }
 
     public void update() {
-        // this could be a LOT more efficient, particularly in reference to calling a System function
-        // each frame.
-        // for now, this is sufficient until we have more implemented in the game...
         long currentTime = System.currentTimeMillis();
         switch (currentState) {
             case PRE_WAVE:
@@ -49,7 +45,7 @@ public class EnemySpawningSystem {
             case DEFAULT:
                 break;
         }
-        updateEnemiesInWorld(); // this should probably be done a different way but for now it works
+        updateEnemiesInWorld();
     }
 
     private void updateEnemiesInWorld() {
