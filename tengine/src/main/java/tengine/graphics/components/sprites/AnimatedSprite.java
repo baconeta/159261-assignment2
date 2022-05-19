@@ -1,5 +1,6 @@
 package tengine.graphics.components.sprites;
 
+import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicObject;
 import tengine.graphics.context.GraphicsCtx;
 import tengine.world.GridSquare;
@@ -52,7 +53,7 @@ public class AnimatedSprite extends TGraphicObject {
         int x = gridSquare.col() * dimension.width;
         int y = gridSquare.row() * dimension.height;
 
-        Image frame = subImage(image, new Point(x, y), dimension);
+        Image frame = subImage(image, new TPoint(x, y), dimension);
 
         ctx.drawImage(frame, dimension);
     }
@@ -61,7 +62,7 @@ public class AnimatedSprite extends TGraphicObject {
         sequenceEnd = onSequenceEnd;
     }
 
-    Image subImage(Image source, Point point, Dimension dimension) {
+    Image subImage(Image source, TPoint point, Dimension dimension) {
         if (source == null) {
             System.err.println("Error: cannot extract a sub image from a null image.");
 
@@ -70,6 +71,6 @@ public class AnimatedSprite extends TGraphicObject {
 
         BufferedImage buffered = (BufferedImage) source;
 
-        return buffered.getSubimage(point.x, point.y, dimension.width, dimension.height);
+        return buffered.getSubimage((int)point.x, (int)point.y, dimension.width, dimension.height);
     }
 }
