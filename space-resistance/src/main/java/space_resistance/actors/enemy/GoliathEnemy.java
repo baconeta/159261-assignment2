@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class GoliathEnemy extends Enemy {
     EnemySpawningSystem enemySpawningSystem;
+    private final int maxTravelDistance = 150;
 
     public GoliathEnemy(
             EnemyType type, GameWorld world, TPoint origin, Dimension dimension, int scoreWorth) {
@@ -23,5 +24,15 @@ public class GoliathEnemy extends Enemy {
     public void destroy() {
         enemySpawningSystem.bossDestroyed();
         super.destroy();
+    }
+
+    @Override
+    public void update() {
+        super.update();
+
+        if (this.origin.y >= maxTravelDistance) {
+            this.velocity.setSpeed(0);
+            // TODO here change the boss to go from left to right instead of towards the player
+        }
     }
 }
