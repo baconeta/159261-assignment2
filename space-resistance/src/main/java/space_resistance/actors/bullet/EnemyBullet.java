@@ -2,10 +2,12 @@ package space_resistance.actors.bullet;
 
 import space_resistance.actors.enemy.EnemyType;
 import space_resistance.assets.sprites.EnemyShot;
+import space_resistance.game.Game;
 import space_resistance.game.GameWorld;
 import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.shapes.TRect;
 import tengine.graphics.components.sprites.Sprite;
 import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionRect;
@@ -50,13 +52,14 @@ public class EnemyBullet extends Actor {
         Sprite enemyShot = new EnemyShot(type, new Dimension(72, 72));
         enemyBulletSprite.add(enemyShot);
 
+        if (Game.DEBUG_MODE) { enemyBulletSprite.add(new TRect(new Dimension(7, enemyBulletSprite.height() / 2))); }
         return enemyBulletSprite;
     }
 
     private TPhysicsComponent initPhysics() {
         boolean isStatic = false;
         boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, new Dimension(35, graphic().dimension().height / 2));
+        CollisionRect collisionRect = new CollisionRect(origin, new Dimension(7, graphic().dimension().height / 2));
         velocity = new TVelocity(500, new TVector(0, 1));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
