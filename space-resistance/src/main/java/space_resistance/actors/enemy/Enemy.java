@@ -66,8 +66,7 @@ public class Enemy extends Actor {
     }
 
     public void update() {
-        if (health <= 0) {
-            this.removeFromWorld();
+        if (health <= 0 || isDead) {
             return;
         }
 
@@ -113,23 +112,18 @@ public class Enemy extends Actor {
     public void takeDamage(int damageToDeal) {
         health -= damageToDeal;
         if (health <= 0) {
-            this.destroy();
+            Explosion e = new Explosion(world, this.origin);
+            isDead = true;
+            this.removeFromWorld();
         }
     }
 
     public void collision(Bullet actorB, Player player, int scoreContribution) {
+        if (isDead) { return; }
         takeDamage(actorB.damageToDeal());
         if (health <= 0 && !contributed) {
             contributed = true;
             player.increaseScore(scoreContribution);
         }
-    }
-
-    @Override
-    public void destroy() {
-        isDead = true;
-        Explosion e = new Explosion(world, this.origin);
-        velocity.setSpeed(10000); // Temporary fix for invisible enemies being destroyed again
-        super.destroy();
     }
 }
