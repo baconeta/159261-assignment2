@@ -41,8 +41,8 @@ abstract public class TGraphicObject {
         translation.dy = (int) origin.y;
     }
 
-    public Point origin() {
-        return new Point(translation.dx, translation.dy);
+    public TPoint origin() {
+        return new TPoint(translation.dx, translation.dy);
     }
 
     public int x() {
@@ -53,15 +53,15 @@ abstract public class TGraphicObject {
         return translation.dy;
     }
 
-    public Point midPoint() {
-        return new Point(dimension.width / 2, dimension.height / 2);
+    public TPoint midPoint() {
+        return new TPoint(dimension.width / 2, dimension.height / 2);
     }
 
     public void setRotation(double thetaDegrees) {
         rotation.thetaDegrees = thetaDegrees;
     }
 
-    public void setRotation(double thetaDegrees, Point origin) {
+    public void setRotation(double thetaDegrees, TPoint origin) {
         rotation.thetaDegrees = thetaDegrees;
         rotation.origin = origin;
     }
