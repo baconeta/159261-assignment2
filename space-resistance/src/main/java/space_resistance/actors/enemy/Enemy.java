@@ -3,6 +3,9 @@ package space_resistance.actors.enemy;
 import space_resistance.actors.Explosion;
 import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
+import space_resistance.actors.bullet.PlayerBullet;
+import space_resistance.assets.AssetLoader;
+import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.EnemyShip;
 import space_resistance.assets.sprites.PlayerShip;
 import space_resistance.game.Game;
@@ -20,6 +23,7 @@ import tengine.physics.kinematics.TVector;
 import tengine.physics.kinematics.TVelocity;
 
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -33,24 +37,23 @@ public class Enemy extends Actor {
     protected EnemyType type;
 
     private boolean isDead;
+    private List<EnemyBullet> bullets = new ArrayList<>();
 
-    private ArrayList<EnemyBullet> bullets = new ArrayList<>();
-
-    public Enemy(
-            EnemyType type, GameWorld world, TPoint origin, Dimension dimension, int scoreWorth) {
-        this.world = world;
+    public Enemy(EnemyType type, TPoint origin, Dimension dimension, int scoreWorth) {
         this.type = type;
         this.dimension = dimension;
         this.scoreWorth = scoreWorth;
+
         destroyWhenOffScreen = true;
+
         graphic = initSprite();
+
         setOrigin(origin);
     }
 
     private TGraphicCompound initSprite() {
-        // Enemy Ship
         TGraphicCompound enemySprite = new TGraphicCompound(dimension);
-        EnemyShip enemy = new EnemyShip(type, this.dimension);
+        EnemyShip enemy = EnemyShip.shipFor(type);
         enemySprite.add(enemy);
         if (Game.DEBUG_MODE) {
             enemySprite.add(new TRect(new Dimension((int) (dimension.width * 0.5), (int) (dimension.height * 0.5))));
@@ -74,31 +77,24 @@ public class Enemy extends Actor {
     }
 
     public void update() {
-        if (health <= 0 || isDead) {
-            return;
-        }
-
-        for (EnemyBullet bullet : bullets) {
-            bullet.update();
-        }
         if (bullets.size() < (Math.random() * 20)) {
             if (bullets.size() >= 1) {
                 // Delay shots
                 if (bullets.get(bullets.size() - 1).timeExisted() > 0) {
-                    bullets.add(
-                            new EnemyBullet(type, this.world, new TPoint(this.origin.x, this.origin.y + 30)));
+                    var bullet = new EnemyBullet(type, new TPoint(this.origin.x, this.origin.y + 30));
+                    bullets.add(bullet);
+                    world.add(bullet);
                 }
             } else {
-                bullets.add(
-                        new EnemyBullet(type, this.world, new TPoint(this.origin.x, this.origin.y + 30)));
+                var bullet = new EnemyBullet(type, new TPoint(this.origin.x, this.origin.y + 30));
+                bullets.add(bullet);
+                world.add(bullet);
             }
         } else {
-            if (bullets.get(bullets.size() - 1).timeExisted()
-                    > RANDOM.nextInt(2400 - 1700)
-                    + 1700) { // Shoot in bursts so that player isn't bombarded with constant shots from
-                // the enemy ship
+            // Shoot in bursts so that player isn't bombarded with constant shots from the enemy ship
+            if (bullets.get(bullets.size() - 1).timeExisted() > RANDOM.nextInt(2400 - 1700) + 1700) {
                 for (EnemyBullet bullet : bullets) {
-                    bullet.destroy();
+                    bullet.removeFromWorld();
                 }
                 bullets.clear();
             }
@@ -117,24 +113,29 @@ public class Enemy extends Actor {
         return isDead;
     }
 
-    public void takeDamage(int damageToDeal) {
-        health -= damageToDeal;
+    public void takeDamage(int damageToTake) {
+        health -= damageToTake;
         if (health <= 0) {
-            Explosion e = new Explosion(world, this.origin);
-            if (type == EnemyType.BossGoliath){
-                e.graphic().setScale(3);
-            }
-            isDead = true;
+            // Consider moving this into the game world
             this.removeFromWorld();
+            bullets.clear();
         }
     }
 
-    public void collision(Bullet actorB, Player player, int scoreContribution) {
-        if (isDead) { return; }
-        takeDamage(actorB.damageToDeal());
-        if (health <= 0 && !contributed) {
+    public void collision(PlayerBullet bullet, Player player, int scoreContribution) {
+        takeDamage(bullet.damageToDeal());
+        if (health <= 0 && !contributed){
             contributed = true;
+            // TODO: move adding score into GameWorld, an Enemy shouldn't be calling public methods on a player
             player.increaseScore(scoreContribution);
         }
+    }
+
+    @Override
+    public void destroy() {
+        isDead = true;
+        // FIXME: Temporary fix for invisible enemies being destroyed again
+        velocity.setSpeed(10000);
+        super.destroy();
     }
 }

@@ -2,6 +2,7 @@ package space_resistance.actors.spaceship;
 
 import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
+import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.animated_sprites.PlayerThruster;
@@ -27,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class SpaceShip extends Actor {
-    private static final String PLAYER_SHIP = "Player.png";
     private static final Dimension DIMENSION = new Dimension(64, 64);
 
     private final GameWorld world;
@@ -47,6 +47,7 @@ public class SpaceShip extends Actor {
                 player);
 
         world.add(spaceShip);
+
         return spaceShip;
     }
 
@@ -61,15 +62,16 @@ public class SpaceShip extends Actor {
     }
 
     private TGraphicCompound initSprite() {
-        // Player Ship
         TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
-        Sprite spaceship = new PlayerShip(AssetLoader.load(PLAYER_SHIP), DIMENSION);
-        playerSprite.add(spaceship);
-        // Player Thrust
-        AnimatedSprite spaceshipThrusters = new PlayerThruster();
+
+        // Thruster
+        AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
         spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + 30));
+
         playerSprite.add(spaceshipThrusters);
+        playerSprite.add(PlayerShip.shipSprite());
         if (Game.DEBUG_MODE) { playerSprite.add(new TRect(DIMENSION)); }
+
         return playerSprite;
     }
 
@@ -84,35 +86,42 @@ public class SpaceShip extends Actor {
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
 
-    public void checkBoundaries(){
-        if (this.origin.x < 0){
+    // TODO: Reduce calculations here, maybe use a boundary to be able to easily check if player is within it
+    public void checkBoundaries() {
+        if (this.origin.x < 0) {
             this.origin.x = 0;
         }
-        if (this.origin.y < 0){
+
+        if (this.origin.y < 0) {
             this.origin.y = 0;
         }
-        if (this.origin.x > Game.WINDOW_DIMENSION.width - DIMENSION.width){
+
+        if (this.origin.x > Game.WINDOW_DIMENSION.width - DIMENSION.width) {
             this.origin.x = Game.WINDOW_DIMENSION.width - DIMENSION.width;
         }
-        if (this.origin.y > Game.WINDOW_DIMENSION.height - DIMENSION.height * 2){
+
+        if (this.origin.y > Game.WINDOW_DIMENSION.height - DIMENSION.height * 2) {
             this.origin.y = Game.WINDOW_DIMENSION.height - DIMENSION.height * 2;
         }
     }
 
     public void update() {
-        for (var bullet : bullets) {
-            bullet.update();
-        }
-
         checkBoundaries();
+
+        // TODO: This should be handled in performAction, not here. Ideally this is handled at the GameWorld level so
+        //  we don't have actors adding things to the world willy nilly.
         if (shootKeyDown) {
             if (bullets.size() >= 1) {
                 // Delay shots of bullets so that thousands don't spawn when the player holds down the shooting key
                 if (bullets.get(bullets.size() - 1).timeExisted() > 50) {
-                    bullets.add(new Bullet(world, new TPoint(this.origin.x, this.origin.y - 5)));
+                    var bullet = new PlayerBullet(world, new TPoint(this.origin.x, this.origin.y - 5));
+                    bullets.add(bullet);
+                    world.add(bullet);
                 }
             } else {
-                bullets.add(new Bullet(world, new TPoint(this.origin.x, this.origin.y - 5)));
+                var bullet = new PlayerBullet(world, new TPoint(this.origin.x, this.origin.y - 5));
+                bullets.add(bullet);
+                world.add(bullet);
             }
         }
     }
@@ -133,8 +142,6 @@ public class SpaceShip extends Actor {
 
     private void performAction(Action action) {
         switch(action) {
-            // Set player velocity for corresponding axis to 10 or -10 depending on direction
-            // (arbitrary value, can be changed later)
             case MOVE_UP -> velocity.setDirectionY(-1);
             case MOVE_DOWN -> velocity.setDirectionY(1);
             case MOVE_LEFT -> velocity.setDirectionX(-1);
@@ -175,14 +182,13 @@ public class SpaceShip extends Actor {
     }
 
     public void collision(Actor actorB) {
+        // TODO: possibly use reflection + a switch here
         if (actorB instanceof EnemyBullet) {
-            EnemyBullet bullet = (EnemyBullet) actorB;
             player.reduceHealth(1);
-            bullet.destroy();
         }
-        if (actorB instanceof Enemy){
+
+        if (actorB instanceof Enemy) {
             player.reduceHealth(100);
-            actorB.destroy();
         }
     }
 }
