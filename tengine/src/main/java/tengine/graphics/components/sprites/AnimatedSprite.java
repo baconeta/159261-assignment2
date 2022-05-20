@@ -78,9 +78,4 @@ public class AnimatedSprite extends TGraphicObject {
     public void resetAnimation() {
         currentFrame = 0;
     }
-
-    // TODO: Add to engine
-    public void resetAnimation() {
-        currentFrame = 0;
-    }
 }
