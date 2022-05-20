@@ -71,8 +71,11 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
         scoreLabel = new TLabel("Score: " + state.playerOne().score());
         scoreLabel.setFont(FontBook.shared().scoreBoardFont());
+        double scoreLabelFontSize;
+        scoreLabelFontSize = ((30.0 / ((state.playerOne().score() + 6500) / 6.0)) * 1000);
+        scoreLabel.setFontSize((int) scoreLabelFontSize);
         scoreLabel.setColor(Colors.Text.PRIMARY);
-        scoreLabel.setOrigin(new TPoint(255, dimension.height - 15));
+        scoreLabel.setOrigin(new TPoint(225, dimension.height - 15));
         addAll(p1Scoreboard, scoreLabel);
     }
 }
