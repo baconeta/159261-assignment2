@@ -83,8 +83,8 @@ public class MasseyGraphicsCtx implements GraphicsCtx {
         masseyCtx.translate(translation.dx, translation.dy);
 
         masseyCtx.rotate(rotation.thetaDegrees,
-                rotation.origin.x,
-                rotation.origin.y
+                (int) rotation.origin.x,
+                (int) rotation.origin.y
         );
 
         masseyCtx.scale(scale.xScaleFactor, scale.yScaleFactor);
