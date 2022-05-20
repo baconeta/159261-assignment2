@@ -2,6 +2,8 @@ package space_resistance.game;
 
 import space_resistance.actors.Explosion;
 import space_resistance.actors.bullet.Bullet;
+import space_resistance.actors.bullet.EnemyBullet;
+import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.AssetLoader;
