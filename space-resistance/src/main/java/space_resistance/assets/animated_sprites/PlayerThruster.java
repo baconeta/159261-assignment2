@@ -8,7 +8,6 @@ import tengine.world.GridSquare;
 import java.awt.*;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 
 public class PlayerThruster extends AnimatedSprite {
     public static final int DEFAULT_FPS = 60;

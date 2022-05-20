@@ -5,18 +5,10 @@ import space_resistance.assets.animated_sprites.ExplosionSprite;
 import space_resistance.game.GameWorld;
 import tengine.Actor;
 import tengine.geom.TPoint;
-import tengine.graphics.components.TGraphicCompound;
-import tengine.graphics.components.sprites.AnimatedSprite;
 import tengine.graphics.components.sprites.SpriteSequence;
 import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionRect;
-import tengine.physics.kinematics.TVector;
 import tengine.physics.kinematics.TVelocity;
-import tengine.world.World;
-
-import java.awt.*;
-import java.util.Random;
-import java.util.function.Consumer;
 
 public class Explosion extends Actor {
     private final long startTime;

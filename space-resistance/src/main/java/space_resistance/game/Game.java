@@ -50,7 +50,9 @@ public class Game extends GameEngine {
     }
 
     @Override
-    public void onCollision(CollisionEvent event) { activeScreen.handleCollisionEvent(event); }
+    public void onCollision(CollisionEvent event) {
+        activeScreen.handleCollisionEvent(event);
+    }
 
     public void requestScreenChange(ScreenIdentifier newScreen) {
         if (activeScreen != null && activeScreen.screen() == newScreen) return;
