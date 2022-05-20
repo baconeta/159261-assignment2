@@ -19,6 +19,9 @@ public class SoundEffects {
     private static final String DEFAULT_SHOT = "PlayerShootingSound.wav";
     private static final AudioClip playerShootingSound = new AudioClip(AssetLoader.load(DEFAULT_SHOT));
 
+    private static final String EXPLOSION_SOUND = "ExplosionSoundEffect.wav";
+    private static final AudioClip explosionSound = new AudioClip(AssetLoader.load(EXPLOSION_SOUND));
+
     private static SoundEffects singleton = null;
 
     public static SoundEffects shared() {
@@ -48,4 +51,6 @@ public class SoundEffects {
     }
 
     public AudioClip defaultPlayerShootingSound(){ return playerShootingSound; }
+
+    public AudioClip explosionSound() {return explosionSound;}
 }

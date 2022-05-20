@@ -1,5 +1,6 @@
 package space_resistance.actors;
 
+import space_resistance.assets.SoundEffects;
 import space_resistance.assets.animated_sprites.ExplosionSprite;
 import space_resistance.game.GameWorld;
 import tengine.Actor;
@@ -26,7 +27,7 @@ public class Explosion extends Actor {
     private final int damageToDeal = 10;
 
     public Explosion(GameWorld world, TPoint origin) {
-        //SoundEffects.shared().explosionSound.play
+        SoundEffects.shared().explosionSound().play(5);
         this.world = world;
         graphic = initSprite();
         physics = initPhysics();
