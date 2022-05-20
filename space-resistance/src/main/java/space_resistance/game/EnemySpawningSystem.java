@@ -68,7 +68,7 @@ public class EnemySpawningSystem {
     }
 
     private void generateEnemyWave() {
-        currentWave = new EnemyWave(currentLevel, gameWorld);
+        currentWave = new EnemyWave(currentLevel);
         currentState = SpawnState.PRE_WAVE;
         timeLastWaveGenerated = System.currentTimeMillis();
     }
@@ -82,7 +82,7 @@ public class EnemySpawningSystem {
     private void SpawnEnemy() {
         if (currentWave.enemiesRemaining() > 0) {
             var enemy = currentWave.randomEnemyFromWave();
-            enemy.spawnInWorld();
+            enemy.spawnInWorld(gameWorld);
             enemiesSpawned.add(enemy);
         } else {
             currentState = SpawnState.BOSS;

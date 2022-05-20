@@ -4,6 +4,7 @@ import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.assets.sprites.EnemyShip;
 import space_resistance.game.Game;
+import space_resistance.game.GameWorld;
 import space_resistance.player.Player;
 import tengine.Actor;
 import tengine.geom.TPoint;
@@ -39,6 +40,7 @@ public class Enemy extends Actor {
         destroyWhenOffScreen = true;
 
         graphic = initSprite();
+        physics = initPhysics();
 
         setOrigin(origin);
     }
@@ -53,8 +55,7 @@ public class Enemy extends Actor {
         return enemySprite;
     }
 
-    public void spawnInWorld() {
-        physics = initPhysics();
+    public void spawnInWorld(GameWorld world) {
         world.add(this);
         isDead = false;
     }
