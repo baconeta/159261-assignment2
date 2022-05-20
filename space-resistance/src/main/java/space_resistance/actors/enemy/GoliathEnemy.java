@@ -7,7 +7,7 @@ import tengine.graphics.components.TGraphicCompound;
 import java.awt.*;
 
 public class GoliathEnemy extends Enemy {
-    public GoliathEnemy(EnemyType type, GameWorld world, TPoint origin, Dimension dimension, int scoreWorth) {
-        super(type, world, origin, dimension, scoreWorth);
+    public GoliathEnemy(EnemyType type, TPoint origin, Dimension dimension, int scoreWorth) {
+        super(type, origin, dimension, scoreWorth);
     }
 }
