@@ -64,6 +64,7 @@ public abstract class Actor {
         return destroyWhenOffScreen;
     }
 
+    // TODO: document the difference between this and destroy
     public void removeFromWorld() {
         world.remove(this);
     }
@@ -72,6 +73,7 @@ public abstract class Actor {
         this.world = world;
     }
 
+    // TODO: Document when this should be used compared to removeFromWorld()
     public void destroy() {
         graphic.removeFromParent();
         world = null;
