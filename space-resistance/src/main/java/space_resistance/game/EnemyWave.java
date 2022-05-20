@@ -19,7 +19,7 @@ public class EnemyWave {
     private static final Random RANDOM = new Random();
     private final int initialMillisecondsBetweenSpawns = 5100;
     private final int initialMillisecondsBeforeWave = 5000;
-    private final int bossHealthPerLevel = 1000;
+    private final int bossHealthPerLevel = 5000;
 
     // Spawn variables
     private final int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
