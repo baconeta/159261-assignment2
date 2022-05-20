@@ -18,63 +18,34 @@ import tengine.physics.kinematics.TVelocity;
 import java.awt.*;
 import java.util.Random;
 
-// TODO: Merge other bullet classes into this one
-//   Create a new constructor that takes a CharacterType enum
-//   Switch over the CharacterType to know which enemy shot image to load
-public class Bullet extends Actor {
-    private static final String PLAYER_DEFAULT_SHOT = "PlayerDefaultShots.png";
-    private static final Dimension DIMENSION = new Dimension(64, 64);
+public abstract class Bullet extends Actor {
     private static final Random RANDOM = new Random();
-
-    private final GameWorld world;
 
     private final long startTime;
     // Keeps track of how long bullet actor has existed
     private long currentTime = 0;
 
-    private final int damageToDeal = 10;
-
-    public Bullet(GameWorld world, TPoint origin) {
-        SoundEffects.shared().defaultPlayerShootingSound().play(5);
-        this.world = world;
-        graphic = initSprite();
-        physics = initPhysics();
-
+    // TODO: Consider creating an ActorType that can be passed in with the constructor and merging Enemy and Player
+    //  bullet into this class
+    public Bullet(TPoint origin) {
         // Variation in the shots
         origin.x += RANDOM.nextInt(1 + 1) - 1;
         startTime = System.currentTimeMillis();
 
         destroyWhenOffScreen = true;
-
-        setOrigin(origin);
-        world.add(this);
-
     }
 
     public void update() {
         currentTime = System.currentTimeMillis();
     }
 
-    private TGraphicCompound initSprite() {
-        TGraphicCompound bulletSprite = new TGraphicCompound(DIMENSION);
-        Sprite playerDefaultShot = new DefaultShot(AssetLoader.load(PLAYER_DEFAULT_SHOT), DIMENSION);
-        bulletSprite.add(playerDefaultShot);
-        if (Game.DEBUG_MODE) { bulletSprite.add(new TRect(DIMENSION)); }
-        return bulletSprite;
-    }
+    protected abstract TGraphicCompound initSprite();
 
-    private TPhysicsComponent initPhysics() {
-        boolean isStatic = false;
-        boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(500, new TVector(0, -1));
+    protected abstract TPhysicsComponent initPhysics();
 
-        return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
-    }
+    protected abstract Dimension dimension();
 
     public long timeExisted(){
         return currentTime - startTime;
     }
-
-    public int damageToDeal() { return damageToDeal; }
 }
