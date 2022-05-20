@@ -43,6 +43,8 @@ public class EnemyWave {
         GenerateWave(gw);
         enemiesRemaining = wave.size();
         enemiesPerSpawn = level;
+
+        wave.forEach(gw::add);
     }
 
     private void GenerateWave(GameWorld gw) {
@@ -52,7 +54,6 @@ public class EnemyWave {
             // This should also select an enemy type based on weight. Could some
             // enemy parameters be set based on the current level or difficulty?
             wave.add(new Enemy(MITE,
-                gw,
                 new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX), spawnY),
                 new Dimension(spawnWidth, spawnHeight),
                 100));
