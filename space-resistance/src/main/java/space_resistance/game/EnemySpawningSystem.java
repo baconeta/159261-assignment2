@@ -1,12 +1,11 @@
 package space_resistance.game;
 
 import space_resistance.actors.enemy.Enemy;
-import tengine.geom.TPoint;
+import space_resistance.actors.enemy.GoliathEnemy;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-// TODO remove all println statements before publish
 public class EnemySpawningSystem {
     private final GameWorld gameWorld;
     private int currentLevel;
@@ -28,9 +27,6 @@ public class EnemySpawningSystem {
     }
 
     public void update() {
-        // this could be a LOT more efficient, particularly in reference to calling a System function
-        // each frame.
-        // for now, this is sufficient until we have more implemented in the game...
         long currentTime = System.currentTimeMillis();
         switch (currentState) {
             case PRE_WAVE:
@@ -44,13 +40,11 @@ public class EnemySpawningSystem {
                 }
                 break;
             case BOSS:
-                // TODO Check if the boss exists in the world? or implement a notifier?
-                break;
             case POST_WAVE:
             case DEFAULT:
                 break;
         }
-        updateEnemiesInWorld(); // this should probably be done a different way but for now it works
+        updateEnemiesInWorld();
     }
 
     private void updateEnemiesInWorld() {
@@ -86,11 +80,10 @@ public class EnemySpawningSystem {
             enemiesSpawned.add(enemy);
         } else {
             currentState = SpawnState.BOSS;
-            //            Boss boss = currentWave.getBoss();
-            TPoint spawnLocation = new TPoint(0, 0); // TODO generalise and randomise spawnLocation?
-            //        boss.spawnAt(gameWorld, spawnLocation)
-
-        }
+            GoliathEnemy boss = currentWave.getBoss();
+            boss.spawnBoss(this);
+            enemiesSpawned.add(boss);
+    }
         timeLastEnemySpawned = System.currentTimeMillis();
     }
 
