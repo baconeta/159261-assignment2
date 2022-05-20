@@ -9,16 +9,10 @@ The player can move up, down, left, right and diagonally to position itself on t
 - Mite (worth 100 points)
 - Grasshopper (worth 300 points)
 - Tarantula (worth 500 points)
+
 The boss, known as the Goliath, is worth 1000 points.
 
-## Game Graphics
 
-All game graphics and animations are original works of Ali Soltanian Fard Jahromi.  The inspiration for the design of the graphics for each enemy ship was from real world insects.  Hence, mite ships are inspired from mites, grasshoppers from grasshoppers, tarantula ships from tarantulas and the goliath ships from goliath beetles.
-Game graphics and animations were created with Blender (an open-source 3D computer graphics software).
-
-## Game Audio
-
-Most of the game audio was created by modifying audios recorded by the developers creating sounds using their mouths.  The sounds were modified to give the sound effects.
 
 
 ## Requirements
@@ -135,6 +129,15 @@ The first screen loaded is the `MenuScreen`, which lets the player select the ga
 that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is loaded, it updates the
 `GameState` so that when the game is over and the `GameOverScreen` is loaded, it can be passed the `GameState` and
 display the results.
+
+## Game Graphics
+
+All game graphics and animations are original works of Ali Soltanian Fard Jahromi.  The inspiration for the design of the graphics for each enemy ship was from real world insects.  Hence, mite ships are inspired from mites, grasshoppers from grasshoppers, tarantula ships from tarantulas and the goliath ships from goliath beetles.
+Game graphics and animations were created with Blender (an open-source 3D computer graphics software).
+
+## Game Audio
+
+Most of the game audio was created by modifying audios recorded by the developers creating sounds using their mouths.  The sounds were modified to give the sound effects.
 
 ## Attributions
 
