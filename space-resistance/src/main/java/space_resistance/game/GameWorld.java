@@ -1,6 +1,7 @@
 package space_resistance.game;
 
 import space_resistance.actors.Explosion;
+import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
@@ -106,6 +107,16 @@ public class GameWorld extends World {
             }
         }
 
+        for (Actor a: actors) {
+            Bullet bullet = null;
+            try {
+                bullet = (Bullet) a;
+            } catch (Exception e) {
+                continue;
+            }
+            if (bullet != null) { bullet.update(); }
+        }
+
         enemySpawningSystem.update();
     }
 
@@ -150,14 +161,14 @@ public class GameWorld extends World {
             // TODO: Not sure we need this?
             ((Enemy) a).collision((PlayerBullet) b, gameState.playerOne(), ((Enemy) a).scoreValue());
 
-            this.add(new Explosion(this, a.origin()));
+//            this.add(new Explosion(this, a.origin()));
             a.removeFromWorld();
             b.removeFromWorld();
         } else if (a instanceof PlayerBullet && b instanceof Enemy) {
             // TODO: Not sure we need this?
             ((Enemy) b).collision((PlayerBullet) a, gameState.playerOne(), ((Enemy) b).scoreValue());
 
-            this.add(new Explosion(this, b.origin()));
+//            this.add(new Explosion(this, b.origin()));
             a.removeFromWorld();
             b.removeFromWorld();
         }
