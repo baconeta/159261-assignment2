@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class EnemySpawningSystem {
-    private final GameWorld gameWorld;
+    public final GameWorld gameWorld;
     private int currentLevel;
     private EnemyWave currentWave;
     private long timeLastWaveGenerated;

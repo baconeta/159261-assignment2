@@ -19,11 +19,15 @@ public class EnemyShot extends Sprite {
     private static final InputStream TARANTULA_ASSET = AssetLoader.load("TarantulaEnemyShot.png");
     private static final EnemyShot TARANTULA_SHOT = new EnemyShot(EnemyType.TARANTULA);
 
+    private static final InputStream GOLIATH_ASSET = AssetLoader.load("GrasshopperEnemyShot.png"); // TODO temporary
+    private static final EnemyShot GOLIATH_SHOT = new EnemyShot(EnemyType.TARANTULA);
+
     public static EnemyShot shotFor(EnemyType type) {
         return switch(type) {
             case MITE -> MITE_SHOT;
             case GRASSHOPPER -> GRASSHOPPER_SHOT;
             case TARANTULA -> TARANTULA_SHOT;
+            case GOLIATH -> GOLIATH_SHOT;
         };
     }
 
@@ -36,6 +40,7 @@ public class EnemyShot extends Sprite {
             case MITE        -> MITE_ASSET;
             case GRASSHOPPER -> GRASSHOPPER_ASSET;
             case TARANTULA   -> TARANTULA_ASSET;
+            case GOLIATH -> GOLIATH_ASSET;
         };
     }
 }

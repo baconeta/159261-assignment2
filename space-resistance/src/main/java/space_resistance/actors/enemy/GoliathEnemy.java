@@ -16,7 +16,7 @@ public class GoliathEnemy extends Enemy {
 
     public void spawnBoss(EnemySpawningSystem ess) {
         enemySpawningSystem = ess;
-        super.spawnInWorld();
+        super.spawnInWorld(ess.gameWorld);
     }
 
     @Override

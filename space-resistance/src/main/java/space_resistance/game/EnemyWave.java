@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import static java.lang.Integer.max;
-import static space_resistance.actors.enemy.EnemyType.BossGoliath;
+import static space_resistance.actors.enemy.EnemyType.GOLIATH;
 import static space_resistance.actors.enemy.EnemyType.MITE;
 
 public class EnemyWave {
@@ -56,7 +56,7 @@ public class EnemyWave {
                 new Dimension(spawnWidth, spawnHeight),
                 100));
         }
-        boss = new GoliathEnemy(BossGoliath, gw,
+        boss = new GoliathEnemy(GOLIATH,
                  new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX-spawnWidth*2), spawnY),
                  new Dimension(spawnWidth * 2, spawnHeight * 2), 1000);
         boss.setMaxHealth(bossHealthPerLevel * level);

@@ -19,11 +19,15 @@ public class EnemyShip extends Sprite {
     private static final InputStream TARANTULA_ASSET = AssetLoader.load("TarantulaEnemy.png");
     private static final EnemyShip TARANTULA_SHIP = new EnemyShip(EnemyType.MITE, DIMENSION);
 
+    private static final InputStream GOLIATH_ASSET = AssetLoader.load("GoliathBlue.png");
+    private static final EnemyShip GOLIATH_SHIP = new EnemyShip(EnemyType.GOLIATH, DIMENSION); // TODO make bigger
+
     public static EnemyShip shipFor(EnemyType type) {
         return switch(type) {
             case MITE -> MITE_SHIP;
             case GRASSHOPPER -> GRASSHOPPER_SHIP;
             case TARANTULA -> TARANTULA_SHIP;
+            case GOLIATH -> GOLIATH_SHIP;
         };
     }
 
@@ -36,6 +40,7 @@ public class EnemyShip extends Sprite {
             case MITE -> MITE_ASSET;
             case GRASSHOPPER -> GRASSHOPPER_ASSET;
             case TARANTULA -> TARANTULA_ASSET;
+            case GOLIATH -> GOLIATH_ASSET;
         };
     }
 }

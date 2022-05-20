@@ -22,7 +22,6 @@ import java.util.Random;
 
 public class Enemy extends Actor {
     private static final Random RANDOM = new Random();
-    protected final GameWorld world;
     protected Dimension dimension;
     protected int health = 100;
     protected int scoreWorth;
