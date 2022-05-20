@@ -38,16 +38,14 @@ public class EnemyWave {
 
     private GoliathEnemy boss;
 
-    public EnemyWave(int currentLevel, GameWorld gw) {
+    public EnemyWave(int currentLevel) {
         level = currentLevel;
-        GenerateWave(gw);
+        GenerateWave();
         enemiesRemaining = wave.size();
         enemiesPerSpawn = level;
-
-        wave.forEach(gw::add);
     }
 
-    private void GenerateWave(GameWorld gw) {
+    private void GenerateWave() {
         wave = new ArrayList<>();
         int totalEnemies = RANDOM.nextInt(minEnemiesPerWave, minEnemiesPerWave + level);
         for (int i = 0; i < totalEnemies; i++) {
