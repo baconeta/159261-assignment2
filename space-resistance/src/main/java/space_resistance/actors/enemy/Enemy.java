@@ -121,6 +121,9 @@ public class Enemy extends Actor {
         health -= damageToDeal;
         if (health <= 0) {
             Explosion e = new Explosion(world, this.origin);
+            if (type == EnemyType.BossGoliath){
+                e.graphic().setScale(3);
+            }
             isDead = true;
             this.removeFromWorld();
         }
