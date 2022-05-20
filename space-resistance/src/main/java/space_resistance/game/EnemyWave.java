@@ -5,6 +5,7 @@ import tengine.geom.TPoint;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Integer.max;
@@ -27,7 +28,7 @@ public class EnemyWave {
     private int spawnHeight = 72;
 
     // This wave
-    private ArrayList<Enemy> wave;
+    private List<Enemy> wave = new ArrayList<>();
     private int enemiesRemaining;
     private final int level;
     private final int enemiesPerSpawn;
@@ -56,7 +57,7 @@ public class EnemyWave {
         // boss = new Boss(); // only create one boss per level
     }
 
-    public ArrayList<Enemy> getWave() {
+    public List<Enemy> getWave() {
         return wave;
     }
 

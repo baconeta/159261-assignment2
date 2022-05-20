@@ -1,7 +1,6 @@
 package space_resistance.game;
 
 import space_resistance.actors.Explosion;
-import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
@@ -25,7 +24,7 @@ public class GameWorld extends World {
     private final Notifier gameOverNotifier;
     private final GameState gameState;
     private final GameConfig gameConfig;
-    private EnemySpawningSystem enemySpawningSystem;
+    private final EnemySpawningSystem enemySpawningSystem;
 
     private final HeadsUpDisplay hud;
 
@@ -33,10 +32,9 @@ public class GameWorld extends World {
     private SpaceShip playerOne;
     private SpaceShip playerTwo = null;
 
-
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
-    ArrayList<Background> background = new ArrayList<Background>();
+    ArrayList<Background> background = new ArrayList<>();
 
     private final TGraphicCompound container;
     //Test Enemy
@@ -44,6 +42,7 @@ public class GameWorld extends World {
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
+
         // Space Background
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
         background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
@@ -53,6 +52,7 @@ public class GameWorld extends World {
             container.add(b);
         }
         canvas.add(container);
+
         this.gameOverNotifier = gameOverNotifier;
         this.gameState = gameState;
         gameConfig = gameState.gameConfig();
@@ -80,8 +80,11 @@ public class GameWorld extends World {
     }
 
     public void update() {
+        // Test Enemy
         //testEnemy.update();
+
         hud.update(gameState);
+
         for (int i = 0; i < background.size(); i ++){
             background.get(i).setOrigin(new TPoint(background.get(i).origin().x, background.get(i).origin().y + 1));
             if (background.get(0).origin().y == 800){
@@ -89,6 +92,7 @@ public class GameWorld extends World {
                 background.get(1).setOrigin(new TPoint(0, -800));
             }
         }
+
         playerOne.update();
         if (gameState.playerOne().healthRemaining() <= 0) {
             setGameOver();
@@ -100,6 +104,7 @@ public class GameWorld extends World {
                 setGameOver();
             }
         }
+
         enemySpawningSystem.update();
     }
 

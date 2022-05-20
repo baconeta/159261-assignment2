@@ -1,30 +1,22 @@
 package space_resistance.actors.enemy;
 
-import space_resistance.actors.Explosion;
-import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
-import space_resistance.assets.AssetLoader;
-import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.EnemyShip;
-import space_resistance.assets.sprites.PlayerShip;
 import space_resistance.game.Game;
-import space_resistance.game.GameWorld;
 import space_resistance.player.Player;
 import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.shapes.TRect;
-import tengine.graphics.components.sprites.AnimatedSprite;
-import tengine.graphics.components.sprites.Sprite;
 import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionRect;
 import tengine.physics.kinematics.TVector;
 import tengine.physics.kinematics.TVelocity;
 
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Enemy extends Actor {
