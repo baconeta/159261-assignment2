@@ -1,6 +1,25 @@
 # Space Resistance
 
-A modern remake of the classic Shoot 'em up game Space Invaders, built in Java.
+A classic Shoot 'em up game, built in Java.
+
+##Game Design
+
+Space Resistance is a classic shoot’em up game where the aim is to defeat as many enemy ships as possible.  The game is played in a 600px x 800px window.  Game score increases as they destroy enemy ships.  Moving up levels is achieved through destroying a certain number of enemy ships and defeating the boss.
+The player can move up, down, left, right and diagonally to position itself on the screen.  There are three different types of enemy ships in addition to the boss:
+- Mite (worth 100 points)
+- Grasshopper (worth 300 points)
+- Tarantula (worth 500 points)
+The boss, known as the Goliath, is worth 1000 points.
+
+##Game Graphics
+
+All game graphics and animations are original works of Ali Soltanian Fard Jahromi.  The inspiration for the design of the graphics for each enemy ship was from real world insects.  Hence, mite ships are inspired from mites, grasshoppers from grasshoppers, tarantula ships from tarantulas and the goliath ships from goliath beetles.
+Game graphics and animations were created with Blender (an open-source 3D computer graphics software).
+
+##Game Audio
+
+Most of the game audio was created by modifying audios recorded by the developers creating sounds using their mouths.  The sounds were modified to give the sound effects.
+
 
 ## Requirements
 
@@ -119,5 +138,25 @@ display the results.
 
 ## Attributions
 
-- ...
-- ...
+###Ali Soltanian Fard Jahromi:
+- Game Design
+- Game Art and Animation
+- Sound Effects
+- Player Movement
+- Key Pressed and Key Released Functions
+- Player Velocity Vector Normalization
+- Code for class representing Player Shots
+- Player Shooting
+- Player Thrust
+- Control bindings for player shots
+- Class representing Enemy
+- Class representing Enemy Bullets
+- Enemy Types
+- Player Map Boundary Checks
+- Scrolling Space Background
+- Player HUD Score and Health
+- Applied Fonts to HUD
+- Collision Detection Between Enemy and Player ships
+- Explosion Actor
+- Spawn Explosion when Enemy Dies
+- Game Over Screen
