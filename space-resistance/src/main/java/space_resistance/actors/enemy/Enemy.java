@@ -30,7 +30,7 @@ public class Enemy extends Actor {
     protected EnemyType type;
 
     private boolean isDead;
-    private List<EnemyBullet> bullets = new ArrayList<>();
+    private final List<EnemyBullet> bullets = new ArrayList<>();
 
     public Enemy(EnemyType type, TPoint origin, Dimension dimension, int scoreWorth) {
         this.type = type;
@@ -70,6 +70,7 @@ public class Enemy extends Actor {
     }
 
     public void update() {
+        // TODO: Can we make this work by creating bullets in short bursts given a time interval?
         if (bullets.size() < (Math.random() * 20)) {
             if (bullets.size() >= 1) {
                 // Delay shots
@@ -86,9 +87,7 @@ public class Enemy extends Actor {
         } else {
             // Shoot in bursts so that player isn't bombarded with constant shots from the enemy ship
             if (bullets.get(bullets.size() - 1).timeExisted() > RANDOM.nextInt(2400 - 1700) + 1700) {
-                for (EnemyBullet bullet : bullets) {
-                    bullet.removeFromWorld();
-                }
+                bullets.forEach(EnemyBullet::removeFromWorld);
                 bullets.clear();
             }
         }
