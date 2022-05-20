@@ -78,15 +78,6 @@ public class GameWorld extends World {
     }
 
     public void update() {
-        for ( Actor a : this.actors){
-            try {
-                Explosion b = (Explosion) a;
-                b.update();
-            } catch (Exception e){
-                continue;
-            }
-        }
-        //Test Enemy
         //testEnemy.update();
         hud.update(gameState);
         for (int i = 0; i < background.size(); i ++){
@@ -135,15 +126,32 @@ public class GameWorld extends World {
         return gameConfig;
     }
 
+    // TODO: potentially buggy as playerOne also seems to be calling destroy on the other actor, need to replace calls
+    //  to actor.destroy() with actor.removeFromWorld()
     public void handleCollisions(CollisionEvent event) {
-        if (event.actorA() == playerOne) { playerOne.collision(event.actorB()); }
-        if (event.actorB() == playerOne){ playerOne.collision(event.actorA()); }
-        if (event.actorA() instanceof Enemy && event.actorB() instanceof Bullet) {
-            event.actorB().destroy();
-            ((Enemy) event.actorA()).collision((Bullet) event.actorB(), gameState.playerOne(),((Enemy) event.actorA()).scoreValue());
-        } else if (event.actorA() instanceof Bullet && event.actorB() instanceof Enemy){
-            event.actorA().destroy();
-            ((Enemy) event.actorB()).collision((Bullet) event.actorA(), gameState.playerOne(),((Enemy) event.actorB()).scoreValue());
+        Actor a = event.actorA();
+        Actor b = event.actorB();
+
+        if (a == playerOne && (b instanceof Enemy || b instanceof EnemyBullet)) {
+            playerOne.collision(b);
+            b.removeFromWorld();
+        } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet)) {
+            playerOne.collision(a);
+            a.removeFromWorld();
+        } else if (a instanceof Enemy && b instanceof PlayerBullet) {
+            // TODO: Not sure we need this?
+            ((Enemy) a).collision((PlayerBullet) b, gameState.playerOne(), ((Enemy) a).scoreValue());
+
+            this.add(new Explosion(this, a.origin()));
+            a.removeFromWorld();
+            b.removeFromWorld();
+        } else if (a instanceof PlayerBullet && b instanceof Enemy) {
+            // TODO: Not sure we need this?
+            ((Enemy) b).collision((PlayerBullet) a, gameState.playerOne(), ((Enemy) b).scoreValue());
+
+            this.add(new Explosion(this, b.origin()));
+            a.removeFromWorld();
+            b.removeFromWorld();
         }
     }
 }
