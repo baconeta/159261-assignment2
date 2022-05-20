@@ -9,7 +9,7 @@ import java.awt.*;
 public class GoliathEnemy extends Enemy {
   private final int maxTravelDistance = 150;
   EnemySpawningSystem enemySpawningSystem;
-  
+
     public GoliathEnemy(EnemyType type, TPoint origin, Dimension dimension, int scoreWorth) {
         super(type, origin, dimension, scoreWorth);
     }
