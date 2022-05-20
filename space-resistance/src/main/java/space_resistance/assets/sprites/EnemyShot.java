@@ -8,25 +8,34 @@ import java.awt.*;
 import java.io.InputStream;
 
 public class EnemyShot extends Sprite {
-    private static final String[] ENEMY_SHIP_SPRITES = {"MiteEnemyShot.png", "GrasshopperEnemyShot.png", "TarantulaEnemyShot.png", "GrasshopperEnemyShot.png"};
-    public EnemyShot(EnemyType enemyType, Dimension dimension) {
-        super(getShipSprite(enemyType), dimension);
+    private static final Dimension DIMENSION = new Dimension(72, 72);
+
+    private static final InputStream MITE_ASSET = AssetLoader.load("MiteEnemyShot.png");
+    private static final EnemyShot MITE_SHOT = new EnemyShot(EnemyType.MITE);
+
+    private static final InputStream GRASSHOPPER_ASSET = AssetLoader.load("GrasshopperEnemyShot.png");
+    private static final EnemyShot GRASSHOPPER_SHOT = new EnemyShot(EnemyType.GRASSHOPPER);
+
+    private static final InputStream TARANTULA_ASSET = AssetLoader.load("TarantulaEnemyShot.png");
+    private static final EnemyShot TARANTULA_SHOT = new EnemyShot(EnemyType.TARANTULA);
+
+    public static EnemyShot shotFor(EnemyType type) {
+        return switch(type) {
+            case MITE -> MITE_SHOT;
+            case GRASSHOPPER -> GRASSHOPPER_SHOT;
+            case TARANTULA -> TARANTULA_SHOT;
+        };
     }
-    private static InputStream getShipSprite(EnemyType shipType){
-        switch (shipType){
-            case Mite -> {
-                return AssetLoader.load(ENEMY_SHIP_SPRITES[0]);
-            }
-            case Grasshopper -> {
-                return AssetLoader.load(ENEMY_SHIP_SPRITES[1]);
-            }
-            case Tarantula -> {
-                return AssetLoader.load(ENEMY_SHIP_SPRITES[2]);
-            }
-            case BossGoliath -> {
-                return AssetLoader.load(ENEMY_SHIP_SPRITES[3]); // TODO temporary sprite
-            }
-        }
-        return null;
+
+    private EnemyShot(EnemyType type) {
+        super(shotSpriteFor(type), DIMENSION);
+    }
+
+    private static InputStream shotSpriteFor(EnemyType type) {
+        return switch (type) {
+            case MITE        -> MITE_ASSET;
+            case GRASSHOPPER -> GRASSHOPPER_ASSET;
+            case TARANTULA   -> TARANTULA_ASSET;
+        };
     }
 }

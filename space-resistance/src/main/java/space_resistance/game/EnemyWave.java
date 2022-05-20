@@ -10,7 +10,7 @@ import java.util.Random;
 
 import static java.lang.Integer.max;
 import static space_resistance.actors.enemy.EnemyType.BossGoliath;
-import static space_resistance.actors.enemy.EnemyType.Mite;
+import static space_resistance.actors.enemy.EnemyType.MITE;
 
 public class EnemyWave {
     // Game design settings
@@ -50,9 +50,11 @@ public class EnemyWave {
         for (int i = 0; i < totalEnemies; i++) {
             // This should also select an enemy type based on weight. Could some
             // enemy parameters be set based on the current level or difficulty?
-            wave.add(new Enemy(Mite, gw,
-                    new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX-spawnWidth), spawnY),
-                    new Dimension(spawnWidth, spawnHeight), 100));
+            wave.add(new Enemy(MITE,
+                gw,
+                new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX), spawnY),
+                new Dimension(spawnWidth, spawnHeight),
+                100));
         }
         boss = new GoliathEnemy(BossGoliath, gw,
                  new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX-spawnWidth*2), spawnY),
