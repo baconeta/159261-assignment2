@@ -2,7 +2,7 @@
 
 A classic Shoot 'em up game, built in Java.
 
-##Game Design
+## Game Design
 
 Space Resistance is a classic shoot’em up game where the aim is to defeat as many enemy ships as possible.  The game is played in a 600px x 800px window.  Game score increases as they destroy enemy ships.  Moving up levels is achieved through destroying a certain number of enemy ships and defeating the boss.
 The player can move up, down, left, right and diagonally to position itself on the screen.  There are three different types of enemy ships in addition to the boss:
@@ -11,12 +11,12 @@ The player can move up, down, left, right and diagonally to position itself on t
 - Tarantula (worth 500 points)
 The boss, known as the Goliath, is worth 1000 points.
 
-##Game Graphics
+## Game Graphics
 
 All game graphics and animations are original works of Ali Soltanian Fard Jahromi.  The inspiration for the design of the graphics for each enemy ship was from real world insects.  Hence, mite ships are inspired from mites, grasshoppers from grasshoppers, tarantula ships from tarantulas and the goliath ships from goliath beetles.
 Game graphics and animations were created with Blender (an open-source 3D computer graphics software).
 
-##Game Audio
+## Game Audio
 
 Most of the game audio was created by modifying audios recorded by the developers creating sounds using their mouths.  The sounds were modified to give the sound effects.
 
@@ -138,7 +138,7 @@ display the results.
 
 ## Attributions
 
-###Ali Soltanian Fard Jahromi:
+### Ali Soltanian Fard Jahromi:
 - Game Design
 - Game Art and Animation
 - Sound Effects
