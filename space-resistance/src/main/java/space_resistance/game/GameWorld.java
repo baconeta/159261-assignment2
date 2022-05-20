@@ -85,6 +85,7 @@ public class GameWorld extends World {
 
         hud.update(gameState);
 
+        // TODO: Potentially buggy, check for optimization
         for (int i = 0; i < background.size(); i ++){
             background.get(i).setOrigin(new TPoint(background.get(i).origin().x, background.get(i).origin().y + 1));
             if (background.get(0).origin().y == 800){
