@@ -71,13 +71,13 @@ public class Enemy extends Actor {
     public void update() {
         // TODO: Can we make this work by creating bullets in short bursts given a time interval?
         if (bullets.size() < (Math.random() * 20)) {
-            if (bullets.size() >= 0) {
+            if (bullets.size() >= 1) {
                 // Delay shots
-//                if (bullets.get(bullets.size() - 1).timeExisted() > 0) {
+                if (bullets.get(bullets.size() - 1).timeExisted() > 0) {
                     var bullet = new EnemyBullet(type, new TPoint(this.origin.x, this.origin.y + 30));
                     bullets.add(bullet);
                     world.add(bullet);
-//                }
+                }
             } else {
                 var bullet = new EnemyBullet(type, new TPoint(this.origin.x, this.origin.y + 30));
                 bullets.add(bullet);
@@ -86,7 +86,7 @@ public class Enemy extends Actor {
         } else {
             // Shoot in bursts so that player isn't bombarded with constant shots from the enemy ship
             if (bullets.get(bullets.size() - 1).timeExisted() > RANDOM.nextInt(2400 - 1700) + 1700) {
-//                bullets.forEach(EnemyBullet::removeFromWorld);
+                bullets.forEach(EnemyBullet::removeFromWorld);
                 bullets.clear();
             }
         }
