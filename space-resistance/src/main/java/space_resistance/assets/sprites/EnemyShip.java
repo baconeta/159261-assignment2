@@ -20,7 +20,7 @@ public class EnemyShip extends Sprite {
     private static final EnemyShip TARANTULA_SHIP = new EnemyShip(EnemyType.TARANTULA, DIMENSION);
 
     private static final InputStream GOLIATH_ASSET = AssetLoader.load("GoliathBlue.png");
-    private static final EnemyShip GOLIATH_SHIP = new EnemyShip(EnemyType.GOLIATH, DIMENSION); // TODO make bigger
+    private static final EnemyShip GOLIATH_SHIP = new EnemyShip(EnemyType.GOLIATH, new Dimension(144, 144));
 
     public static EnemyShip shipFor(EnemyType type) {
         return switch(type) {
