@@ -1,11 +1,9 @@
 package space_resistance.actors.enemy;
 
 import space_resistance.actors.bullet.EnemyBullet;
-import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.assets.sprites.EnemyShip;
 import space_resistance.game.Game;
 import space_resistance.game.GameWorld;
-import space_resistance.player.Player;
 import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
@@ -25,10 +23,8 @@ public class Enemy extends Actor {
     protected Dimension dimension;
     protected int health = 100;
     protected int scoreWorth;
-    protected boolean contributed = false;
     protected EnemyType type;
 
-    private boolean isDead;
     private final List<EnemyBullet> bullets = new ArrayList<>();
 
     public Enemy(EnemyType type, TPoint origin, Dimension dimension, int scoreWorth) {
@@ -56,7 +52,6 @@ public class Enemy extends Actor {
 
     public void spawnInWorld(GameWorld world) {
         world.add(this);
-        isDead = false;
     }
 
     protected TPhysicsComponent initPhysics() {
@@ -100,19 +95,14 @@ public class Enemy extends Actor {
         health = maxHealth;
     }
 
-    public boolean isDead() {
-        return isDead;
-    }
-
     // lets this enemy take damage and returns whether the enemy died ?
     public boolean takeDamage(int damageToTake) {
         health -= damageToTake;
         return health <= 0;
     }
-    
+
     @Override
     public void destroy() {
-        isDead = true;
         // FIXME: Temporary fix for invisible enemies being destroyed again
         velocity.setSpeed(10000);
         super.destroy();
