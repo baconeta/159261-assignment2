@@ -104,24 +104,12 @@ public class Enemy extends Actor {
         return isDead;
     }
 
-    public void takeDamage(int damageToTake) {
+    // lets this enemy take damage and returns whether the enemy died ?
+    public boolean takeDamage(int damageToTake) {
         health -= damageToTake;
-        if (health <= 0) {
-            // Consider moving this into the game world
-            this.removeFromWorld();
-            bullets.clear();
-        }
+        return health <= 0;
     }
-
-    public void collision(PlayerBullet bullet, Player player, int scoreContribution) {
-        takeDamage(bullet.damageToDeal());
-        if (health <= 0 && !contributed){
-            contributed = true;
-            // TODO: move adding score into GameWorld, an Enemy shouldn't be calling public methods on a player
-            player.increaseScore(scoreContribution);
-        }
-    }
-
+    
     @Override
     public void destroy() {
         isDead = true;
