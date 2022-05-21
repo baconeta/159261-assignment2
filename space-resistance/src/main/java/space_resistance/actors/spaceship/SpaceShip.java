@@ -1,6 +1,5 @@
 package space_resistance.actors.spaceship;
 
-import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
@@ -22,7 +21,6 @@ import tengine.physics.kinematics.TVelocity;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class SpaceShip extends Actor {
@@ -30,9 +28,8 @@ public class SpaceShip extends Actor {
 
     private final GameWorld world;
     private final Player player;
-    private final ArrayList<Bullet> bullets = new ArrayList<>();
     private long lastBulletFired;
-    private int delayBetweenBullets = 50;
+    private final int delayBetweenBullets = 50;
 
     // TODO: maybe rework the player controls mapping so we don't need to store these on the class
     KeyEvent keyPressed = null;
@@ -113,7 +110,6 @@ public class SpaceShip extends Actor {
         long currentTime = System.currentTimeMillis();
         if (shootKeyDown && currentTime-lastBulletFired > delayBetweenBullets) {
             var bullet = new PlayerBullet(world, new TPoint(this.origin.x, this.origin.y - 5));
-            bullets.add(bullet);
             world.add(bullet);
             lastBulletFired  = currentTime;
         }
