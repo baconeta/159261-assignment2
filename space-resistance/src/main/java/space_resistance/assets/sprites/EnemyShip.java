@@ -14,10 +14,10 @@ public class EnemyShip extends Sprite {
     private static final EnemyShip MITE_SHIP = new EnemyShip(EnemyType.MITE, DIMENSION);
 
     private static final InputStream GRASSHOPPER_ASSET = AssetLoader.load("GrasshopperEnemy.png");
-    private static final EnemyShip GRASSHOPPER_SHIP = new EnemyShip(EnemyType.MITE, DIMENSION);
+    private static final EnemyShip GRASSHOPPER_SHIP = new EnemyShip(EnemyType.GRASSHOPPER, DIMENSION);
 
     private static final InputStream TARANTULA_ASSET = AssetLoader.load("TarantulaEnemy.png");
-    private static final EnemyShip TARANTULA_SHIP = new EnemyShip(EnemyType.MITE, DIMENSION);
+    private static final EnemyShip TARANTULA_SHIP = new EnemyShip(EnemyType.TARANTULA, DIMENSION);
 
     private static final InputStream GOLIATH_ASSET = AssetLoader.load("GoliathBlue.png");
     private static final EnemyShip GOLIATH_SHIP = new EnemyShip(EnemyType.GOLIATH, DIMENSION); // TODO make bigger
