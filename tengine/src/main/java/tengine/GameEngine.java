@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serial;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -129,12 +130,18 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public void update(double dtMillis) {
         if (activeWorld != null) {
             List<Actor> actors = new ArrayList<>(activeWorld.actors());
-            actors.forEach(actor -> {
-                actor.physics().update(physicsEngine, dtMillis);
+            for (Iterator<Actor> iterator = actors.iterator(); iterator.hasNext(); ) {
+                Actor actor = iterator.next();
                 if (actor.destroyWhenOffScreen && !isOnScreen(actor)) {
                     activeWorld.remove(actor);
                 }
-            });
+                if (actor.pendingKill) {
+                    iterator.remove();
+                    actor.destroy();
+                    continue;
+                }
+                actor.physics().update(physicsEngine, dtMillis);
+            }
 
             physicsEngine.processCollisions(actors, dtMillis);
         }

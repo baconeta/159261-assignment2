@@ -1,10 +1,6 @@
 package space_resistance.game;
 
-import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.enemy.GoliathEnemy;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class EnemySpawningSystem {
     public final GameWorld gameWorld;
@@ -13,17 +9,11 @@ public class EnemySpawningSystem {
     private long timeLastWaveGenerated;
     private long timeLastEnemySpawned;
     private SpawnState currentState = SpawnState.DEFAULT;
-    private ArrayList<Enemy> enemiesSpawned;
 
     public EnemySpawningSystem(GameWorld gw) {
         gameWorld = gw;
         currentLevel = 1;
         generateEnemyWave();
-        enemiesSpawned = new ArrayList<>();
-    }
-
-    public SpawnState getCurrentState() {
-        return currentState;
     }
 
     public void update() {
@@ -44,21 +34,6 @@ public class EnemySpawningSystem {
             case DEFAULT:
                 break;
         }
-        updateEnemiesInWorld();
-    }
-
-    private void updateEnemiesInWorld() {
-        Iterator<Enemy> iterator = enemiesSpawned.iterator();
-        // An iterator is required to allow removing an element during iteration
-        while (iterator.hasNext()) {
-            Enemy e = iterator.next();
-            if (e == null) { continue; }
-            if (e.isDead()) {
-                iterator.remove();
-                continue;
-            }
-            e.update();
-        }
     }
 
     private void generateEnemyWave() {
@@ -77,12 +52,10 @@ public class EnemySpawningSystem {
         if (currentWave.enemiesRemaining() > 0) {
             var enemy = currentWave.randomEnemyFromWave();
             enemy.spawnInWorld(gameWorld);
-            enemiesSpawned.add(enemy);
         } else {
             currentState = SpawnState.BOSS;
             GoliathEnemy boss = currentWave.getBoss();
             boss.spawnBoss(this);
-            enemiesSpawned.add(boss);
     }
         timeLastEnemySpawned = System.currentTimeMillis();
     }
