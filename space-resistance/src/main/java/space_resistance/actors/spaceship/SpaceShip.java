@@ -31,6 +31,8 @@ public class SpaceShip extends Actor {
     private final GameWorld world;
     private final Player player;
     private final ArrayList<Bullet> bullets = new ArrayList<>();
+    private long lastBulletFired;
+    private int delayBetweenBullets = 50;
 
     // TODO: maybe rework the player controls mapping so we don't need to store these on the class
     KeyEvent keyPressed = null;
@@ -108,19 +110,12 @@ public class SpaceShip extends Actor {
 
         // TODO: This should be handled in performAction, not here. Ideally this is handled at the GameWorld level so
         //  we don't have actors adding things to the world willy nilly.
-        if (shootKeyDown) {
-            if (bullets.size() >= 1) {
-                // Delay shots of bullets so that thousands don't spawn when the player holds down the shooting key
-                if (bullets.get(bullets.size() - 1).timeExisted() > 50) {
-                    var bullet = new PlayerBullet(world, new TPoint(this.origin.x, this.origin.y - 5));
-                    bullets.add(bullet);
-                    world.add(bullet);
-                }
-            } else {
-                var bullet = new PlayerBullet(world, new TPoint(this.origin.x, this.origin.y - 5));
-                bullets.add(bullet);
-                world.add(bullet);
-            }
+        long currentTime = System.currentTimeMillis();
+        if (shootKeyDown && currentTime-lastBulletFired > delayBetweenBullets) {
+            var bullet = new PlayerBullet(world, new TPoint(this.origin.x, this.origin.y - 5));
+            bullets.add(bullet);
+            world.add(bullet);
+            lastBulletFired  = currentTime;
         }
     }
 
