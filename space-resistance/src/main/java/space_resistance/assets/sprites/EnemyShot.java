@@ -20,7 +20,7 @@ public class EnemyShot extends Sprite {
     private static final EnemyShot TARANTULA_SHOT = new EnemyShot(EnemyType.TARANTULA);
 
     private static final InputStream GOLIATH_ASSET = AssetLoader.load("GrasshopperEnemyShot.png"); // TODO temporary
-    private static final EnemyShot GOLIATH_SHOT = new EnemyShot(EnemyType.TARANTULA);
+    private static final EnemyShot GOLIATH_SHOT = new EnemyShot(EnemyType.GOLIATH);
 
     public static EnemyShot shotFor(EnemyType type) {
         return switch(type) {
