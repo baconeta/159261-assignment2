@@ -156,19 +156,19 @@ public class GameWorld extends World {
             playerOne.collision(a);
             a.removeFromWorld();
         } else if (a instanceof Enemy && b instanceof PlayerBullet) {
-            // TODO: Not sure we need this?
-            ((Enemy) a).collision((PlayerBullet) b, gameState.playerOne(), ((Enemy) a).scoreValue());
-
-            this.add(new Explosion(this, a.origin()));
-            a.removeFromWorld();
+            if (((Enemy) a).takeDamage(((PlayerBullet) b).damageToDeal())) {
+                this.add(new Explosion(this, a.origin()));
+                gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
+                a.removeFromWorld();
+            }
             b.removeFromWorld();
         } else if (a instanceof PlayerBullet && b instanceof Enemy) {
-            // TODO: Not sure we need this?
-            ((Enemy) b).collision((PlayerBullet) a, gameState.playerOne(), ((Enemy) b).scoreValue());
-
-            this.add(new Explosion(this, b.origin()));
+            if (((Enemy) b).takeDamage(((PlayerBullet) a).damageToDeal())) {
+                this.add(new Explosion(this, b.origin()));
+                gameState.playerOne().increaseScore(((Enemy) b).scoreValue());
+                b.removeFromWorld();
+            }
             a.removeFromWorld();
-            b.removeFromWorld();
         }
     }
 }
