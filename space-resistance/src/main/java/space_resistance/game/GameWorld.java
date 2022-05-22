@@ -33,13 +33,16 @@ public class GameWorld extends World {
     private SpaceShip playerOne;
     private SpaceShip playerTwo = null;
 
+    // Pickup rates
+    private final int chanceHealth = 5;
+    private final int chanceShield = 2;
+    private final int chanceMissiles = 1;
+    
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
     ArrayList<Background> background = new ArrayList<>();
 
     private final TGraphicCompound container;
-    //Test Enemy
-    //private Enemy testEnemy;
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
@@ -59,8 +62,6 @@ public class GameWorld extends World {
         gameConfig = gameState.gameConfig();
 
         initPlayers();
-        //Test Enemy
-        //testEnemy = new Enemy(EnemyType.Grasshopper, this, new TPoint(0, 0), new Dimension(72,72), 300);
 
         // HUD
         hud = new HeadsUpDisplay(canvas.dimension(),  gameState);
@@ -81,9 +82,6 @@ public class GameWorld extends World {
     }
 
     public void update() {
-        // Test Enemy
-        //testEnemy.update();
-
         hud.update(gameState);
 
         // TODO: Potentially buggy, check for optimization
@@ -112,7 +110,6 @@ public class GameWorld extends World {
             if (a instanceof Enemy) {
                 ((Enemy) a).update();
             }
-//            System.out.println(a.toString());
         }
 
         enemySpawningSystem.update();
