@@ -50,4 +50,6 @@ public class Pickup extends Actor {
         }
         return pickup;
     }
+
+    public PickupType pickupType() { return type; }
 }

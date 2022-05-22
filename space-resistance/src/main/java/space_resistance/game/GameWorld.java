@@ -39,7 +39,7 @@ public class GameWorld extends World {
 
     // Pickups
     private static final Dimension pickupDimension = new Dimension(50, 50);
-    private final int chanceHealth = 5;
+    private final int chanceHealth = 50;
     private final int chanceShield = 2;
     private final int chanceMissiles = 1;
 
@@ -151,16 +151,16 @@ public class GameWorld extends World {
         Actor a = event.actorA();
         Actor b = event.actorB();
 
-        if (a == playerOne && (b instanceof Enemy || b instanceof EnemyBullet)) {
+        if (a == playerOne && (b instanceof Enemy || b instanceof EnemyBullet || b instanceof Pickup)) {
             playerOne.collision(b);
             b.removeFromWorld();
-        } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet)) {
+        } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet || a instanceof Pickup)) {
             playerOne.collision(a);
             a.removeFromWorld();
         } else if (a instanceof Enemy && b instanceof PlayerBullet) {
             if (((Enemy) a).takeDamage(((PlayerBullet) b).damageToDeal())) {
                 this.add(new Explosion(this, a.origin()));
-                TrySpawnPickup(a.origin());
+                trySpawnPickup(a.origin());
                 gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
                 a.removeFromWorld();
             }
@@ -169,14 +169,14 @@ public class GameWorld extends World {
             if (((Enemy) b).takeDamage(((PlayerBullet) a).damageToDeal())) {
                 this.add(new Explosion(this, b.origin()));
                 gameState.playerOne().increaseScore(((Enemy) b).scoreValue());
-                TrySpawnPickup(b.origin());
+                trySpawnPickup(b.origin());
                 b.removeFromWorld();
             }
             a.removeFromWorld();
         }
     }
 
-    private void TrySpawnPickup(TPoint locationToSpawn) {
+    private void trySpawnPickup(TPoint locationToSpawn) {
         int spawnValue = RANDOM.nextInt(1, 101);
         if (spawnValue <= chanceMissiles) {
             this.add(new Pickup(PickupType.Missiles, this, locationToSpawn, pickupDimension));

@@ -1,5 +1,7 @@
 package space_resistance.player;
 
+import space_resistance.actors.pickup.PickupType;
+
 public class Player {
     public static final int STARTING_HEALTH = 100;
 
@@ -23,6 +25,11 @@ public class Player {
         health -= damage;
     }
 
+    public void addHealth(int healing) {
+        health += healing;
+        if (health > STARTING_HEALTH) { health = STARTING_HEALTH; }
+    }
+
     public int score() {
         return score;
     }
@@ -37,5 +44,11 @@ public class Player {
 
     public PlayerControls controls() {
         return playerControls;
+    }
+
+    public void handlePickup(PickupType pickupType) {
+        if (pickupType.equals(PickupType.Health)) {
+            addHealth(20);
+        } // TODO other types to be handled here later
     }
 }
