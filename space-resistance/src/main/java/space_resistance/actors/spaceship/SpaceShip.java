@@ -108,7 +108,7 @@ public class SpaceShip extends Actor {
         // TODO: This should be handled in performAction, not here. Ideally this is handled at the GameWorld level so
         //  we don't have actors adding things to the world willy nilly.
         long currentTime = System.currentTimeMillis();
-        if (shootKeyDown && currentTime-lastBulletFired > delayBetweenBullets) {
+        if (shootKeyDown && currentTime-lastBulletFired > DELAY_BETWEEN_BULLETS) {
             var bullet = new PlayerBullet(world, new TPoint(this.origin.x, this.origin.y - 5));
             world.add(bullet);
             lastBulletFired  = currentTime;
