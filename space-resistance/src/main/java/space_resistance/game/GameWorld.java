@@ -39,7 +39,7 @@ public class GameWorld extends World {
 
     // Pickups
     private static final Dimension pickupDimension = new Dimension(32, 32);
-    private final int chanceHealth = 50;
+    private final int chanceHealth = 5;
     private final int chanceShield = 2;
     private final int chanceMissiles = 1;
 

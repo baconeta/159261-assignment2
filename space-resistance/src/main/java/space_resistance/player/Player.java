@@ -4,17 +4,22 @@ import space_resistance.actors.pickup.PickupType;
 
 public class Player {
     public static final int STARTING_HEALTH = 100;
+    public static final int STARTING_SHIELD = 0;
 
     private final PlayerNumber playerNumber;
     private final PlayerControls playerControls;
     private int score;
     private int health;
+    private boolean shieldsOn;
+    private int shieldValue;
 
     public Player(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
         this.playerControls = PlayerControls.controlsForPlayer(playerNumber);
         health = STARTING_HEALTH;
         score = 0;
+        shieldValue = STARTING_SHIELD;
+        shieldsOn = shieldValue > 0;
     }
 
     public void increaseScore(int increaseAmount) {
@@ -22,7 +27,23 @@ public class Player {
     }
 
     public void reduceHealth(int damage) {
+        if (shieldsOn) {
+            damage = damageShields(damage);
+        }
         health -= damage;
+    }
+
+    private int damageShields(int damage) {
+        if (shieldValue > damage) {
+            shieldValue -= damage;
+            return 0;
+        }
+        else {
+            int preDamageShield = shieldValue;
+            shieldValue = 0;
+            shieldsOn = false;
+            return damage - preDamageShield;
+        }
     }
 
     public void addHealth(int healing) {
@@ -49,6 +70,13 @@ public class Player {
     public void handlePickup(PickupType pickupType) {
         if (pickupType.equals(PickupType.Health)) {
             addHealth(20);
-        } // TODO other types to be handled here later
+        } else if (pickupType.equals(PickupType.Shield)) {
+            shieldsOn = true;
+            shieldValue += 25;
+        }
     }
+
+    public boolean shieldEnabled() { return shieldsOn; }
+
+    public int shieldHealth() { return shieldValue; }
 }
