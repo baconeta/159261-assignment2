@@ -18,6 +18,8 @@ public class AnimatedSprite extends TGraphicObject {
     protected int currentFrame;
     protected Consumer<SpriteSequence> sequenceEnd = null;
 
+    protected boolean pausedAnimation = false;
+
     protected AnimatedSprite(InputStream is, Dimension frameDimension, int fps, SpriteSequence currentSequence) {
         super(frameDimension);
         image = ImageLoader.loadImage(is);
@@ -29,22 +31,24 @@ public class AnimatedSprite extends TGraphicObject {
 
     @Override
     public void update(double dtSecs) {
-        elapsedSecs += dtSecs;
+        if (!pausedAnimation){
+            elapsedSecs += dtSecs;
 
-        if (currentSequence.loops() || currentFrame != currentSequence.lastFrame()) {
-            int framesToSkip = (int) (elapsedSecs / (1.0 / fps));
-            if (!currentSequence.loops()) {
-                framesToSkip = Math.min(framesToSkip, currentSequence.lastFrame() - currentFrame);
+            if (currentSequence.loops() || currentFrame != currentSequence.lastFrame()) {
+                int framesToSkip = (int) (elapsedSecs / (1.0 / fps));
+                if (!currentSequence.loops()) {
+                    framesToSkip = Math.min(framesToSkip, currentSequence.lastFrame() - currentFrame);
+                }
+                currentFrame = (currentFrame + framesToSkip) % currentSequence.numFrames();
             }
-            currentFrame = (currentFrame + framesToSkip) % currentSequence.numFrames();
-        }
 
-        // TODO: only notify once if not looping
-        if (currentFrame == currentSequence.lastFrame() && sequenceEnd != null) {
-            sequenceEnd.accept(currentSequence);
-        }
+            // TODO: only notify once if not looping
+            if (currentFrame == currentSequence.lastFrame() && sequenceEnd != null) {
+                sequenceEnd.accept(currentSequence);
+            }
 
-        elapsedSecs %= (1.0 / fps);
+            elapsedSecs %= (1.0 / fps);
+        }
     }
 
     @Override
@@ -72,6 +76,10 @@ public class AnimatedSprite extends TGraphicObject {
         BufferedImage buffered = (BufferedImage) source;
 
         return buffered.getSubimage((int)point.x, (int)point.y, dimension.width, dimension.height);
+    }
+
+    public void setPaused(boolean paused){
+        pausedAnimation = paused;
     }
 
     // TODO: Add to engine

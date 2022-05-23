@@ -14,13 +14,16 @@ import tengine.physics.kinematics.TVelocity;
 import java.awt.*;
 
 public class EnemyBullet extends Bullet {
-    private static final Dimension DIMENSION = new Dimension(72, 72);
+    private static final Dimension DIMENSION = new Dimension(12, 12);
     private final EnemyType type;
 
     public EnemyBullet(EnemyType type, TPoint origin) {
         super(origin);
         this.type = type;
-
+        if (this.type == EnemyType.GOLIATH){
+            origin.x += 35;
+            origin.y += 60;
+        }
         graphic = initSprite();
         physics = initPhysics();
 

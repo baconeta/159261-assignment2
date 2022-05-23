@@ -72,6 +72,11 @@ public class HeadsUpDisplay extends TGraphicCompound {
         scoreLabel = new TLabel("Score: " + state.playerOne().score());
         scoreLabel.setFont(FontBook.shared().scoreBoardFont());
         double scoreLabelFontSize;
+        // Equation for HUD score font size (x = player score):
+        //             30
+        //---------------------------------
+        //  ( (x + 6500) / 6 ) * 1000
+
         scoreLabelFontSize = ((30.0 / ((state.playerOne().score() + 6500) / 6.0)) * 1000);
         scoreLabel.setFontSize((int) scoreLabelFontSize);
         scoreLabel.setColor(Colors.Text.PRIMARY);

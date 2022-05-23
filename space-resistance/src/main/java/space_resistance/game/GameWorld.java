@@ -112,7 +112,6 @@ public class GameWorld extends World {
             if (a instanceof Enemy) {
                 ((Enemy) a).update();
             }
-//            System.out.println(a.toString());
         }
 
         enemySpawningSystem.update();

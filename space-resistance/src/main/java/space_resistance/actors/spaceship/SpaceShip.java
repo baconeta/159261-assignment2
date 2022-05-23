@@ -28,6 +28,9 @@ public class SpaceShip extends Actor {
     private static final int DELAY_BETWEEN_BULLETS = 50;
 
     private final GameWorld world;
+
+    AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
+
     private final Player player;
     private long lastBulletFired;
 
@@ -62,7 +65,6 @@ public class SpaceShip extends Actor {
         TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
 
         // Thruster
-        AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
         spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + 30));
 
         playerSprite.add(spaceshipThrusters);
@@ -100,6 +102,10 @@ public class SpaceShip extends Actor {
         if (this.origin.y > Game.WINDOW_DIMENSION.height - DIMENSION.height * 2) {
             this.origin.y = Game.WINDOW_DIMENSION.height - DIMENSION.height * 2;
         }
+    }
+
+    public AnimatedSprite spaceshipThrusters() {
+        return spaceshipThrusters;
     }
 
     public void update() {
