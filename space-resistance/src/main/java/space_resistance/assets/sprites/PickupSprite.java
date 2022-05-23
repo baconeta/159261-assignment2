@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.InputStream;
 
 public class PickupSprite extends Sprite {
-    private static final String[] PICKUP_SPRITES = {"health_temp.png", "shield_temp.png", "missiles_temp.png"}; // TODO add images for these
+    private static final String[] PICKUP_SPRITES = {"HealthPickup.png", "ShieldPickup.png", "MissilePickup.png"};
     public PickupSprite(PickupType pickupType, Dimension dimension) {
         super(getPickupSprite(pickupType), dimension);
     }
