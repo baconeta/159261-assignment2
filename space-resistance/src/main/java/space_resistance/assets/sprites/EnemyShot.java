@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.InputStream;
 
 public class EnemyShot extends Sprite {
-    private static final Dimension DIMENSION = new Dimension(72, 72);
+    private static final Dimension DIMENSION = new Dimension(12, 12);
 
     private static final InputStream MITE_ASSET = AssetLoader.load("MiteEnemyShot.png");
     private static final EnemyShot MITE_SHOT = new EnemyShot(EnemyType.MITE);
@@ -19,7 +19,7 @@ public class EnemyShot extends Sprite {
     private static final InputStream TARANTULA_ASSET = AssetLoader.load("TarantulaEnemyShot.png");
     private static final EnemyShot TARANTULA_SHOT = new EnemyShot(EnemyType.TARANTULA);
 
-    private static final InputStream GOLIATH_ASSET = AssetLoader.load("GrasshopperEnemyShot.png"); // TODO temporary
+    private static final InputStream GOLIATH_ASSET = AssetLoader.load("GoliathShots.png"); // TODO temporary
     private static final EnemyShot GOLIATH_SHOT = new EnemyShot(EnemyType.GOLIATH);
 
     public static EnemyShot shotFor(EnemyType type) {

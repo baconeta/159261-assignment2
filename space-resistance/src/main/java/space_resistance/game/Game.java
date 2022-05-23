@@ -18,7 +18,7 @@ public class Game extends GameEngine {
     private static final String TITLE = "Space Resistance by Team Pew Pew!";
     public static boolean DEBUG_MODE = false;
 
-    private Screen activeScreen;
+    public Screen activeScreen;
 
     public static void main(String[] args) {
         createGame(new Game(), 60);
