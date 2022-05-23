@@ -4,6 +4,7 @@ import space_resistance.actors.enemy.GoliathEnemy;
 
 public class EnemySpawningSystem {
     public final GameWorld gameWorld;
+
     private int currentLevel;
     private EnemyWave currentWave;
     private long timeLastWaveGenerated;
