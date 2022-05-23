@@ -6,61 +6,67 @@ import tengine.geom.TPoint;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Integer.max;
-import static space_resistance.actors.enemy.EnemyType.BossGoliath;
-import static space_resistance.actors.enemy.EnemyType.Mite;
+import static space_resistance.actors.enemy.EnemyType.GOLIATH;
+import static space_resistance.actors.enemy.EnemyType.MITE;
 
 public class EnemyWave {
-    // Game design settings
+    // Static game design settings
     private static final int minEnemiesPerWave = 10;
     private static final int minBetweenSpawnMs = 500;
     private static final Random RANDOM = new Random();
+
+    // Static spawn constants
+    private static final int minSpawnX = 25;
+    private static final int maxSpawnX = 575;
+    private static final int spawnY = 50;
+    private static final int spawnWidth = 72;
+    private static final int spawnHeight = 72;
+
+    // Spawn constants
+    private final int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
+
+    // Game design setting constants
     private final int initialMillisecondsBetweenSpawns = 5100;
     private final int initialMillisecondsBeforeWave = 5000;
     private final int bossHealthPerLevel = 5000;
 
-    // Spawn variables
-    private final int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
-    private static final int minSpawnX = 25;
-    private static final int maxSpawnX = 575;
-    private static final int spawnY = 50;
-    private int spawnWidth = 72;
-    private int spawnHeight = 72;
-
     // This wave
-    private ArrayList<Enemy> wave;
+    private List<Enemy> wave = new ArrayList<>();
     private int enemiesRemaining;
     private final int level;
     private final int enemiesPerSpawn;
 
     private GoliathEnemy boss;
 
-    public EnemyWave(int currentLevel, GameWorld gw) {
+    public EnemyWave(int currentLevel) {
         level = currentLevel;
-        GenerateWave(gw);
+        GenerateWave();
         enemiesRemaining = wave.size();
         enemiesPerSpawn = level;
     }
 
-    private void GenerateWave(GameWorld gw) {
+    private void GenerateWave() {
         wave = new ArrayList<>();
         int totalEnemies = RANDOM.nextInt(minEnemiesPerWave, minEnemiesPerWave + level);
         for (int i = 0; i < totalEnemies; i++) {
             // This should also select an enemy type based on weight. Could some
             // enemy parameters be set based on the current level or difficulty?
-            wave.add(new Enemy(Mite, gw,
-                    new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX-spawnWidth), spawnY),
-                    new Dimension(spawnWidth, spawnHeight), 100));
+            wave.add(new Enemy(MITE,
+                new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX-spawnWidth), spawnY),
+                new Dimension(spawnWidth, spawnHeight),
+                100));
         }
-        boss = new GoliathEnemy(BossGoliath, gw,
+        boss = new GoliathEnemy(GOLIATH,
                  new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX-spawnWidth*2), spawnY),
                  new Dimension(spawnWidth * 2, spawnHeight * 2), 1000);
         boss.setMaxHealth(bossHealthPerLevel * level);
     }
 
-    public ArrayList<Enemy> getWave() {
+    public List<Enemy> getWave() {
         return wave;
     }
 

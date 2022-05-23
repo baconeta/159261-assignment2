@@ -14,6 +14,7 @@ public abstract class Actor {
     protected TPoint origin = new TPoint();
     protected World world = null;
     protected boolean destroyWhenOffScreen = false;
+    protected boolean pendingKill;
 
     public Actor() {}
 
@@ -64,16 +65,19 @@ public abstract class Actor {
         return destroyWhenOffScreen;
     }
 
+    // TODO: document the difference between this and destroy
     public void removeFromWorld() {
-        world.remove(this);
+        pendingKill = true;
     }
 
     public void addToWorld(World world) {
         this.world = world;
     }
 
+    // TODO: Document when this should be used compared to removeFromWorld()
     public void destroy() {
         graphic.removeFromParent();
+        world.remove(this);
         world = null;
     }
 

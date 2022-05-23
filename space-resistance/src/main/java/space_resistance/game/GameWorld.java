@@ -2,6 +2,8 @@ package space_resistance.game;
 
 import space_resistance.actors.Explosion;
 import space_resistance.actors.bullet.Bullet;
+import space_resistance.actors.bullet.EnemyBullet;
+import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.AssetLoader;
@@ -23,7 +25,7 @@ public class GameWorld extends World {
     private final Notifier gameOverNotifier;
     private final GameState gameState;
     private final GameConfig gameConfig;
-    private EnemySpawningSystem enemySpawningSystem;
+    private final EnemySpawningSystem enemySpawningSystem;
 
     private final HeadsUpDisplay hud;
 
@@ -31,10 +33,9 @@ public class GameWorld extends World {
     private SpaceShip playerOne;
     private SpaceShip playerTwo = null;
 
-
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
-    ArrayList<Background> background = new ArrayList<Background>();
+    ArrayList<Background> background = new ArrayList<>();
 
     private final TGraphicCompound container;
     //Test Enemy
@@ -42,6 +43,7 @@ public class GameWorld extends World {
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
+
         // Space Background
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
         background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
@@ -51,6 +53,7 @@ public class GameWorld extends World {
             container.add(b);
         }
         canvas.add(container);
+
         this.gameOverNotifier = gameOverNotifier;
         this.gameState = gameState;
         gameConfig = gameState.gameConfig();
@@ -78,17 +81,12 @@ public class GameWorld extends World {
     }
 
     public void update() {
-        for ( Actor a : this.actors){
-            try {
-                Explosion b = (Explosion) a;
-                b.update();
-            } catch (Exception e){
-                continue;
-            }
-        }
-        //Test Enemy
+        // Test Enemy
         //testEnemy.update();
+
         hud.update(gameState);
+
+        // TODO: Potentially buggy, check for optimization
         for (int i = 0; i < background.size(); i ++){
             background.get(i).setOrigin(new TPoint(background.get(i).origin().x, background.get(i).origin().y + 1));
             if (background.get(0).origin().y == 800){
@@ -96,6 +94,7 @@ public class GameWorld extends World {
                 background.get(1).setOrigin(new TPoint(0, -800));
             }
         }
+
         playerOne.update();
         if (gameState.playerOne().healthRemaining() <= 0) {
             setGameOver();
@@ -107,6 +106,15 @@ public class GameWorld extends World {
                 setGameOver();
             }
         }
+
+        for (Actor a: actors) {
+            if (a instanceof Bullet) { ((Bullet) a).update(); }
+            if (a instanceof Enemy) {
+                ((Enemy) a).update();
+            }
+//            System.out.println(a.toString());
+        }
+
         enemySpawningSystem.update();
     }
 
@@ -135,15 +143,32 @@ public class GameWorld extends World {
         return gameConfig;
     }
 
+    // TODO: potentially buggy as playerOne also seems to be calling destroy on the other actor, need to replace calls
+    //  to actor.destroy() with actor.removeFromWorld()
     public void handleCollisions(CollisionEvent event) {
-        if (event.actorA() == playerOne) { playerOne.collision(event.actorB()); }
-        if (event.actorB() == playerOne){ playerOne.collision(event.actorA()); }
-        if (event.actorA() instanceof Enemy && event.actorB() instanceof Bullet) {
-            event.actorB().destroy();
-            ((Enemy) event.actorA()).collision((Bullet) event.actorB(), gameState.playerOne(),((Enemy) event.actorA()).scoreValue());
-        } else if (event.actorA() instanceof Bullet && event.actorB() instanceof Enemy){
-            event.actorA().destroy();
-            ((Enemy) event.actorB()).collision((Bullet) event.actorA(), gameState.playerOne(),((Enemy) event.actorB()).scoreValue());
+        Actor a = event.actorA();
+        Actor b = event.actorB();
+
+        if (a == playerOne && (b instanceof Enemy || b instanceof EnemyBullet)) {
+            playerOne.collision(b);
+            b.removeFromWorld();
+        } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet)) {
+            playerOne.collision(a);
+            a.removeFromWorld();
+        } else if (a instanceof Enemy && b instanceof PlayerBullet) {
+            if (((Enemy) a).takeDamage(((PlayerBullet) b).damageToDeal())) {
+                this.add(new Explosion(this, a.origin()));
+                gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
+                a.removeFromWorld();
+            }
+            b.removeFromWorld();
+        } else if (a instanceof PlayerBullet && b instanceof Enemy) {
+            if (((Enemy) b).takeDamage(((PlayerBullet) a).damageToDeal())) {
+                this.add(new Explosion(this, b.origin()));
+                gameState.playerOne().increaseScore(((Enemy) b).scoreValue());
+                b.removeFromWorld();
+            }
+            a.removeFromWorld();
         }
     }
 }
