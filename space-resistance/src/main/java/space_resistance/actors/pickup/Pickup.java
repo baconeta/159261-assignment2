@@ -45,8 +45,7 @@ public class Pickup extends Actor {
         PickupSprite pickupSprite = new PickupSprite(type, this.dimension);
         pickup.add(pickupSprite);
         if (Game.DEBUG_MODE) {
-            pickup.add(
-                    new TRect(new Dimension((int) (dimension.width * 0.5), (int) (dimension.height * 0.5))));
+            pickup.add(new TRect(new Dimension((int) (dimension.width), (int) (dimension.height))));
         }
         return pickup;
     }

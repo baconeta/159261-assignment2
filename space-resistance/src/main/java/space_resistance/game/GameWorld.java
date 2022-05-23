@@ -38,7 +38,7 @@ public class GameWorld extends World {
     private SpaceShip playerTwo = null;
 
     // Pickups
-    private static final Dimension pickupDimension = new Dimension(50, 50);
+    private static final Dimension pickupDimension = new Dimension(32, 32);
     private final int chanceHealth = 50;
     private final int chanceShield = 2;
     private final int chanceMissiles = 1;
