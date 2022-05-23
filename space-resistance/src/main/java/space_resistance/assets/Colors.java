@@ -18,7 +18,7 @@ public class Colors {
     public static class Text {
         // Primary color for most UI text elements
         public static final Color PRIMARY = BEAU_BLUE;
-        public static final Color SHIELD_ENABLED = SPACESHIP_PURPLE;
+        public static final Color SHIELD_ENABLED = GRASSHOPPER_GREEN;
 
         // Add other categories of font colors here
     }

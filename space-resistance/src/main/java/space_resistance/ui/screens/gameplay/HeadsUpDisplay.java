@@ -33,7 +33,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
             healthLabel = new TLabel("Health: " + state.playerOne().healthRemaining());
             healthLabel.setColor(Colors.Text.PRIMARY);
         } else {
-            healthLabel = new TLabel("Health: " + state.playerOne().healthRemaining() + state.playerOne().shieldHealth());
+            healthLabel = new TLabel("Health: " + (state.playerOne().healthRemaining() + state.playerOne().shieldHealth()));
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
         }
         healthLabel.setFont(FontBook.shared().scoreBoardFont());
@@ -66,7 +66,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
             healthLabel = new TLabel("Health: " + state.playerOne().healthRemaining());
             healthLabel.setColor(Colors.Text.PRIMARY);
         } else {
-            healthLabel = new TLabel("Health: " + state.playerOne().healthRemaining() + state.playerOne().shieldHealth());
+            healthLabel = new TLabel("Health: " + (state.playerOne().healthRemaining() + state.playerOne().shieldHealth()));
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
         }
         healthLabel.setFont(FontBook.shared().scoreBoardFont());

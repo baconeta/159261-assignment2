@@ -27,7 +27,23 @@ public class Player {
     }
 
     public void reduceHealth(int damage) {
+        if (shieldsOn) {
+            damage = damageShields(damage);
+        }
         health -= damage;
+    }
+
+    private int damageShields(int damage) {
+        if (shieldValue > damage) {
+            shieldValue -= damage;
+            return 0;
+        }
+        else {
+            int preDamageShield = shieldValue;
+            shieldValue = 0;
+            shieldsOn = false;
+            return damage - preDamageShield;
+        }
     }
 
     public void addHealth(int healing) {
