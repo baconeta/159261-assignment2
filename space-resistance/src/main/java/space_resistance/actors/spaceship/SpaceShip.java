@@ -25,11 +25,11 @@ import java.util.Optional;
 
 public class SpaceShip extends Actor {
     private static final Dimension DIMENSION = new Dimension(64, 64);
+    private static final int DELAY_BETWEEN_BULLETS = 50;
 
     private final GameWorld world;
     private final Player player;
     private long lastBulletFired;
-    private final int delayBetweenBullets = 50;
 
     // TODO: maybe rework the player controls mapping so we don't need to store these on the class
     KeyEvent keyPressed = null;

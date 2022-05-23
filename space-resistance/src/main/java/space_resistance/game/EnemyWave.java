@@ -14,21 +14,25 @@ import static space_resistance.actors.enemy.EnemyType.GOLIATH;
 import static space_resistance.actors.enemy.EnemyType.MITE;
 
 public class EnemyWave {
-    // Game design settings
+    // Static game design settings
     private static final int minEnemiesPerWave = 10;
     private static final int minBetweenSpawnMs = 500;
     private static final Random RANDOM = new Random();
-    private final int initialMillisecondsBetweenSpawns = 5100;
-    private final int initialMillisecondsBeforeWave = 5000;
-    private final int bossHealthPerLevel = 5000;
 
-    // Spawn variables
-    private final int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
+    // Static spawn constants
     private static final int minSpawnX = 25;
     private static final int maxSpawnX = 575;
     private static final int spawnY = 50;
-    private int spawnWidth = 72;
-    private int spawnHeight = 72;
+    private static final int spawnWidth = 72;
+    private static final int spawnHeight = 72;
+
+    // Spawn constants
+    private final int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
+
+    // Game design setting constants
+    private final int initialMillisecondsBetweenSpawns = 5100;
+    private final int initialMillisecondsBeforeWave = 5000;
+    private final int bossHealthPerLevel = 5000;
 
     // This wave
     private List<Enemy> wave = new ArrayList<>();
