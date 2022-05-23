@@ -3,7 +3,6 @@ package tengine.graphics.components;
 import tengine.graphics.context.GraphicsCtx;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
