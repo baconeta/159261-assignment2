@@ -14,8 +14,6 @@ import tengine.physics.kinematics.TVector;
 import tengine.physics.kinematics.TVelocity;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Enemy extends Actor {
@@ -26,7 +24,16 @@ public class Enemy extends Actor {
     protected int scoreWorth;
     protected EnemyType type;
 
-    private final List<EnemyBullet> bullets = new ArrayList<>();
+    // Bullet system
+    private int bulletsThisBarrage = 0;
+    private static final int BULLETS_PER_BARRAGE_MIN = 5;
+    private static final int BULLETS_PER_BARRAGE_MAX = 20;
+    private static final int BARRAGE_CD_MIN = 200;
+    private static final int BARRAGE_CD_MAX = 1500;
+    private static final int TIME_BETWEEN_BULLETS = 50;
+    private int barrageCooldown;
+    private long lastBarrageTime;
+    private long lastBulletFired;
 
     public Enemy(EnemyType type, TPoint origin, Dimension dimension, int scoreWorth) {
         this.type = type;
@@ -65,25 +72,20 @@ public class Enemy extends Actor {
     }
 
     public void update() {
-        // TODO: Can we make this work by creating bullets in short bursts given a time interval?
-        if (bullets.size() < (Math.random() * 20)) {
-            if (bullets.size() >= 1) {
-                // Delay shots
-                if (bullets.get(bullets.size() - 1).timeExisted() > 0) {
-                    var bullet = new EnemyBullet(type, new TPoint(this.origin.x, this.origin.y + 30));
-                    bullets.add(bullet);
-                    world.add(bullet);
-                }
-            } else {
+        long currentTime = System.currentTimeMillis();
+        if (bulletsThisBarrage <= 0) {
+            bulletsThisBarrage = RANDOM.nextInt(BULLETS_PER_BARRAGE_MIN, BULLETS_PER_BARRAGE_MAX);
+            barrageCooldown = RANDOM.nextInt(BARRAGE_CD_MIN, BARRAGE_CD_MAX);
+            lastBarrageTime = currentTime;
+        }
+
+        if (currentTime > lastBarrageTime + barrageCooldown) {
+            // we can start next barrage of bullets
+            if (currentTime > lastBulletFired + TIME_BETWEEN_BULLETS) {
                 var bullet = new EnemyBullet(type, new TPoint(this.origin.x, this.origin.y + 30));
-                bullets.add(bullet);
                 world.add(bullet);
-            }
-        } else {
-            // Shoot in bursts so that player isn't bombarded with constant shots from the enemy ship
-            if (bullets.get(bullets.size() - 1).timeExisted() > RANDOM.nextInt(2400 - 1700) + 1700) {
-                bullets.forEach(EnemyBullet::removeFromWorld);
-                bullets.clear();
+                bulletsThisBarrage -= 1;
+                lastBulletFired = currentTime;
             }
         }
     }
