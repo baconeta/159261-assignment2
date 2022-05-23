@@ -160,7 +160,8 @@ public class GameWorld extends World {
         } else if (a instanceof Enemy && b instanceof PlayerBullet) {
             if (((Enemy) a).takeDamage(((PlayerBullet) b).damageToDeal())) {
                 this.add(new Explosion(this, a.origin()));
-                trySpawnPickup(a.origin());
+                trySpawnPickup(new TPoint(b.origin().x + b.graphic().width() * 0.25,
+                        b.origin().y + b.graphic().height() * 0.25));
                 gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
                 a.removeFromWorld();
             }
@@ -169,7 +170,8 @@ public class GameWorld extends World {
             if (((Enemy) b).takeDamage(((PlayerBullet) a).damageToDeal())) {
                 this.add(new Explosion(this, b.origin()));
                 gameState.playerOne().increaseScore(((Enemy) b).scoreValue());
-                trySpawnPickup(b.origin());
+                trySpawnPickup(new TPoint(b.origin().x + b.graphic().width() * 0.25,
+                        b.origin().y + b.graphic().height() * 0.25));
                 b.removeFromWorld();
             }
             a.removeFromWorld();
