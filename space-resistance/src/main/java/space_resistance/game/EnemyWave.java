@@ -27,7 +27,7 @@ public class EnemyWave {
     private static final int spawnHeight = 72;
 
     // Spawn constants
-    private final int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
+    private int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
 
     // Game design setting constants
     private final int initialMillisecondsBetweenSpawns = 5100;
@@ -96,5 +96,13 @@ public class EnemyWave {
 
     public int enemiesPerSpawn() {
         return enemiesPerSpawn;
+    }
+
+    public int spawnSpeedStep(){
+        return spawnSpeedStep;
+    }
+
+    public void setSpawnSpeedStep(int spawnSpeedStep){
+        this.spawnSpeedStep += spawnSpeedStep;
     }
 }

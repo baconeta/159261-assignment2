@@ -24,10 +24,12 @@ public class Enemy extends Actor {
     protected int scoreWorth;
     public EnemyType type;
 
+    public int level = 1;
+
     // Bullet system
     private int bulletsThisBarrage = 0;
-    private static final int BULLETS_PER_BARRAGE_MIN = 5;
-    private static final int BULLETS_PER_BARRAGE_MAX = 20;
+    private static int bulletsPerBarrageMin = 5;
+    private static int bulletsPerBarrageMax = 20;
     private static final int BARRAGE_CD_MIN = 200;
     private static final int BARRAGE_CD_MAX = 1500;
     private static final int TIME_BETWEEN_BULLETS = 50;
@@ -74,7 +76,7 @@ public class Enemy extends Actor {
     public void update() {
         long currentTime = System.currentTimeMillis();
         if (bulletsThisBarrage <= 0) {
-            bulletsThisBarrage = RANDOM.nextInt(BULLETS_PER_BARRAGE_MIN, BULLETS_PER_BARRAGE_MAX);
+            bulletsThisBarrage = RANDOM.nextInt(bulletsPerBarrageMin, bulletsPerBarrageMax);
             barrageCooldown = RANDOM.nextInt(BARRAGE_CD_MIN, BARRAGE_CD_MAX);
             lastBarrageTime = currentTime;
         }
@@ -109,5 +111,17 @@ public class Enemy extends Actor {
         // FIXME: Temporary fix for invisible enemies being destroyed again
         velocity.setSpeed(10000);
         super.destroy();
+    }
+    public void setBulletsPerBarrageMin(int bulletsPerBarrageMin){
+        this.bulletsPerBarrageMin = bulletsPerBarrageMin;
+    }
+    public void setBulletsPerBarrageMax(int bulletsPerBarrageMax){
+        this.bulletsPerBarrageMax = bulletsPerBarrageMax;
+    }
+    public int bulletsPerBarrageMin(){
+        return bulletsPerBarrageMin;
+    }
+    public int bulletsPerBarrageMax(){
+        return bulletsPerBarrageMax;
     }
 }
