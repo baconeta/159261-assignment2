@@ -22,8 +22,8 @@ public class Enemy extends Actor {
     protected Dimension dimension;
     protected int health;
     protected int scoreWorth;
+    protected final int level;
     public EnemyType type;
-    private final int level;
 
     // Bullet system
     private int bulletsThisBarrage = 0;
