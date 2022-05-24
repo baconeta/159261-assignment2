@@ -6,6 +6,8 @@ import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
+import space_resistance.actors.pickup.Pickup;
+import space_resistance.actors.pickup.PickupType;
 import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.sprites.Background;
@@ -21,12 +23,14 @@ import tengine.world.World;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameWorld extends World {
     private final Notifier gameOverNotifier;
     private final GameState gameState;
     private final GameConfig gameConfig;
     private final EnemySpawningSystem enemySpawningSystem;
+    private static final Random RANDOM = new Random();
 
     private final HeadsUpDisplay hud;
 
@@ -34,13 +38,17 @@ public class GameWorld extends World {
     private SpaceShip playerOne;
     private SpaceShip playerTwo = null;
 
+    // Pickups
+    private static final Dimension pickupDimension = new Dimension(32, 32);
+    private final int chanceHealth = 5;
+    private final int chanceShield = 3;
+    private final int chanceMissiles = 2;
+
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
     ArrayList<Background> background = new ArrayList<>();
 
     private final TGraphicCompound container;
-    //Test Enemy
-    //private Enemy testEnemy;
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
@@ -60,8 +68,6 @@ public class GameWorld extends World {
         gameConfig = gameState.gameConfig();
 
         initPlayers();
-        //Test Enemy
-        //testEnemy = new Enemy(EnemyType.Grasshopper, this, new TPoint(0, 0), new Dimension(72,72), 300);
 
         // HUD
         hud = new HeadsUpDisplay(canvas.dimension(),  gameState);
@@ -82,9 +88,6 @@ public class GameWorld extends World {
     }
 
     public void update() {
-        // Test Enemy
-        //testEnemy.update();
-
         hud.update(gameState);
 
         // TODO: Potentially buggy, check for optimization
@@ -149,15 +152,17 @@ public class GameWorld extends World {
         Actor a = event.actorA();
         Actor b = event.actorB();
 
-        if (a == playerOne && (b instanceof Enemy || b instanceof EnemyBullet)) {
+        if (a == playerOne && (b instanceof Enemy || b instanceof EnemyBullet || b instanceof Pickup)) {
             playerOne.collision(b);
             b.removeFromWorld();
-        } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet)) {
+        } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet || a instanceof Pickup)) {
             playerOne.collision(a);
             a.removeFromWorld();
         } else if (a instanceof Enemy && b instanceof PlayerBullet) {
             if (((Enemy) a).takeDamage(((PlayerBullet) b).damageToDeal())) {
                 this.add(new Explosion(this, a.origin(), ((Enemy)a).type));
+                trySpawnPickup(new TPoint(a.origin().x + a.graphic().width() * 0.25,
+                        a.origin().y + a.graphic().height() * 0.25));
                 gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
                 a.removeFromWorld();
             }
@@ -167,10 +172,24 @@ public class GameWorld extends World {
             if (((Enemy) b).takeDamage(((PlayerBullet) a).damageToDeal())) {
                 this.add(new Explosion(this, b.origin(),((Enemy)b).type));
                 gameState.playerOne().increaseScore(((Enemy) b).scoreValue());
+                trySpawnPickup(new TPoint(b.origin().x + b.graphic().width() * 0.25,
+                        b.origin().y + b.graphic().height() * 0.25));
                 b.removeFromWorld();
             }
             this.add(new ImpactExplosion(this, new TPoint(a.origin().x + 5, a.origin().y - 40)));
             a.removeFromWorld();
+        }
+    }
+
+    private void trySpawnPickup(TPoint locationToSpawn) {
+        int spawnValue = RANDOM.nextInt(1, 101);
+        if (spawnValue <= chanceMissiles) {
+            this.add(new Pickup(PickupType.Missiles, this, locationToSpawn, pickupDimension));
+        }
+        else if (spawnValue <= chanceMissiles+chanceShield) {
+            this.add(new Pickup(PickupType.Shield, this, locationToSpawn, pickupDimension));
+        } else if (spawnValue <= chanceHealth+chanceShield+chanceMissiles) {
+            this.add(new Pickup(PickupType.Health, this, locationToSpawn, pickupDimension));
         }
     }
 }

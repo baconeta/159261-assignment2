@@ -3,6 +3,7 @@ package space_resistance.actors.spaceship;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
+import space_resistance.actors.pickup.Pickup;
 import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.PlayerShip;
 import space_resistance.game.Game;
@@ -184,6 +185,10 @@ public class SpaceShip extends Actor {
 
         if (actorB instanceof Enemy) {
             player.reduceHealth(100);
+        }
+
+        if (actorB instanceof Pickup) {
+            player.handlePickup(((Pickup) actorB).pickupType());
         }
     }
 }
