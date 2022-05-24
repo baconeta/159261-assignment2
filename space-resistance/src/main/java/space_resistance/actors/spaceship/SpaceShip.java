@@ -35,10 +35,9 @@ public class SpaceShip extends Actor {
     private final Player player;
     private long lastBulletFired;
 
-    KeyEvent keyPressed = null;
-    KeyEvent keyReleased = null;
-    private int xDirection = 0;
-    private int yDirection = 0;
+    private KeyEvent keyPressed = null;
+    private KeyEvent keyReleased = null;
+    private int up, down, left, right;
 
     private boolean shootKeyDown = false;
 
@@ -59,6 +58,11 @@ public class SpaceShip extends Actor {
 
         graphic = initSprite();
         physics = initPhysics();
+
+        up = 0;
+        down = 0;
+        left = 0;
+        right = 0;
 
         setOrigin(origin);
     }
@@ -115,8 +119,10 @@ public class SpaceShip extends Actor {
 
         long currentTime = System.currentTimeMillis();
         if (shootKeyDown && currentTime-lastBulletFired > DELAY_BETWEEN_BULLETS) {
-            var bullet = new PlayerBullet(world, new TPoint(this.origin.x, this.origin.y - 5));
+            var bullet = new PlayerBullet(world, new TPoint(this.origin.x + 10, this.origin.y - 5));
+            var bullet2 = new PlayerBullet(world, new TPoint(this.origin.x + 50, this.origin.y - 5));
             world.add(bullet);
+            world.add(bullet2);
             lastBulletFired  = currentTime;
         }
     }
@@ -138,20 +144,20 @@ public class SpaceShip extends Actor {
     private void performAction(Action action) {
         switch (action) {
             case MOVE_UP:
-                yDirection -= 1;
-                velocity.setDirectionY(yDirection);
+                up = -1;
+                velocity.setDirectionY(up + down);
                 break;
             case MOVE_DOWN:
-                yDirection += 1;
-                velocity.setDirectionY(yDirection);
+                down = 1;
+                velocity.setDirectionY(up + down);
                 break;
             case MOVE_LEFT:
-                xDirection -= 1;
-                velocity.setDirectionX(xDirection);
+                left = -1;
+                velocity.setDirectionX(left + right);
                 break;
             case MOVE_RIGHT:
-                xDirection += 1;
-                velocity.setDirectionX(xDirection);
+                right = 1;
+                velocity.setDirectionX(left + right);
                 break;
             case SHOOT:
                 if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
@@ -170,20 +176,20 @@ public class SpaceShip extends Actor {
         // Set player velocity for corresponding axis to 0
         switch (action) {
             case MOVE_UP:
-                yDirection += 1;
-                velocity.setDirectionY(yDirection);
+                up = 0;
+                velocity.setDirectionY(up + down);
                 break;
             case MOVE_DOWN:
-                yDirection -= 1;
-                velocity.setDirectionY(yDirection);
+                down = 0;
+                velocity.setDirectionY(up + down);
                 break;
             case MOVE_LEFT:
-                xDirection += 1;
-                velocity.setDirectionX(xDirection);
+                left = 0;
+                velocity.setDirectionX(left + right);
                 break;
             case MOVE_RIGHT:
-                xDirection -= 1;
-                velocity.setDirectionX(xDirection);
+                right = 0;
+                velocity.setDirectionX(left + right);
                 break;
             case SHOOT:
                 if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
