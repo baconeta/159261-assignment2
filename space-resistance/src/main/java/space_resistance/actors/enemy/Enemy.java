@@ -20,10 +20,10 @@ public class Enemy extends Actor {
     private static final Random RANDOM = new Random();
 
     protected Dimension dimension;
-    protected int health = 100;
+    protected int health;
     protected int scoreWorth;
     public EnemyType type;
-    private int level;
+    private final int level;
 
     // Bullet system
     private int bulletsThisBarrage = 0;
@@ -31,7 +31,7 @@ public class Enemy extends Actor {
     private int bulletsPerBarrageMax = 8;
     private static final int BARRAGE_CD_MIN = 400;
     private static final int BARRAGE_CD_MAX = 1600;
-    private static final int TIME_BETWEEN_BULLETS = 80;
+    private static final int BASE_TIME_BETWEEN_BULLETS = 100;
     private int barrageCooldown;
     private long lastBarrageTime;
     private long lastBulletFired;
@@ -84,7 +84,7 @@ public class Enemy extends Actor {
 
         if (currentTime > lastBarrageTime + barrageCooldown) {
             // we can start next barrage of bullets
-            if (currentTime > lastBulletFired + TIME_BETWEEN_BULLETS) {
+            if (currentTime > lastBulletFired + (BASE_TIME_BETWEEN_BULLETS - level * 2L)) {
                 TPoint bulletOffset = EnemyType.enemyBulletSpawnOffset(type);
                 var bullet = new EnemyBullet(type, new TPoint(
                         this.origin.x + bulletOffset.x,
