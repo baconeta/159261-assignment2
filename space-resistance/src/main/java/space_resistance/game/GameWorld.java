@@ -41,8 +41,8 @@ public class GameWorld extends World {
     // Pickups
     private static final Dimension pickupDimension = new Dimension(32, 32);
     private final int chanceHealth = 5;
-    private final int chanceShield = 2;
-    private final int chanceMissiles = 1;
+    private final int chanceShield = 3;
+    private final int chanceMissiles = 2;
 
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
@@ -160,9 +160,9 @@ public class GameWorld extends World {
             a.removeFromWorld();
         } else if (a instanceof Enemy && b instanceof PlayerBullet) {
             if (((Enemy) a).takeDamage(((PlayerBullet) b).damageToDeal())) {
-                this.add(new Explosion(this, a.origin(), ((Enemy)a).type)));
-                trySpawnPickup(new TPoint(b.origin().x + b.graphic().width() * 0.25,
-                        b.origin().y + b.graphic().height() * 0.25));
+                this.add(new Explosion(this, a.origin(), ((Enemy)a).type));
+                trySpawnPickup(new TPoint(a.origin().x + a.graphic().width() * 0.25,
+                        a.origin().y + a.graphic().height() * 0.25));
                 gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
                 a.removeFromWorld();
             }
