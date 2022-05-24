@@ -62,7 +62,7 @@ public class EnemySpawningSystem {
                 newLevelLabelToBeRemoved = null;
                 levelLabelRemoved = true;
                 if ((currentTime - timeLastEnemySpawned) > currentWave.delayBetweenSpawns()) {
-                    SpawnEnemy();
+                    spawnEnemy();
                 }
                 break;
             case BOSS:
@@ -89,7 +89,7 @@ public class EnemySpawningSystem {
         currentWave.setSpawnSpeedStep(currentLevel * 100);
     }
 
-    private void SpawnEnemy() {
+    private void spawnEnemy() {
         if (currentWave.enemiesRemaining() > 0) {
             var enemy = currentWave.randomEnemyFromWave();
             enemy.spawnInWorld(gameWorld);
