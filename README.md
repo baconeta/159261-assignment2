@@ -12,7 +12,16 @@ The player can move up, down, left, right and diagonally to position itself on t
 
 The boss, known as the Goliath, is worth 1000 points.
 
+### Game Graphics
 
+All game graphics and animations are original works of Ali Soltanian Fard Jahromi.  The inspiration for the design of the graphics for each enemy ship was from real world insects.  Hence, mite ships are inspired from mites, grasshoppers from grasshoppers, tarantula ships from tarantulas and the goliath ships from goliath beetles.
+Game graphics and animations were created with Blender (an open-source 3D computer graphics software).
+
+Visual cues were considered for letting the player know that each bullet has hit an enemy ship.  Animation and code was added so minor explosions are displayed when bullets impact the enemy ships which are different to the explosions for enemy ships being destroyed.
+
+### Game Audio
+
+Most of the game audio was created by Ali Soltanian Fard Jahromi by modifying audios recorded by the developers creating sounds using their mouths.  The sounds were modified to give the sound effects.
 
 
 ## Requirements
@@ -130,14 +139,7 @@ that available to the `PlayGameScreen` through `Settings`. While the `PlayGameSc
 `GameState` so that when the game is over and the `GameOverScreen` is loaded, it can be passed the `GameState` and
 display the results.
 
-## Game Graphics
 
-All game graphics and animations are original works of Ali Soltanian Fard Jahromi.  The inspiration for the design of the graphics for each enemy ship was from real world insects.  Hence, mite ships are inspired from mites, grasshoppers from grasshoppers, tarantula ships from tarantulas and the goliath ships from goliath beetles.
-Game graphics and animations were created with Blender (an open-source 3D computer graphics software).
-
-## Game Audio
-
-Most of the game audio was created by modifying audios recorded by the developers creating sounds using their mouths.  The sounds were modified to give the sound effects.
 
 ## Attributions
 
@@ -163,3 +165,7 @@ Most of the game audio was created by modifying audios recorded by the developer
 - Explosion Actor
 - Spawn Explosion when Enemy Dies
 - Game Over Screen
+- Pause Screen
+- Pausing
+- Engine Modification to Allow for AnimatedSprite to be paused
+- Explosions when bullets impact with enemy ships
