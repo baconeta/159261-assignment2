@@ -22,7 +22,7 @@ public class Enemy extends Actor {
     protected Dimension dimension;
     protected int health = 100;
     protected int scoreWorth;
-    protected EnemyType type;
+    public EnemyType type;
 
     // Bullet system
     private int bulletsThisBarrage = 0;

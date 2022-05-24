@@ -52,6 +52,8 @@ public class PlayGameScreen implements Screen {
                 for (Actor a: world.actors()) {
                     if (a instanceof SpaceShip){
                         ((SpaceShip) a).spaceshipThrusters().setPaused(true);
+                        ((SpaceShip) a).velocity().setDirectionX(0);
+                        ((SpaceShip) a).velocity().setDirectionY(0);
                     }
                     if (a instanceof Enemy || a instanceof Bullet) {
                         a.velocity().setSpeed(0);

@@ -29,7 +29,7 @@ public class SpaceShip extends Actor {
 
     private final GameWorld world;
 
-    AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
+    private AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
 
     private final Player player;
     private long lastBulletFired;

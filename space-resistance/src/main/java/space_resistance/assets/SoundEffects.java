@@ -22,6 +22,9 @@ public class SoundEffects {
     private static final String EXPLOSION_SOUND = "ExplosionSoundEffect.wav";
     private static final AudioClip explosionSound = new AudioClip(AssetLoader.load(EXPLOSION_SOUND));
 
+    private static final String GOLIATH_EXPLOSION_SOUND = "GoliathExplosionSoundEffect.wav";
+    private static final AudioClip goliathExplosionSound = new AudioClip(AssetLoader.load(GOLIATH_EXPLOSION_SOUND));
+
     private static SoundEffects singleton = null;
 
     public static SoundEffects shared() {
@@ -53,4 +56,6 @@ public class SoundEffects {
     public AudioClip defaultPlayerShootingSound(){ return playerShootingSound; }
 
     public AudioClip explosionSound() {return explosionSound;}
+
+    public AudioClip goliathExplosionSound() {return goliathExplosionSound;}
 }

@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.InputStream;
 
 public class EnemyShot extends Sprite {
-    private static final Dimension DIMENSION = new Dimension(12, 12);
+    private static final Dimension DIMENSION = new Dimension(12, 24);
 
     private static final InputStream MITE_ASSET = AssetLoader.load("MiteEnemyShot.png");
     private static final EnemyShot MITE_SHOT = new EnemyShot(EnemyType.MITE);
