@@ -25,7 +25,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
         TLabel pauseLabel = new TLabel("P: pause");
         pauseLabel.setFont(FontBook.shared().scoreBoardFont());
         pauseLabel.setColor(Colors.Text.PRIMARY);
-        pauseLabel.setOrigin(new TPoint(dimension.width - 175, dimension.height - 15));
+        pauseLabel.setOrigin(new TPoint(dimension.width - 150, dimension.height - 15));
         addAll(p1Scoreboard, pauseLabel);
 
         // Add Health Label
@@ -37,7 +37,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
         }
         healthLabel.setFont(FontBook.shared().scoreBoardFont());
-        healthLabel.setOrigin(new TPoint(55, dimension.height - 15));
+        healthLabel.setOrigin(new TPoint(30, dimension.height - 15));
         addAll(p1Scoreboard, healthLabel);
 
         // Add Score Label
@@ -58,7 +58,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
         TLabel pauseLabel = new TLabel("P: pause");
         pauseLabel.setFont(FontBook.shared().scoreBoardFont());
         pauseLabel.setColor(Colors.Text.PRIMARY);
-        pauseLabel.setOrigin(new TPoint(dimension.width - 175, dimension.height - 15));
+        pauseLabel.setOrigin(new TPoint(dimension.width - 150, dimension.height - 15));
         addAll(p1Scoreboard, pauseLabel);
 
         // Add Health Label
@@ -70,7 +70,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
         }
         healthLabel.setFont(FontBook.shared().scoreBoardFont());
-        healthLabel.setOrigin(new TPoint(55, dimension.height - 15));
+        healthLabel.setOrigin(new TPoint(30, dimension.height - 15));
         addAll(p1Scoreboard, healthLabel);
 
         // Add Score Label
