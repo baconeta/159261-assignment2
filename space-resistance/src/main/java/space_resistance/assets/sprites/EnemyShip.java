@@ -52,8 +52,9 @@ public class EnemyShip extends Sprite {
                     GOLIATH_ASSET_BLUE,
                     GOLIATH_ASSET_GREEN,
                     GOLIATH_ASSET_ORANGE,
-                    GOLIATH_ASSET_RED)
-                    .get((int) (Math.random()*4));
+                    GOLIATH_ASSET_RED,
+                    GOLIATH_ASSET_BLACK)
+                    .get((int) (Math.random()*5));
         };
     }
 }
