@@ -20,6 +20,8 @@ public class EnemySpawningSystem {
     private long timeLastWaveGenerated;
     private long timeLastEnemySpawned;
     private SpawnState currentState = SpawnState.DEFAULT;
+    private TLabel newLevelGraphic;
+    private boolean newLevelOnScreen;
 
     public EnemySpawningSystem(GameWorld gw) {
         gameWorld = gw;
@@ -29,38 +31,20 @@ public class EnemySpawningSystem {
     }
 
     public void update() {
-        boolean levelLabelRemoved = false;
         long currentTime = System.currentTimeMillis();
-        TGraphicCompound newLevel = new TGraphicCompound(gameWorld.canvas().dimension());
-        TLabel levelLabel = new TLabel("Level " + currentLevel, new TPoint(245, 280));
-        newLevel.add(levelLabel);
-        newLevel.setScale(1.0001);
-        levelLabel.setFont(FontBook.shared().scoreBoardFont());
-        levelLabel.setColor(Color.white);
         switch (currentState) {
             case PRE_WAVE:
                 if ((currentTime - timeLastWaveGenerated) > currentWave.delayBeforeWave()) {
                     currentState = SpawnState.SPAWNING;
-                } else {
-                    gameWorld.canvas().add(newLevel);
-                    levelLabelRemoved = false;
+                }
+                if (!newLevelOnScreen) {
+                    showNewLevelLabel();
                 }
                 break;
             case SPAWNING:
-                ArrayList<TGraphicObject> newLevelLabelToBeRemoved = new ArrayList<TGraphicObject>();
-                if (!levelLabelRemoved){
-                    for (TGraphicObject c : gameWorld.canvas().children()){
-                        if (c.scale().equals(new TScale(1.0001, 1.0001))){
-                            newLevelLabelToBeRemoved.add(c);
-                        }
-                    }
-                    for (TGraphicObject c : newLevelLabelToBeRemoved){
-                        c.setParent(null);
-                        gameWorld.canvas().remove(c);
-                    }
+                if (newLevelOnScreen) {
+                    removeNewLevelLabel();
                 }
-                newLevelLabelToBeRemoved = null;
-                levelLabelRemoved = true;
                 if ((currentTime - timeLastEnemySpawned) > currentWave.delayBetweenSpawns()) {
                     spawnEnemy();
                 }
@@ -70,6 +54,19 @@ public class EnemySpawningSystem {
             case DEFAULT:
                 break;
         }
+    }
+
+    private void removeNewLevelLabel() {
+        gameWorld.canvas().remove(newLevelGraphic);
+        newLevelOnScreen = false;
+    }
+
+    private void showNewLevelLabel() {
+        newLevelGraphic = new TLabel("Level " + currentLevel, new TPoint(245, 280));
+        newLevelGraphic.setFont(FontBook.shared().scoreBoardFont());
+        newLevelGraphic.setColor(Color.white);
+        gameWorld.canvas().add(newLevelGraphic);
+        newLevelOnScreen = true;
     }
 
     private void generateEnemyWave() {
