@@ -56,7 +56,7 @@ public class Enemy extends Actor {
         EnemyShip enemy = EnemyShip.shipFor(type);
         enemySprite.add(enemy);
         if (Game.DEBUG_MODE) {
-            enemySprite.add(new TRect(new Dimension((int) (dimension.width * 0.5), (int) (dimension.height * 0.5))));
+            enemySprite.add(new TRect(new Dimension(dimension.width, dimension.height)));
         }
         return enemySprite;
     }
@@ -113,7 +113,7 @@ public class Enemy extends Actor {
     public void destroy() {
         super.destroy();
     }
-    
+
     public void setBulletsPerBarrageMin(int bulletsPerBarrageMin){
         this.bulletsPerBarrageMin = bulletsPerBarrageMin;
     }
