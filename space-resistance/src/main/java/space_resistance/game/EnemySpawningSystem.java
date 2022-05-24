@@ -70,6 +70,10 @@ public class EnemySpawningSystem {
 
     private void generateEnemyWave() {
         currentWave = new EnemyWave(currentLevel);
+        currentWave.getWave().forEach(e -> {
+            e.setBulletsPerBarrageMin(e.bulletsPerBarrageMin() + 2 * currentLevel);
+            e.setBulletsPerBarrageMax(e.bulletsPerBarrageMax() + 3 * currentLevel);
+        });
         currentState = SpawnState.PRE_WAVE;
         timeLastWaveGenerated = System.currentTimeMillis();
     }
@@ -77,10 +81,6 @@ public class EnemySpawningSystem {
     public void bossDestroyed() {
         currentState = SpawnState.POST_WAVE;
         currentLevel += 1;
-        for (Enemy e : currentWave.getWave()){
-            e.setBulletsPerBarrageMin(e.bulletsPerBarrageMin() + 3);
-            e.setBulletsPerBarrageMax(e.bulletsPerBarrageMax() + 3);
-        }
         generateEnemyWave();
     }
 
