@@ -46,12 +46,12 @@ public class EnemyWave {
 
     public EnemyWave(int currentLevel) {
         level = currentLevel;
-        GenerateWave();
+        generateWave();
         enemiesRemaining = wave.size();
         enemiesPerSpawn = level;
     }
 
-    private void GenerateWave() {
+    private void generateWave() {
         wave = new ArrayList<>();
         int totalEnemies = RANDOM.nextInt(minEnemiesPerWave, minEnemiesPerWave + level);
         for (int i = 0; i < totalEnemies; i++) {
@@ -62,7 +62,6 @@ public class EnemyWave {
         boss = new GoliathEnemy(GOLIATH,
                  new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX-spawnWidth*2), spawnY),
                  new Dimension(spawnWidth * 2, spawnHeight * 2), level);
-        boss.setMaxHealth(bossHealthPerLevel * level);
     }
 
     private EnemyType randomEnemyType() {

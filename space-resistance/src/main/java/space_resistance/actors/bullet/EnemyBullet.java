@@ -40,7 +40,7 @@ public class EnemyBullet extends Bullet {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, EnemyType.enemyBulletDimension(type));
-        velocity = new TVelocity(500, new TVector(0, 1));
+        velocity = new TVelocity(EnemyType.bulletSpeed(type), new TVector(0, 1));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }

@@ -27,11 +27,11 @@ public class Enemy extends Actor {
 
     // Bullet system
     private int bulletsThisBarrage = 0;
-    private static int bulletsPerBarrageMin = 5;
-    private static int bulletsPerBarrageMax = 20;
-    private static final int BARRAGE_CD_MIN = 200;
-    private static final int BARRAGE_CD_MAX = 1500;
-    private static final int TIME_BETWEEN_BULLETS = 50;
+    private int bulletsPerBarrageMin = 3;
+    private int bulletsPerBarrageMax = 8;
+    private static final int BARRAGE_CD_MIN = 400;
+    private static final int BARRAGE_CD_MAX = 1600;
+    private static final int TIME_BETWEEN_BULLETS = 80;
     private int barrageCooldown;
     private long lastBarrageTime;
     private long lastBulletFired;
@@ -41,6 +41,7 @@ public class Enemy extends Actor {
         this.dimension = dimension;
         this.scoreWorth = EnemyType.scoreValue(type);
         this.level = level;
+        this.health = EnemyType.enemyHealth(type, level);
 
         destroyWhenOffScreen = true;
 
@@ -68,7 +69,7 @@ public class Enemy extends Actor {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(50, new TVector(0, 1));
+        velocity = new TVelocity(EnemyType.enemySpeed(type, level), new TVector(0, 1));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
@@ -97,10 +98,6 @@ public class Enemy extends Actor {
 
     public int scoreValue() {
         return scoreWorth;
-    }
-
-    public void setMaxHealth(int maxHealth) {
-        health = maxHealth;
     }
 
     // lets this enemy take damage and returns whether the enemy died ?

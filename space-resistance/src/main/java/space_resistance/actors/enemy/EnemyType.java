@@ -33,4 +33,31 @@ public enum EnemyType {
             case GOLIATH -> 1000;
         };
     }
+
+    public static int enemyHealth(EnemyType type, int level) {
+        return switch (type) {
+            case MITE -> 50 + (level * 25);
+            case GRASSHOPPER -> 100 + (level * 40);
+            case TARANTULA -> 200 + (level * 60);
+            case GOLIATH -> 1000 + (level * 500);
+        };
+    }
+
+    public static int enemySpeed(EnemyType type, int level) {
+        return switch (type) {
+            case MITE -> 25 + (level * 5);
+            case GRASSHOPPER -> 30 + (level * 10);
+            case TARANTULA -> 35 + (level * 10);
+            case GOLIATH -> 40;
+        };
+    }
+
+    public static int bulletSpeed(EnemyType type) {
+        return switch (type) {
+            case MITE -> 400;
+            case GRASSHOPPER -> 450;
+            case TARANTULA -> 500;
+            case GOLIATH -> 600;
+        };
+    }
 }
