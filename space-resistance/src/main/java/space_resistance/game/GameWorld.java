@@ -146,8 +146,6 @@ public class GameWorld extends World {
         return gameConfig;
     }
 
-    // TODO: potentially buggy as playerOne also seems to be calling destroy on the other actor, need to replace calls
-    //  to actor.destroy() with actor.removeFromWorld()
     public void handleCollisions(CollisionEvent event) {
         Actor a = event.actorA();
         Actor b = event.actorB();
@@ -166,7 +164,7 @@ public class GameWorld extends World {
                 gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
                 a.removeFromWorld();
             }
-            this.add(new ImpactExplosion(this, new TPoint(b.origin().x + 5, b.origin().y - 40)));
+            this.add(new ImpactExplosion(this, new TPoint(b.origin().x - 15, b.origin().y - 20)));
             b.removeFromWorld();
         } else if (a instanceof PlayerBullet && b instanceof Enemy) {
             if (((Enemy) b).takeDamage(((PlayerBullet) a).damageToDeal())) {
@@ -176,7 +174,7 @@ public class GameWorld extends World {
                         b.origin().y + b.graphic().height() * 0.25));
                 b.removeFromWorld();
             }
-            this.add(new ImpactExplosion(this, new TPoint(a.origin().x + 5, a.origin().y - 40)));
+            this.add(new ImpactExplosion(this, new TPoint(a.origin().x - 15, a.origin().y - 20)));
             a.removeFromWorld();
         }
     }

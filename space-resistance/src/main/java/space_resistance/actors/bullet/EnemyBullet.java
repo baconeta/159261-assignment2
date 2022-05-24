@@ -32,9 +32,9 @@ public class EnemyBullet extends Bullet {
 
     @Override
     protected TGraphicCompound initSprite() {
-         var sprite = new TGraphicCompound(dimension());
+         var sprite = new TGraphicCompound(EnemyType.enemyBulletDimension(type));
          sprite.add(EnemyShot.shotFor(type));
-         if (Game.DEBUG_MODE) { sprite.add(new TRect(dimension())); }
+         if (Game.DEBUG_MODE) { sprite.add(new TRect(EnemyType.enemyBulletDimension(type))); }
 
          return sprite;
     }

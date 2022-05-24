@@ -35,9 +35,9 @@ public class SpaceShip extends Actor {
     private final Player player;
     private long lastBulletFired;
 
-    // TODO: maybe rework the player controls mapping so we don't need to store these on the class
-    KeyEvent keyPressed = null;
-    KeyEvent keyReleased = null;
+    private KeyEvent keyPressed = null;
+    private KeyEvent keyReleased = null;
+    private int up, down, left, right;
 
     private boolean shootKeyDown = false;
 
@@ -58,6 +58,11 @@ public class SpaceShip extends Actor {
 
         graphic = initSprite();
         physics = initPhysics();
+
+        up = 0;
+        down = 0;
+        left = 0;
+        right = 0;
 
         setOrigin(origin);
     }
@@ -112,12 +117,12 @@ public class SpaceShip extends Actor {
     public void update() {
         checkBoundaries();
 
-        // TODO: This should be handled in performAction, not here. Ideally this is handled at the GameWorld level so
-        //  we don't have actors adding things to the world willy nilly.
         long currentTime = System.currentTimeMillis();
         if (shootKeyDown && currentTime-lastBulletFired > DELAY_BETWEEN_BULLETS) {
-            var bullet = new PlayerBullet(world, new TPoint(this.origin.x, this.origin.y - 5));
+            var bullet = new PlayerBullet(world, new TPoint(this.origin.x + 10, this.origin.y - 5));
+            var bullet2 = new PlayerBullet(world, new TPoint(this.origin.x + 50, this.origin.y - 5));
             world.add(bullet);
+            world.add(bullet2);
             lastBulletFired  = currentTime;
         }
     }
@@ -137,12 +142,24 @@ public class SpaceShip extends Actor {
     }
 
     private void performAction(Action action) {
-        switch(action) {
-            case MOVE_UP -> velocity.setDirectionY(-1);
-            case MOVE_DOWN -> velocity.setDirectionY(1);
-            case MOVE_LEFT -> velocity.setDirectionX(-1);
-            case MOVE_RIGHT -> velocity.setDirectionX(1);
-            case SHOOT -> {
+        switch (action) {
+            case MOVE_UP:
+                up = -1;
+                velocity.setDirectionY(up + down);
+                break;
+            case MOVE_DOWN:
+                down = 1;
+                velocity.setDirectionY(up + down);
+                break;
+            case MOVE_LEFT:
+                left = -1;
+                velocity.setDirectionX(left + right);
+                break;
+            case MOVE_RIGHT:
+                right = 1;
+                velocity.setDirectionX(left + right);
+                break;
+            case SHOOT:
                 if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
                     // Check if player 2 is pressing left shift
                     if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
@@ -151,16 +168,30 @@ public class SpaceShip extends Actor {
                 } else {
                     shootKeyDown = true;
                 }
-            }
+                break;
         }
     }
 
     public void movementKeyReleasedAction(Action action) {
-        switch(action) {
-            // Set player velocity for corresponding axis to 0
-            case MOVE_UP, MOVE_DOWN -> velocity.setDirectionY(0);
-            case MOVE_LEFT, MOVE_RIGHT -> velocity.setDirectionX(0);
-            case  SHOOT -> {
+        // Set player velocity for corresponding axis to 0
+        switch (action) {
+            case MOVE_UP:
+                up = 0;
+                velocity.setDirectionY(up + down);
+                break;
+            case MOVE_DOWN:
+                down = 0;
+                velocity.setDirectionY(up + down);
+                break;
+            case MOVE_LEFT:
+                left = 0;
+                velocity.setDirectionX(left + right);
+                break;
+            case MOVE_RIGHT:
+                right = 0;
+                velocity.setDirectionX(left + right);
+                break;
+            case SHOOT:
                 if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
                     // Check if player 2 is pressing left shift
                     if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
@@ -169,7 +200,7 @@ public class SpaceShip extends Actor {
                 } else {
                     shootKeyDown = false;
                 }
-            }
+                break;
         }
     }
 

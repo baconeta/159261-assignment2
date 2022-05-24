@@ -27,12 +27,12 @@ public class EnemyWave {
     private static final int spawnHeight = 72;
 
     // Spawn constants
-    private int spawnSpeedStep = 100; // how many ms faster enemies spawn per level.
+    private final int spawnSpeedStep = 250; // how many ms faster enemies spawn per level.
 
     // Game design setting constants
-    private final int initialMillisecondsBetweenSpawns = 5100;
-    private final int initialMillisecondsBeforeWave = 5000;
-    private final int bossHealthPerLevel = 5000;
+    private final int initialMillisecondsBetweenSpawns = 4500;
+    private final int initialMillisecondsBeforeWave = 3000;
+    private final int bossHealthPerLevel = 2500;
 
     // This wave
     private List<Enemy> wave = new ArrayList<>();
@@ -87,7 +87,7 @@ public class EnemyWave {
     }
 
     public int delayBetweenSpawns() {
-        return max(initialMillisecondsBetweenSpawns - spawnSpeedStep * level, minBetweenSpawnMs);
+        return max(initialMillisecondsBetweenSpawns - spawnSpeedStep * (level - 1), minBetweenSpawnMs);
     }
 
     public int delayBeforeWave() {
