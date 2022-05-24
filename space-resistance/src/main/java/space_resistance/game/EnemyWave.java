@@ -30,7 +30,7 @@ public class EnemyWave {
     private final int spawnSpeedStep = 250; // how many ms faster enemies spawn per level.
 
     // Game design setting constants
-    private final int initialMillisecondsBetweenSpawns = 4500;
+    private final int initialMillisecondsBetweenSpawns = 500;
     private final int initialMillisecondsBeforeWave = 3000;
     private final int bossHealthPerLevel = 2500;
 

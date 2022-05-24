@@ -84,7 +84,10 @@ public class Enemy extends Actor {
         if (currentTime > lastBarrageTime + barrageCooldown) {
             // we can start next barrage of bullets
             if (currentTime > lastBulletFired + TIME_BETWEEN_BULLETS) {
-                var bullet = new EnemyBullet(type, new TPoint(this.origin.x + 35, this.origin.y + 60));
+                TPoint bulletOffset = EnemyType.enemyBulletSpawnOffset(type);
+                var bullet = new EnemyBullet(type, new TPoint(
+                        this.origin.x + bulletOffset.x,
+                        this.origin.y + bulletOffset.y));
                 world.add(bullet);
                 bulletsThisBarrage -= 1;
                 lastBulletFired = currentTime;
