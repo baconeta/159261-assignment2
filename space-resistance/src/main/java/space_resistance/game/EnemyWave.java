@@ -97,12 +97,4 @@ public class EnemyWave {
     public int enemiesPerSpawn() {
         return enemiesPerSpawn;
     }
-
-    public int spawnSpeedStep(){
-        return spawnSpeedStep;
-    }
-
-    public void setSpawnSpeedStep(int spawnSpeedStep){
-        this.spawnSpeedStep += spawnSpeedStep;
-    }
 }

@@ -27,7 +27,6 @@ public class EnemySpawningSystem {
         gameWorld = gw;
         currentLevel = 1;
         generateEnemyWave();
-        currentWave.setSpawnSpeedStep(currentLevel * 100);
     }
 
     public void update() {
@@ -83,7 +82,6 @@ public class EnemySpawningSystem {
             e.setBulletsPerBarrageMax(e.bulletsPerBarrageMax() + 5);
         }
         generateEnemyWave();
-        currentWave.setSpawnSpeedStep(currentLevel * 100);
     }
 
     private void spawnEnemy() {
