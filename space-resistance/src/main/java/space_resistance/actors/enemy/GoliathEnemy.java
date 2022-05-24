@@ -39,9 +39,9 @@ public class GoliathEnemy extends Enemy {
     private void findPlayerInWorld() {
         for (Actor a : world.actors()) {
             if ((a instanceof SpaceShip)) {
-                if (a.origin().x - this.origin.x > 7) {
+                if ((a.origin().x + a.graphic().width() * 0.5) - (this.origin.x + this.graphic().width() * 0.5) > 10) {
                     velocity.setDirectionX(1);
-                } else if ((this.origin.x - a.origin().x > 7)) {
+                } else if (((this.origin.x + this.graphic().width() * 0.5) - (a.origin().x + a.graphic().width() * 0.5) > 10)) {
                     velocity.setDirectionX(-1);
                 } else {
                     velocity.setDirectionX(0);
