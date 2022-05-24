@@ -18,10 +18,19 @@ public enum EnemyType {
 
     public static TPoint enemyBulletSpawnOffset(EnemyType type) {
         return switch (type) {
-            case MITE -> new TPoint(35, 60);
-            case GRASSHOPPER -> new TPoint(35, 60);
-            case TARANTULA -> new TPoint(35, 60);
-            case GOLIATH -> new TPoint(10, 70);
+            case MITE -> new TPoint(35, 55);
+            case GRASSHOPPER -> new TPoint(15, 40);
+            case TARANTULA -> new TPoint(26, 60);
+            case GOLIATH -> new TPoint(45, 130);
+        };
+    }
+
+    public static int scoreValue(EnemyType type) {
+        return switch (type) {
+            case MITE -> 100;
+            case GRASSHOPPER -> 300;
+            case TARANTULA -> 500;
+            case GOLIATH -> 1000;
         };
     }
 }

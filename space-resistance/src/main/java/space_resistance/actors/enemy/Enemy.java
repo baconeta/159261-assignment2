@@ -23,8 +23,7 @@ public class Enemy extends Actor {
     protected int health = 100;
     protected int scoreWorth;
     public EnemyType type;
-
-    public int level = 1;
+    private int level;
 
     // Bullet system
     private int bulletsThisBarrage = 0;
@@ -37,10 +36,11 @@ public class Enemy extends Actor {
     private long lastBarrageTime;
     private long lastBulletFired;
 
-    public Enemy(EnemyType type, TPoint origin, Dimension dimension, int scoreWorth) {
+    public Enemy(EnemyType type, TPoint origin, Dimension dimension, int level) {
         this.type = type;
         this.dimension = dimension;
-        this.scoreWorth = scoreWorth;
+        this.scoreWorth = EnemyType.scoreValue(type);
+        this.level = level;
 
         destroyWhenOffScreen = true;
 

@@ -14,16 +14,12 @@ import tengine.physics.kinematics.TVelocity;
 import java.awt.*;
 
 public class EnemyBullet extends Bullet {
-    private static final Dimension DIMENSION = new Dimension(12, 24);
     private final EnemyType type;
 
     public EnemyBullet(EnemyType type, TPoint origin) {
         super(origin);
         this.type = type;
-        if (this.type == EnemyType.GOLIATH){
-            origin.x += 35;
-            origin.y += 60;
-        }
+
         graphic = initSprite();
         physics = initPhysics();
 
@@ -43,7 +39,7 @@ public class EnemyBullet extends Bullet {
     protected TPhysicsComponent initPhysics() {
         boolean isStatic = false;
         boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, new Dimension(7, graphic().dimension().height / 2));
+        CollisionRect collisionRect = new CollisionRect(origin, EnemyType.enemyBulletDimension(type));
         velocity = new TVelocity(500, new TVector(0, 1));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
@@ -51,6 +47,6 @@ public class EnemyBullet extends Bullet {
 
     @Override
     protected Dimension dimension() {
-        return DIMENSION;
+        return EnemyType.enemyBulletDimension(type);
     }
 }
