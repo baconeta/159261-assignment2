@@ -1,6 +1,16 @@
 package space_resistance.game;
 
+import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.enemy.GoliathEnemy;
+import space_resistance.assets.FontBook;
+import tengine.geom.TPoint;
+import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.TGraphicObject;
+import tengine.graphics.components.text.TLabel;
+import tengine.graphics.transforms.TScale;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class EnemySpawningSystem {
     public final GameWorld gameWorld;
@@ -10,6 +20,8 @@ public class EnemySpawningSystem {
     private long timeLastWaveGenerated;
     private long timeLastEnemySpawned;
     private SpawnState currentState = SpawnState.DEFAULT;
+    private TLabel newLevelGraphic;
+    private boolean newLevelOnScreen;
 
     public EnemySpawningSystem(GameWorld gw) {
         gameWorld = gw;
@@ -24,10 +36,16 @@ public class EnemySpawningSystem {
                 if ((currentTime - timeLastWaveGenerated) > currentWave.delayBeforeWave()) {
                     currentState = SpawnState.SPAWNING;
                 }
+                if (!newLevelOnScreen) {
+                    showNewLevelLabel();
+                }
                 break;
             case SPAWNING:
+                if (newLevelOnScreen) {
+                    removeNewLevelLabel();
+                }
                 if ((currentTime - timeLastEnemySpawned) > currentWave.delayBetweenSpawns()) {
-                    SpawnEnemy();
+                    spawnEnemy();
                 }
                 break;
             case BOSS:
@@ -35,6 +53,19 @@ public class EnemySpawningSystem {
             case DEFAULT:
                 break;
         }
+    }
+
+    private void removeNewLevelLabel() {
+        gameWorld.canvas().remove(newLevelGraphic);
+        newLevelOnScreen = false;
+    }
+
+    private void showNewLevelLabel() {
+        newLevelGraphic = new TLabel("Level " + currentLevel, new TPoint(245, 280));
+        newLevelGraphic.setFont(FontBook.shared().scoreBoardFont());
+        newLevelGraphic.setColor(Color.white);
+        gameWorld.canvas().add(newLevelGraphic);
+        newLevelOnScreen = true;
     }
 
     private void generateEnemyWave() {
@@ -46,10 +77,14 @@ public class EnemySpawningSystem {
     public void bossDestroyed() {
         currentState = SpawnState.POST_WAVE;
         currentLevel += 1;
+        for (Enemy e : currentWave.getWave()){
+            e.setBulletsPerBarrageMin(e.bulletsPerBarrageMin() + 5);
+            e.setBulletsPerBarrageMax(e.bulletsPerBarrageMax() + 5);
+        }
         generateEnemyWave();
     }
 
-    private void SpawnEnemy() {
+    private void spawnEnemy() {
         if (currentWave.enemiesRemaining() > 0) {
             var enemy = currentWave.randomEnemyFromWave();
             enemy.spawnInWorld(gameWorld);

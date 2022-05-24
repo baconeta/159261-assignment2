@@ -71,7 +71,7 @@ abstract public class TGraphicObject {
         scale.yScaleFactor = scaleFactor;
     }
 
-    void setParent(TGraphicCompound parent) {
+    public void setParent(TGraphicCompound parent) {
         this.parent = parent;
     }
 
@@ -98,5 +98,8 @@ abstract public class TGraphicObject {
 
     public void update(double dtMillis) {
         // No-op
+    }
+    public TScale scale(){
+        return scale;
     }
 }
