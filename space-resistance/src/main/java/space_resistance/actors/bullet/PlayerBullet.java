@@ -15,8 +15,8 @@ import tengine.physics.kinematics.TVelocity;
 import java.awt.*;
 
 public class PlayerBullet extends Bullet {
-    private static final Dimension DIMENSION = new Dimension(64, 64);
-    private static final int DAMAGE = 10;
+    private static final Dimension DIMENSION = new Dimension(5, 13);
+    private static final int DAMAGE = 5;
 
     public PlayerBullet(GameWorld world, TPoint origin) {
         super(origin);
