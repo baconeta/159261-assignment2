@@ -166,7 +166,7 @@ public class GameWorld extends World {
                 gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
                 a.removeFromWorld();
             }
-            this.add(new ImpactExplosion(this, new TPoint(b.origin().x-15, b.origin().y - 20)));
+            this.add(new ImpactExplosion(this, new TPoint(b.origin().x - 15, b.origin().y - 20)));
             b.removeFromWorld();
         } else if (a instanceof PlayerBullet && b instanceof Enemy) {
             if (((Enemy) b).takeDamage(((PlayerBullet) a).damageToDeal())) {
@@ -176,7 +176,7 @@ public class GameWorld extends World {
                         b.origin().y + b.graphic().height() * 0.25));
                 b.removeFromWorld();
             }
-            this.add(new ImpactExplosion(this, new TPoint(a.origin().x-15, a.origin().y - 20)));
+            this.add(new ImpactExplosion(this, new TPoint(a.origin().x - 15, a.origin().y - 20)));
             a.removeFromWorld();
         }
     }
