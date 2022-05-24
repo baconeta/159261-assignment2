@@ -27,7 +27,7 @@ public class EnemyWave {
     private static final int spawnHeight = 72;
     private final int grasshopperSpawningRate;
     private final int tarantulaSpawningRate;
-    
+
     // Game design setting constants
     private static final int initialMillisecondsBetweenSpawns = 4500;
     private static final int initialMillisecondsBeforeWave = 3000;
@@ -43,11 +43,11 @@ public class EnemyWave {
 
     public EnemyWave(int currentLevel) {
         level = currentLevel;
+        enemiesPerSpawn = level;
+        grasshopperSpawningRate = 5 + (currentLevel * 2);
+        tarantulaSpawningRate = 5 + currentLevel;
         generateWave();
         enemiesRemaining = wave.size();
-        enemiesPerSpawn = level;
-        grasshopperSpawningRate = 6 + (currentLevel * 2);
-        tarantulaSpawningRate = 2 + currentLevel;
     }
 
     private void generateWave() {
@@ -64,7 +64,7 @@ public class EnemyWave {
     }
 
     private EnemyType randomEnemyType() {
-        int spawnInt = RANDOM.nextInt(1,101);
+        int spawnInt = RANDOM.nextInt(0,100);
         if (spawnInt < tarantulaSpawningRate) { return TARANTULA; }
         if (spawnInt < tarantulaSpawningRate + grasshopperSpawningRate) { return GRASSHOPPER; }
         return MITE;

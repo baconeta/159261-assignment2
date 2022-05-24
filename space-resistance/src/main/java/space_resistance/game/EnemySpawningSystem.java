@@ -72,7 +72,7 @@ public class EnemySpawningSystem {
         currentWave = new EnemyWave(currentLevel);
         currentWave.getWave().forEach(e -> {
             e.setBulletsPerBarrageMin(e.bulletsPerBarrageMin() + 2 * currentLevel);
-            e.setBulletsPerBarrageMax(e.bulletsPerBarrageMax() + 3 * currentLevel);
+            e.setBulletsPerBarrageMax(e.bulletsPerBarrageMax() + 2 * currentLevel);
         });
         currentState = SpawnState.PRE_WAVE;
         timeLastWaveGenerated = System.currentTimeMillis();
