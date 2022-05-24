@@ -34,7 +34,7 @@ public class Pickup extends Actor {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(0, new TVector(0, 0));
+        velocity = new TVelocity(27, new TVector(0, 1));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
@@ -45,7 +45,7 @@ public class Pickup extends Actor {
         PickupSprite pickupSprite = new PickupSprite(type, this.dimension);
         pickup.add(pickupSprite);
         if (Game.DEBUG_MODE) {
-            pickup.add(new TRect(new Dimension((int) (dimension.width), (int) (dimension.height))));
+            pickup.add(new TRect(new Dimension(dimension.width, dimension.height)));
         }
         return pickup;
     }
