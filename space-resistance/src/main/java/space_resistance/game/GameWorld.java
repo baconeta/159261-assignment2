@@ -1,6 +1,7 @@
 package space_resistance.game;
 
 import space_resistance.actors.Explosion;
+import space_resistance.actors.ImpactExplosion;
 import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
@@ -159,21 +160,23 @@ public class GameWorld extends World {
             a.removeFromWorld();
         } else if (a instanceof Enemy && b instanceof PlayerBullet) {
             if (((Enemy) a).takeDamage(((PlayerBullet) b).damageToDeal())) {
-                this.add(new Explosion(this, a.origin()));
+                this.add(new Explosion(this, a.origin(), ((Enemy)a).type)));
                 trySpawnPickup(new TPoint(b.origin().x + b.graphic().width() * 0.25,
                         b.origin().y + b.graphic().height() * 0.25));
                 gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
                 a.removeFromWorld();
             }
+            this.add(new ImpactExplosion(this, new TPoint(b.origin().x + 5, b.origin().y - 40)));
             b.removeFromWorld();
         } else if (a instanceof PlayerBullet && b instanceof Enemy) {
             if (((Enemy) b).takeDamage(((PlayerBullet) a).damageToDeal())) {
-                this.add(new Explosion(this, b.origin()));
+                this.add(new Explosion(this, b.origin(),((Enemy)b).type));
                 gameState.playerOne().increaseScore(((Enemy) b).scoreValue());
                 trySpawnPickup(new TPoint(b.origin().x + b.graphic().width() * 0.25,
                         b.origin().y + b.graphic().height() * 0.25));
                 b.removeFromWorld();
             }
+            this.add(new ImpactExplosion(this, new TPoint(a.origin().x + 5, a.origin().y - 40)));
             a.removeFromWorld();
         }
     }

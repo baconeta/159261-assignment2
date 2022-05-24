@@ -22,7 +22,7 @@ public class Enemy extends Actor {
     protected Dimension dimension;
     protected int health = 100;
     protected int scoreWorth;
-    protected EnemyType type;
+    public EnemyType type;
 
     // Bullet system
     private int bulletsThisBarrage = 0;
@@ -82,7 +82,7 @@ public class Enemy extends Actor {
         if (currentTime > lastBarrageTime + barrageCooldown) {
             // we can start next barrage of bullets
             if (currentTime > lastBulletFired + TIME_BETWEEN_BULLETS) {
-                var bullet = new EnemyBullet(type, new TPoint(this.origin.x, this.origin.y + 30));
+                var bullet = new EnemyBullet(type, new TPoint(this.origin.x + 30, this.origin.y + 60));
                 world.add(bullet);
                 bulletsThisBarrage -= 1;
                 lastBulletFired = currentTime;

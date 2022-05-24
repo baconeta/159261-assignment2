@@ -1,4 +1,4 @@
-package space_resistance.ui.screens.gameover;
+package space_resistance.ui.screens.gameplay;
 
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.Colors;
@@ -20,7 +20,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
-public class GameOverScreen implements Screen {
+public class PauseScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final Game engine;
     private final TGraphicCompound graphic;
@@ -31,37 +31,32 @@ public class GameOverScreen implements Screen {
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
     Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
-    public GameOverScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
+    public PauseScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
 
         // Title
-        TLabel title = new TLabel("Game over!");
+        TLabel title = new TLabel("Game Paused");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().bodyFont());
         title.setOrigin(new TPoint(250, 300));
 
-        // Score
-        TLabel score = new TLabel("Score: " + gameState.maxScore());
-        score.setColor(Colors.Text.PRIMARY);
-        score.setFont(FontBook.shared().bodyFont());
-        score.setOrigin(new TPoint(250, 340));
 
         switch(gameState.gameConfig().multiplayerMode()) {
             case SINGLE_PLAYER -> {
                 // Display one player game over screen
             }
             case MULTIPLAYER -> gameState.winner().ifPresentOrElse(winner -> {
-                // Display two player game over screen
-            },
-            () -> {
-                title.setText("It's a draw!");
-                title.setOrigin(new TPoint(140, 180));
-            });
+                        // Display two player game over screen
+                    },
+                    () -> {
+                        title.setText("It's a draw!");
+                        title.setOrigin(new TPoint(140, 180));
+                    });
         }
 
         // Buttons
-        playAgain = new Button("PLAY AGAIN");
+        playAgain = new Button("RESUME");
         playAgain.setOrigin(new TPoint(80, 490));
 
         quit = new Button("QUIT TO MENU");
@@ -72,7 +67,7 @@ public class GameOverScreen implements Screen {
         // Graphic
         graphic = new TGraphicCompound(Game.WINDOW_DIMENSION);
         graphic.add(background);
-        graphic.addAll(title, score, playAgain, quit);
+        graphic.addAll(title, playAgain, quit);
     }
 
     @Override
