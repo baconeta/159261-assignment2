@@ -15,10 +15,12 @@ import java.awt.*;
 
 public class EnemyBullet extends Bullet {
     private final EnemyType type;
+    private final int damage;
 
     public EnemyBullet(EnemyType type, TPoint origin) {
         super(origin);
         this.type = type;
+        this.damage = EnemyType.bulletDamage(type);
 
         graphic = initSprite();
         physics = initPhysics();
@@ -49,4 +51,6 @@ public class EnemyBullet extends Bullet {
     protected Dimension dimension() {
         return EnemyType.enemyBulletDimension(type);
     }
+
+    public int bulletDamage() { return damage; }
 }

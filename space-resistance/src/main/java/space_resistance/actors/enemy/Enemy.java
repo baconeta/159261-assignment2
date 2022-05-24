@@ -22,8 +22,8 @@ public class Enemy extends Actor {
     protected Dimension dimension;
     protected int health;
     protected int scoreWorth;
+    protected final int level;
     public EnemyType type;
-    private final int level;
 
     // Bullet system
     private int bulletsThisBarrage = 0;
@@ -97,7 +97,10 @@ public class Enemy extends Actor {
     }
 
     public int scoreValue() {
-        return scoreWorth;
+        // Ensures we only add the score one time regardless of number of collisions before destruction frame
+        int scoreToAdd = scoreWorth;
+        scoreWorth = 0;
+        return scoreToAdd;
     }
 
     // lets this enemy take damage and returns whether the enemy died ?

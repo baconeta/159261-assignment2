@@ -48,7 +48,7 @@ public enum EnemyType {
             case MITE -> 25 + (level * 5);
             case GRASSHOPPER -> 30 + (level * 10);
             case TARANTULA -> 35 + (level * 10);
-            case GOLIATH -> 40;
+            case GOLIATH -> 35 + (level * 5);
         };
     }
 
@@ -58,6 +58,15 @@ public enum EnemyType {
             case GRASSHOPPER -> 450;
             case TARANTULA -> 500;
             case GOLIATH -> 600;
+        };
+    }
+
+    public static int bulletDamage(EnemyType type) {
+        return switch (type) {
+            case MITE -> 1;
+            case GRASSHOPPER -> 2;
+            case TARANTULA -> 2;
+            case GOLIATH -> 3;
         };
     }
 }
