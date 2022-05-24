@@ -3,6 +3,7 @@ package space_resistance.game;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
 import space_resistance.ui.screens.gameover.GameOverScreen;
+import space_resistance.ui.screens.gameplay.PauseScreen;
 import space_resistance.ui.screens.gameplay.PlayGameScreen;
 import space_resistance.ui.screens.menu.MenuScreen;
 import tengine.GameEngine;
@@ -64,6 +65,9 @@ public class Game extends GameEngine {
             case SHOWING_GAME_OVER -> {
                 assert activeScreen != null;
                 activeScreen = new GameOverScreen(this, this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState());
+            }
+            case SHOWING_PAUSE -> {
+                activeScreen = new PauseScreen(this, this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState());
             }
         }
 

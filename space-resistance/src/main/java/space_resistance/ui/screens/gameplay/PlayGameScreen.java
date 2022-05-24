@@ -46,6 +46,7 @@ public class PlayGameScreen implements Screen {
             world.handleKeyPressed(keyEvent);
         }
         if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
+            // screenChangeCallback.accept(ScreenIdentifier.SHOWING_PAUSE);  Uncomment to display pause screen
             paused = !paused;
             if (paused){
                 SoundEffects.shared().backgroundMusic().stopPlayingLoop();
@@ -60,6 +61,7 @@ public class PlayGameScreen implements Screen {
                     }
                 }
             } else {
+                // screenChangeCallback.accept(ScreenIdentifier.PLAYING);  Uncomment to display pause screen
                 SoundEffects.shared().backgroundMusic().playOnLoop();
                 for (Actor a: world.actors()) {
                     if (a instanceof SpaceShip){
