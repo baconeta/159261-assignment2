@@ -111,10 +111,9 @@ public class Enemy extends Actor {
 
     @Override
     public void destroy() {
-        // FIXME: Temporary fix for invisible enemies being destroyed again
-        velocity.setSpeed(10000);
         super.destroy();
     }
+    
     public void setBulletsPerBarrageMin(int bulletsPerBarrageMin){
         this.bulletsPerBarrageMin = bulletsPerBarrageMin;
     }
