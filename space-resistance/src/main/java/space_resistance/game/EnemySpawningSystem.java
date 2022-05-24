@@ -78,8 +78,8 @@ public class EnemySpawningSystem {
         currentState = SpawnState.POST_WAVE;
         currentLevel += 1;
         for (Enemy e : currentWave.getWave()){
-            e.setBulletsPerBarrageMin(e.bulletsPerBarrageMin() + 5);
-            e.setBulletsPerBarrageMax(e.bulletsPerBarrageMax() + 5);
+            e.setBulletsPerBarrageMin(e.bulletsPerBarrageMin() + 3);
+            e.setBulletsPerBarrageMax(e.bulletsPerBarrageMax() + 3);
         }
         generateEnemyWave();
     }
