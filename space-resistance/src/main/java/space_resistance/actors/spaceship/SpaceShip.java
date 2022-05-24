@@ -3,6 +3,7 @@ package space_resistance.actors.spaceship;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
+import space_resistance.actors.enemy.EnemyType;
 import space_resistance.actors.pickup.Pickup;
 import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.PlayerShip;
@@ -209,9 +210,8 @@ public class SpaceShip extends Actor {
     }
 
     public void collision(Actor actorB) {
-        // TODO: possibly use reflection + a switch here
         if (actorB instanceof EnemyBullet) {
-            player.reduceHealth(1);
+            player.reduceHealth(((EnemyBullet) actorB).bulletDamage());
         }
 
         if (actorB instanceof Enemy) {
