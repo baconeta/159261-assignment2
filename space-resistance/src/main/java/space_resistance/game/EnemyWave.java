@@ -1,6 +1,7 @@
 package space_resistance.game;
 
 import space_resistance.actors.enemy.Enemy;
+import space_resistance.actors.enemy.EnemyType;
 import space_resistance.actors.enemy.GoliathEnemy;
 import tengine.geom.TPoint;
 
@@ -10,8 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 import static java.lang.Integer.max;
-import static space_resistance.actors.enemy.EnemyType.GOLIATH;
-import static space_resistance.actors.enemy.EnemyType.MITE;
+import static space_resistance.actors.enemy.EnemyType.*;
 
 public class EnemyWave {
     // Static game design settings
@@ -25,6 +25,8 @@ public class EnemyWave {
     private static final int spawnY = 50;
     private static final int spawnWidth = 72;
     private static final int spawnHeight = 72;
+    private static final int grasshopperSpawningRate = 20;
+    private static final int tarantulaSpawningRate = 20;
 
     // Spawn constants
     private final int spawnSpeedStep = 250; // how many ms faster enemies spawn per level.
@@ -53,17 +55,21 @@ public class EnemyWave {
         wave = new ArrayList<>();
         int totalEnemies = RANDOM.nextInt(minEnemiesPerWave, minEnemiesPerWave + level);
         for (int i = 0; i < totalEnemies; i++) {
-            // This should also select an enemy type based on weight. Could some
-            // enemy parameters be set based on the current level or difficulty?
-            wave.add(new Enemy(MITE,
+            wave.add(new Enemy(randomEnemyType(),
                 new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX-spawnWidth), spawnY),
-                new Dimension(spawnWidth, spawnHeight),
-                100));
+                new Dimension(spawnWidth, spawnHeight), level));
         }
         boss = new GoliathEnemy(GOLIATH,
                  new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX-spawnWidth*2), spawnY),
-                 new Dimension(spawnWidth * 2, spawnHeight * 2), 1000);
+                 new Dimension(spawnWidth * 2, spawnHeight * 2), level);
         boss.setMaxHealth(bossHealthPerLevel * level);
+    }
+
+    private EnemyType randomEnemyType() {
+        int spawnInt = RANDOM.nextInt(1,101);
+        if (spawnInt < tarantulaSpawningRate) { return TARANTULA; }
+        if (spawnInt < tarantulaSpawningRate + grasshopperSpawningRate) { return GRASSHOPPER; }
+        return MITE;
     }
 
     public List<Enemy> getWave() {
