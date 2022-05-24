@@ -1,5 +1,6 @@
 package space_resistance.actors;
 
+import space_resistance.actors.enemy.EnemyType;
 import space_resistance.assets.SoundEffects;
 import space_resistance.assets.animated_sprites.ExplosionSprite;
 import space_resistance.game.GameWorld;
@@ -15,6 +16,28 @@ public class Explosion extends Actor {
 
     // Keeps track of how long explosion has existed
     private long currentTime = 0;
+
+
+    public Explosion(GameWorld world, TPoint origin, EnemyType type) {
+        if (type == EnemyType.GOLIATH){
+            SoundEffects.shared().goliathExplosionSound().play(5);
+        } else {
+            SoundEffects.shared().explosionSound().play(5);
+        }
+        this.world = world;
+
+        graphic = ExplosionSprite.sprite();
+        if (type == EnemyType.GOLIATH){
+            graphic.setScale(0.3);
+        } else {
+            graphic.setScale(0.125);
+        }
+        ((ExplosionSprite) graphic).setSequenceEndCallback(this::onExplosionEnd);
+        physics = initPhysics();
+        startTime = System.currentTimeMillis();
+
+        setOrigin(origin);
+    }
 
     public Explosion(GameWorld world, TPoint origin) {
         SoundEffects.shared().explosionSound().play(5);

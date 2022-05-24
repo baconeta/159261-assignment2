@@ -14,7 +14,7 @@ import tengine.physics.kinematics.TVelocity;
 import java.awt.*;
 
 public class EnemyBullet extends Bullet {
-    private static final Dimension DIMENSION = new Dimension(12, 12);
+    private static final Dimension DIMENSION = new Dimension(12, 24);
     private final EnemyType type;
 
     public EnemyBullet(EnemyType type, TPoint origin) {

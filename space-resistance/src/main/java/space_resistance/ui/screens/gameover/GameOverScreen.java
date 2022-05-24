@@ -45,7 +45,7 @@ public class GameOverScreen implements Screen {
         TLabel score = new TLabel("Score: " + gameState.maxScore());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().bodyFont());
-        score.setOrigin(new TPoint(265 - gameState.maxScore() / 10, 340));
+        score.setOrigin(new TPoint(250, 340));
 
         switch(gameState.gameConfig().multiplayerMode()) {
             case SINGLE_PLAYER -> {
