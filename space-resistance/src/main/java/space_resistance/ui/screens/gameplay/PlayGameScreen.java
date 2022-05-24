@@ -19,20 +19,24 @@ import java.util.function.Consumer;
 public class PlayGameScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final Game engine;
-    private final GameWorld world;
+    private GameWorld world = null;
     private final GameState gameState;
     public static boolean paused;
 
-    public PlayGameScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback) {
+    public PlayGameScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameWorld g) {
         SoundEffects.shared().backgroundMusic().playOnLoop();
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
         paused = false;
         gameState = new GameState(Settings.shared().config());
-        world = new GameWorld(
-                Game.WINDOW_DIMENSION,
-                this::onGameOverNotified,
-                gameState);
+        if (g == null){
+            world = new GameWorld(
+                    Game.WINDOW_DIMENSION,
+                    this::onGameOverNotified,
+                    gameState);
+        } else {
+            world = g;
+        }
     }
 
     public void onGameOverNotified() {
@@ -46,7 +50,7 @@ public class PlayGameScreen implements Screen {
             world.handleKeyPressed(keyEvent);
         }
         if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
-            // screenChangeCallback.accept(ScreenIdentifier.SHOWING_PAUSE);  Uncomment to display pause screen
+            screenChangeCallback.accept(ScreenIdentifier.SHOWING_PAUSE); //  Uncomment to display pause screen
             paused = !paused;
             if (paused){
                 SoundEffects.shared().backgroundMusic().stopPlayingLoop();
@@ -61,7 +65,8 @@ public class PlayGameScreen implements Screen {
                     }
                 }
             } else {
-                // screenChangeCallback.accept(ScreenIdentifier.PLAYING);  Uncomment to display pause screen
+                /*
+                screenChangeCallback.accept(ScreenIdentifier.PLAYING); //  Uncomment to display pause screen
                 SoundEffects.shared().backgroundMusic().playOnLoop();
                 for (Actor a: world.actors()) {
                     if (a instanceof SpaceShip){
@@ -72,6 +77,8 @@ public class PlayGameScreen implements Screen {
                         a.velocity().setSpeed(50);
                     }
                 }
+
+                 */
             }
         }
     }
@@ -112,5 +119,8 @@ public class PlayGameScreen implements Screen {
 
     public GameState gameState() {
         return gameState;
+    }
+    public GameWorld gameWorld(){
+        return world;
     }
 }
