@@ -4,12 +4,9 @@ import space_resistance.actors.enemy.EnemyType;
 import space_resistance.assets.AssetLoader;
 import tengine.graphics.components.sprites.Sprite;
 
-import java.awt.*;
 import java.io.InputStream;
 
 public class EnemyShot extends Sprite {
-    private static final Dimension DIMENSION = new Dimension(12, 24);
-
     private static final InputStream MITE_ASSET = AssetLoader.load("MiteEnemyShot.png");
     private static final EnemyShot MITE_SHOT = new EnemyShot(EnemyType.MITE);
 
@@ -32,7 +29,7 @@ public class EnemyShot extends Sprite {
     }
 
     private EnemyShot(EnemyType type) {
-        super(shotSpriteFor(type), DIMENSION);
+        super(shotSpriteFor(type), EnemyType.enemyBulletDimension(type));
     }
 
     private static InputStream shotSpriteFor(EnemyType type) {

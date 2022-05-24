@@ -146,8 +146,6 @@ public class GameWorld extends World {
         return gameConfig;
     }
 
-    // TODO: potentially buggy as playerOne also seems to be calling destroy on the other actor, need to replace calls
-    //  to actor.destroy() with actor.removeFromWorld()
     public void handleCollisions(CollisionEvent event) {
         Actor a = event.actorA();
         Actor b = event.actorB();
