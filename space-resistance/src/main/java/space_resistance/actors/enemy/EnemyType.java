@@ -48,7 +48,7 @@ public enum EnemyType {
             case MITE -> 25 + (level * 5);
             case GRASSHOPPER -> 30 + (level * 10);
             case TARANTULA -> 35 + (level * 10);
-            case GOLIATH -> 40;
+            case GOLIATH -> 35 + (level * 5);
         };
     }
 
