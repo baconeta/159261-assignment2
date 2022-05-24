@@ -40,11 +40,11 @@ public class GameWorld extends World {
 
     // Pickups
     private static final Dimension pickupDimension = new Dimension(32, 32);
-    private final int chanceHealth = 5;
-    private final int chanceShield = 3;
-    private final int chanceMissiles = 2;
+    private static final int chanceHealth = 5;
+    private static final int chanceShield = 3;
+    private static final int chanceMissiles = 2;
 
-    private final String BACKGROUND = "SpaceBackground.png";
+    private static final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
     ArrayList<Background> background = new ArrayList<>();
 

@@ -22,7 +22,7 @@ public class EnemyWave {
     // Static spawn constants
     private static final int minSpawnX = 25;
     private static final int maxSpawnX = 575;
-    private static final int spawnY = 50;
+    private static final int spawnY = 20;
     private static final int spawnWidth = 72;
     private static final int spawnHeight = 72;
     private final int grasshopperSpawningRate;
