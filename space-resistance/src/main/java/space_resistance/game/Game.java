@@ -62,8 +62,7 @@ public class Game extends GameEngine {
         switch(newScreen) {
             case SHOWING_MENU -> activeScreen = new MenuScreen(this, this::requestScreenChange);
             case PLAYING -> {
-                if (activeScreen instanceof PauseScreen){
-                    System.out.println("Unpaused");
+                if (activeScreen instanceof PauseScreen) {
                     activeScreen = new PlayGameScreen(this, this::requestScreenChange, ((PauseScreen) activeScreen).gameWorld());
                 } else {
                     activeScreen = new PlayGameScreen(this, this::requestScreenChange, null);
@@ -73,9 +72,10 @@ public class Game extends GameEngine {
                 assert activeScreen != null;
                 activeScreen = new GameOverScreen(this, this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState());
             }
-            case SHOWING_PAUSE -> {
-                activeScreen = new PauseScreen(this, this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState(), ((PlayGameScreen) activeScreen).gameWorld());
-            }
+            case SHOWING_PAUSE -> activeScreen = new PauseScreen(this,
+                this::requestScreenChange,
+                ((PlayGameScreen) activeScreen).gameState(),
+                ((PlayGameScreen) activeScreen).gameWorld());
         }
 
         activeScreen.addToCanvas();

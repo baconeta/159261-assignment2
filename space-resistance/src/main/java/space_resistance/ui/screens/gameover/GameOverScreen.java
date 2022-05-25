@@ -28,9 +28,12 @@ public class GameOverScreen implements Screen {
     private final ButtonGroup buttonGroup;
     private final Button playAgain;
     private final Button quit;
+
+    // TODO: Apply Flyweight pattern to background
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
     Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
+
     public GameOverScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;

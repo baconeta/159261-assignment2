@@ -38,6 +38,7 @@ public class PauseScreen implements Screen {
     Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
 
     private GameWorld gameWorld;
+
     public PauseScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState, GameWorld g) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;

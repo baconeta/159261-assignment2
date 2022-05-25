@@ -1,6 +1,5 @@
 package space_resistance.game;
 
-import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.enemy.GoliathEnemy;
 import space_resistance.assets.FontBook;
 import tengine.geom.TPoint;
