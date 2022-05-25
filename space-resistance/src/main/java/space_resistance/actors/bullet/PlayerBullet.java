@@ -15,6 +15,8 @@ import java.awt.*;
 
 public class PlayerBullet extends Bullet {
     private static final Dimension DIMENSION = new Dimension(5, 13);
+    private static final TVector DIRECTION = new TVector(0, -1);
+    private static final int SPEED = 500;
     private static final int DAMAGE = 5;
 
     public PlayerBullet(GameWorld world, TPoint origin) {
@@ -41,7 +43,7 @@ public class PlayerBullet extends Bullet {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(500, new TVector(0, -1));
+        velocity = new TVelocity(SPEED, DIRECTION);
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
