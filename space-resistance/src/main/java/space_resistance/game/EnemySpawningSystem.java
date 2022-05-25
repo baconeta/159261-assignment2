@@ -39,33 +39,34 @@ public class EnemySpawningSystem {
 
     public void update() {
         long currentTime = System.currentTimeMillis();
+
         switch (currentState) {
-            case PRE_WAVE:
+            case PRE_WAVE -> {
+                showNewLevelLabel();
+
                 if ((currentTime - timeLastWaveGenerated) > currentWave.delayBeforeWave()) {
                     currentState = SpawnState.SPAWNING;
                 }
-                if (!newLevelOnScreen) {
-                    showNewLevelLabel();
-                }
-                break;
-            case SPAWNING:
-                if (newLevelOnScreen) {
-                    removeNewLevelLabel();
-                }
+            }
+            case SPAWNING -> {
+                newLevelGraphic.removeFromParent();
+
                 if ((currentTime - timeLastEnemySpawned) > currentWave.delayBetweenSpawns()) {
                     spawnEnemy();
                 }
-                break;
-            case BOSS:
-            case POST_WAVE:
-            case DEFAULT:
-                break;
+            }
+            case BOSS, POST_WAVE, DEFAULT -> {}
         }
     }
 
-    private void removeNewLevelLabel() {
-        gameWorld.canvas().remove(newLevelGraphic);
-        newLevelOnScreen = false;
+    public void levelUp() {
+        currentState = SpawnState.POST_WAVE;
+        currentLevel += 1;
+        generateEnemyWave();
+    }
+
+    public GameWorld gameWorld() {
+        return gameWorld;
     }
 
     private void showNewLevelLabel() {
@@ -83,12 +84,6 @@ public class EnemySpawningSystem {
         timeLastWaveGenerated = System.currentTimeMillis();
     }
 
-    public void bossDestroyed() {
-        currentState = SpawnState.POST_WAVE;
-        currentLevel += 1;
-        generateEnemyWave();
-    }
-
     private void spawnEnemy() {
         if (currentWave.enemiesRemaining() > 0) {
             var enemy = currentWave.randomEnemyFromWave();
@@ -97,7 +92,7 @@ public class EnemySpawningSystem {
             currentState = SpawnState.BOSS;
             GoliathEnemy boss = currentWave.getBoss();
             boss.spawnBoss(this);
-    }
+        }
         timeLastEnemySpawned = System.currentTimeMillis();
     }
 }

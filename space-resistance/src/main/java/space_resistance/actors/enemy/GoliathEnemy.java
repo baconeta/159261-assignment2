@@ -23,7 +23,7 @@ public class GoliathEnemy extends Enemy {
 
     @Override
     public void destroy() {
-        enemySpawningSystem.bossDestroyed();
+        enemySpawningSystem.levelUp();
         super.destroy();
     }
 
