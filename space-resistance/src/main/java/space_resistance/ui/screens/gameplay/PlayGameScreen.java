@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 public class PlayGameScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final Game engine;
-    private GameWorld world = null;
+    private GameWorld world;
     private final GameState gameState;
     public static boolean paused;
 
