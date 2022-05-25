@@ -1,5 +1,6 @@
 package space_resistance.assets.sprites;
 
+import space_resistance.actors.enemy.EnemyConstants;
 import space_resistance.actors.enemy.EnemyType;
 import space_resistance.assets.AssetLoader;
 import tengine.graphics.components.sprites.Sprite;
@@ -29,7 +30,7 @@ public class EnemyShot extends Sprite {
     }
 
     private EnemyShot(EnemyType type) {
-        super(shotSpriteFor(type), EnemyType.enemyBulletDimension(type));
+        super(shotSpriteFor(type), EnemyConstants.enemyBulletDimension(type));
     }
 
     private static InputStream shotSpriteFor(EnemyType type) {

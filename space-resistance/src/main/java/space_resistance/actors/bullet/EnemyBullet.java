@@ -1,5 +1,6 @@
 package space_resistance.actors.bullet;
 
+import space_resistance.actors.enemy.EnemyConstants;
 import space_resistance.actors.enemy.EnemyType;
 import space_resistance.assets.sprites.EnemyShot;
 import space_resistance.game.Game;
@@ -20,7 +21,7 @@ public class EnemyBullet extends Bullet {
     public EnemyBullet(EnemyType type, TPoint origin) {
         super(origin);
         this.type = type;
-        this.damage = EnemyType.bulletDamage(type);
+        this.damage = EnemyConstants.bulletDamage(type);
 
         graphic = initSprite();
         physics = initPhysics();
@@ -30,9 +31,9 @@ public class EnemyBullet extends Bullet {
 
     @Override
     protected TGraphicCompound initSprite() {
-         var sprite = new TGraphicCompound(EnemyType.enemyBulletDimension(type));
+         var sprite = new TGraphicCompound(EnemyConstants.enemyBulletDimension(type));
          sprite.add(EnemyShot.shotFor(type));
-         if (Game.DEBUG_MODE) { sprite.add(new TRect(EnemyType.enemyBulletDimension(type))); }
+         if (Game.DEBUG_MODE) { sprite.add(new TRect(EnemyConstants.enemyBulletDimension(type))); }
 
          return sprite;
     }
@@ -41,15 +42,15 @@ public class EnemyBullet extends Bullet {
     protected TPhysicsComponent initPhysics() {
         boolean isStatic = false;
         boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, EnemyType.enemyBulletDimension(type));
-        velocity = new TVelocity(EnemyType.bulletSpeed(type), new TVector(0, 1));
+        CollisionRect collisionRect = new CollisionRect(origin, EnemyConstants.enemyBulletDimension(type));
+        velocity = new TVelocity(EnemyConstants.bulletSpeed(type), new TVector(0, 1));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
 
     @Override
     protected Dimension dimension() {
-        return EnemyType.enemyBulletDimension(type);
+        return EnemyConstants.enemyBulletDimension(type);
     }
 
     public int bulletDamage() { return damage; }

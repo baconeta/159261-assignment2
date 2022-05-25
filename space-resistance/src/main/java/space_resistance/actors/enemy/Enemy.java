@@ -39,9 +39,9 @@ public class Enemy extends Actor {
     public Enemy(EnemyType type, TPoint origin, Dimension dimension, int level) {
         this.type = type;
         this.dimension = dimension;
-        this.scoreWorth = EnemyType.scoreValue(type);
+        this.scoreWorth = EnemyConstants.scoreValue(type);
         this.level = level;
-        this.health = EnemyType.enemyHealth(type, level);
+        this.health = EnemyConstants.enemyHealth(type, level);
 
         destroyWhenOffScreen = true;
 
@@ -69,7 +69,7 @@ public class Enemy extends Actor {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(EnemyType.enemySpeed(type, level), new TVector(0, 1));
+        velocity = new TVelocity(EnemyConstants.enemySpeed(type, level), new TVector(0, 1));
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
@@ -85,7 +85,7 @@ public class Enemy extends Actor {
         if (currentTime > lastBarrageTime + barrageCooldown) {
             // we can start next barrage of bullets
             if (currentTime > lastBulletFired + (BASE_TIME_BETWEEN_BULLETS - level * 2L)) {
-                TPoint bulletOffset = EnemyType.enemyBulletSpawnOffset(type);
+                TPoint bulletOffset = EnemyConstants.enemyBulletSpawnOffset(type);
                 var bullet = new EnemyBullet(type, new TPoint(
                         this.origin.x + bulletOffset.x,
                         this.origin.y + bulletOffset.y));
