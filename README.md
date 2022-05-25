@@ -149,7 +149,7 @@ display the results.
 ## Attributions
 
 ### Ali Soltanian Fard Jahromi:
-- Game design and level design
+#### Game and Level Designer
 - Game art and animations, including Sprites and UI elements
 - Player setup, including player controls, systems and gameplay design
 - Firing systems for both the enemies and players, including bosses
@@ -162,7 +162,8 @@ display the results.
 - Enemy type and class system design and programming
 
 ### Joshua Pearson:
-- Game Design and Project Fundamentals (VCS, Organisation and Production Processes)
+#### Producer and Project Lead
+-  VCS, organisation and production processes
 - Enemy Spawning system
 - Enemy Wave design and functionality including boss transitions
 - Class refactoring and consistency 
@@ -172,11 +173,12 @@ display the results.
 - Enemy type and class system programming
 
 ### Tessa Power:
+#### Engine and Java Developer Lead
 - Completely designed ECS Game Engine from the ground up including elements such as:
   1. Physics engine with momentum and collisions system
   2. Actor system for game world objects requiring components and control
   3. Abstracted Graphical system used for visual elements, animations and Actors.
   4. Flyweight design for asset optimisation
-- Code control and quality
+- Global system code control and quality checks and fixes
 - Complete game backend optimisation
 - Game foundation and system set up
