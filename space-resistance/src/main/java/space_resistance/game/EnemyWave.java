@@ -30,39 +30,42 @@ public class EnemyWave {
     private static final double GRASSHOPPER_RATE_BY_LEVEL = 0.02;
     private static final double GRASSHOPPER_BASE_RATE = 0.05;
 
-    private final double tarantulaSpawningRate;
-    private final double grasshopperSpawningRate;
-
     // Game design setting constants
     private static final int initialMillisecondsBetweenSpawns = 4500;
     private static final int initialMillisecondsBeforeWave = 3000;
-    private static final int spawnSpeedStep = 250; // how many ms faster enemies spawn per level.
+    private static final int spawnSpeedStep = 250;
 
     // This wave
-    private List<Enemy> wave;
+    private final List<Enemy> wave = new ArrayList<>();
     private int enemiesRemaining;
     private final int level;
     private final int enemiesPerSpawn;
+
+    private final double tarantulaSpawningRate;
+    private final double grasshopperSpawningRate;
 
     private GoliathEnemy boss;
 
     public EnemyWave(int currentLevel) {
         level = currentLevel;
         enemiesPerSpawn = level;
+
         grasshopperSpawningRate = GRASSHOPPER_BASE_RATE + (currentLevel * GRASSHOPPER_RATE_BY_LEVEL);
         tarantulaSpawningRate = TARANTULA_BASE_RATE + (currentLevel * TARANTULA_RATE_BY_LEVEL);
+
         generateWave();
         enemiesRemaining = wave.size();
     }
 
     private void generateWave() {
-        wave = new ArrayList<>();
         int totalEnemies = RANDOM.nextInt(minEnemiesPerWave, minEnemiesPerWave + level);
+
         for (int i = 0; i < totalEnemies; i++) {
             wave.add(new Enemy(randomEnemyType(),
                 new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX - spawnWidth), spawnY),
                 new Dimension(spawnWidth, spawnHeight), level));
         }
+
         boss = new GoliathEnemy(GOLIATH,
                  new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX - spawnWidth * 2), spawnY),
                  new Dimension(spawnWidth * 2, spawnHeight * 2), level);
@@ -70,8 +73,15 @@ public class EnemyWave {
 
     private EnemyType randomEnemyType() {
         double spawnTypeValue = RANDOM.nextDouble();
-        if (spawnTypeValue < tarantulaSpawningRate) { return TARANTULA; }
-        if (spawnTypeValue < tarantulaSpawningRate + grasshopperSpawningRate) { return GRASSHOPPER; }
+
+        if (spawnTypeValue < tarantulaSpawningRate) {
+            return TARANTULA;
+        }
+
+        if (spawnTypeValue < tarantulaSpawningRate + grasshopperSpawningRate) {
+            return GRASSHOPPER;
+        }
+
         return MITE;
     }
 

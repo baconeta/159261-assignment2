@@ -13,19 +13,27 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class EnemySpawningSystem {
-    public final GameWorld gameWorld;
+    private enum SpawnState {
+        PRE_WAVE, SPAWNING, BOSS, POST_WAVE, DEFAULT
+    }
 
-    private int currentLevel;
+    private static final TPoint NEW_LEVEL_LABEL_ORIGIN = new TPoint(245, 280);
+
+    private final GameWorld gameWorld;
+
     private EnemyWave currentWave;
     private long timeLastWaveGenerated;
     private long timeLastEnemySpawned;
     private SpawnState currentState = SpawnState.DEFAULT;
-    private TLabel newLevelGraphic;
-    private boolean newLevelOnScreen;
+
+    private int currentLevel = 1;
+    private final TLabel newLevelGraphic = new TLabel("Level" + currentLevel, NEW_LEVEL_LABEL_ORIGIN);
 
     public EnemySpawningSystem(GameWorld gw) {
         gameWorld = gw;
-        currentLevel = 1;
+        newLevelGraphic.setFont(FontBook.shared().scoreBoardFont());
+        newLevelGraphic.setColor(Color.white);
+
         generateEnemyWave();
     }
 
@@ -61,11 +69,8 @@ public class EnemySpawningSystem {
     }
 
     private void showNewLevelLabel() {
-        newLevelGraphic = new TLabel("Level " + currentLevel, new TPoint(245, 280));
-        newLevelGraphic.setFont(FontBook.shared().scoreBoardFont());
-        newLevelGraphic.setColor(Color.white);
+        newLevelGraphic.setText("Level " + currentLevel);
         gameWorld.canvas().add(newLevelGraphic);
-        newLevelOnScreen = true;
     }
 
     private void generateEnemyWave() {
@@ -94,9 +99,5 @@ public class EnemySpawningSystem {
             boss.spawnBoss(this);
     }
         timeLastEnemySpawned = System.currentTimeMillis();
-    }
-
-    private enum SpawnState {
-        PRE_WAVE, SPAWNING, BOSS, POST_WAVE, DEFAULT
     }
 }

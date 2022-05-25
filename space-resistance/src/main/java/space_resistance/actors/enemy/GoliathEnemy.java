@@ -8,8 +8,9 @@ import tengine.geom.TPoint;
 import java.awt.*;
 
 public class GoliathEnemy extends Enemy {
-    private static final int maxTravelDistance = 150;
-    EnemySpawningSystem enemySpawningSystem;
+  private static final int MAX_TRAVEL_DISTANCE = 150;
+
+  private EnemySpawningSystem enemySpawningSystem;
 
     public GoliathEnemy(EnemyType type, TPoint origin, Dimension dimension, int level) {
         super(type, origin, dimension, level);
@@ -17,7 +18,7 @@ public class GoliathEnemy extends Enemy {
 
     public void spawnBoss(EnemySpawningSystem ess) {
         enemySpawningSystem = ess;
-        super.spawnInWorld(ess.gameWorld);
+        super.spawnInWorld(ess.gameWorld());
     }
 
     @Override
@@ -30,7 +31,7 @@ public class GoliathEnemy extends Enemy {
     public void update() {
         super.update();
 
-        if (origin.y >= maxTravelDistance && velocity.speed() > 0) {
+        if (origin.y >= MAX_TRAVEL_DISTANCE && velocity.speed() > 0) {
             velocity.setDirectionY(0);
             findPlayerInWorld();
         }

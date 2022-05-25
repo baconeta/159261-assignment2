@@ -18,6 +18,12 @@ import java.util.Random;
 
 public class Enemy extends Actor {
     private static final Random RANDOM = new Random();
+    private static final TVector DIRECTION = new TVector(0, 1);
+
+    // Bullet System Static Constants
+    private static final int BARRAGE_CD_MIN = 400;
+    private static final int BARRAGE_CD_MAX = 1600;
+    private static final int BASE_TIME_BETWEEN_BULLETS = 100;
 
     protected Dimension dimension;
     protected int health;
@@ -25,13 +31,10 @@ public class Enemy extends Actor {
     protected final int level;
     public EnemyType type;
 
-    // Bullet system
+    // Bullet System
     private int bulletsThisBarrage = 0;
     private int bulletsPerBarrageMin = 3;
     private int bulletsPerBarrageMax = 8;
-    private static final int BARRAGE_CD_MIN = 400;
-    private static final int BARRAGE_CD_MAX = 1600;
-    private static final int BASE_TIME_BETWEEN_BULLETS = 100;
     private int barrageCooldown;
     private long lastBarrageTime;
     private long lastBulletFired;
@@ -69,7 +72,7 @@ public class Enemy extends Actor {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(EnemyConstants.enemySpeed(type, level), new TVector(0, 1));
+        velocity = new TVelocity(EnemyConstants.enemySpeed(type, level), DIRECTION);
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }

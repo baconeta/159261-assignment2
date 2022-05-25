@@ -27,11 +27,22 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameWorld extends World {
+    private static final Dimension DIMENSION = new Dimension(600, 800);
+    private static final String BACKGROUND = "SpaceBackground.png";
+    private static final Random RANDOM = new Random();
+
+    // Pickups
+    private static final double chanceHealth = 0.05;
+    private static final double chanceShield = 0.03;
+    private static final double chanceMissiles = 0.02;
+
+    // Background container
+    private final TGraphicCompound container;
+
     private final Notifier gameOverNotifier;
     private final GameState gameState;
     private final GameConfig gameConfig;
     private final EnemySpawningSystem enemySpawningSystem;
-    private static final Random RANDOM = new Random();
 
     private final HeadsUpDisplay hud;
 
@@ -41,15 +52,8 @@ public class GameWorld extends World {
 
     // Pickups
     private static final Dimension pickupDimension = new Dimension(32, 32);
-    private static final int chanceHealth = 5;
-    private static final int chanceShield = 3;
-    private static final int chanceMissiles = 2;
 
-    private static final String BACKGROUND = "SpaceBackground.png";
-    private static final Dimension DIMENSION = new Dimension(600, 800);
-    ArrayList<Background> background = new ArrayList<>();
-
-    private final TGraphicCompound container;
+    private ArrayList<Background> background = new ArrayList<>();
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
