@@ -34,6 +34,7 @@ public class EnemyBullet extends Bullet {
     protected TGraphicCompound initSprite() {
          var sprite = new TGraphicCompound(EnemyConstants.enemyBulletDimension(type));
          sprite.add(EnemyShot.shotFor(type));
+         // TODO: Remove before submitting
          if (Game.DEBUG_MODE) { sprite.add(new TRect(EnemyConstants.enemyBulletDimension(type))); }
 
          return sprite;

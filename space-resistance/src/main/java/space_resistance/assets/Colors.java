@@ -3,6 +3,7 @@ package space_resistance.assets;
 import java.awt.*;
 
 public class Colors {
+    // TODO: Remove any unused colors before submitting
     public static final Color MITE_GREEN = new Color(55, 66, 24);
     private static final Color GRASSHOPPER_GREEN = new Color(188, 196, 14);
     public static final Color SPACESHIP_PURPLE = new Color(84, 47, 80);
@@ -23,6 +24,7 @@ public class Colors {
         // Add other categories of font colors here
     }
 
+    // TODO: Remove unnecessary comments before submitting
     // We centrally manage all button colors here, so we can swap out
     // a color once, and it will update everywhere.
     // Tweak these however you like! These are just placeholders.

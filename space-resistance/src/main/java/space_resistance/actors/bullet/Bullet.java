@@ -12,16 +12,14 @@ public abstract class Bullet extends Actor {
     private static final Random RANDOM = new Random();
 
     private final long startTime;
+
     // Keeps track of how long bullet actor has existed
     private long currentTime = 0;
 
-    // TODO: Consider creating an ActorType that can be passed in with the constructor and merging Enemy and Player
-    //  bullet into this class
     public Bullet(TPoint origin) {
         // Variation in the shots
         origin.x += RANDOM.nextInt(1 + 1) - 1;
         startTime = System.currentTimeMillis();
-
         destroyWhenOffScreen = true;
     }
 

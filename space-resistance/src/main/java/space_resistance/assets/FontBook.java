@@ -45,6 +45,7 @@ public final class FontBook {
         return new Font(gameFont.getFontName(), Font.BOLD, 20);
     }
 
+    // TODO: remove if still unused before submitting
     public Font buttonFont() {
         return new Font(gameFont.getFontName(), Font.PLAIN, 18);
     }
