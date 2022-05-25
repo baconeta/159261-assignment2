@@ -28,6 +28,9 @@ import java.util.Optional;
 public class SpaceShip extends Actor {
     private static final Dimension DIMENSION = new Dimension(64, 64);
     private static final int DELAY_BETWEEN_BULLETS = 50;
+    private static final TVector INITIAL_DIRECTION = new TVector();
+    private static final int SPEED = 200;
+    private static final int THRUSTER_Y_OFFSET = 30;
 
     private final GameWorld world;
 
@@ -72,7 +75,7 @@ public class SpaceShip extends Actor {
         TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
 
         // Thruster
-        spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + 30));
+        spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + THRUSTER_Y_OFFSET));
 
         playerSprite.add(spaceshipThrusters);
         playerSprite.add(PlayerShip.shipSprite());
@@ -87,7 +90,7 @@ public class SpaceShip extends Actor {
         CollisionRect collisionRect = new CollisionRect(origin, DIMENSION);
 
         // Feel free to change this if the speed isn't right
-        velocity = new TVelocity(200, new TVector(0, 0));
+        velocity = new TVelocity(SPEED, INITIAL_DIRECTION);
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
