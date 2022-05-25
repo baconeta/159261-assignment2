@@ -1,6 +1,5 @@
 package space_resistance.actors;
 
-import space_resistance.assets.SoundEffects;
 import space_resistance.assets.animated_sprites.ImpactExplosionSprite;
 import space_resistance.game.GameWorld;
 import tengine.Actor;
