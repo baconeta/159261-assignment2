@@ -8,18 +8,14 @@ public class Player {
 
     private final PlayerNumber playerNumber;
     private final PlayerControls playerControls;
-    private int score;
-    private int health;
-    private boolean shieldsOn;
-    private int shieldValue;
+    private int score = 0;
+    private int health = STARTING_HEALTH;
+    private int shieldValue = STARTING_SHIELD;
+    private boolean shieldsOn = false;
 
     public Player(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
         this.playerControls = PlayerControls.controlsForPlayer(playerNumber);
-        health = STARTING_HEALTH;
-        score = 0;
-        shieldValue = STARTING_SHIELD;
-        shieldsOn = shieldValue > 0;
     }
 
     public void increaseScore(int increaseAmount) {
@@ -78,7 +74,11 @@ public class Player {
         }
     }
 
-    public boolean shieldEnabled() { return shieldsOn; }
+    public boolean shieldEnabled() {
+        return shieldsOn;
+    }
 
-    public int shieldHealth() { return shieldValue; }
+    public int shieldHealth() {
+        return shieldValue;
+    }
 }
