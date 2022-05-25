@@ -1,6 +1,6 @@
 # Space Resistance
 
-A classic Shoot 'em up game, built in Java.
+A classic Shoot 'em up game, built in Java using the TEngine designed almost entirely by Tessa.
 
 ## Game Design
 
@@ -11,6 +11,11 @@ The player can move up, down, left, right and diagonally to position itself on t
 - Tarantula (worth 500 points)
 
 The boss, known as the Goliath, is worth 1000 points.
+
+As a player continues through the game, they will encounter a randomly generated set of enemies and a boss for each level in the game. After the boss is killed, the game gets more difficult and the next wave begins.
+The aim as a player is to achieve a high score, by surviving as long as possible. 
+
+There are pickup elements to help increase the players' survivability, including shields and health restoration modules. These are spawned randomly as enemies are killed
 
 ### Game Graphics
 
@@ -109,7 +114,7 @@ pattern. It's a work in progress, so the following is only a brief summary:
     - Sprites
     - Animated Sprites & Sprite Sequences
     - Transforms
-- Physics Engine: WIP ⚠️
+- Physics Engine: Supported ✅️
 - Audio: Supported ✅
 - Actors & Actor Management: Supported ✅
 - World Management: Supported ✅
@@ -144,31 +149,16 @@ display the results.
 ## Attributions
 
 ### Ali Soltanian Fard Jahromi:
-- Game Design
-- Game Art and Animation
-- Sound Effects
-- Player Movement
-- Key Pressed and Key Released Functions
-- Player Velocity Vector Normalization
-- Code for class representing Player Shots
-- Player Shooting
-- Player Thrust
-- Control bindings for player shots
-- Class representing Enemy
-- Class representing Enemy Bullets
-- Enemy Types
-- Player Map Boundary Checks
-- Scrolling Space Background
-- Player HUD Score and Health
-- Applied Fonts to HUD
-- Collision Detection Between Enemy and Player ships
-- Explosion Actor
-- Spawn Explosion when Enemy Dies
-- Game Over Screen
-- Pause Screen
-- Pausing
-- Engine Modification to Allow for AnimatedSprite to be paused
-- Explosions when bullets impact with enemy ships
+- Game design and level design
+- Game art and animations, including Sprites and UI elements
+- Player setup, including player controls, systems and gameplay design
+- Firing systems for both the enemies and players, including bosses
+- All background elements including scrolling system
+- HUD system design and programming
+- Explosions system for enemies and bosses
+- Pausing system and pause menu design
+- Created and added all sound effects and music
+- World handling for out of screen actors and boundary system for player
 
 ### Joshua Pearson:
 - Game Design and Project Fundamentals (VCS, Organisation and Production Processes)
@@ -186,5 +176,5 @@ display the results.
   3. Abstracted Graphical system used for visual elements, animations and Actors.
   4. Flyweight design for asset optimisation
 - Code control and quality
-- Complete game optimisation
+- Complete game backend optimisation
 - Game foundation and system set up
