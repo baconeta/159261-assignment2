@@ -32,16 +32,17 @@ public class SpaceShip extends Actor {
     private static final int SPEED = 200;
     private static final int THRUSTER_Y_OFFSET = 30;
 
+    private final AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
     private final GameWorld world;
-
-    private AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
-
     private final Player player;
-    private long lastBulletFired;
 
+    private long lastBulletFired;
     private KeyEvent keyPressed = null;
     private KeyEvent keyReleased = null;
-    private int up, down, left, right;
+    private int up = 0;
+    private int down = 0;
+    private int left = 0;
+    private int right = 0;
 
     private boolean shootKeyDown = false;
 
@@ -62,11 +63,6 @@ public class SpaceShip extends Actor {
 
         graphic = initSprite();
         physics = initPhysics();
-
-        up = 0;
-        down = 0;
-        left = 0;
-        right = 0;
 
         setOrigin(origin);
     }
