@@ -10,19 +10,22 @@ import tengine.graphics.components.TGraphicObject;
 import tengine.graphics.components.shapes.TRect;
 import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionRect;
+import tengine.physics.kinematics.TVector;
 import tengine.physics.kinematics.TVelocity;
 
 import java.awt.*;
 
 public class Pickup extends Actor {
+    // TODO: consider moving to this a utility class
+    public static final Dimension DIMENSION = new Dimension(32, 32);
     private final Dimension dimension;
     private final PickupType type;
 
-    public Pickup(PickupType type, GameWorld world, TPoint origin, Dimension dimension) {
-        this.world = world;
+    public Pickup(PickupType type, TPoint origin) {
         this.type = type;
-        this.dimension = dimension;
+        this.dimension = DIMENSION;
         destroyWhenOffScreen = true;
+
         graphic = initSprite();
         physics = initPhysics();
 
@@ -42,13 +45,17 @@ public class Pickup extends Actor {
     private TGraphicObject initSprite() {
         // Pickup Sprite
         TGraphicCompound pickup = new TGraphicCompound(dimension);
-        PickupSprite pickupSprite = new PickupSprite(type, this.dimension);
-        pickup.add(pickupSprite);
+        pickup.add(PickupSprite.pickupFor(type));
+
+        // TODO: Remove this before submitting
         if (Game.DEBUG_MODE) {
             pickup.add(new TRect(new Dimension(dimension.width, dimension.height)));
         }
+
         return pickup;
     }
 
-    public PickupType pickupType() { return type; }
+    public PickupType type() {
+        return type;
+    }
 }

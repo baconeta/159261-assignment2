@@ -11,6 +11,7 @@ import space_resistance.actors.pickup.PickupType;
 import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.sprites.Background;
+import space_resistance.assets.sprites.PickupSprite;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
 import space_resistance.utils.Notifier;
@@ -183,12 +184,12 @@ public class GameWorld extends World {
     private void trySpawnPickup(TPoint locationToSpawn) {
         int spawnValue = RANDOM.nextInt(1, 101);
         if (spawnValue <= chanceMissiles) {
-            this.add(new Pickup(PickupType.Missiles, this, locationToSpawn, pickupDimension));
+            this.add(new Pickup(PickupType.MISSILE, locationToSpawn));
         }
         else if (spawnValue <= chanceMissiles+chanceShield) {
-            this.add(new Pickup(PickupType.Shield, this, locationToSpawn, pickupDimension));
+            this.add(new Pickup(PickupType.SHIELD, locationToSpawn));
         } else if (spawnValue <= chanceHealth+chanceShield+chanceMissiles) {
-            this.add(new Pickup(PickupType.Health, this, locationToSpawn, pickupDimension));
+            this.add(new Pickup(PickupType.HEALTH, locationToSpawn));
         }
     }
 

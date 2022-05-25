@@ -67,12 +67,14 @@ public class Player {
         return playerControls;
     }
 
-    public void handlePickup(PickupType pickupType) {
-        if (pickupType.equals(PickupType.Health)) {
-            addHealth(20);
-        } else if (pickupType.equals(PickupType.Shield)) {
-            shieldsOn = true;
-            shieldValue += 25;
+    public void handlePickup(PickupType type) {
+        switch(type) {
+            case HEALTH -> addHealth(20);
+            case SHIELD -> {
+                shieldsOn = true;
+                shieldValue += 25;
+            }
+            case MISSILE -> {}
         }
     }
 
