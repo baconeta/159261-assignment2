@@ -10,9 +10,14 @@ import tengine.graphics.components.text.TLabel;
 import java.awt.*;
 
 public class HeadsUpDisplay extends TGraphicCompound {
-    TLabel healthLabel;
-    TLabel scoreLabel;
-    Scoreboard p1Scoreboard;
+    private TLabel healthLabel;
+    private TLabel scoreLabel;
+    private Scoreboard p1Scoreboard;
+
+    private static final int PAUSE_LABEL_OFFSET = 150;
+    private static final int HEALTH_LABEL_OFFSET = 30;
+    private static final int SCREEN_BOTTOM_OFFSET = 15;
+    private static final int SCORE_LABEL_OFFSET = 255;
 
     public HeadsUpDisplay(Dimension dimension, GameState state) {
         super(dimension);
@@ -25,7 +30,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
         TLabel pauseLabel = new TLabel("P: pause");
         pauseLabel.setFont(FontBook.shared().scoreBoardFont());
         pauseLabel.setColor(Colors.Text.PRIMARY);
-        pauseLabel.setOrigin(new TPoint(dimension.width - 150, dimension.height - 15));
+        pauseLabel.setOrigin(new TPoint(dimension.width - PAUSE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
         addAll(p1Scoreboard, pauseLabel);
 
         // Add Health Label
@@ -37,14 +42,14 @@ public class HeadsUpDisplay extends TGraphicCompound {
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
         }
         healthLabel.setFont(FontBook.shared().scoreBoardFont());
-        healthLabel.setOrigin(new TPoint(30, dimension.height - 15));
+        healthLabel.setOrigin(new TPoint(HEALTH_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
         addAll(p1Scoreboard, healthLabel);
 
         // Add Score Label
         scoreLabel = new TLabel("Score: " + state.playerOne().score());
         scoreLabel.setFont(FontBook.shared().scoreBoardFont());
         scoreLabel.setColor(Colors.Text.PRIMARY);
-        scoreLabel.setOrigin(new TPoint(255, dimension.height - 15));
+        scoreLabel.setOrigin(new TPoint(SCORE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
         addAll(p1Scoreboard, scoreLabel);
     }
     public void update(GameState state){
@@ -58,7 +63,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
         TLabel pauseLabel = new TLabel("P: pause");
         pauseLabel.setFont(FontBook.shared().scoreBoardFont());
         pauseLabel.setColor(Colors.Text.PRIMARY);
-        pauseLabel.setOrigin(new TPoint(dimension.width - 150, dimension.height - 15));
+        pauseLabel.setOrigin(new TPoint(dimension.width - PAUSE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
         addAll(p1Scoreboard, pauseLabel);
 
         // Add Health Label
@@ -70,7 +75,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
         }
         healthLabel.setFont(FontBook.shared().scoreBoardFont());
-        healthLabel.setOrigin(new TPoint(30, dimension.height - 15));
+        healthLabel.setOrigin(new TPoint(HEALTH_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
         addAll(p1Scoreboard, healthLabel);
 
         // Add Score Label
@@ -85,7 +90,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
         scoreLabelFontSize = ((30.0 / ((state.playerOne().score() + 6500) / 6.0)) * 1000);
         scoreLabel.setFontSize((int) scoreLabelFontSize);
         scoreLabel.setColor(Colors.Text.PRIMARY);
-        scoreLabel.setOrigin(new TPoint(225, dimension.height - 15));
+        scoreLabel.setOrigin(new TPoint(SCORE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
         addAll(p1Scoreboard, scoreLabel);
     }
 }
