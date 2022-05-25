@@ -173,7 +173,7 @@ display the results.
 - Enemy type and class system programming
 
 ### Tessa Power:
-#### Engine and Tools Developer Lead
+#### Engine and Tools Lead Developer
 - Completely designed ECS Game Engine from the ground up including elements such as:
   1. Physics engine with momentum and collisions system
   2. Actor system for game world objects requiring components and control
