@@ -190,4 +190,13 @@ public class GameWorld extends World {
             this.add(new Pickup(PickupType.Health, this, locationToSpawn, pickupDimension));
         }
     }
+
+    public SpaceShip getPlayer() {
+        if (gameConfig.multiplayerMode() == MultiplayerMode.SINGLE_PLAYER) {
+            return playerOne;
+        } else {
+            if (RANDOM.nextInt(2) == 0) { return playerOne; }
+            return playerTwo;
+        }
+    }
 }
