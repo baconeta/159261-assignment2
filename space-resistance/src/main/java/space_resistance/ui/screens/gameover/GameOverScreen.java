@@ -93,7 +93,7 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void handleKeyReleased(KeyEvent event) {
-
+        // No-op
     }
 
     @Override
@@ -112,8 +112,12 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void update(double dtMillis) {}
+    public void update(double dtMillis) {
+        // No-op
+    }
 
     @Override
-    public void handleCollisionEvent(CollisionEvent event) {}
+    public void handleCollisionEvent(CollisionEvent event) {
+        // No-op
+    }
 }

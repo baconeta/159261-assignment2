@@ -53,8 +53,8 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-    public void handleKeyReleased(KeyEvent event) {  // no-op
-
+    public void handleKeyReleased(KeyEvent event) {
+        // no-op
     }
 
     @Override

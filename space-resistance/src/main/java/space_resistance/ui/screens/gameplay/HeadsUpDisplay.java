@@ -41,6 +41,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
             healthLabel = new TLabel("Health: " + (state.playerOne().healthRemaining() + state.playerOne().shieldHealth()));
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
         }
+
         healthLabel.setFont(FontBook.shared().scoreBoardFont());
         healthLabel.setOrigin(new TPoint(HEALTH_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
         addAll(p1Scoreboard, healthLabel);
