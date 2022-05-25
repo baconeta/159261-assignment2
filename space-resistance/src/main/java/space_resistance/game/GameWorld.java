@@ -156,20 +156,20 @@ public class GameWorld extends World {
         } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet || a instanceof Pickup)) {
             playerOne.collision(a);
             a.removeFromWorld();
-        } else if (a instanceof Enemy && b instanceof PlayerBullet) {
-            if (((Enemy) a).takeDamage(((PlayerBullet) b).damageToDeal())) {
-                this.add(new Explosion(this, a.origin(), ((Enemy)a).type));
+        } else if (a instanceof Enemy enemy && b instanceof PlayerBullet pBullet) {
+            if (enemy.takeDamage(pBullet.damageToDeal())) {
+                this.add(new Explosion(this, a.origin(), (enemy.type)));
                 trySpawnPickup(new TPoint(a.origin().x + a.graphic().width() * 0.25,
                         a.origin().y + a.graphic().height() * 0.25));
-                gameState.playerOne().increaseScore(((Enemy) a).scoreValue());
+                gameState.playerOne().increaseScore(enemy.scoreValue());
                 a.removeFromWorld();
             }
             this.add(new ImpactExplosion(this, new TPoint(b.origin().x - 15, b.origin().y - 20)));
             b.removeFromWorld();
-        } else if (a instanceof PlayerBullet && b instanceof Enemy) {
-            if (((Enemy) b).takeDamage(((PlayerBullet) a).damageToDeal())) {
-                this.add(new Explosion(this, b.origin(),((Enemy)b).type));
-                gameState.playerOne().increaseScore(((Enemy) b).scoreValue());
+        } else if (a instanceof PlayerBullet pBullet && b instanceof Enemy enemy) {
+            if (enemy.takeDamage(pBullet.damageToDeal())) {
+                this.add(new Explosion(this, b.origin(), enemy.type));
+                gameState.playerOne().increaseScore(enemy.scoreValue());
                 trySpawnPickup(new TPoint(b.origin().x + b.graphic().width() * 0.25,
                         b.origin().y + b.graphic().height() * 0.25));
                 b.removeFromWorld();

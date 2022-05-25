@@ -210,16 +210,16 @@ public class SpaceShip extends Actor {
     }
 
     public void collision(Actor actorB) {
-        if (actorB instanceof EnemyBullet) {
-            player.reduceHealth(((EnemyBullet) actorB).bulletDamage());
+        if (actorB instanceof EnemyBullet bullet) {
+            player.reduceHealth(bullet.bulletDamage());
         }
 
-        if (actorB instanceof Enemy) {
+        if (actorB instanceof Enemy enemy) {
             player.reduceHealth(100);
         }
 
-        if (actorB instanceof Pickup) {
-            player.handlePickup(((Pickup) actorB).pickupType());
+        if (actorB instanceof Pickup pickup) {
+            player.handlePickup(pickup.pickupType());
         }
     }
 }
