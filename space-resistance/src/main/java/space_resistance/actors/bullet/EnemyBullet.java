@@ -17,6 +17,7 @@ import java.awt.*;
 public class EnemyBullet extends Bullet {
     private final EnemyType type;
     private final int damage;
+    private static final TVector DIRECTION = new TVector(0, 1);
 
     public EnemyBullet(EnemyType type, TPoint origin) {
         super(origin);
@@ -43,7 +44,7 @@ public class EnemyBullet extends Bullet {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, EnemyConstants.enemyBulletDimension(type));
-        velocity = new TVelocity(EnemyConstants.bulletSpeed(type), new TVector(0, 1));
+        velocity = new TVelocity(EnemyConstants.bulletSpeed(type), DIRECTION);
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
