@@ -53,5 +53,7 @@ public class PlayerBullet extends Bullet {
         return DIMENSION;
     }
 
-    public int damageToDeal() { return DAMAGE; }
+    public int damageToDeal() {
+        return DAMAGE;
+    }
 }

@@ -25,21 +25,22 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
+// TODO: Look at pulling the pausing functionality out of here and using this as a container for the display instead
 public class PauseScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final Game engine;
     private final TGraphicCompound graphic;
 
+    private static final String BACKGROUND = "SpaceBackground.png";
+    private static final Dimension DIMENSION = new Dimension(600, 800);
+    private static final Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
+
     private final ButtonGroup buttonGroup;
     private final Button resume;
     private final Button quit;
-    private final String BACKGROUND = "SpaceBackground.png";
-    private static final Dimension DIMENSION = new Dimension(600, 800);
-    Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
+    private final GameWorld gameWorld;
 
-    private GameWorld gameWorld;
-
-    public PauseScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState, GameWorld g) {
+    public PauseScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameWorld g) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
 

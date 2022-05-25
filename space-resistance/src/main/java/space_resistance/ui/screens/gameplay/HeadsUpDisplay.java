@@ -53,6 +53,9 @@ public class HeadsUpDisplay extends TGraphicCompound {
         scoreLabel.setOrigin(new TPoint(SCORE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
         addAll(p1Scoreboard, scoreLabel);
     }
+
+    // TODO: Remove duplicated code in favour of storing the required TLabels on the class, initiliazing their
+    //  properites in the constructor and setting the text of TLabel in the update method.
     public void update(GameState state){
         removeAll();
         p1Scoreboard = Scoreboard.playerOneScoreboard(state.playerOne(), state.gameConfig());
