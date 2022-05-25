@@ -2,7 +2,6 @@ package space_resistance.game;
 
 import space_resistance.actors.Explosion;
 import space_resistance.actors.ImpactExplosion;
-import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
@@ -11,7 +10,6 @@ import space_resistance.actors.pickup.PickupType;
 import space_resistance.actors.spaceship.SpaceShip;
 import space_resistance.assets.AssetLoader;
 import space_resistance.assets.sprites.Background;
-import space_resistance.assets.sprites.PickupSprite;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
 import space_resistance.utils.Notifier;

@@ -3,7 +3,6 @@ package space_resistance.actors.spaceship;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
-import space_resistance.actors.enemy.EnemyType;
 import space_resistance.actors.pickup.Pickup;
 import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.PlayerShip;
@@ -39,6 +38,7 @@ public class SpaceShip extends Actor {
     private long lastBulletFired;
     private KeyEvent keyPressed = null;
     private KeyEvent keyReleased = null;
+
     private int up = 0;
     private int down = 0;
     private int left = 0;
@@ -212,12 +212,12 @@ public class SpaceShip extends Actor {
             player.reduceHealth(bullet.bulletDamage());
         }
 
-        if (actorB instanceof Enemy enemy) {
+        if (actorB instanceof Enemy) {
             player.reduceHealth(100);
         }
 
         if (actorB instanceof Pickup pickup) {
-            player.handlePickup(pickup.pickupType());
+            player.handlePickup(pickup.type());
         }
     }
 }
