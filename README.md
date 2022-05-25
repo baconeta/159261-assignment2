@@ -169,3 +169,22 @@ display the results.
 - Pausing
 - Engine Modification to Allow for AnimatedSprite to be paused
 - Explosions when bullets impact with enemy ships
+
+### Joshua Pearson:
+- Game Design and Project Fundamentals (VCS, Organisation and Production Processes)
+- Enemy Spawning system
+- Enemy Wave design and functionality including boss transitions
+- Class refactoring and consistency 
+- Collision management and optimisation (game level)
+- Pickup system, shield system and functionality
+- Simple boss AI system
+
+### Tessa Power:
+- Completely designed ECS Game Engine from the ground up including elements such as:
+  1. Physics engine with momentum and collisions system
+  2. Actor system for game world objects requiring components and control
+  3. Abstracted Graphical system used for visual elements, animations and Actors.
+  4. Flyweight design for asset optimisation
+- Code control and quality
+- Complete game optimisation
+- Game foundation and system set up
