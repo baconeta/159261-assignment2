@@ -2,7 +2,6 @@ package space_resistance.actors.pickup;
 
 import space_resistance.assets.sprites.PickupSprite;
 import space_resistance.game.Game;
-import space_resistance.game.GameWorld;
 import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;

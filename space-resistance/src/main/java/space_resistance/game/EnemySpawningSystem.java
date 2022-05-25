@@ -4,13 +4,9 @@ import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.enemy.GoliathEnemy;
 import space_resistance.assets.FontBook;
 import tengine.geom.TPoint;
-import tengine.graphics.components.TGraphicCompound;
-import tengine.graphics.components.TGraphicObject;
 import tengine.graphics.components.text.TLabel;
-import tengine.graphics.transforms.TScale;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class EnemySpawningSystem {
     private enum SpawnState {
