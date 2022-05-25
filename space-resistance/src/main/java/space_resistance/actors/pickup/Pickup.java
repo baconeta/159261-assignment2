@@ -10,7 +10,6 @@ import tengine.graphics.components.TGraphicObject;
 import tengine.graphics.components.shapes.TRect;
 import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionRect;
-import tengine.physics.kinematics.TVector;
 import tengine.physics.kinematics.TVelocity;
 
 import java.awt.*;
@@ -39,6 +38,7 @@ public class Pickup extends Actor {
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
 
+    // TODO: Convert this to a simple sprite instead of a TGraphicCompound (unnecessary bloat) before submitting
     private TGraphicObject initSprite() {
         // Pickup Sprite
         TGraphicCompound pickup = new TGraphicCompound(dimension);

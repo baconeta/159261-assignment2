@@ -55,6 +55,7 @@ public class GameWorld extends World {
 
         // Space Background
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
+        // TODO: Include this in flyweight
         background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
         background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
         background.get(1).setOrigin(new TPoint(0, -800));

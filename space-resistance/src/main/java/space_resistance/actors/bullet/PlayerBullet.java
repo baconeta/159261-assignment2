@@ -3,7 +3,6 @@ package space_resistance.actors.bullet;
 import space_resistance.assets.SoundEffects;
 import space_resistance.assets.sprites.DefaultShot;
 import space_resistance.game.Game;
-import space_resistance.game.GameWorld;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.shapes.TRect;

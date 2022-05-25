@@ -51,6 +51,7 @@ public class Explosion extends Actor {
         setOrigin(origin);
     }
 
+    // TODO: check what this is used for, if unused remove
     public void update() {
         currentTime = System.currentTimeMillis();
     }
@@ -69,7 +70,8 @@ public class Explosion extends Actor {
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
 
-    public long timeExisted(){
+    // TODO: Remove if still unused
+    public long timeExisted() {
         return currentTime - startTime;
     }
 }
