@@ -161,26 +161,43 @@ public class GameWorld extends World {
         } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet || a instanceof Pickup)) {
             playerOne.collision(a);
             a.removeFromWorld();
-        } else if (a instanceof Enemy enemy && b instanceof PlayerBullet pBullet) {
-            if (enemy.takeDamage(pBullet.damageToDeal())) {
-                this.add(new Explosion(this, a.origin(), (enemy.type)));
-                trySpawnPickup(new TPoint(a.origin().x + a.graphic().width() * 0.25,
-                        a.origin().y + a.graphic().height() * 0.25));
+        } else if (a instanceof Enemy enemy && b instanceof PlayerBullet playerBullet) {
+            // TODO: Fix duplicated code blocks...
+            boolean isEnemyDead = enemy.takeDamage(playerBullet.damageToDeal());
+            if (isEnemyDead) {
+                add(new Explosion(this, enemy.origin(), enemy.type()));
+
                 gameState.playerOne().increaseScore(enemy.scoreValue());
-                a.removeFromWorld();
+
+                TPoint possiblePickupLocation = new TPoint(
+                    enemy.origin().x + enemy.graphic().width() * 0.25,
+                    enemy.origin().y + enemy.graphic().height() * 0.25);
+                trySpawnPickup(possiblePickupLocation);
+
+                enemy.removeFromWorld();
             }
-            this.add(new ImpactExplosion(this, new TPoint(b.origin().x - 15, b.origin().y - 20)));
-            b.removeFromWorld();
-        } else if (a instanceof PlayerBullet pBullet && b instanceof Enemy enemy) {
-            if (enemy.takeDamage(pBullet.damageToDeal())) {
-                this.add(new Explosion(this, b.origin(), enemy.type));
+
+            add(new ImpactExplosion(this, new TPoint(playerBullet.origin().x - 15, playerBullet.origin().y - 20)));
+
+            playerBullet.removeFromWorld();
+        } else if (a instanceof PlayerBullet playerBullet && b instanceof Enemy enemy) {
+            boolean isEnemyDead = enemy.takeDamage(playerBullet.damageToDeal());
+            if (isEnemyDead) {
+                add(new Explosion(this, enemy.origin(), enemy.type()));
+
                 gameState.playerOne().increaseScore(enemy.scoreValue());
-                trySpawnPickup(new TPoint(b.origin().x + b.graphic().width() * 0.25,
-                        b.origin().y + b.graphic().height() * 0.25));
-                b.removeFromWorld();
+
+                TPoint possiblePickupLocation = new TPoint(
+                    enemy.origin().x + enemy.graphic().width() * 0.25,
+                    enemy.origin().y + enemy.graphic().height() * 0.25);
+                trySpawnPickup(possiblePickupLocation);
+
+                enemy.removeFromWorld();
             }
-            this.add(new ImpactExplosion(this, new TPoint(a.origin().x - 15, a.origin().y - 20)));
-            a.removeFromWorld();
+
+            add(new ImpactExplosion(this, new TPoint(playerBullet.origin().x - 15, playerBullet.origin().y - 20)));
+
+            playerBullet.removeFromWorld();
         }
     }
 
