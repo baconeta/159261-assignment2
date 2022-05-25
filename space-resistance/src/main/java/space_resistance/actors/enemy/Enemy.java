@@ -117,13 +117,20 @@ public class Enemy extends Actor {
     public void setBulletsPerBarrageMin(int bulletsPerBarrageMin){
         this.bulletsPerBarrageMin = bulletsPerBarrageMin;
     }
+
     public void setBulletsPerBarrageMax(int bulletsPerBarrageMax){
         this.bulletsPerBarrageMax = bulletsPerBarrageMax;
     }
+
     public int bulletsPerBarrageMin(){
         return bulletsPerBarrageMin;
     }
+
     public int bulletsPerBarrageMax(){
         return bulletsPerBarrageMax;
+    }
+
+    public EnemyType type() {
+        return type;
     }
 }
