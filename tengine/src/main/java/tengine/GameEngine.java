@@ -135,6 +135,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
                 if (actor.destroyWhenOffScreen && !isOnScreen(actor)) {
                     actor.removeFromWorld();
                 }
+
                 if (actor.pendingKill) {
                     iterator.remove();
                     actor.destroy();
