@@ -1,8 +1,6 @@
 package space_resistance.actors.spaceship;
 
-import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
-import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.pickup.Pickup;
 import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.PlayerShip;
@@ -142,64 +140,66 @@ public class SpaceShip extends Actor {
 
     private void performAction(Action action) {
         switch (action) {
-            case MOVE_UP:
+            case MOVE_UP -> {
                 up = -1;
                 velocity.setDirectionY(up + down);
-                break;
-            case MOVE_DOWN:
+            }
+            case MOVE_DOWN -> {
                 down = 1;
                 velocity.setDirectionY(up + down);
-                break;
-            case MOVE_LEFT:
+            }
+            case MOVE_LEFT -> {
                 left = -1;
                 velocity.setDirectionX(left + right);
-                break;
-            case MOVE_RIGHT:
+            }
+            case MOVE_RIGHT -> {
                 right = 1;
                 velocity.setDirectionX(left + right);
-                break;
-            case SHOOT:
-                if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
-                    // Check if player 2 is pressing left shift
-                    if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
-                        shootKeyDown = true;
+            }
+            case SHOOT -> {
+                switch(player.playerNumber()) {
+                    case PLAYER_ONE -> shootKeyDown = true;
+                    case PLAYER_TWO -> {
+                        // Check if player 2 is pressing left shift
+                        if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
+                            shootKeyDown = true;
+                        }
                     }
-                } else {
-                    shootKeyDown = true;
                 }
-                break;
+            }
         }
     }
 
     public void movementKeyReleasedAction(Action action) {
         // Set player velocity for corresponding axis to 0
         switch (action) {
-            case MOVE_UP:
+            case MOVE_UP -> {
                 up = 0;
                 velocity.setDirectionY(up + down);
-                break;
-            case MOVE_DOWN:
+            }
+            case MOVE_DOWN -> {
                 down = 0;
                 velocity.setDirectionY(up + down);
-                break;
-            case MOVE_LEFT:
+            }
+            case MOVE_LEFT -> {
                 left = 0;
                 velocity.setDirectionX(left + right);
-                break;
-            case MOVE_RIGHT:
+            }
+            case MOVE_RIGHT -> {
                 right = 0;
                 velocity.setDirectionX(left + right);
-                break;
-            case SHOOT:
-                if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
-                    // Check if player 2 is pressing left shift
-                    if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
-                        shootKeyDown = false;
+            }
+            case SHOOT -> {
+                switch(player.playerNumber()) {
+                    case PLAYER_ONE -> shootKeyDown = false;
+                    case PLAYER_TWO -> {
+                        // Check if player 2 is pressing left shift
+                        if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
+                            shootKeyDown = false;
+                        }
                     }
-                } else {
-                    shootKeyDown = false;
                 }
-                break;
+            }
         }
     }
 
@@ -208,16 +208,10 @@ public class SpaceShip extends Actor {
     }
 
     public void collision(Actor actorB) {
-        if (actorB instanceof EnemyBullet bullet) {
-            player.reduceHealth(bullet.bulletDamage());
-        }
-
-        if (actorB instanceof Enemy) {
-            player.reduceHealth(100);
-        }
-
-        if (actorB instanceof Pickup pickup) {
-            player.handlePickup(pickup.type());
+        switch(actorB.getClass().getName()) {
+            case "EnemyBullet" -> player.reduceHealth(1);
+            case "Enemy"       -> player.reduceHealth(100);
+            case "Pickup"      -> player.handlePickup(((Pickup) actorB).type());
         }
     }
 }
