@@ -163,7 +163,7 @@ display the results.
 
 ### Joshua Pearson:
 #### Producer and Project Lead
--  VCS, organisation and production processes
+- VCS, organisation and production processes
 - Enemy Spawning system
 - Enemy Wave design and functionality including boss transitions
 - Class refactoring and consistency 
