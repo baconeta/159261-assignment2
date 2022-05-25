@@ -159,6 +159,7 @@ display the results.
 - Pausing system and pause menu design
 - Created and added all sound effects and music
 - World handling for out of screen actors and boundary system for player
+- Enemy type and class system design and programming
 
 ### Joshua Pearson:
 - Game Design and Project Fundamentals (VCS, Organisation and Production Processes)
@@ -168,6 +169,7 @@ display the results.
 - Collision management and optimisation (game level)
 - Pickup system, shield system and functionality
 - Simple boss AI system
+- Enemy type and class system programming
 
 ### Tessa Power:
 - Completely designed ECS Game Engine from the ground up including elements such as:
