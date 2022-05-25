@@ -19,23 +19,23 @@ import java.util.function.Consumer;
 public class PlayGameScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final Game engine;
-    private GameWorld world;
+    private final GameWorld world;
     private final GameState gameState;
-    public static boolean paused;
+    public static boolean paused = false;
 
-    public PlayGameScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameWorld g) {
+    public PlayGameScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameWorld gameWorld) {
         SoundEffects.shared().backgroundMusic().playOnLoop();
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
-        paused = false;
         gameState = new GameState(Settings.shared().config());
-        if (g == null){
+
+        if (gameWorld == null) {
             world = new GameWorld(
                     Game.WINDOW_DIMENSION,
                     this::onGameOverNotified,
                     gameState);
         } else {
-            world = g;
+            world = gameWorld;
         }
     }
 
@@ -52,14 +52,16 @@ public class PlayGameScreen implements Screen {
         if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
             screenChangeCallback.accept(ScreenIdentifier.SHOWING_PAUSE); //  Uncomment to display pause screen
             paused = !paused;
-            if (paused){
+
+            if (paused) {
                 SoundEffects.shared().backgroundMusic().stopPlayingLoop();
                 for (Actor a: world.actors()) {
-                    if (a instanceof SpaceShip){
-                        ((SpaceShip) a).spaceshipThrusters().setPaused(true);
-                        ((SpaceShip) a).velocity().setDirectionX(0);
-                        ((SpaceShip) a).velocity().setDirectionY(0);
+                    if (a instanceof SpaceShip spaceShip){
+                        spaceShip.spaceshipThrusters().setPaused(true);
+                        spaceShip.velocity().setDirectionX(0);
+                        spaceShip.velocity().setDirectionY(0);
                     }
+
                     if (a instanceof Enemy || a instanceof Bullet) {
                         a.velocity().setSpeed(0);
                     }

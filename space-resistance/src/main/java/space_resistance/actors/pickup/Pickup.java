@@ -17,6 +17,9 @@ import java.awt.*;
 public class Pickup extends Actor {
     // TODO: consider moving to this a utility class
     public static final Dimension DIMENSION = new Dimension(32, 32);
+    private static final int SPEED = 27;
+    private static final TVector DIRECTION = new TVector(0, 1);
+
     private final Dimension dimension;
     private final PickupType type;
 
@@ -35,7 +38,7 @@ public class Pickup extends Actor {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(27, new TVector(0, 1));
+        velocity = new TVelocity(SPEED, DIRECTION);
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
@@ -46,7 +49,6 @@ public class Pickup extends Actor {
         TGraphicCompound pickup = new TGraphicCompound(dimension);
         pickup.add(PickupSprite.pickupFor(type));
 
-        // TODO: Remove this before submitting
         if (Game.DEBUG_MODE) {
             pickup.add(new TRect(new Dimension(dimension.width, dimension.height)));
         }

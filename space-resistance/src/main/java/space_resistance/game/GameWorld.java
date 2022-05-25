@@ -117,7 +117,7 @@ public class GameWorld extends World {
 
         for (Actor a : actors) {
             // TODO: Instead of iterating over all actors, have the enemySpawningSystem call update on its list
-            //  of enemies
+            //  of enemies?
             if (a instanceof Enemy enemy) {
                 enemy.update();
             }

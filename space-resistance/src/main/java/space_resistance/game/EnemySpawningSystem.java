@@ -50,7 +50,9 @@ public class EnemySpawningSystem {
                     spawnEnemy();
                 }
             }
-            case BOSS, POST_WAVE, DEFAULT -> {}
+            case BOSS, POST_WAVE, DEFAULT -> {
+                // No-op
+            }
         }
     }
 
@@ -70,12 +72,14 @@ public class EnemySpawningSystem {
     }
 
     private void generateEnemyWave() {
+        currentState = SpawnState.PRE_WAVE;
+
         currentWave = new EnemyWave(currentLevel);
         currentWave.getWave().forEach(e -> {
             e.setBulletsPerBarrageMin(e.bulletsPerBarrageMin() + 2 * currentLevel);
             e.setBulletsPerBarrageMax(e.bulletsPerBarrageMax() + 2 * currentLevel);
         });
-        currentState = SpawnState.PRE_WAVE;
+
         timeLastWaveGenerated = System.currentTimeMillis();
     }
 
@@ -88,6 +92,7 @@ public class EnemySpawningSystem {
             GoliathEnemy boss = currentWave.getBoss();
             boss.spawnBoss(this);
         }
+
         timeLastEnemySpawned = System.currentTimeMillis();
     }
 }

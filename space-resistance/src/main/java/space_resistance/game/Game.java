@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 
 public class Game extends GameEngine {
     public static final Dimension WINDOW_DIMENSION = new Dimension(600, 800);
+    // TODO: remove if still unused before submitting
     public static final TPoint WINDOW_CENTER = new TPoint(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Space Resistance by Team Pew Pew!";
     public static boolean DEBUG_MODE = false;
@@ -72,10 +73,12 @@ public class Game extends GameEngine {
                 assert activeScreen != null;
                 activeScreen = new GameOverScreen(this, this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState());
             }
-            case SHOWING_PAUSE -> activeScreen = new PauseScreen(this,
-                this::requestScreenChange,
-                ((PlayGameScreen) activeScreen).gameState(),
-                ((PlayGameScreen) activeScreen).gameWorld());
+            case SHOWING_PAUSE -> {
+                assert activeScreen != null;
+                activeScreen = new PauseScreen(this,
+                    this::requestScreenChange,
+                    ((PlayGameScreen) activeScreen).gameWorld());
+            }
         }
 
         activeScreen.addToCanvas();

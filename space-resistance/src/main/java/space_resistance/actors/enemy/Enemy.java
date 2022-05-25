@@ -58,9 +58,12 @@ public class Enemy extends Actor {
         TGraphicCompound enemySprite = new TGraphicCompound(dimension);
         EnemyShip enemy = EnemyShip.shipFor(type);
         enemySprite.add(enemy);
+
+        // TODO: Remove before submitting, replace this whole method with simple call to EnemyShip.shipFor()
         if (Game.DEBUG_MODE) {
             enemySprite.add(new TRect(new Dimension(dimension.width, dimension.height)));
         }
+
         return enemySprite;
     }
 
@@ -79,6 +82,7 @@ public class Enemy extends Actor {
 
     public void update() {
         long currentTime = System.currentTimeMillis();
+
         if (bulletsThisBarrage <= 0) {
             bulletsThisBarrage = RANDOM.nextInt(bulletsPerBarrageMin, bulletsPerBarrageMax);
             barrageCooldown = RANDOM.nextInt(BARRAGE_CD_MIN, BARRAGE_CD_MAX);
@@ -89,10 +93,12 @@ public class Enemy extends Actor {
             // we can start next barrage of bullets
             if (currentTime > lastBulletFired + (BASE_TIME_BETWEEN_BULLETS - level * 2L)) {
                 TPoint bulletOffset = EnemyConstants.enemyBulletSpawnOffset(type);
-                var bullet = new EnemyBullet(type, new TPoint(
-                        this.origin.x + bulletOffset.x,
-                        this.origin.y + bulletOffset.y));
+                var bullet = new EnemyBullet(
+                    type,
+                    new TPoint(this.origin.x + bulletOffset.x, this.origin.y + bulletOffset.y)
+                );
                 world.add(bullet);
+
                 bulletsThisBarrage -= 1;
                 lastBulletFired = currentTime;
             }
@@ -103,12 +109,14 @@ public class Enemy extends Actor {
         // Ensures we only add the score one time regardless of number of collisions before destruction frame
         int scoreToAdd = scoreWorth;
         scoreWorth = 0;
+
         return scoreToAdd;
     }
 
     // lets this enemy take damage and returns whether the enemy died ?
     public boolean takeDamage(int damageToTake) {
         health -= damageToTake;
+
         return health <= 0;
     }
 
