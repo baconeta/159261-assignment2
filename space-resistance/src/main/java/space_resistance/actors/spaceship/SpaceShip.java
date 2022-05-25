@@ -123,10 +123,9 @@ public class SpaceShip extends Actor {
 
         long currentTime = System.currentTimeMillis();
         if (shootKeyDown && currentTime-lastBulletFired > DELAY_BETWEEN_BULLETS) {
-            var bullet = new PlayerBullet(world, new TPoint(this.origin.x + 10, this.origin.y - 5));
-            var bullet2 = new PlayerBullet(world, new TPoint(this.origin.x + 50, this.origin.y - 5));
-            world.add(bullet);
-            world.add(bullet2);
+            var bullet = new PlayerBullet(new TPoint(this.origin.x + 10, this.origin.y - 5));
+            var bullet2 = new PlayerBullet(new TPoint(this.origin.x + 50, this.origin.y - 5));
+            world.add(bullet, bullet2);
             lastBulletFired  = currentTime;
         }
     }

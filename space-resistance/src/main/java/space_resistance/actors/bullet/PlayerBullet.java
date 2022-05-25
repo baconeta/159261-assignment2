@@ -19,7 +19,7 @@ public class PlayerBullet extends Bullet {
     private static final int SPEED = 500;
     private static final int DAMAGE = 5;
 
-    public PlayerBullet(GameWorld world, TPoint origin) {
+    public PlayerBullet(TPoint origin) {
         super(origin);
         SoundEffects.shared().defaultPlayerShootingSound().play(5);
 
