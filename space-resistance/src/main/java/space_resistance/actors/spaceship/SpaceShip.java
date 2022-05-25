@@ -208,7 +208,7 @@ public class SpaceShip extends Actor {
     }
 
     public void collision(Actor actorB) {
-        switch(actorB.getClass().getName()) {
+        switch(actorB.getClass().getSimpleName()) {
             case "EnemyBullet" -> player.reduceHealth(1);
             case "Enemy"       -> player.reduceHealth(100);
             case "Pickup"      -> player.handlePickup(((Pickup) actorB).type());
