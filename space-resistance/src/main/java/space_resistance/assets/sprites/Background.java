@@ -12,30 +12,25 @@ import java.io.InputStream;
 public class Background extends TGraphicCompound {
   private static final InputStream BACKGROUND_ASSET = AssetLoader.load("SpaceBackground_600x1600.png");
   private static final Dimension BACKGROUND_DIMENSION = new Dimension(600, 1600);
-  private static final Background BACKGROUND = new Background(true);
+  private static final Background BACKGROUND = new Background();
 
-  boolean isStatic;
+  boolean isStatic = false;
   Sprite background;
 
-  public static Background staticBackground() {
-    BACKGROUND.isStatic = true;
-
+  public static Background getInstance() {
     return BACKGROUND;
   }
 
-  public static Background movingBackground() {
-    BACKGROUND.isStatic = false;
-
-    return BACKGROUND;
-  }
-
-  private Background(boolean isStatic) {
+  private Background() {
     super(BACKGROUND_DIMENSION);
-    this.isStatic = isStatic;
 
     background = new Sprite(BACKGROUND_ASSET, BACKGROUND_DIMENSION);
     background.setOrigin(new TPoint(0, -Game.WINDOW_DIMENSION.height));
     add(background);
+  }
+
+  public void setIsStatic(boolean isStatic) {
+    this.isStatic = isStatic;
   }
 
   // update method

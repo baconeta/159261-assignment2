@@ -34,8 +34,15 @@ public class MenuScreen implements Screen {
 
         // Graphic
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
+
+        // Background
+        Background background = Background.getInstance();
+        background.setIsStatic(true);
+
+        // Initial Submenu
         activeSubMenu = mainMenu;
-        container.addAll(Background.staticBackground(), activeSubMenu);
+
+        container.addAll(background, activeSubMenu);
     }
 
     @Override

@@ -49,7 +49,9 @@ public class GameWorld extends World {
         gameConfig = gameState.gameConfig();
 
         // Background: must come first for it to be drawn underneath everything else
-        canvas.add(Background.movingBackground());
+        Background background = Background.getInstance();
+        background.setIsStatic(false);
+        canvas.add(background);
 
         initPlayers();
 
