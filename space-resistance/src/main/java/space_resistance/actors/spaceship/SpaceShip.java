@@ -158,17 +158,7 @@ public class SpaceShip extends Actor {
                 right = 1;
                 velocity.setDirectionX(left + right);
             }
-            case SHOOT -> {
-                switch(player.playerNumber()) {
-                    case PLAYER_ONE -> shootKeyDown = true;
-                    case PLAYER_TWO -> {
-                        // Check if player 2 is pressing left shift
-                        if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
-                            shootKeyDown = true;
-                        }
-                    }
-                }
-            }
+            case SHOOT -> shootKeyDown = true;
         }
     }
 
@@ -191,17 +181,7 @@ public class SpaceShip extends Actor {
                 right = 0;
                 velocity.setDirectionX(left + right);
             }
-            case SHOOT -> {
-                switch(player.playerNumber()) {
-                    case PLAYER_ONE -> shootKeyDown = false;
-                    case PLAYER_TWO -> {
-                        // Check if player 2 is pressing left shift
-                        if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
-                            shootKeyDown = false;
-                        }
-                    }
-                }
-            }
+            case SHOOT -> shootKeyDown = false;
         }
     }
 
