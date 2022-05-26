@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class Enemy extends Actor {
     private static final Random RANDOM = new Random();
-    private static final TVector DIRECTION = new TVector(0, 1);
+    private final TVector DIRECTION = new TVector(0, 1);
 
     // Bullet System Static Constants
     private static final int BARRAGE_CD_MIN = 400;
