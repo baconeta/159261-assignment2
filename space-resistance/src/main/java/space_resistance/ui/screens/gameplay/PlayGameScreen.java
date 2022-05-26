@@ -16,8 +16,6 @@ public class PlayGameScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final GameWorld world;
     private final GameState gameState;
-    public static boolean isPaused = false;
-
 
     public PlayGameScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         SoundEffects.shared().backgroundMusic().playOnLoop();
@@ -59,9 +57,7 @@ public class PlayGameScreen implements Screen {
 
     @Override
     public void update(double dtMillis) {
-        if (!isPaused) {
-            world.update();
-        }
+        world.update();
     }
 
     public void handleCollisionEvent(CollisionEvent event) {
