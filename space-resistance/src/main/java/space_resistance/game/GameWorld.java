@@ -28,6 +28,8 @@ public class GameWorld extends World {
     private static final Dimension DIMENSION = new Dimension(600, 800);
     private static final String BACKGROUND = "SpaceBackground.png";
     private static final Random RANDOM = new Random();
+    private static final TPoint PLAYER_ONE_SPAWN_POS = new TPoint(300, 600);
+    private static final TPoint PLAYER_TWO_SPAWN_POS = new TPoint(300, 300);
 
     // Pickups
     private static final double chanceHealth = 0.05;
@@ -84,10 +86,10 @@ public class GameWorld extends World {
     }
 
     private void initPlayers() {
-        playerOne = SpaceShip.spawnAt(this, new TPoint(300, 600), gameState.playerOne());
+        playerOne = SpaceShip.spawnAt(this, PLAYER_ONE_SPAWN_POS, gameState.playerOne());
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwo = SpaceShip.spawnAt(this, new TPoint(300, 300), gameState.playerTwo());
+            playerTwo = SpaceShip.spawnAt(this, PLAYER_TWO_SPAWN_POS, gameState.playerTwo());
         }
     }
 
