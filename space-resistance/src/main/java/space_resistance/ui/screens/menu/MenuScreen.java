@@ -83,6 +83,10 @@ public class MenuScreen implements Screen {
                 Settings.shared().setPlayerMode(MultiplayerMode.SINGLE_PLAYER);
                 screenChangeCallback.accept(ScreenIdentifier.SHOWING_INTRO_SCREEN);
             }
+            case TWO_PLAYER -> {
+                Settings.shared().setPlayerMode(MultiplayerMode.MULTIPLAYER);
+                screenChangeCallback.accept(ScreenIdentifier.PLAYING);
+            }
             case CREDITS -> {
                 activeSubMenu = credits;
                 container.add(credits);
