@@ -10,7 +10,7 @@ import tengine.graphics.components.text.TLabel;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
-class Credits extends Menu {
+class Credits extends SubMenu {
     public Credits(Consumer<SubmenuOption> submenuSelectionNotifier) {
         super(submenuSelectionNotifier);
 

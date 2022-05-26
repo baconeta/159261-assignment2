@@ -10,7 +10,7 @@ import tengine.graphics.components.text.TLabel;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
-class HowToPlay extends Menu {
+class HowToPlay extends SubMenu {
     public HowToPlay(Consumer<SubmenuOption> submenuSelectionNotifier) {
         super(submenuSelectionNotifier);
 

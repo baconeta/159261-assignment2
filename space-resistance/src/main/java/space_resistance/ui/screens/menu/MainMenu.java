@@ -11,7 +11,7 @@ import tengine.graphics.components.text.TLabel;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
-class MainMenu extends Menu {
+class MainMenu extends SubMenu {
     private final ButtonGroup buttons;
     private final Button onePlayer;
     private final Button howToPlay;

@@ -21,13 +21,13 @@ public class MenuScreen implements Screen {
 
     private final TGraphicCompound container;
 
-    // The main menu is made up of smaller menus. We must keep track of the currently active menu, so we can swap out
+    // The main menu is made up of submenus. We must keep track of the currently active submenu, so we can swap out
     // content easily and forward key events to the right place.
-    private Menu activeMenu;
+    private SubMenu activeSubMenu;
 
-    private final Menu mainMenu;
-    private final Menu howToPlay;
-    private final Menu credits;
+    private final SubMenu mainMenu;
+    private final SubMenu howToPlay;
+    private final SubMenu credits;
 
     public MenuScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;
@@ -39,14 +39,14 @@ public class MenuScreen implements Screen {
 
         // Graphic
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
-        activeMenu = mainMenu;
+        activeSubMenu = mainMenu;
         container.add(background);
-        container.add(activeMenu);
+        container.add(activeSubMenu);
     }
 
     @Override
     public void handleKeyPressed(KeyEvent keyEvent) {
-        activeMenu.handleKeyEvent(keyEvent);
+        activeSubMenu.handleKeyEvent(keyEvent);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MenuScreen implements Screen {
     }
 
     private void onSubmenuSelection(SubmenuOption submenuOption) {
-        activeMenu.removeFromParent();
+        activeSubMenu.removeFromParent();
 
         switch(submenuOption) {
             case ONE_PLAYER -> {
@@ -83,15 +83,15 @@ public class MenuScreen implements Screen {
                 screenChangeCallback.accept(ScreenIdentifier.PLAYING);
             }
             case CREDITS -> {
-                activeMenu = credits;
+                activeSubMenu = credits;
                 container.add(credits);
             }
             case HOW_TO_PLAY -> {
-                activeMenu = howToPlay;
+                activeSubMenu = howToPlay;
                 container.add(howToPlay);
             }
             case CLOSE -> {
-                activeMenu = mainMenu;
+                activeSubMenu = mainMenu;
                 container.add(mainMenu);
             }
         }
