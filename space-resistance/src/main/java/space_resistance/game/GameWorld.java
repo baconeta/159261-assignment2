@@ -23,8 +23,9 @@ import java.util.Random;
 
 public class GameWorld extends World {
     private static final Random RANDOM = new Random();
-    private static final TPoint PLAYER_ONE_SPAWN_POS = new TPoint(300, 600);
-    private static final TPoint PLAYER_TWO_SPAWN_POS = new TPoint(300, 300);
+    private static final TPoint PLAYER_ONE_SPAWN_POS = new TPoint(270, 600);
+    private static final TPoint PLAYER_TWO_SPAWN_POS = new TPoint(420, 600);
+    private static final TPoint PLAYER_ONE_SPAWN_POS_MP = new TPoint(120, 600);
 
     // Pickups
     private static final double chanceHealth = 0.05;
@@ -64,10 +65,11 @@ public class GameWorld extends World {
     }
 
     private void initPlayers() {
-        playerOne = SpaceShip.spawnAt(this, PLAYER_ONE_SPAWN_POS, gameState.playerOne());
-
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            playerOne = SpaceShip.spawnAt(this, PLAYER_ONE_SPAWN_POS_MP, gameState.playerOne());
             playerTwo = SpaceShip.spawnAt(this, PLAYER_TWO_SPAWN_POS, gameState.playerTwo());
+        } else {
+            playerOne = SpaceShip.spawnAt(this, PLAYER_ONE_SPAWN_POS, gameState.playerOne());
         }
     }
 
