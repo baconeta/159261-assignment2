@@ -63,8 +63,7 @@ public class EnemyConstants {
     public static int bulletDamage(EnemyType type) {
         return switch (type) {
             case MITE -> 1;
-            case GRASSHOPPER -> 2;
-            case TARANTULA -> 2;
+            case GRASSHOPPER, TARANTULA -> 2;
             case GOLIATH -> 3;
         };
     }
