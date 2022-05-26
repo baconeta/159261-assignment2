@@ -34,7 +34,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     private Dimension dimension = DEFAULT_WINDOW_DIMENSION;
     private Graphics2D graphics2D;
     private boolean initialized = false;
-    private Stack<AffineTransform> transforms;
+    private final Stack<AffineTransform> transforms;
 
     private GraphicsEngine graphicsEngine;
     private final PhysicsEngine physicsEngine = new PhysicsEngine();
@@ -144,7 +144,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
                 actor.physics().update(physicsEngine, dtMillis);
             }
 
-            physicsEngine.processCollisions(actors, dtMillis);
+            physicsEngine.processCollisions(actors);
         }
 
         // Allow graphical objects, e.g. AnimatedSprite, to make time-based updates if necessary
