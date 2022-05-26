@@ -64,7 +64,13 @@ public class Game extends GameEngine {
         if (activeScreen != null) activeScreen.removeFromCanvas();
 
         switch(newScreen) {
-            case SHOWING_MENU -> activeScreen = new MenuScreen(this::requestScreenChange);
+            case SHOWING_MENU -> {
+                if (activeGame != null) {
+                    activeGame = null;
+                }
+
+                activeScreen = new MenuScreen(this::requestScreenChange);
+            }
             case PLAYING -> {
                 if (activeGame == null) {
                     activeGame = new PlayGameScreen(this::requestScreenChange);
