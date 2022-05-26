@@ -1,6 +1,5 @@
 package space_resistance.ui.screens.gameover;
 
-import space_resistance.assets.AssetLoader;
 import space_resistance.assets.Colors;
 import space_resistance.assets.FontBook;
 import space_resistance.assets.SoundEffects;
@@ -15,7 +14,6 @@ import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
@@ -26,11 +24,6 @@ public class GameOverScreen implements Screen {
     private final ButtonGroup buttonGroup;
     private final Button playAgain;
     private final Button quit;
-
-    // TODO: Apply Flyweight pattern to background
-    private final String BACKGROUND = "SpaceBackground.png";
-    private static final Dimension DIMENSION = new Dimension(600, 800);
-    Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
 
     public GameOverScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.screenChangeCallback = screenChangeCallback;
@@ -71,8 +64,7 @@ public class GameOverScreen implements Screen {
 
         // Graphic
         graphic = new TGraphicCompound(Game.WINDOW_DIMENSION);
-        graphic.add(background);
-        graphic.addAll(title, score, playAgain, quit);
+        graphic.addAll(Background.staticBackground(), title, score, playAgain, quit);
     }
 
     @Override
