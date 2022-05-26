@@ -121,7 +121,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     }
 
     public void unloadWorld() {
-        activeWorld.canvas().removeFromParent();
         activeWorld = null;
     }
 

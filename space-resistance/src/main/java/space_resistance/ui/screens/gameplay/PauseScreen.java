@@ -28,7 +28,6 @@ import java.util.function.Consumer;
 // TODO: Look at pulling the pausing functionality out of here and using this as a container for the display instead
 public class PauseScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
-    private final Game engine;
     private final TGraphicCompound graphic;
 
     private static final String BACKGROUND = "SpaceBackground.png";
@@ -40,8 +39,7 @@ public class PauseScreen implements Screen {
     private final Button quit;
     private final GameWorld gameWorld;
 
-    public PauseScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameWorld g) {
-        this.engine = game;
+    public PauseScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameWorld g) {
         this.screenChangeCallback = screenChangeCallback;
 
         // Title
@@ -99,8 +97,8 @@ public class PauseScreen implements Screen {
     }
 
     @Override
-    public void addToCanvas() {
-        engine.graphicsEngine().add(graphic);
+    public void addToCanvas(Game game) {
+        game.graphicsEngine().add(graphic);
     }
 
     @Override
@@ -115,11 +113,6 @@ public class PauseScreen implements Screen {
 
     @Override
     public void update(double dtMillis) {
-        // No-op
-    }
-
-    @Override
-    public void handleCollisionEvent(CollisionEvent event) {
         // No-op
     }
 

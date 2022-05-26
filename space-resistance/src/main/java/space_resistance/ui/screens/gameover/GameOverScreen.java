@@ -14,7 +14,6 @@ import space_resistance.ui.screens.ScreenIdentifier;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
-import tengine.physics.collisions.events.CollisionEvent;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,7 +21,6 @@ import java.util.function.Consumer;
 
 public class GameOverScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
-    private final Game engine;
     private final TGraphicCompound graphic;
 
     private final ButtonGroup buttonGroup;
@@ -34,8 +32,7 @@ public class GameOverScreen implements Screen {
     private static final Dimension DIMENSION = new Dimension(600, 800);
     Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
 
-    public GameOverScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
-        this.engine = game;
+    public GameOverScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.screenChangeCallback = screenChangeCallback;
 
         // Title
@@ -95,13 +92,8 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void handleKeyReleased(KeyEvent event) {
-        // No-op
-    }
-
-    @Override
-    public void addToCanvas() {
-        engine.graphicsEngine().add(graphic);
+    public void addToCanvas(Game game) {
+        game.graphicsEngine().add(graphic);
     }
 
     @Override
@@ -120,7 +112,7 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void handleCollisionEvent(CollisionEvent event) {
+    public void handleKeyReleased(KeyEvent event) {
         // No-op
     }
 }
