@@ -13,6 +13,9 @@ public class ExplosionSprite extends AnimatedSprite {
     public static final int DEFAULT_FPS = 60;
     private static final double SCALE = 0.125;
     private static final Dimension SEQUENCE_GRID = new Dimension(8, 4);
+    // TODO: Export images at the right size and remove scale factor
+    // 512 x 512 x 8 x 4 = 8,388,608 pixels
+    //  64 x  64 x 8 x 4 =   131,072 pixels <- this will load faster!
     private static final Dimension FRAME_DIMENSION_PIXELS = new Dimension(512, 512);
     private static final InputStream EXPLOSION_ASSET = AssetLoader.load("Explosion.png");
 

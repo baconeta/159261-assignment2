@@ -16,7 +16,6 @@ import tengine.graphics.components.text.TLabel;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
-// TODO: Look at pulling the pausing functionality out of here and using this as a container for the display instead
 public class PauseScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final TGraphicCompound graphic;
@@ -66,11 +65,6 @@ public class PauseScreen implements Screen {
     }
 
     @Override
-    public void handleKeyReleased(KeyEvent event) {
-        // No-op
-    }
-
-    @Override
     public void addToCanvas(Game game) {
         game.graphicsEngine().add(graphic);
     }
@@ -83,6 +77,11 @@ public class PauseScreen implements Screen {
     @Override
     public ScreenIdentifier screen() {
         return ScreenIdentifier.SHOWING_GAME_OVER;
+    }
+
+    @Override
+    public void handleKeyReleased(KeyEvent event) {
+        // No-op
     }
 
     @Override

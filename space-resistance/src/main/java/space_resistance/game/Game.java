@@ -13,6 +13,7 @@ import tengine.physics.collisions.events.CollisionEvent;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+// Acts as a director, that mediates between the different screens (Menu, Game Play, Pause, and Game Over)
 public class Game extends GameEngine {
     public static final Dimension WINDOW_DIMENSION = new Dimension(600, 800);
     // TODO: remove if still unused before submitting
