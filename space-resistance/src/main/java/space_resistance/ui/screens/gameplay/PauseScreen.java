@@ -29,10 +29,6 @@ public class PauseScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final TGraphicCompound graphic;
 
-    private static final String BACKGROUND = "SpaceBackground.png";
-    private static final Dimension DIMENSION = new Dimension(600, 800);
-    private static final Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
-
     private final ButtonGroup buttonGroup;
     private final Button resume;
     private final Button quit;
@@ -59,8 +55,7 @@ public class PauseScreen implements Screen {
 
         // Graphic
         graphic = new TGraphicCompound(Game.WINDOW_DIMENSION);
-        graphic.add(background);
-        graphic.addAll(title, resume, quit);
+        graphic.addAll(Background.staticBackground(), title, resume, quit);
     }
 
     @Override
