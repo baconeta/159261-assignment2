@@ -84,7 +84,7 @@ public class GameOverScreen implements Screen {
                 SoundEffects.shared().menuSelect().play();
                 if (buttonGroup.getFocussed() == playAgain) {
                     screenChangeCallback.accept(ScreenIdentifier.PLAYING);
-                } else if (buttonGroup.getFocussed() == quit){
+                } else if (buttonGroup.getFocussed() == quit) {
                     screenChangeCallback.accept(ScreenIdentifier.SHOWING_MENU);
                 }
             }

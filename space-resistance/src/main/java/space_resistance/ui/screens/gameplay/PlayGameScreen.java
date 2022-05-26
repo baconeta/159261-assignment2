@@ -44,16 +44,17 @@ public class PlayGameScreen implements Screen {
 
     @Override
     public void handleKeyPressed(KeyEvent keyEvent) {
-        if (!paused){
+        if (!paused) {
             world.handleKeyPressed(keyEvent);
         }
+
         if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
             screenChangeCallback.accept(ScreenIdentifier.SHOWING_PAUSE); //  Uncomment to display pause screen
             paused = !paused;
 
             if (paused) {
                 SoundEffects.shared().backgroundMusic().stopPlayingLoop();
-                for (Actor a: world.actors()) {
+                for (Actor a : world.actors()) {
                     if (a instanceof SpaceShip spaceShip){
                         spaceShip.spaceshipThrusters().setPaused(true);
                         spaceShip.velocity().setDirectionX(0);
