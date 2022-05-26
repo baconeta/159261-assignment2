@@ -54,9 +54,15 @@ public class SoundEffects {
         return menuSelect;
     }
 
-    public AudioClip defaultPlayerShootingSound(){ return playerShootingSound; }
+    public AudioClip defaultPlayerShootingSound() {
+        return playerShootingSound;
+    }
 
-    public AudioClip explosionSound() {return explosionSound;}
+    public AudioClip explosionSound() {
+        return explosionSound;
+    }
 
-    public AudioClip goliathExplosionSound() {return goliathExplosionSound;}
+    public AudioClip goliathExplosionSound() {
+        return goliathExplosionSound;
+    }
 }
