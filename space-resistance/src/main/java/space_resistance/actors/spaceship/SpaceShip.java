@@ -1,5 +1,6 @@
 package space_resistance.actors.spaceship;
 
+import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.pickup.Pickup;
 import space_resistance.assets.animated_sprites.PlayerThruster;
@@ -210,7 +211,7 @@ public class SpaceShip extends Actor {
 
     public void collision(Actor actorB) {
         switch(actorB.getClass().getSimpleName()) {
-            case "EnemyBullet" -> player.reduceHealth(1);
+            case "EnemyBullet" -> player.reduceHealth(((EnemyBullet) actorB).bulletDamage());
             case "Enemy"       -> player.reduceHealth(100);
             case "Pickup"      -> player.handlePickup(((Pickup) actorB).type());
         }
