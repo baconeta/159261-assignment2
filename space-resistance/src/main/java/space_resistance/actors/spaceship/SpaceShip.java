@@ -35,8 +35,6 @@ public class SpaceShip extends Actor {
     private final Player player;
 
     private long lastBulletFired;
-    private KeyEvent keyPressed = null;
-    private KeyEvent keyReleased = null;
 
     private int up = 0;
     private int down = 0;
@@ -129,14 +127,12 @@ public class SpaceShip extends Actor {
     public boolean handleKeyPressed(KeyEvent keyEvent) {
         Optional<Action> action = player.controls().mappedAction(keyEvent.getKeyCode());
         action.ifPresent(this::performAction);
-        keyPressed = keyEvent;
         return action.isPresent();
     }
 
     public boolean handleKeyReleased(KeyEvent keyEvent) {
         Optional<Action> action = player.controls().mappedAction(keyEvent.getKeyCode());
         action.ifPresent(this::movementKeyReleasedAction);
-        keyReleased = keyEvent;
         return action.isPresent();
     }
 
