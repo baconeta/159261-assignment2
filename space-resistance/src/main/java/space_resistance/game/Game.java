@@ -20,7 +20,8 @@ public class Game extends GameEngine {
     private static final String TITLE = "Space Resistance by Team Pew Pew!";
     public static boolean DEBUG_MODE = false;
 
-    public Screen activeScreen;
+    private Screen activeScreen = null;
+    private PlayGameScreen activeGame = null;
 
     public static void main(String[] args) {
         createGame(new Game(), 60);
@@ -29,7 +30,6 @@ public class Game extends GameEngine {
     @Override
     public void init() {
         setWindowProperties(WINDOW_DIMENSION, TITLE);
-        activeScreen = null;
         requestScreenChange(ScreenIdentifier.SHOWING_MENU);
     }
 
@@ -65,20 +65,22 @@ public class Game extends GameEngine {
         switch(newScreen) {
             case SHOWING_MENU -> activeScreen = new MenuScreen(this::requestScreenChange);
             case PLAYING -> {
-                if (activeScreen instanceof PauseScreen) {
-                    activeScreen = new PlayGameScreen(this::requestScreenChange, ((PauseScreen) activeScreen).gameWorld());
-                } else {
-                    activeScreen = new PlayGameScreen(this::requestScreenChange, null);
+                if (activeGame == null) {
+                    activeGame = new PlayGameScreen(this::requestScreenChange);
                 }
+
+                setPaused(false);
+                activeScreen = activeGame;
             }
             case SHOWING_GAME_OVER -> {
-                assert activeScreen != null;
-                activeScreen = new GameOverScreen(this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState());
+                assert activeGame != null;
+                activeScreen = new GameOverScreen(this::requestScreenChange, activeGame.gameState());
+                activeGame = null;
             }
             case SHOWING_PAUSE -> {
                 assert activeScreen != null;
-                activeScreen = new PauseScreen(this::requestScreenChange,
-                    ((PlayGameScreen) activeScreen).gameWorld());
+                setPaused(true);
+                activeScreen = new PauseScreen(this::requestScreenChange);
             }
         }
 

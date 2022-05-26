@@ -1,26 +1,18 @@
 package space_resistance.ui.screens.gameplay;
 
-import space_resistance.actors.bullet.Bullet;
-import space_resistance.actors.enemy.Enemy;
-import space_resistance.actors.spaceship.SpaceShip;
-import space_resistance.assets.AssetLoader;
 import space_resistance.assets.Colors;
 import space_resistance.assets.FontBook;
 import space_resistance.assets.SoundEffects;
 import space_resistance.assets.sprites.Background;
 import space_resistance.game.Game;
-import space_resistance.game.GameWorld;
 import space_resistance.ui.components.Button;
 import space_resistance.ui.components.ButtonGroup;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
-import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
-import tengine.physics.collisions.events.CollisionEvent;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
@@ -32,9 +24,8 @@ public class PauseScreen implements Screen {
     private final ButtonGroup buttonGroup;
     private final Button resume;
     private final Button quit;
-    private final GameWorld gameWorld;
 
-    public PauseScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameWorld g) {
+    public PauseScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;
 
         // Title
@@ -43,7 +34,6 @@ public class PauseScreen implements Screen {
         title.setFont(FontBook.shared().bodyFont());
         title.setOrigin(new TPoint(240, 300));
 
-        gameWorld  = g;
         // Buttons
         resume = new Button("RESUME");
         resume.setOrigin(new TPoint(80, 490));
@@ -66,19 +56,9 @@ public class PauseScreen implements Screen {
             case KeyEvent.VK_ENTER -> {
                 SoundEffects.shared().menuSelect().play();
                 if (buttonGroup.getFocussed() == resume) {
-                    screenChangeCallback.accept(ScreenIdentifier.PLAYING); //  Uncomment to display pause screen
                     SoundEffects.shared().backgroundMusic().playOnLoop();
-                    for (Actor a: gameWorld.actors()) {
-                        if (a instanceof SpaceShip){
-                            ((SpaceShip) a).spaceshipThrusters().setPaused(false);
-                        }
-                        if (a instanceof Bullet) { a.velocity().setSpeed(500); }
-                        if (a instanceof Enemy) {
-                            a.velocity().setSpeed(50);
-                        }
-                    }
                     screenChangeCallback.accept(ScreenIdentifier.PLAYING);
-                } else if (buttonGroup.getFocussed() == quit){
+                } else if (buttonGroup.getFocussed() == quit) {
                     screenChangeCallback.accept(ScreenIdentifier.SHOWING_MENU);
                 }
             }
@@ -108,9 +88,5 @@ public class PauseScreen implements Screen {
     @Override
     public void update(double dtMillis) {
         // No-op
-    }
-
-    public GameWorld gameWorld() {
-        return gameWorld;
     }
 }

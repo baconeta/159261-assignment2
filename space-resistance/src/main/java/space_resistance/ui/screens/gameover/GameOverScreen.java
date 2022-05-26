@@ -28,6 +28,9 @@ public class GameOverScreen implements Screen {
     public GameOverScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.screenChangeCallback = screenChangeCallback;
 
+        // Stop background music
+        SoundEffects.shared().backgroundMusic().stopPlayingLoop();
+
         // Title
         TLabel title = new TLabel("Game over!");
         title.setColor(Colors.Text.PRIMARY);
