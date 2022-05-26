@@ -128,11 +128,11 @@ public class GameWorld extends World {
         Actor a = event.actorA();
         Actor b = event.actorB();
 
-        if (a == playerOne && (b instanceof Enemy || b instanceof EnemyBullet || b instanceof Pickup)) {
-            playerOne.collision(b);
+        if (a instanceof SpaceShip player && (b instanceof Enemy || b instanceof EnemyBullet || b instanceof Pickup)) {
+            player.collision(b);
             b.removeFromWorld();
-        } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet || a instanceof Pickup)) {
-            playerOne.collision(a);
+        } else if (b instanceof SpaceShip player && (a instanceof Enemy || a instanceof EnemyBullet || a instanceof Pickup)) {
+            player.collision(a);
             a.removeFromWorld();
         } else if (a instanceof Enemy enemy && b instanceof PlayerBullet playerBullet) {
             // TODO: Fix duplicated code blocks...
