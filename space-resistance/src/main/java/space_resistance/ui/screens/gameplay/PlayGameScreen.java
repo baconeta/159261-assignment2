@@ -18,14 +18,12 @@ import java.util.function.Consumer;
 
 public class PlayGameScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
-    private final Game engine;
     private final GameWorld world;
     private final GameState gameState;
     public static boolean paused = false;
 
-    public PlayGameScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameWorld gameWorld) {
+    public PlayGameScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameWorld gameWorld) {
         SoundEffects.shared().backgroundMusic().playOnLoop();
-        this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
         gameState = new GameState(Settings.shared().config());
 
@@ -93,13 +91,13 @@ public class PlayGameScreen implements Screen {
     }
 
     @Override
-    public void addToCanvas() {
-        engine.loadWorld(world);
+    public void addToCanvas(Game game) {
+        game.loadWorld(world);
     }
 
     @Override
     public void removeFromCanvas() {
-        engine.unloadWorld();
+        world.canvas().removeFromParent();
     }
 
     @Override
@@ -109,7 +107,6 @@ public class PlayGameScreen implements Screen {
         }
     }
 
-    @Override
     public void handleCollisionEvent(CollisionEvent event) {
         world.handleCollisions(event);
     }

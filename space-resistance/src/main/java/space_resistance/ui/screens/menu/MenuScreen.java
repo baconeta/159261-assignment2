@@ -8,7 +8,6 @@ import space_resistance.settings.Settings;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
 import tengine.graphics.components.TGraphicCompound;
-import tengine.physics.collisions.events.CollisionEvent;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,7 +15,6 @@ import java.util.function.Consumer;
 
 public class MenuScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
-    private final Game engine;
     private final String BACKGROUND = "SpaceBackground.png";
     private static final Dimension DIMENSION = new Dimension(600, 800);
     Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
@@ -31,8 +29,7 @@ public class MenuScreen implements Screen {
     private final Menu howToPlay;
     private final Menu credits;
 
-    public MenuScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback) {
-        this.engine = game;
+    public MenuScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;
 
         // Menus
@@ -58,8 +55,8 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-    public void addToCanvas() {
-        engine.graphicsEngine().add(container);
+    public void addToCanvas(Game game) {
+        game.graphicsEngine().add(container);
     }
 
     @Override
@@ -76,9 +73,6 @@ public class MenuScreen implements Screen {
     public void update(double dtMillis) {
         container.update(dtMillis);
     }
-
-    @Override
-    public void handleCollisionEvent(CollisionEvent event) {}
 
     private void onSubmenuSelection(SubmenuOption submenuOption) {
         activeMenu.removeFromParent();

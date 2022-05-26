@@ -53,7 +53,9 @@ public class Game extends GameEngine {
 
     @Override
     public void onCollision(CollisionEvent event) {
-        activeScreen.handleCollisionEvent(event);
+        if (activeScreen instanceof PlayGameScreen playGameScreen) {
+            playGameScreen.handleCollisionEvent(event);
+        }
     }
 
     public void requestScreenChange(ScreenIdentifier newScreen) {
@@ -61,27 +63,26 @@ public class Game extends GameEngine {
         if (activeScreen != null) activeScreen.removeFromCanvas();
 
         switch(newScreen) {
-            case SHOWING_MENU -> activeScreen = new MenuScreen(this, this::requestScreenChange);
+            case SHOWING_MENU -> activeScreen = new MenuScreen(this::requestScreenChange);
             case PLAYING -> {
                 if (activeScreen instanceof PauseScreen) {
-                    activeScreen = new PlayGameScreen(this, this::requestScreenChange, ((PauseScreen) activeScreen).gameWorld());
+                    activeScreen = new PlayGameScreen(this::requestScreenChange, ((PauseScreen) activeScreen).gameWorld());
                 } else {
-                    activeScreen = new PlayGameScreen(this, this::requestScreenChange, null);
+                    activeScreen = new PlayGameScreen(this::requestScreenChange, null);
                 }
             }
             case SHOWING_GAME_OVER -> {
                 assert activeScreen != null;
-                activeScreen = new GameOverScreen(this, this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState());
+                activeScreen = new GameOverScreen(this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState());
             }
             case SHOWING_PAUSE -> {
                 assert activeScreen != null;
-                activeScreen = new PauseScreen(this,
-                    this::requestScreenChange,
+                activeScreen = new PauseScreen(this::requestScreenChange,
                     ((PlayGameScreen) activeScreen).gameWorld());
             }
         }
 
-        activeScreen.addToCanvas();
+        activeScreen.addToCanvas(this);
     }
 }
 

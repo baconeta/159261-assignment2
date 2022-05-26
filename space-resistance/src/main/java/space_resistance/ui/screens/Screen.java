@@ -1,16 +1,14 @@
 package space_resistance.ui.screens;
 
-import tengine.physics.collisions.events.CollisionEvent;
+import space_resistance.game.Game;
 
 import java.awt.event.KeyEvent;
 
 public interface Screen {
     void handleKeyPressed(KeyEvent event);
     void handleKeyReleased(KeyEvent event);
-    void addToCanvas();
+    void addToCanvas(Game game);
     void removeFromCanvas();
     ScreenIdentifier screen();
     void update(double dtMillis);
-
-    void handleCollisionEvent(CollisionEvent event);
 }
