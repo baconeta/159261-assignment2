@@ -9,7 +9,6 @@ import space_resistance.assets.FontBook;
 import space_resistance.assets.SoundEffects;
 import space_resistance.assets.sprites.Background;
 import space_resistance.game.Game;
-import space_resistance.game.GameState;
 import space_resistance.game.GameWorld;
 import space_resistance.ui.components.Button;
 import space_resistance.ui.components.ButtonGroup;

@@ -37,9 +37,9 @@ class MainMenu extends SubMenu {
         credits.setOrigin(new TPoint(250, 400));
 
         // The button group manages which button is currently selected and moving between buttons
-        buttons = new ButtonGroup(onePlayer, howToPlay, credits/*, twoPlayer, highscores*/);
+        buttons = new ButtonGroup(onePlayer, howToPlay, credits);
 
-        addAll(title, onePlayer, howToPlay, credits/*, twoPlayer, highscores*/);
+        addAll(title, onePlayer, howToPlay, credits);
     }
 
     @Override
