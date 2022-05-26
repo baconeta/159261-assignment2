@@ -24,8 +24,13 @@ public class PauseScreen implements Screen {
     private final Button resume;
     private final Button quit;
 
+    private final Background background = Background.getInstance();
+
     public PauseScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;
+
+        // Background
+        background.setIsStatic(true);
 
         // Title
         TLabel title = new TLabel("Game Paused");
@@ -44,7 +49,7 @@ public class PauseScreen implements Screen {
 
         // Graphic
         graphic = new TGraphicCompound(Game.WINDOW_DIMENSION);
-        graphic.addAll(Background.staticBackground(), title, resume, quit);
+        graphic.addAll(background, title, resume, quit);
     }
 
     @Override
@@ -56,6 +61,8 @@ public class PauseScreen implements Screen {
                 SoundEffects.shared().menuSelect().play();
                 if (buttonGroup.getFocussed() == resume) {
                     SoundEffects.shared().backgroundMusic().playOnLoop();
+                    // We set isStatic on the background to reset the changes we made when this PauseScreen was created
+                    background.setIsStatic(false);
                     screenChangeCallback.accept(ScreenIdentifier.PLAYING);
                 } else if (buttonGroup.getFocussed() == quit) {
                     screenChangeCallback.accept(ScreenIdentifier.SHOWING_MENU);

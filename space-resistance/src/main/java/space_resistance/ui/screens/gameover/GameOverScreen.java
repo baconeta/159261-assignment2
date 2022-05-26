@@ -31,6 +31,10 @@ public class GameOverScreen implements Screen {
         // Stop background music
         SoundEffects.shared().backgroundMusic().stopPlayingLoop();
 
+        // Background
+        Background background = Background.getInstance();
+        background.setIsStatic(true);
+
         // Title
         TLabel title = new TLabel("Game over!");
         title.setColor(Colors.Text.PRIMARY);
@@ -67,7 +71,7 @@ public class GameOverScreen implements Screen {
 
         // Graphic
         graphic = new TGraphicCompound(Game.WINDOW_DIMENSION);
-        graphic.addAll(Background.staticBackground(), title, score, playAgain, quit);
+        graphic.addAll(background, title, score, playAgain, quit);
     }
 
     @Override
