@@ -3,6 +3,7 @@ package space_resistance.actors.bullet;
 import space_resistance.assets.SoundEffects;
 import space_resistance.assets.sprites.DefaultShot;
 import space_resistance.game.Game;
+import space_resistance.player.Player;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.shapes.TRect;
@@ -18,10 +19,12 @@ public class PlayerBullet extends Bullet {
     private static final TVector DIRECTION = new TVector(0, -1);
     private static final int SPEED = 500;
     private static final int DAMAGE = 5;
+    private final Player instigator;
 
-    public PlayerBullet(TPoint origin) {
+    public PlayerBullet(TPoint origin, Player instigator) {
         super(origin);
         SoundEffects.shared().defaultPlayerShootingSound().play(5);
+        this.instigator = instigator;
 
         graphic = initSprite();
         physics = initPhysics();
@@ -55,5 +58,9 @@ public class PlayerBullet extends Bullet {
 
     public int damageToDeal() {
         return DAMAGE;
+    }
+
+    public Player instigator() {
+        return instigator;
     }
 }

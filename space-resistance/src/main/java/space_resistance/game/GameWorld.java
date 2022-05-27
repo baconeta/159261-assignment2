@@ -140,7 +140,7 @@ public class GameWorld extends World {
             if (isEnemyDead) {
                 add(new Explosion(this, enemy.origin(), enemy.type()));
 
-                gameState.playerOne().increaseScore(enemy.scoreValue());
+                playerBullet.instigator().increaseScore(enemy.scoreValue());
 
                 TPoint possiblePickupLocation = new TPoint(
                     enemy.origin().x + enemy.graphic().width() * 0.25,
@@ -158,7 +158,7 @@ public class GameWorld extends World {
             if (isEnemyDead) {
                 add(new Explosion(this, enemy.origin(), enemy.type()));
 
-                gameState.playerOne().increaseScore(enemy.scoreValue());
+                playerBullet.instigator().increaseScore(enemy.scoreValue());
 
                 TPoint possiblePickupLocation = new TPoint(
                     enemy.origin().x + enemy.graphic().width() * 0.25,
