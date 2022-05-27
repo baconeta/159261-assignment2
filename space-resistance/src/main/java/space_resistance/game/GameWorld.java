@@ -173,7 +173,7 @@ public class GameWorld extends World {
     }
 
     private void trySpawnPickup(TPoint locationToSpawn) {
-        int spawnValue = RANDOM.nextInt(1, 101);
+        double spawnValue = RANDOM.nextDouble();
         if (spawnValue <= chanceMissiles) {
             this.add(new Pickup(PickupType.MISSILE, locationToSpawn));
         }
