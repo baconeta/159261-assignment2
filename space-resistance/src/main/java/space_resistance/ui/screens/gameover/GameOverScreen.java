@@ -53,10 +53,13 @@ public class GameOverScreen implements Screen {
             }
             case MULTIPLAYER -> gameState.winner().ifPresentOrElse(winner -> {
                 // Display two player game over screen
+                        // Winner label
+                        title.setText("The winner was player " + winner.playerNumber() + "!");
+                        title.setOrigin(new TPoint(120, 300));
             },
             () -> {
                 title.setText("It's a draw!");
-                title.setOrigin(new TPoint(140, 180));
+                title.setOrigin(new TPoint(240, 300));
             });
         }
 
