@@ -45,8 +45,8 @@ public final class FontBook {
         return new Font(gameFont.getFontName(), Font.BOLD, 30);
     }
 
-    public Font scoreFont() {
-        return new Font(gameFont.getFontName(), Font.BOLD, 24);
+    public Font pauseFont() {
+        return new Font(gameFont.getFontName(), Font.ITALIC, 16);
     }
 
     public Font hudFont() {
