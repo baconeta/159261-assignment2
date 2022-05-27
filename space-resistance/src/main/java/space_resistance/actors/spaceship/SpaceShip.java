@@ -71,7 +71,7 @@ public class SpaceShip extends Actor {
         spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + THRUSTER_Y_OFFSET));
 
         playerSprite.add(spaceshipThrusters);
-        playerSprite.add(PlayerShip.shipSprite());
+        playerSprite.add(PlayerShip.shipSprite(playerNumber()));
         if (Game.DEBUG_MODE) { playerSprite.add(new TRect(DIMENSION)); }
 
         return playerSprite;
