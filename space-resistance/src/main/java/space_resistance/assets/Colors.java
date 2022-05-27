@@ -11,6 +11,7 @@ public class Colors {
     public static final Color BEAU_BLUE = new Color(200, 218, 226);
     public static final Color DARK_VIOLET = new Color(114, 14, 196);
     public static final Color DENIM = new Color(14, 96, 196);
+    public static final Color TERRIFYING_TEAL = new Color(79, 144, 166);
 
 
     // We centrally manage all text colors here, so we can swap out
@@ -20,7 +21,9 @@ public class Colors {
         // Primary color for most UI text elements
         public static final Color PRIMARY = BEAU_BLUE;
         public static final Color SHIELD_ENABLED = GRASSHOPPER_GREEN;
-        public static final Color PLAYER_DEAD = SPACESHIP_PURPLE;
+        public static final Color PLAYER_DEAD = DARK_VIOLET;
+        public static final Color PLAYER_ONE_SCORE = SPACESHIP_PURPLE;
+        public static final Color PLAYER_TWO_SCORE = TERRIFYING_TEAL;
 
         // Add other categories of font colors here
     }
