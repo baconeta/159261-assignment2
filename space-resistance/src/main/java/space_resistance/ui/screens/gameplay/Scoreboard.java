@@ -44,6 +44,9 @@ class Scoreboard extends TGraphicCompound {
         if (player.shieldEnabled()) {
             healthLabel.setText("Health: " + (player.healthRemaining() + player.shieldHealth()));
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
+        } else if (player.dead()) {
+            healthLabel.setText("Health: DEAD");
+            healthLabel.setColor(Colors.Text.PLAYER_DEAD);
         } else {
             healthLabel.setText("Health: " + player.healthRemaining());
             healthLabel.setColor(Colors.Text.PRIMARY);

@@ -12,6 +12,7 @@ public class Player {
     private int health = STARTING_HEALTH;
     private int shieldValue = STARTING_SHIELD;
     private boolean shieldsOn = false;
+    private boolean isDead = false;
 
     public Player(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
@@ -81,4 +82,13 @@ public class Player {
     public int shieldHealth() {
         return shieldValue;
     }
+
+    public void playerDied(){
+        isDead = true;
+    }
+
+    public boolean dead() {
+        return isDead;
+    }
+
 }
