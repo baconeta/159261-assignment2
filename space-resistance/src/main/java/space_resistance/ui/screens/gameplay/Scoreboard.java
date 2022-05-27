@@ -42,7 +42,7 @@ class Scoreboard extends TGraphicCompound {
     @Override
     public void update(double dtMillis) {
         if (player.shieldEnabled()) {
-            healthLabel.setText("Health: " + player.healthRemaining() + player.shieldHealth());
+            healthLabel.setText("Health: " + (player.healthRemaining() + player.shieldHealth()));
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
         } else {
             healthLabel.setText("Health: " + player.healthRemaining());
