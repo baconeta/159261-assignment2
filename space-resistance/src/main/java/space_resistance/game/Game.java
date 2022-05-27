@@ -3,6 +3,7 @@ package space_resistance.game;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
 import space_resistance.ui.screens.gameover.GameOverScreen;
+import space_resistance.ui.screens.gameplay.IntroStoryScreen;
 import space_resistance.ui.screens.gameplay.PauseScreen;
 import space_resistance.ui.screens.gameplay.PlayGameScreen;
 import space_resistance.ui.screens.menu.MenuScreen;
@@ -70,6 +71,12 @@ public class Game extends GameEngine {
                 }
 
                 activeScreen = new MenuScreen(this::requestScreenChange);
+            }
+            case SHOWING_INTRO_SCREEN -> {
+                if (activeGame != null) {
+                    activeGame = null;
+                }
+                activeScreen = new IntroStoryScreen(this::requestScreenChange);
             }
             case PLAYING -> {
                 if (activeGame == null) {
