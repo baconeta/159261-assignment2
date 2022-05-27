@@ -9,6 +9,13 @@ import tengine.graphics.components.text.TLabel;
 
 import java.awt.*;
 
+// TODO: Consider stacking the score and health above each other and placing them in the bottom left.
+//   This would allow placing a second player's score on the bottom right, and moving the pause instruction into the
+//   middle as well as making it smaller so it is subtler, e.g.
+//    |                                                        |
+//    | Health: 074                                Health: 085 |
+//    | Score: 00300           p: pause           Score: 01200 |
+//    +--------------------------------------------------------+
 public class HeadsUpDisplay extends TGraphicCompound {
     private static final int PAUSE_LABEL_OFFSET = 125;
     private static final int HEALTH_LABEL_OFFSET = 10;
