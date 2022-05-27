@@ -81,11 +81,11 @@ public class GameWorld extends World {
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             playerTwo.update();
             if (gameState.playerTwo().healthRemaining() <= 0) {
-                playerTwo.playerDied();
+                playerTwo.getPlayer().playerDied();
                 playerTwo.removeFromWorld();
             }
             if (gameState.playerOne().healthRemaining() <= 0) {
-                playerOne.playerDied();
+                playerOne.getPlayer().playerDied();
                 playerOne.removeFromWorld();
             }
         } else if (gameConfig.multiplayerMode() == MultiplayerMode.SINGLE_PLAYER) {

@@ -33,7 +33,6 @@ public class SpaceShip extends Actor {
     private final AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
     private final GameWorld world;
     private final Player player;
-    private boolean isDead = false;
 
     private long lastBulletFired;
 
@@ -138,7 +137,7 @@ public class SpaceShip extends Actor {
     }
 
     private void performAction(Action action) {
-        if (isDead) {
+        if (player.dead()) {
             return;
         }
         switch (action) {
@@ -197,7 +196,7 @@ public class SpaceShip extends Actor {
         }
     }
 
-    public void playerDied(){
-        isDead = true;
+    public Player getPlayer() {
+        return player;
     }
 }
