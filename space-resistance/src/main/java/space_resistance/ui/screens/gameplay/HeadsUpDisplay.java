@@ -13,19 +13,19 @@ import java.awt.*;
 public class HeadsUpDisplay extends TGraphicCompound {
     private static final int SCREEN_BOTTOM_OFFSET = 15;
     private static final int PAUSE_LABEL_OFFSET = 260;
-    private static final int SCOREBOARD_OFFSET = 15;
+    private static final int P1_SCOREBOARD_OFFSET = 15;
+    private static final int P2_SCOREBOARD_OFFSET = 400;
 
     public HeadsUpDisplay(Dimension dimension, GameState state) {
         super(dimension);
 
         Scoreboard playerOneScoreboard = new Scoreboard(state.playerOne());
-        playerOneScoreboard.setOrigin(new TPoint(SCOREBOARD_OFFSET, dimension.height - playerOneScoreboard.height()));
+        playerOneScoreboard.setOrigin(new TPoint(P1_SCOREBOARD_OFFSET, dimension.height - playerOneScoreboard.height()));
 
-        // TODO: Include this when implementing two player
         if (state.gameConfig().multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            // Scoreboard playerTwoScoreboard = new Scoreboard(state.playerTwo());
-            // TODO: set origin to right hand side of screen
-            // add(playerTwoScoreboard);
+            Scoreboard playerTwoScoreboard = new Scoreboard(state.playerTwo());
+            playerTwoScoreboard.setOrigin(new TPoint(P2_SCOREBOARD_OFFSET, dimension.height - playerTwoScoreboard.height()));
+            add(playerTwoScoreboard);
         }
 
         // Pause instruction
