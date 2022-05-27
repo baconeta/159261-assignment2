@@ -33,6 +33,7 @@ public class SpaceShip extends Actor {
     private final AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
     private final GameWorld world;
     private final Player player;
+    private boolean isDead = false;
 
     private long lastBulletFired;
 
@@ -137,6 +138,9 @@ public class SpaceShip extends Actor {
     }
 
     private void performAction(Action action) {
+        if (isDead) {
+            return;
+        }
         switch (action) {
             case MOVE_UP -> {
                 up = -1;
@@ -191,5 +195,9 @@ public class SpaceShip extends Actor {
             case "Enemy"       -> player.reduceHealth(100);
             case "Pickup"      -> player.handlePickup(((Pickup) actorB).type());
         }
+    }
+
+    public void playerDied(){
+        isDead = true;
     }
 }
