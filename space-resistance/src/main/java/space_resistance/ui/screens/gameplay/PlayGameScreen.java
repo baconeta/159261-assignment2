@@ -57,7 +57,7 @@ public class PlayGameScreen implements Screen {
 
     @Override
     public void update(double dtMillis) {
-        world.update();
+        world.update(dtMillis);
     }
 
     public void handleCollisionEvent(CollisionEvent event) {
