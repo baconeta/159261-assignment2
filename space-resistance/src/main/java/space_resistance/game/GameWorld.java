@@ -71,8 +71,8 @@ public class GameWorld extends World {
         }
     }
 
-    public void update() {
-        hud.update(gameState);
+    public void update(double dtMillis) {
+        hud.update(dtMillis);
 
         playerOne.update();
         if (gameState.playerOne().healthRemaining() <= 0) {

@@ -41,7 +41,15 @@ public final class FontBook {
         return new Font(gameFont.getFontName(), Font.BOLD, 32);
     }
 
-    public Font scoreBoardFont() {
+    public Font levelLabelFont() {
+        return new Font(gameFont.getFontName(), Font.BOLD, 30);
+    }
+
+    public Font scoreFont() {
+        return new Font(gameFont.getFontName(), Font.BOLD, 24);
+    }
+
+    public Font hudFont() {
         return new Font(gameFont.getFontName(), Font.BOLD, 20);
     }
 

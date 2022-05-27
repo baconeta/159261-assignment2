@@ -26,7 +26,7 @@ public class EnemySpawningSystem {
 
     public EnemySpawningSystem(GameWorld gw) {
         gameWorld = gw;
-        newLevelGraphic.setFont(FontBook.shared().scoreBoardFont());
+        newLevelGraphic.setFont(FontBook.shared().levelLabelFont());
         newLevelGraphic.setColor(Color.white);
 
         generateEnemyWave();

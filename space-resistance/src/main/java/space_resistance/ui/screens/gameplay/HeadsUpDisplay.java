@@ -10,91 +10,75 @@ import tengine.graphics.components.text.TLabel;
 import java.awt.*;
 
 public class HeadsUpDisplay extends TGraphicCompound {
-    private TLabel healthLabel;
-    private TLabel scoreLabel;
-    private Scoreboard p1Scoreboard;
-
-    private static final int PAUSE_LABEL_OFFSET = 150;
-    private static final int HEALTH_LABEL_OFFSET = 30;
+    private static final int PAUSE_LABEL_OFFSET = 125;
+    private static final int HEALTH_LABEL_OFFSET = 10;
     private static final int SCREEN_BOTTOM_OFFSET = 15;
-    private static final int SCORE_LABEL_OFFSET = 255;
+    private static final int SCORE_LABEL_OFFSET = 200;
+
+    private final TLabel healthLabel = new TLabel("");
+    private final TLabel scoreLabel = new TLabel("");
+
+    private final GameState state;
 
     public HeadsUpDisplay(Dimension dimension, GameState state) {
         super(dimension);
-        p1Scoreboard = Scoreboard.playerOneScoreboard(state.playerOne(), state.gameConfig());
-        int scoreboardX = dimension.width - p1Scoreboard.width();
-        int scoreboardY = (int) (p1Scoreboard.height() * 1.5);
-        p1Scoreboard.setOrigin(new TPoint(scoreboardX, scoreboardY));
+        this.state = state;
 
-        // Add pause instruction
-        TLabel pauseLabel = new TLabel("P: pause");
-        pauseLabel.setFont(FontBook.shared().scoreBoardFont());
-        pauseLabel.setColor(Colors.Text.PRIMARY);
-        pauseLabel.setOrigin(new TPoint(dimension.width - PAUSE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
-        addAll(p1Scoreboard, pauseLabel);
-
-        // Add Health Label
-        if (!state.playerOne().shieldEnabled()) {
-            healthLabel = new TLabel("Health: " + state.playerOne().healthRemaining());
-            healthLabel.setColor(Colors.Text.PRIMARY);
-        } else {
-            healthLabel = new TLabel("Health: " + (state.playerOne().healthRemaining() + state.playerOne().shieldHealth()));
-            healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
-        }
-
-        healthLabel.setFont(FontBook.shared().scoreBoardFont());
+        // Health Label
+        healthLabel.setText("Health: " + padHealthText(state.playerOne().healthRemaining()));
+        healthLabel.setFont(FontBook.shared().hudFont());
+        healthLabel.setColor(Colors.Text.PRIMARY);
         healthLabel.setOrigin(new TPoint(HEALTH_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
-        addAll(p1Scoreboard, healthLabel);
 
-        // Add Score Label
-        scoreLabel = new TLabel("Score: " + state.playerOne().score());
-        scoreLabel.setFont(FontBook.shared().scoreBoardFont());
+        // Score Label
+        scoreLabel.setText("Score: " + padScoreText(state.playerOne().score()));
+        scoreLabel.setFont(FontBook.shared().scoreFont());
         scoreLabel.setColor(Colors.Text.PRIMARY);
         scoreLabel.setOrigin(new TPoint(SCORE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
-        addAll(p1Scoreboard, scoreLabel);
+
+        // Pause instruction
+        TLabel pauseLabel = new TLabel("P: pause");
+        pauseLabel.setFont(FontBook.shared().hudFont());
+        pauseLabel.setColor(Colors.Text.PRIMARY);
+        pauseLabel.setOrigin(new TPoint(dimension.width - PAUSE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
+
+        addAll(healthLabel, scoreLabel, pauseLabel);
     }
 
-    // TODO: Remove duplicated code in favour of storing the required TLabels on the class, initiliazing their
-    //  properites in the constructor and setting the text of TLabel in the update method.
-    public void update(GameState state){
-        removeAll();
-        p1Scoreboard = Scoreboard.playerOneScoreboard(state.playerOne(), state.gameConfig());
-        int scoreboardX = dimension.width - p1Scoreboard.width();
-        int scoreboardY = (int) (p1Scoreboard.height() * 1.5);
-        p1Scoreboard.setOrigin(new TPoint(scoreboardX, scoreboardY));
-
-        // Add pause instruction
-        TLabel pauseLabel = new TLabel("P: pause");
-        pauseLabel.setFont(FontBook.shared().scoreBoardFont());
-        pauseLabel.setColor(Colors.Text.PRIMARY);
-        pauseLabel.setOrigin(new TPoint(dimension.width - PAUSE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
-        addAll(p1Scoreboard, pauseLabel);
-
-        // Add Health Label
-        if (!state.playerOne().shieldEnabled()) {
-            healthLabel = new TLabel("Health: " + state.playerOne().healthRemaining());
-            healthLabel.setColor(Colors.Text.PRIMARY);
-        } else {
-            healthLabel = new TLabel("Health: " + (state.playerOne().healthRemaining() + state.playerOne().shieldHealth()));
+    @Override
+    public void update(double dtMillis) {
+        if (state.playerOne().shieldEnabled()) {
+            healthLabel.setText("Health: " + padHealthText(state.playerOne().healthRemaining() + state.playerOne().shieldHealth()));
             healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
+        } else {
+            healthLabel.setText("Health: " + padHealthText(state.playerOne().healthRemaining()));
+            healthLabel.setColor(Colors.Text.PRIMARY);
         }
-        healthLabel.setFont(FontBook.shared().scoreBoardFont());
-        healthLabel.setOrigin(new TPoint(HEALTH_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
-        addAll(p1Scoreboard, healthLabel);
 
-        // Add Score Label
-        scoreLabel = new TLabel("Score: " + state.playerOne().score());
-        scoreLabel.setFont(FontBook.shared().scoreBoardFont());
-        double scoreLabelFontSize;
-        // Equation for HUD score font size (x = player score):
-        //             30
-        //---------------------------------
-        //  ( (x + 6500) / 6 ) * 1000
+        scoreLabel.setText("Score: " + padScoreText(state.playerOne().score()));
 
-        scoreLabelFontSize = ((30.0 / ((state.playerOne().score() + 6500) / 6.0)) * 1000);
-        scoreLabel.setFontSize((int) scoreLabelFontSize);
-        scoreLabel.setColor(Colors.Text.PRIMARY);
-        scoreLabel.setOrigin(new TPoint(SCORE_LABEL_OFFSET, dimension.height - SCREEN_BOTTOM_OFFSET));
-        addAll(p1Scoreboard, scoreLabel);
+        super.update(dtMillis);
+    }
+
+    private String padScoreText(int score) {
+        if (score < 100) {
+            return "0000" + score;
+        } else if (score < 1000) {
+            return "00" + score;
+        } else if (score < 10000) {
+            return "0" + score;
+        }
+
+        return "" + score;
+    }
+
+    private String padHealthText(int health) {
+        if (health < 10) {
+            return "00" + health;
+        } else if (health < 100) {
+            return "0" + health;
+        }
+
+        return "" + health;
     }
 }
