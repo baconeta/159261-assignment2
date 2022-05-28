@@ -12,6 +12,7 @@ public class Colors {
     public static final Color DARK_VIOLET = new Color(114, 14, 196);
     public static final Color DENIM = new Color(14, 96, 196);
     public static final Color TERRIFYING_TEAL = new Color(79, 144, 166);
+    public static final Color VIOLENT_PINK = new Color(239, 0, 255);
 
 
     // We centrally manage all text colors here, so we can swap out
