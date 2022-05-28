@@ -69,11 +69,22 @@ java -jar space-resistance/target/space-resistance.jar
 
 A window should appear for you to play the game:
 
-- [ ] Insert screenshot
+!["Play Game" single player view](docs/images/play-screen.png)
 
 The rules are simple:
 
-- [ ] Fill this out 
+#### Single player
+
+- Use the arrow keys to control the ship, and the enter key to fire.
+- Hold down the fire key for rapid fire.
+- Dodge the enemy fire and take down the enemies.
+- Some enemies will drop pickups, such as health and shields. Fly into them to pick them up.
+
+#### Multiplayer
+
+- The single player controls remain the same in multiplayer mode - controlling the purple ship.
+- The second player uses WASD to move around and SHIFT to fire.
+- Players cannot shoot each other but must compete to survive and gain a higher score than their opponent.
 
 ### Space Resistance Features
 
@@ -171,6 +182,7 @@ display the results.
 - Pickup system, shield system and functionality
 - Simple boss AI system
 - Enemy type and class system programming
+- Multiplayer tidy up and implementation
 
 ### Tessa Power:
 #### Engine and Tools Lead Developer
@@ -179,6 +191,7 @@ display the results.
   2. Actor system for game world objects requiring components and control
   3. Abstracted Graphical system used for visual elements, animations and Actors.
   4. Flyweight design for asset optimisation
-- Global system code control and quality checks and fixes
+  5. Mediator pattern for screen systems and data handling
+- Global system code control plus all quality checks and fixes
 - Complete game backend optimisation
 - Game foundation and system set up
