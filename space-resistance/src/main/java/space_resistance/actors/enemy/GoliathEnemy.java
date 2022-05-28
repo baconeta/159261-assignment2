@@ -39,7 +39,7 @@ public class GoliathEnemy extends Enemy {
     }
 
     private void findPlayerInWorld() {
-        SpaceShip target = ((GameWorld) world).getBossTarget();
+        SpaceShip target = ((GameWorld) world).bossTarget();
         if (target == null) {
             return;
         }
