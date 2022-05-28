@@ -23,61 +23,34 @@ class Credits extends SubMenu {
 
         Button close = new Button("Close");
         close.setState(Button.State.FOCUSSED);
-        close.setOrigin(new TPoint(290, 780));
+        close.setOrigin(new TPoint(290, 550));
 
         addAll(title, close);
     }
 
     public void initContent() {
-        TLabel creditsLine1 = text("Ali Soltanian Fard Jahromi:\n\n" +
-                "Lead Game and Level Designer\n" +
-                "Game art and animations, including Sprites and UI elements\n" +
-                "Player setup, including player controls, systems and gameplay design\n" +
-                "Firing systems for both the enemies and players, including bosses\n" +
-                "All background elements including scrolling system\n" +
-                "HUD system design and programming\n" +
-                "Explosions system for enemies and bosses\n" +
-                "Pausing system and pause menu design\n" +
-                "Created and added all sound effects and music\n" +
-                "World handling for out of screen actors and boundary system for player\n" +
-                "Enemy type and class system design and programming\n" +
-                "\nJoshua Pearson:\n\n" +
-                "Producer and Project Lead\n" +
-                "VCS, organisation and production processes\n" +
-                "Enemy Spawning system\n" +
-                "Enemy Wave design and functionality including boss transitions\n" +
-                "Class refactoring and consistency\n" +
-                "Collision management and optimisation (game level)\n" +
-                "Pickup system, shield system and functionality\n" +
-                "Simple boss AI system\n" +
-                "Enemy type and class system programming\n" +
-                "Multiplayer tidy up and implementation\n" +
-                "\nTessa Power:\n\n" +
-                "Engine and Tools Lead Developer\n" +
-                "Completely designed ECS Game Engine from the ground up including:\n" +
-                " Physics engine with momentum and collisions system\n" +
-                " Actor system for game world objects requiring components and control\n" +
-                " Abstracted Graphical system used for visual elements, animations and Actors.\n" +
-                " Flyweight design for asset optimisation\n" +
-                " Mediator pattern for screen systems and data handling\n" +
-                "Global system code control plus all quality checks and fixes\n" +
-                "Complete game backend optimisation\n" +
-                "Game foundation and system set up");
-        creditsLine1.setOrigin(new TPoint(105, 180));
+        TLabel creditsAli = namesText("Ali Soltanian Fard Jahromi:");
+        TLabel creditsAliTitle = bodyText("Lead Game and Level Designer");
+        TLabel creditsJosh = namesText("Joshua Pearson:");
+        TLabel creditsJoshTitle = bodyText("Producer and Project Lead");
+        TLabel creditsTessa = namesText("Tessa Power:");
+        TLabel creditsTessaTitle = bodyText("Engine and Tools Lead Developer");
+        creditsAli.setOrigin(new TPoint(148, 180));
+        creditsAliTitle.setOrigin(new TPoint(135, 200));
+        creditsJosh.setOrigin(new TPoint(203, 260));
+        creditsJoshTitle.setOrigin(new TPoint(155, 280));
+        creditsTessa.setOrigin(new TPoint(225, 340));
+        creditsTessaTitle.setOrigin(new TPoint(125, 360));
 
         TLabel fontAttr = bodyText("Revamped Font by Chequered Ink");
-        fontAttr.setOrigin(new TPoint(105, 710));
+        fontAttr.setOrigin(new TPoint(135, 420));
 
-        addAll(fontAttr, creditsLine1);
+        TLabel assetsText = bodyText("All audio and graphics by Ali");
+        assetsText.setOrigin(new TPoint(150, 480));
+
+        addAll(fontAttr, creditsAli, creditsAliTitle, creditsJosh, creditsJoshTitle, creditsTessa, creditsTessaTitle, assetsText);
     }
 
-    private TLabel text(String str) {
-        TLabel line = new TLabel(str);
-        line.setColor(Colors.Text.PRIMARY);
-        line.setFont(FontBook.shared().defaultFont());
-
-        return line;
-    }
     private TLabel bodyText(String str) {
         TLabel line = new TLabel(str);
         line.setColor(Colors.Text.PRIMARY);
@@ -85,6 +58,15 @@ class Credits extends SubMenu {
 
         return line;
     }
+
+    private TLabel namesText(String str) {
+        TLabel line = new TLabel(str);
+        line.setColor(Colors.Text.DEV_NAMES);
+        line.setFont(FontBook.shared().bodyFont());
+
+        return line;
+    }
+
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
