@@ -63,10 +63,10 @@ class Credits extends SubMenu {
                 "Global system code control plus all quality checks and fixes\n" +
                 "Complete game backend optimisation\n" +
                 "Game foundation and system set up");
-        creditsLine1.setOrigin(new TPoint(105, 200));
+        creditsLine1.setOrigin(new TPoint(105, 180));
 
         TLabel fontAttr = bodyText("Revamped Font by Chequered Ink");
-        fontAttr.setOrigin(new TPoint(105, 730));
+        fontAttr.setOrigin(new TPoint(105, 710));
 
         addAll(fontAttr, creditsLine1);
     }
