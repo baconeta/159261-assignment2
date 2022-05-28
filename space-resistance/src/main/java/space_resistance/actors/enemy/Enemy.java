@@ -38,6 +38,7 @@ public class Enemy extends Actor {
     private int barrageCooldown;
     private long lastBarrageTime;
     private long lastBulletFired;
+    private boolean isDead = false;
 
     public Enemy(EnemyType type, TPoint origin, Dimension dimension, int level) {
         this.type = type;
@@ -122,6 +123,7 @@ public class Enemy extends Actor {
 
     @Override
     public void destroy() {
+        isDead = true;
         super.destroy();
     }
 
@@ -143,5 +145,9 @@ public class Enemy extends Actor {
 
     public EnemyType type() {
         return type;
+    }
+
+    public boolean dead() {
+        return isDead;
     }
 }

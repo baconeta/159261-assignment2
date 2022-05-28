@@ -45,7 +45,7 @@ public class GameWorld extends World {
 
     // Boss targeting
     private SpaceShip bossTarget = null;
-    private final double BOSS_TARGET_RESET_SECS = 2.5;
+    private static final double BOSS_TARGET_RESET_SECS = 2.5;
     private double resetTimeLeft;
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
@@ -80,21 +80,12 @@ public class GameWorld extends World {
 
     public void update(double dt) {
         hud.update(dt);
-        playerUpdates(dt);
-
-        for (Actor a : actors) {
-            // TODO: Instead of iterating over all actors, have the enemySpawningSystem call update on its list
-            //  of enemies?
-            if (a instanceof Enemy enemy) {
-                enemy.update();
-            }
-        }
-
+        playerUpdates();
         handleBossTargeting(dt);
         enemySpawningSystem.update();
     }
 
-    private void playerUpdates(double dtMillis) {
+    private void playerUpdates() {
         playerOne.update();
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
@@ -213,8 +204,8 @@ public class GameWorld extends World {
         return playerTwo;
     }
 
-    private void handleBossTargeting(double dtMillis) {
-        resetTimeLeft -= dtMillis;
+    private void handleBossTargeting(double dt) {
+        resetTimeLeft -= dt;
         if (bossTarget != null && resetTimeLeft <= 0.0) {
             bossTarget = null;
         }

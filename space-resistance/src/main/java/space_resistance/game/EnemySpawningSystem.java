@@ -1,26 +1,23 @@
 package space_resistance.game;
 
+import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.enemy.GoliathEnemy;
 import space_resistance.assets.FontBook;
 import tengine.geom.TPoint;
 import tengine.graphics.components.text.TLabel;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class EnemySpawningSystem {
-    private enum SpawnState {
-        PRE_WAVE, SPAWNING, BOSS, POST_WAVE, DEFAULT
-    }
-
     private static final TPoint NEW_LEVEL_LABEL_ORIGIN = new TPoint(245, 280);
-
     private final GameWorld gameWorld;
-
     private EnemyWave currentWave;
     private long timeLastWaveGenerated;
     private long timeLastEnemySpawned;
     private SpawnState currentState = SpawnState.DEFAULT;
-
+    private final ArrayList<Enemy> enemiesInWorld = new ArrayList<>();
     private int currentLevel = 1;
     private final TLabel newLevelGraphic = new TLabel("Level" + currentLevel, NEW_LEVEL_LABEL_ORIGIN);
 
@@ -54,6 +51,18 @@ public class EnemySpawningSystem {
                 // No-op
             }
         }
+
+        updateEnemies();
+    }
+
+    private void updateEnemies() {
+        for (Iterator<Enemy> iterator = enemiesInWorld.iterator(); iterator.hasNext(); ) {
+            Enemy e = iterator.next();
+            if (e.dead()) {
+                iterator.remove();
+            }
+            e.update();
+        }
     }
 
     public void levelUp() {
@@ -86,13 +95,19 @@ public class EnemySpawningSystem {
     private void spawnEnemy() {
         if (currentWave.enemiesRemaining() > 0) {
             var enemy = currentWave.randomEnemyFromWave();
+            enemiesInWorld.add(enemy);
             enemy.spawnInWorld(gameWorld);
         } else {
             currentState = SpawnState.BOSS;
             GoliathEnemy boss = currentWave.getBoss();
+            enemiesInWorld.add(boss);
             boss.spawnBoss(this);
         }
 
         timeLastEnemySpawned = System.currentTimeMillis();
+    }
+
+    private enum SpawnState {
+        PRE_WAVE, SPAWNING, BOSS, POST_WAVE, DEFAULT
     }
 }
