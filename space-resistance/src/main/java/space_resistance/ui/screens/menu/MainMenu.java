@@ -24,21 +24,20 @@ class MainMenu extends SubMenu {
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
 
-        // The origin of text is unfortunately manual as we cannot query
-        // the size of the text beforehand to properly align it
-        title.setOrigin(new TPoint(100, 180));
 
-        onePlayer = new Button("ONE PLAYER");
-        onePlayer.setOrigin(new TPoint(240, 300));
+        title.setOrigin(new TPoint(100, 230));
 
-        twoPlayer = new Button("TWO PLAYER");
-        twoPlayer.setOrigin(new TPoint(240, 350));
+        onePlayer = new Button("SINGLE PLAYER");
+        onePlayer.setOrigin(new TPoint(235, 350));
+
+        twoPlayer = new Button("MULTIPLAYER");
+        twoPlayer.setOrigin(new TPoint(240, 400));
 
         howToPlay = new Button("HOW TO PLAY");
-        howToPlay.setOrigin(new TPoint(240, 400));
+        howToPlay.setOrigin(new TPoint(242, 450));
 
         credits = new Button("CREDITS");
-        credits.setOrigin(new TPoint(250, 450));
+        credits.setOrigin(new TPoint(250, 500));
 
         // The button group manages which button is currently selected and moving between buttons
         buttons = new ButtonGroup(onePlayer, twoPlayer, howToPlay, credits);

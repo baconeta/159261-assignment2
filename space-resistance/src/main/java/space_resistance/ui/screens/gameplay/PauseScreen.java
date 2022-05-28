@@ -25,6 +25,7 @@ public class PauseScreen implements Screen {
     private final Button quit;
 
     private final Background background = Background.getInstance();
+    private final int PAUSED_LABEL_OFFSET = 225, RESUME_OFFSET = 65, QUIT_OFFSET = 455;
 
     public PauseScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;
@@ -36,14 +37,14 @@ public class PauseScreen implements Screen {
         TLabel title = new TLabel("Game Paused");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().bodyFont());
-        title.setOrigin(new TPoint(240, 300));
+        title.setOrigin(new TPoint(PAUSED_LABEL_OFFSET, 300));
 
         // Buttons
         resume = new Button("RESUME");
-        resume.setOrigin(new TPoint(80, 490));
+        resume.setOrigin(new TPoint(RESUME_OFFSET, 490));
 
         quit = new Button("QUIT TO MENU");
-        quit.setOrigin(new TPoint(470, 490));
+        quit.setOrigin(new TPoint(QUIT_OFFSET, 490));
 
         buttonGroup = new ButtonGroup(resume, quit);
 
