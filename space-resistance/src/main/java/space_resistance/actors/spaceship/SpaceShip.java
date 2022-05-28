@@ -117,9 +117,7 @@ public class SpaceShip extends Actor {
 
         long currentTime = System.currentTimeMillis();
         if (shootKeyDown && currentTime-lastBulletFired > DELAY_BETWEEN_BULLETS) {
-            var bullet1 = new PlayerBullet(new TPoint(this.origin.x + 10, this.origin.y - 5), player);
-            var bullet2 = new PlayerBullet(new TPoint(this.origin.x + 50, this.origin.y - 5), player);
-            world.add(bullet1, bullet2);
+            shootTwoBullets(10, 50);
 
             lastBulletFired  = currentTime;
             if (player.missileActive()) {
@@ -128,10 +126,14 @@ public class SpaceShip extends Actor {
         }
     }
 
-    private void fireMissiles() {
-        var bullet1 = new PlayerBullet(new TPoint(this.origin.x + 23, this.origin.y - 5), player);
-        var bullet2 = new PlayerBullet(new TPoint(this.origin.x + 36, this.origin.y - 5), player);
+    private void shootTwoBullets(int x1, int x2) {
+        var bullet1 = new PlayerBullet(new TPoint(this.origin.x + x1, this.origin.y - 5), player);
+        var bullet2 = new PlayerBullet(new TPoint(this.origin.x + x2, this.origin.y - 5), player);
         world.add(bullet1, bullet2);
+    }
+
+    private void fireMissiles() {
+        shootTwoBullets(23, 36);
         if (System.currentTimeMillis() - player.missileTimer() >= MISSILES_ACTIVE_MS) {
             player.deactivateMissile();
         }
