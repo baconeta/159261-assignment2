@@ -25,6 +25,7 @@ public class GameOverScreen implements Screen {
     private final Button playAgain;
     private final Button quit;
 
+    private final int GAMEOVER_LABEL_OFFSET = 235, SCORE_LABEL_OFFSET = 235, PLAY_AGAIN_OFFSET = 65, QUIT_OFFSET = 455;
     public GameOverScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.screenChangeCallback = screenChangeCallback;
 
@@ -39,13 +40,13 @@ public class GameOverScreen implements Screen {
         TLabel title = new TLabel("Game over!");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().bodyFont());
-        title.setOrigin(new TPoint(250, 300));
+        title.setOrigin(new TPoint(GAMEOVER_LABEL_OFFSET, 300));
 
         // Score
         TLabel score = new TLabel("Score: " + gameState.maxScore());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().bodyFont());
-        score.setOrigin(new TPoint(250, 340));
+        score.setOrigin(new TPoint(SCORE_LABEL_OFFSET, 340));
 
         switch(gameState.gameConfig().multiplayerMode()) {
             case SINGLE_PLAYER -> {
@@ -53,21 +54,21 @@ public class GameOverScreen implements Screen {
             }
             case MULTIPLAYER -> gameState.winner().ifPresentOrElse(winner -> {
                 // Display two player game over screen
-                        title.setText("The winner was player " + winner.playerNumber() + "!");
-                        title.setOrigin(new TPoint(120, 300));
+                        title.setText("The winner was " + winner.playerNumber() + "!");
+                        title.setOrigin(new TPoint(135, 300));
             },
             () -> {
                 title.setText("It's a draw!");
-                title.setOrigin(new TPoint(240, 300));
+                title.setOrigin(new TPoint(225, 300));
             });
         }
 
         // Buttons
         playAgain = new Button("PLAY AGAIN");
-        playAgain.setOrigin(new TPoint(80, 490));
+        playAgain.setOrigin(new TPoint(PLAY_AGAIN_OFFSET, 490));
 
         quit = new Button("QUIT TO MENU");
-        quit.setOrigin(new TPoint(470, 490));
+        quit.setOrigin(new TPoint(QUIT_OFFSET, 490));
 
         buttonGroup = new ButtonGroup(playAgain, quit);
 

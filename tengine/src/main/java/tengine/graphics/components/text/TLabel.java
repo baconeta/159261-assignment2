@@ -63,7 +63,17 @@ public class TLabel extends TGraphicObject {
 
     @Override
     protected void draw(GraphicsCtx ctx) {
-        ctx.drawText(new Point(0, 0), text, font, color);
+        int lineHeight = (int) (font.getSize() * 1.1);
+        int textY = 0;
+        int i = 0;
+        for (String stringLine : text.split("\n")) {
+            if (i != 0){
+                ctx.drawText(new Point(0, textY += lineHeight), stringLine, font, color);
+            } else {
+                ctx.drawText(new Point(0, textY), stringLine, font, color);
+            }
+            i ++;
+        }
     }
 
     @Override
