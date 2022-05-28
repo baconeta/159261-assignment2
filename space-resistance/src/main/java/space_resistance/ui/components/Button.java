@@ -12,7 +12,7 @@ public class Button extends TLabel {
     public Button(String text) {
         super(text);
         setState(State.UNFOCUSED);
-        setFont(FontBook.shared().defaultFont());
+        setFont(FontBook.shared().buttonFont());
     }
 
     public void setState(State state) {
