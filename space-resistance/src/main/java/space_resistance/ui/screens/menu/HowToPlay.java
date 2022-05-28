@@ -17,7 +17,7 @@ class HowToPlay extends SubMenu {
         TLabel title = new TLabel("How to play");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
-        title.setOrigin(new TPoint(175, 180));
+        title.setOrigin(new TPoint(175, 120));
 
         initContent();
 
