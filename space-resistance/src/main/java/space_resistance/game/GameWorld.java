@@ -29,8 +29,8 @@ public class GameWorld extends World {
 
     // Pickups
     private static final double chanceHealth = 0.05;
-    private static final double chanceShield = 0.03;
-    private static final double chanceMissiles = 1;
+    private static final double chanceShield = 0.04;
+    private static final double chanceMissiles = 0.03;
 
     private final Notifier gameOverNotifier;
     private final GameState gameState;
