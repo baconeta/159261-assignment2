@@ -28,7 +28,7 @@ public class SpaceShip extends Actor {
     private static final int DELAY_BETWEEN_BULLETS = 50;
     private static final int SPEED = 200;
     private static final int THRUSTER_Y_OFFSET = 30;
-    private static final int MISSILES_ACTIVE_MS = 10000;
+    private static final int MISSILES_ACTIVE_MS = 20000;
     private final TVector INITIAL_DIRECTION = new TVector();
 
     private final AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
