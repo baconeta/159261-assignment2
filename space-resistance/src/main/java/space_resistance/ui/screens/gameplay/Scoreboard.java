@@ -1,8 +1,9 @@
 package space_resistance.ui.screens.gameplay;
 
+import space_resistance.assets.Colors;
 import space_resistance.assets.FontBook;
-import space_resistance.game.GameConfig;
 import space_resistance.player.Player;
+import space_resistance.player.PlayerNumber;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
@@ -10,33 +11,52 @@ import tengine.graphics.components.text.TLabel;
 import java.awt.*;
 
 class Scoreboard extends TGraphicCompound {
+    private static final Dimension DIMENSION = new Dimension(200, 50);
+    private static final int HEALTH_LABEL_OFFSET = 15;
+    private static final int SCORE_LABEL_OFFSET = 40;
+
+    private final TLabel healthLabel = new TLabel("");
+    private final TLabel scoreLabel = new TLabel("");
+
     private final Player player;
-    private final TLabel score;
 
-    public static Scoreboard playerOneScoreboard(Player player, GameConfig gameConfig) {
-        return new Scoreboard(player);
-    }
-
-    public static Scoreboard playerTwoScoreboard(Player player) {
-        return new Scoreboard(player);
-    }
-
-    private Scoreboard(Player player) {
-        super(new Dimension());
+    public Scoreboard(Player player) {
+        super(DIMENSION);
 
         this.player = player;
 
-        score = new TLabel("");
-        score.setFont(FontBook.shared().defaultFont());
-        score.setColor(Color.BLACK);
-        score.setOrigin(new TPoint(100, 100));
+        // Health Label
+        healthLabel.setText("Health: " + player.healthRemaining());
+        healthLabel.setFont(FontBook.shared().hudFont());
+        healthLabel.setColor(Colors.Text.PRIMARY);
+        healthLabel.setOrigin(new TPoint(0, HEALTH_LABEL_OFFSET));
 
-        addAll(score);
+        // Score Label
+        scoreLabel.setText("Score: " + player.score());
+        scoreLabel.setFont(FontBook.shared().hudFont());
+        switch (player.playerNumber()) {
+            case PLAYER_ONE -> scoreLabel.setColor(Colors.Text.PLAYER_ONE_SCORE);
+            case PLAYER_TWO -> scoreLabel.setColor(Colors.Text.PLAYER_TWO_SCORE);
+        }
+        scoreLabel.setOrigin(new TPoint(0, SCORE_LABEL_OFFSET));
+
+        addAll(healthLabel, scoreLabel);
     }
 
     @Override
     public void update(double dtMillis) {
-        score.setText(Integer.toString(player.score()));
+        if (player.shieldEnabled()) {
+            healthLabel.setText("Health: " + (player.healthRemaining() + player.shieldHealth()));
+            healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
+        } else if (player.dead()) {
+            healthLabel.setText("Health: DEAD");
+            healthLabel.setColor(Colors.Text.PLAYER_DEAD);
+        } else {
+            healthLabel.setText("Health: " + player.healthRemaining());
+            healthLabel.setColor(Colors.Text.PRIMARY);
+        }
+
+        scoreLabel.setText("Score: " + player.score());
 
         super.update(dtMillis);
     }

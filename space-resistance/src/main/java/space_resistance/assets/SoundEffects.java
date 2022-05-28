@@ -41,6 +41,7 @@ public class SoundEffects {
         return background;
     }
 
+    // TODO: remove if still unused before submitting
     public AudioClip gameOver() {
         return gameOver;
     }
@@ -53,9 +54,15 @@ public class SoundEffects {
         return menuSelect;
     }
 
-    public AudioClip defaultPlayerShootingSound(){ return playerShootingSound; }
+    public AudioClip defaultPlayerShootingSound() {
+        return playerShootingSound;
+    }
 
-    public AudioClip explosionSound() {return explosionSound;}
+    public AudioClip explosionSound() {
+        return explosionSound;
+    }
 
-    public AudioClip goliathExplosionSound() {return goliathExplosionSound;}
+    public AudioClip goliathExplosionSound() {
+        return goliathExplosionSound;
+    }
 }

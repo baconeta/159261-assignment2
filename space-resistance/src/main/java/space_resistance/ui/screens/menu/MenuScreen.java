@@ -1,6 +1,5 @@
 package space_resistance.ui.screens.menu;
 
-import space_resistance.assets.AssetLoader;
 import space_resistance.assets.sprites.Background;
 import space_resistance.game.Game;
 import space_resistance.settings.MultiplayerMode;
@@ -8,31 +7,24 @@ import space_resistance.settings.Settings;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
 import tengine.graphics.components.TGraphicCompound;
-import tengine.physics.collisions.events.CollisionEvent;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
 public class MenuScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
-    private final Game engine;
-    private final String BACKGROUND = "SpaceBackground.png";
-    private static final Dimension DIMENSION = new Dimension(600, 800);
-    Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
 
     private final TGraphicCompound container;
 
-    // The main menu is made up of smaller menus. We must keep track of the currently active menu, so we can swap out
+    // The main menu is made up of submenus. We must keep track of the currently active submenu, so we can swap out
     // content easily and forward key events to the right place.
-    private Menu activeMenu;
+    private SubMenu activeSubMenu;
 
-    private final Menu mainMenu;
-    private final Menu howToPlay;
-    private final Menu credits;
+    private final SubMenu mainMenu;
+    private final SubMenu howToPlay;
+    private final SubMenu credits;
 
-    public MenuScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback) {
-        this.engine = game;
+    public MenuScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;
 
         // Menus
@@ -42,24 +34,30 @@ public class MenuScreen implements Screen {
 
         // Graphic
         container = new TGraphicCompound(Game.WINDOW_DIMENSION);
-        activeMenu = mainMenu;
-        container.add(background);
-        container.add(activeMenu);
+
+        // Background
+        Background background = Background.getInstance();
+        background.setIsStatic(true);
+
+        // Initial Submenu
+        activeSubMenu = mainMenu;
+
+        container.addAll(background, activeSubMenu);
     }
 
     @Override
     public void handleKeyPressed(KeyEvent keyEvent) {
-        activeMenu.handleKeyEvent(keyEvent);
+        activeSubMenu.handleKeyEvent(keyEvent);
     }
 
     @Override
-    public void handleKeyReleased(KeyEvent event) {  // no-op
-
+    public void handleKeyReleased(KeyEvent event) {
+        // no-op
     }
 
     @Override
-    public void addToCanvas() {
-        engine.graphicsEngine().add(container);
+    public void addToCanvas(Game game) {
+        game.graphicsEngine().add(container);
     }
 
     @Override
@@ -77,27 +75,28 @@ public class MenuScreen implements Screen {
         container.update(dtMillis);
     }
 
-    @Override
-    public void handleCollisionEvent(CollisionEvent event) {}
-
     private void onSubmenuSelection(SubmenuOption submenuOption) {
-        activeMenu.removeFromParent();
+        activeSubMenu.removeFromParent();
 
         switch(submenuOption) {
             case ONE_PLAYER -> {
                 Settings.shared().setPlayerMode(MultiplayerMode.SINGLE_PLAYER);
+                screenChangeCallback.accept(ScreenIdentifier.SHOWING_INTRO_SCREEN);
+            }
+            case TWO_PLAYER -> {
+                Settings.shared().setPlayerMode(MultiplayerMode.MULTIPLAYER);
                 screenChangeCallback.accept(ScreenIdentifier.PLAYING);
             }
             case CREDITS -> {
-                activeMenu = credits;
+                activeSubMenu = credits;
                 container.add(credits);
             }
             case HOW_TO_PLAY -> {
-                activeMenu = howToPlay;
+                activeSubMenu = howToPlay;
                 container.add(howToPlay);
             }
             case CLOSE -> {
-                activeMenu = mainMenu;
+                activeSubMenu = mainMenu;
                 container.add(mainMenu);
             }
         }

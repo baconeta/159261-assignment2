@@ -12,6 +12,10 @@ import tengine.physics.collisions.shapes.CollisionRect;
 import tengine.physics.kinematics.TVelocity;
 
 public class Explosion extends Actor {
+    private static final int VOLUME = 5;
+    private static final double SCALE = 0.125;
+    private static final double GOLIATH_SCALE = 0.3;
+
     private final long startTime;
 
     // Keeps track of how long explosion has existed
@@ -19,38 +23,25 @@ public class Explosion extends Actor {
 
 
     public Explosion(GameWorld world, TPoint origin, EnemyType type) {
-        if (type == EnemyType.GOLIATH){
-            SoundEffects.shared().goliathExplosionSound().play(5);
-        } else {
-            SoundEffects.shared().explosionSound().play(5);
-        }
         this.world = world;
+        startTime = System.currentTimeMillis();
+
+        if (type == EnemyType.GOLIATH) {
+            SoundEffects.shared().goliathExplosionSound().play(VOLUME);
+        } else {
+            SoundEffects.shared().explosionSound().play(VOLUME);
+        }
 
         graphic = ExplosionSprite.sprite();
-        if (type == EnemyType.GOLIATH){
-            graphic.setScale(0.3);
-        } else {
-            graphic.setScale(0.125);
-        }
-        ((ExplosionSprite) graphic).setSequenceEndCallback(this::onExplosionEnd);
+        graphic.setScale((type == EnemyType.GOLIATH) ? GOLIATH_SCALE : SCALE);
+
         physics = initPhysics();
-        startTime = System.currentTimeMillis();
+        ((ExplosionSprite) graphic).setSequenceEndCallback(this::onExplosionEnd);
 
         setOrigin(origin);
     }
 
-    public Explosion(GameWorld world, TPoint origin) {
-        SoundEffects.shared().explosionSound().play(5);
-        this.world = world;
-
-        graphic = ExplosionSprite.sprite();
-        ((ExplosionSprite) graphic).setSequenceEndCallback(this::onExplosionEnd);
-        physics = initPhysics();
-        startTime = System.currentTimeMillis();
-
-        setOrigin(origin);
-    }
-
+    // TODO: check what this is used for, if unused remove
     public void update() {
         currentTime = System.currentTimeMillis();
     }
@@ -69,7 +60,8 @@ public class Explosion extends Actor {
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
 
-    public long timeExisted(){
+    // TODO: Remove if still unused
+    public long timeExisted() {
         return currentTime - startTime;
     }
 }

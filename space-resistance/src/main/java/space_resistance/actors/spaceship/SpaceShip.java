@@ -2,8 +2,6 @@ package space_resistance.actors.spaceship;
 
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
-import space_resistance.actors.enemy.Enemy;
-import space_resistance.actors.enemy.EnemyType;
 import space_resistance.actors.pickup.Pickup;
 import space_resistance.assets.animated_sprites.PlayerThruster;
 import space_resistance.assets.sprites.PlayerShip;
@@ -28,17 +26,20 @@ import java.util.Optional;
 public class SpaceShip extends Actor {
     private static final Dimension DIMENSION = new Dimension(64, 64);
     private static final int DELAY_BETWEEN_BULLETS = 50;
+    private static final int SPEED = 200;
+    private static final int THRUSTER_Y_OFFSET = 30;
+    private final TVector INITIAL_DIRECTION = new TVector();
 
+    private final AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
     private final GameWorld world;
-
-    private AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
-
     private final Player player;
+
     private long lastBulletFired;
 
-    private KeyEvent keyPressed = null;
-    private KeyEvent keyReleased = null;
-    private int up, down, left, right;
+    private int up = 0;
+    private int down = 0;
+    private int left = 0;
+    private int right = 0;
 
     private boolean shootKeyDown = false;
 
@@ -60,11 +61,6 @@ public class SpaceShip extends Actor {
         graphic = initSprite();
         physics = initPhysics();
 
-        up = 0;
-        down = 0;
-        left = 0;
-        right = 0;
-
         setOrigin(origin);
     }
 
@@ -72,10 +68,10 @@ public class SpaceShip extends Actor {
         TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
 
         // Thruster
-        spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + 30));
+        spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + THRUSTER_Y_OFFSET));
 
         playerSprite.add(spaceshipThrusters);
-        playerSprite.add(PlayerShip.shipSprite());
+        playerSprite.add(PlayerShip.shipSprite(playerNumber()));
         if (Game.DEBUG_MODE) { playerSprite.add(new TRect(DIMENSION)); }
 
         return playerSprite;
@@ -87,7 +83,7 @@ public class SpaceShip extends Actor {
         CollisionRect collisionRect = new CollisionRect(origin, DIMENSION);
 
         // Feel free to change this if the speed isn't right
-        velocity = new TVelocity(200, new TVector(0, 0));
+        velocity = new TVelocity(SPEED, INITIAL_DIRECTION);
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
@@ -120,10 +116,10 @@ public class SpaceShip extends Actor {
 
         long currentTime = System.currentTimeMillis();
         if (shootKeyDown && currentTime-lastBulletFired > DELAY_BETWEEN_BULLETS) {
-            var bullet = new PlayerBullet(world, new TPoint(this.origin.x + 10, this.origin.y - 5));
-            var bullet2 = new PlayerBullet(world, new TPoint(this.origin.x + 50, this.origin.y - 5));
-            world.add(bullet);
-            world.add(bullet2);
+            var bullet1 = new PlayerBullet(new TPoint(this.origin.x + 10, this.origin.y - 5), player);
+            var bullet2 = new PlayerBullet(new TPoint(this.origin.x + 50, this.origin.y - 5), player);
+            world.add(bullet1, bullet2);
+
             lastBulletFired  = currentTime;
         }
     }
@@ -131,77 +127,60 @@ public class SpaceShip extends Actor {
     public boolean handleKeyPressed(KeyEvent keyEvent) {
         Optional<Action> action = player.controls().mappedAction(keyEvent.getKeyCode());
         action.ifPresent(this::performAction);
-        keyPressed = keyEvent;
         return action.isPresent();
     }
 
     public boolean handleKeyReleased(KeyEvent keyEvent) {
         Optional<Action> action = player.controls().mappedAction(keyEvent.getKeyCode());
         action.ifPresent(this::movementKeyReleasedAction);
-        keyReleased = keyEvent;
         return action.isPresent();
     }
 
     private void performAction(Action action) {
+        if (player.dead()) {
+            return;
+        }
         switch (action) {
-            case MOVE_UP:
+            case MOVE_UP -> {
                 up = -1;
                 velocity.setDirectionY(up + down);
-                break;
-            case MOVE_DOWN:
+            }
+            case MOVE_DOWN -> {
                 down = 1;
                 velocity.setDirectionY(up + down);
-                break;
-            case MOVE_LEFT:
+            }
+            case MOVE_LEFT -> {
                 left = -1;
                 velocity.setDirectionX(left + right);
-                break;
-            case MOVE_RIGHT:
+            }
+            case MOVE_RIGHT -> {
                 right = 1;
                 velocity.setDirectionX(left + right);
-                break;
-            case SHOOT:
-                if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
-                    // Check if player 2 is pressing left shift
-                    if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
-                        shootKeyDown = true;
-                    }
-                } else {
-                    shootKeyDown = true;
-                }
-                break;
+            }
+            case SHOOT -> shootKeyDown = true;
         }
     }
 
     public void movementKeyReleasedAction(Action action) {
         // Set player velocity for corresponding axis to 0
         switch (action) {
-            case MOVE_UP:
+            case MOVE_UP -> {
                 up = 0;
                 velocity.setDirectionY(up + down);
-                break;
-            case MOVE_DOWN:
+            }
+            case MOVE_DOWN -> {
                 down = 0;
                 velocity.setDirectionY(up + down);
-                break;
-            case MOVE_LEFT:
+            }
+            case MOVE_LEFT -> {
                 left = 0;
                 velocity.setDirectionX(left + right);
-                break;
-            case MOVE_RIGHT:
+            }
+            case MOVE_RIGHT -> {
                 right = 0;
                 velocity.setDirectionX(left + right);
-                break;
-            case SHOOT:
-                if (player.playerNumber() == PlayerNumber.PLAYER_TWO) {
-                    // Check if player 2 is pressing left shift
-                    if (keyPressed.getKeyLocation() == KeyEvent.KEY_LOCATION_LEFT) {
-                        shootKeyDown = false;
-                    }
-                } else {
-                    shootKeyDown = false;
-                }
-                break;
+            }
+            case SHOOT -> shootKeyDown = false;
         }
     }
 
@@ -210,16 +189,14 @@ public class SpaceShip extends Actor {
     }
 
     public void collision(Actor actorB) {
-        if (actorB instanceof EnemyBullet bullet) {
-            player.reduceHealth(bullet.bulletDamage());
+        switch(actorB.getClass().getSimpleName()) {
+            case "EnemyBullet" -> player.reduceHealth(((EnemyBullet) actorB).bulletDamage());
+            case "Enemy"       -> player.reduceHealth(100);
+            case "Pickup"      -> player.handlePickup(((Pickup) actorB).type());
         }
+    }
 
-        if (actorB instanceof Enemy enemy) {
-            player.reduceHealth(100);
-        }
-
-        if (actorB instanceof Pickup pickup) {
-            player.handlePickup(pickup.pickupType());
-        }
+    public Player getPlayer() {
+        return player;
     }
 }

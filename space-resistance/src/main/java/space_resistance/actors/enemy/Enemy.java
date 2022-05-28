@@ -18,6 +18,12 @@ import java.util.Random;
 
 public class Enemy extends Actor {
     private static final Random RANDOM = new Random();
+    private final TVector DIRECTION = new TVector(0, 1);
+
+    // Bullet System Static Constants
+    private static final int BARRAGE_CD_MIN = 400;
+    private static final int BARRAGE_CD_MAX = 1600;
+    private static final int BASE_TIME_BETWEEN_BULLETS = 100;
 
     protected Dimension dimension;
     protected int health;
@@ -25,13 +31,10 @@ public class Enemy extends Actor {
     protected final int level;
     public EnemyType type;
 
-    // Bullet system
+    // Bullet System
     private int bulletsThisBarrage = 0;
     private int bulletsPerBarrageMin = 3;
     private int bulletsPerBarrageMax = 8;
-    private static final int BARRAGE_CD_MIN = 400;
-    private static final int BARRAGE_CD_MAX = 1600;
-    private static final int BASE_TIME_BETWEEN_BULLETS = 100;
     private int barrageCooldown;
     private long lastBarrageTime;
     private long lastBulletFired;
@@ -55,9 +58,12 @@ public class Enemy extends Actor {
         TGraphicCompound enemySprite = new TGraphicCompound(dimension);
         EnemyShip enemy = EnemyShip.shipFor(type);
         enemySprite.add(enemy);
+
+        // TODO: Remove before submitting, replace this whole method with simple call to EnemyShip.shipFor()
         if (Game.DEBUG_MODE) {
             enemySprite.add(new TRect(new Dimension(dimension.width, dimension.height)));
         }
+
         return enemySprite;
     }
 
@@ -69,13 +75,14 @@ public class Enemy extends Actor {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(EnemyConstants.enemySpeed(type, level), new TVector(0, 1));
+        velocity = new TVelocity(EnemyConstants.enemySpeed(type, level), DIRECTION);
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
 
     public void update() {
         long currentTime = System.currentTimeMillis();
+
         if (bulletsThisBarrage <= 0) {
             bulletsThisBarrage = RANDOM.nextInt(bulletsPerBarrageMin, bulletsPerBarrageMax);
             barrageCooldown = RANDOM.nextInt(BARRAGE_CD_MIN, BARRAGE_CD_MAX);
@@ -86,10 +93,12 @@ public class Enemy extends Actor {
             // we can start next barrage of bullets
             if (currentTime > lastBulletFired + (BASE_TIME_BETWEEN_BULLETS - level * 2L)) {
                 TPoint bulletOffset = EnemyConstants.enemyBulletSpawnOffset(type);
-                var bullet = new EnemyBullet(type, new TPoint(
-                        this.origin.x + bulletOffset.x,
-                        this.origin.y + bulletOffset.y));
+                var bullet = new EnemyBullet(
+                    type,
+                    new TPoint(this.origin.x + bulletOffset.x, this.origin.y + bulletOffset.y)
+                );
                 world.add(bullet);
+
                 bulletsThisBarrage -= 1;
                 lastBulletFired = currentTime;
             }
@@ -100,12 +109,14 @@ public class Enemy extends Actor {
         // Ensures we only add the score one time regardless of number of collisions before destruction frame
         int scoreToAdd = scoreWorth;
         scoreWorth = 0;
+
         return scoreToAdd;
     }
 
     // lets this enemy take damage and returns whether the enemy died ?
     public boolean takeDamage(int damageToTake) {
         health -= damageToTake;
+
         return health <= 0;
     }
 
@@ -117,13 +128,20 @@ public class Enemy extends Actor {
     public void setBulletsPerBarrageMin(int bulletsPerBarrageMin){
         this.bulletsPerBarrageMin = bulletsPerBarrageMin;
     }
+
     public void setBulletsPerBarrageMax(int bulletsPerBarrageMax){
         this.bulletsPerBarrageMax = bulletsPerBarrageMax;
     }
+
     public int bulletsPerBarrageMin(){
         return bulletsPerBarrageMin;
     }
+
     public int bulletsPerBarrageMax(){
         return bulletsPerBarrageMax;
+    }
+
+    public EnemyType type() {
+        return type;
     }
 }

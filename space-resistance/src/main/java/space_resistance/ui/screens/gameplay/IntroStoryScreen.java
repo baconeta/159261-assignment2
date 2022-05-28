@@ -1,9 +1,7 @@
 package space_resistance.ui.screens.gameplay;
 
-import space_resistance.assets.Colors;
-import space_resistance.assets.FontBook;
 import space_resistance.assets.SoundEffects;
-import space_resistance.assets.sprites.Background;
+import space_resistance.assets.sprites.IntroStory;
 import space_resistance.game.Game;
 import space_resistance.ui.components.Button;
 import space_resistance.ui.components.ButtonGroup;
@@ -11,45 +9,34 @@ import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
-import tengine.graphics.components.text.TLabel;
 
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
-public class PauseScreen implements Screen {
+public class IntroStoryScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final TGraphicCompound graphic;
 
     private final ButtonGroup buttonGroup;
-    private final Button resume;
-    private final Button quit;
+    private final Button continueToGame;
 
-    private final Background background = Background.getInstance();
+    private final IntroStory introStoryAsset = IntroStory.getInstance();
 
-    public PauseScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
+    public IntroStoryScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;
 
         // Background
-        background.setIsStatic(true);
-
-        // Title
-        TLabel title = new TLabel("Game Paused");
-        title.setColor(Colors.Text.PRIMARY);
-        title.setFont(FontBook.shared().bodyFont());
-        title.setOrigin(new TPoint(240, 300));
+        introStoryAsset.setIsStatic(true);
 
         // Buttons
-        resume = new Button("RESUME");
-        resume.setOrigin(new TPoint(80, 490));
+        continueToGame = new Button("PRESS ENTER TO CONTINUE");
+        continueToGame.setOrigin(new TPoint(220, 690));
 
-        quit = new Button("QUIT TO MENU");
-        quit.setOrigin(new TPoint(470, 490));
-
-        buttonGroup = new ButtonGroup(resume, quit);
+        buttonGroup = new ButtonGroup(continueToGame);
 
         // Graphic
         graphic = new TGraphicCompound(Game.WINDOW_DIMENSION);
-        graphic.addAll(background, title, resume, quit);
+        graphic.addAll(introStoryAsset, continueToGame);
     }
 
     @Override
@@ -59,14 +46,9 @@ public class PauseScreen implements Screen {
             case KeyEvent.VK_RIGHT -> buttonGroup.next();
             case KeyEvent.VK_ENTER -> {
                 SoundEffects.shared().menuSelect().play();
-                if (buttonGroup.getFocussed() == resume) {
-                    SoundEffects.shared().backgroundMusic().playOnLoop();
-                    // We set isStatic on the background to reset the changes we made when this PauseScreen was created
-                    background.setIsStatic(false);
-                    screenChangeCallback.accept(ScreenIdentifier.PLAYING);
-                } else if (buttonGroup.getFocussed() == quit) {
-                    screenChangeCallback.accept(ScreenIdentifier.SHOWING_MENU);
-                }
+                SoundEffects.shared().backgroundMusic().playOnLoop();
+                introStoryAsset.setIsStatic(false);
+                screenChangeCallback.accept(ScreenIdentifier.PLAYING);
             }
         }
     }

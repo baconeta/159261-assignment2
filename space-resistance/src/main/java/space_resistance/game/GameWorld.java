@@ -2,35 +2,40 @@ package space_resistance.game;
 
 import space_resistance.actors.Explosion;
 import space_resistance.actors.ImpactExplosion;
-import space_resistance.actors.bullet.Bullet;
 import space_resistance.actors.bullet.EnemyBullet;
 import space_resistance.actors.bullet.PlayerBullet;
 import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.pickup.Pickup;
 import space_resistance.actors.pickup.PickupType;
 import space_resistance.actors.spaceship.SpaceShip;
-import space_resistance.assets.AssetLoader;
 import space_resistance.assets.sprites.Background;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
 import space_resistance.utils.Notifier;
 import tengine.Actor;
 import tengine.geom.TPoint;
-import tengine.graphics.components.TGraphicCompound;
 import tengine.physics.collisions.events.CollisionEvent;
 import tengine.world.World;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class GameWorld extends World {
+    private static final Random RANDOM = new Random();
+    private static final TPoint PLAYER_ONE_SPAWN_POS = new TPoint(270, 600);
+    private static final TPoint PLAYER_TWO_SPAWN_POS = new TPoint(420, 600);
+    private static final TPoint PLAYER_ONE_SPAWN_POS_MP = new TPoint(120, 600);
+
+    // Pickups
+    private static final double chanceHealth = 0.05;
+    private static final double chanceShield = 0.03;
+    private static final double chanceMissiles = 0.02;
+
     private final Notifier gameOverNotifier;
     private final GameState gameState;
     private final GameConfig gameConfig;
     private final EnemySpawningSystem enemySpawningSystem;
-    private static final Random RANDOM = new Random();
 
     private final HeadsUpDisplay hud;
 
@@ -38,41 +43,21 @@ public class GameWorld extends World {
     private SpaceShip playerOne;
     private SpaceShip playerTwo = null;
 
-    // Pickups
-    private static final Dimension pickupDimension = new Dimension(32, 32);
-    private static final int chanceHealth = 5;
-    private static final int chanceShield = 3;
-    private static final int chanceMissiles = 2;
-
-    private static final String BACKGROUND = "SpaceBackground.png";
-    private static final Dimension DIMENSION = new Dimension(600, 800);
-    ArrayList<Background> background = new ArrayList<>();
-
-    private final TGraphicCompound container;
-
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
-
-        // Space Background
-        container = new TGraphicCompound(Game.WINDOW_DIMENSION);
-        background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
-        background.add(new Background(AssetLoader.load(BACKGROUND), DIMENSION));
-        background.get(1).setOrigin(new TPoint(0, -800));
-        for (Background b : background){
-            container.add(b);
-        }
-        canvas.add(container);
-
         this.gameOverNotifier = gameOverNotifier;
         this.gameState = gameState;
         gameConfig = gameState.gameConfig();
+
+        // Background: must come first for it to be drawn underneath everything else
+        Background background = Background.getInstance();
+        background.setIsStatic(false);
+        canvas.add(background);
 
         initPlayers();
 
         // HUD
         hud = new HeadsUpDisplay(canvas.dimension(),  gameState);
-
-        // Display graphics and actors by adding them to the canvas.
         canvas.addAll(hud);
 
         // Enemy Spawning System set up and binding to canvas
@@ -80,41 +65,46 @@ public class GameWorld extends World {
     }
 
     private void initPlayers() {
-        playerOne = SpaceShip.spawnAt(this, new TPoint(300, 600), gameState.playerOne());
-
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwo = SpaceShip.spawnAt(this, new TPoint(300, 300), gameState.playerTwo());
+            playerOne = SpaceShip.spawnAt(this, PLAYER_ONE_SPAWN_POS_MP, gameState.playerOne());
+            playerTwo = SpaceShip.spawnAt(this, PLAYER_TWO_SPAWN_POS, gameState.playerTwo());
+        } else {
+            playerOne = SpaceShip.spawnAt(this, PLAYER_ONE_SPAWN_POS, gameState.playerOne());
         }
     }
 
-    public void update() {
-        hud.update(gameState);
-
-        // TODO: Potentially buggy, check for optimization
-        for (int i = 0; i < background.size(); i ++){
-            background.get(i).setOrigin(new TPoint(background.get(i).origin().x, background.get(i).origin().y + 1));
-            if (background.get(0).origin().y == 800){
-                background.get(0).setOrigin(new TPoint(0, 0));
-                background.get(1).setOrigin(new TPoint(0, -800));
-            }
-        }
+    public void update(double dtMillis) {
+        hud.update(dtMillis);
 
         playerOne.update();
-        if (gameState.playerOne().healthRemaining() <= 0) {
-            setGameOver();
-        }
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             playerTwo.update();
-            if (gameState.playerTwo().healthRemaining() == 0) {
+            if (gameState.playerTwo().healthRemaining() <= 0) {
+                playerTwo.getPlayer().playerDied();
+                playerTwo.removeFromWorld();
+                if (playerOne.getPlayer().dead()) {
+                    setGameOver();
+                }
+            }
+            if (gameState.playerOne().healthRemaining() <= 0) {
+                playerOne.getPlayer().playerDied();
+                playerOne.removeFromWorld();
+                if (playerTwo.getPlayer().dead()) {
+                    setGameOver();
+                }
+            }
+        } else if (gameConfig.multiplayerMode() == MultiplayerMode.SINGLE_PLAYER) {
+            if (gameState.playerOne().healthRemaining() <= 0) {
                 setGameOver();
             }
         }
 
-        for (Actor a: actors) {
-            if (a instanceof Bullet) { ((Bullet) a).update(); }
-            if (a instanceof Enemy) {
-                ((Enemy) a).update();
+        for (Actor a : actors) {
+            // TODO: Instead of iterating over all actors, have the enemySpawningSystem call update on its list
+            //  of enemies?
+            if (a instanceof Enemy enemy) {
+                enemy.update();
             }
         }
 
@@ -150,44 +140,48 @@ public class GameWorld extends World {
         Actor a = event.actorA();
         Actor b = event.actorB();
 
-        if (a == playerOne && (b instanceof Enemy || b instanceof EnemyBullet || b instanceof Pickup)) {
-            playerOne.collision(b);
+        if (a instanceof SpaceShip player && (b instanceof Enemy || b instanceof EnemyBullet || b instanceof Pickup)) {
+            player.collision(b);
             b.removeFromWorld();
-        } else if (b == playerOne && (a instanceof Enemy || a instanceof EnemyBullet || a instanceof Pickup)) {
-            playerOne.collision(a);
+        } else if (b instanceof SpaceShip player && (a instanceof Enemy || a instanceof EnemyBullet || a instanceof Pickup)) {
+            player.collision(a);
             a.removeFromWorld();
-        } else if (a instanceof Enemy enemy && b instanceof PlayerBullet pBullet) {
-            if (enemy.takeDamage(pBullet.damageToDeal())) {
-                this.add(new Explosion(this, a.origin(), (enemy.type)));
-                trySpawnPickup(new TPoint(a.origin().x + a.graphic().width() * 0.25,
-                        a.origin().y + a.graphic().height() * 0.25));
-                gameState.playerOne().increaseScore(enemy.scoreValue());
-                a.removeFromWorld();
-            }
-            this.add(new ImpactExplosion(this, new TPoint(b.origin().x - 15, b.origin().y - 20)));
-            b.removeFromWorld();
-        } else if (a instanceof PlayerBullet pBullet && b instanceof Enemy enemy) {
-            if (enemy.takeDamage(pBullet.damageToDeal())) {
-                this.add(new Explosion(this, b.origin(), enemy.type));
-                gameState.playerOne().increaseScore(enemy.scoreValue());
-                trySpawnPickup(new TPoint(b.origin().x + b.graphic().width() * 0.25,
-                        b.origin().y + b.graphic().height() * 0.25));
-                b.removeFromWorld();
-            }
-            this.add(new ImpactExplosion(this, new TPoint(a.origin().x - 15, a.origin().y - 20)));
-            a.removeFromWorld();
+        } else if (a instanceof Enemy enemy && b instanceof PlayerBullet playerBullet) {
+            handleEnemyDamage(playerBullet, enemy);
+        } else if (a instanceof PlayerBullet playerBullet && b instanceof Enemy enemy) {
+            handleEnemyDamage(playerBullet, enemy);
         }
     }
 
+    private void handleEnemyDamage(PlayerBullet playerBullet, Enemy enemy) {
+        boolean isEnemyDead = enemy.takeDamage(playerBullet.damageToDeal());
+        if (isEnemyDead) {
+            add(new Explosion(this, enemy.origin(), enemy.type()));
+
+            playerBullet.instigator().increaseScore(enemy.scoreValue());
+
+            TPoint possiblePickupLocation = new TPoint(
+                enemy.origin().x + enemy.graphic().width() * 0.25,
+                enemy.origin().y + enemy.graphic().height() * 0.25);
+            trySpawnPickup(possiblePickupLocation);
+
+            enemy.removeFromWorld();
+        }
+
+        add(new ImpactExplosion(this, new TPoint(playerBullet.origin().x - 15, playerBullet.origin().y - 20)));
+
+        playerBullet.removeFromWorld();
+    }
+
     private void trySpawnPickup(TPoint locationToSpawn) {
-        int spawnValue = RANDOM.nextInt(1, 101);
+        double spawnValue = RANDOM.nextDouble();
         if (spawnValue <= chanceMissiles) {
-            this.add(new Pickup(PickupType.Missiles, this, locationToSpawn, pickupDimension));
+            this.add(new Pickup(PickupType.MISSILE, locationToSpawn));
         }
         else if (spawnValue <= chanceMissiles+chanceShield) {
-            this.add(new Pickup(PickupType.Shield, this, locationToSpawn, pickupDimension));
+            this.add(new Pickup(PickupType.SHIELD, locationToSpawn));
         } else if (spawnValue <= chanceHealth+chanceShield+chanceMissiles) {
-            this.add(new Pickup(PickupType.Health, this, locationToSpawn, pickupDimension));
+            this.add(new Pickup(PickupType.HEALTH, locationToSpawn));
         }
     }
 

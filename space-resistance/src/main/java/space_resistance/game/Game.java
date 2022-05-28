@@ -3,6 +3,7 @@ package space_resistance.game;
 import space_resistance.ui.screens.Screen;
 import space_resistance.ui.screens.ScreenIdentifier;
 import space_resistance.ui.screens.gameover.GameOverScreen;
+import space_resistance.ui.screens.gameplay.IntroStoryScreen;
 import space_resistance.ui.screens.gameplay.PauseScreen;
 import space_resistance.ui.screens.gameplay.PlayGameScreen;
 import space_resistance.ui.screens.menu.MenuScreen;
@@ -13,13 +14,16 @@ import tengine.physics.collisions.events.CollisionEvent;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+// Acts as a director, that mediates between the different screens (Menu, Game Play, Pause, and Game Over)
 public class Game extends GameEngine {
     public static final Dimension WINDOW_DIMENSION = new Dimension(600, 800);
+    // TODO: remove if still unused before submitting
     public static final TPoint WINDOW_CENTER = new TPoint(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Space Resistance by Team Pew Pew!";
     public static boolean DEBUG_MODE = false;
 
-    public Screen activeScreen;
+    private Screen activeScreen = null;
+    private PlayGameScreen activeGame = null;
 
     public static void main(String[] args) {
         createGame(new Game(), 60);
@@ -28,7 +32,6 @@ public class Game extends GameEngine {
     @Override
     public void init() {
         setWindowProperties(WINDOW_DIMENSION, TITLE);
-        activeScreen = null;
         requestScreenChange(ScreenIdentifier.SHOWING_MENU);
     }
 
@@ -52,7 +55,9 @@ public class Game extends GameEngine {
 
     @Override
     public void onCollision(CollisionEvent event) {
-        activeScreen.handleCollisionEvent(event);
+        if (activeScreen instanceof PlayGameScreen playGameScreen) {
+            playGameScreen.handleCollisionEvent(event);
+        }
     }
 
     public void requestScreenChange(ScreenIdentifier newScreen) {
@@ -60,25 +65,40 @@ public class Game extends GameEngine {
         if (activeScreen != null) activeScreen.removeFromCanvas();
 
         switch(newScreen) {
-            case SHOWING_MENU -> activeScreen = new MenuScreen(this, this::requestScreenChange);
-            case PLAYING -> {
-                if (activeScreen instanceof PauseScreen){
-                    System.out.println("Unpaused");
-                    activeScreen = new PlayGameScreen(this, this::requestScreenChange, ((PauseScreen) activeScreen).gameWorld());
-                } else {
-                    activeScreen = new PlayGameScreen(this, this::requestScreenChange, null);
+            case SHOWING_MENU -> {
+                if (activeGame != null) {
+                    activeGame = null;
                 }
+
+                activeScreen = new MenuScreen(this::requestScreenChange);
+            }
+            case SHOWING_INTRO_SCREEN -> {
+                if (activeGame != null) {
+                    activeGame = null;
+                }
+                activeScreen = new IntroStoryScreen(this::requestScreenChange);
+            }
+            case PLAYING -> {
+                if (activeGame == null) {
+                    activeGame = new PlayGameScreen(this::requestScreenChange);
+                }
+
+                setPaused(false);
+                activeScreen = activeGame;
             }
             case SHOWING_GAME_OVER -> {
-                assert activeScreen != null;
-                activeScreen = new GameOverScreen(this, this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState());
+                assert activeGame != null;
+                activeScreen = new GameOverScreen(this::requestScreenChange, activeGame.gameState());
+                activeGame = null;
             }
             case SHOWING_PAUSE -> {
-                activeScreen = new PauseScreen(this, this::requestScreenChange, ((PlayGameScreen) activeScreen).gameState(), ((PlayGameScreen) activeScreen).gameWorld());
+                assert activeScreen != null;
+                setPaused(true);
+                activeScreen = new PauseScreen(this::requestScreenChange);
             }
         }
 
-        activeScreen.addToCanvas();
+        activeScreen.addToCanvas(this);
     }
 }
 

@@ -54,7 +54,7 @@ abstract public class TGraphicObject {
     }
 
     public TPoint midPoint() {
-        return new TPoint(dimension.width / 2, dimension.height / 2);
+        return new TPoint(dimension.width / 2.0, dimension.height / 2.0);
     }
 
     public void setRotation(double thetaDegrees) {
@@ -99,7 +99,8 @@ abstract public class TGraphicObject {
     public void update(double dtMillis) {
         // No-op
     }
-    public TScale scale(){
+
+    public TScale scale() {
         return scale;
     }
 }

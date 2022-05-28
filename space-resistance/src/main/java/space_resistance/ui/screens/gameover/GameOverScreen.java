@@ -1,6 +1,5 @@
 package space_resistance.ui.screens.gameover;
 
-import space_resistance.assets.AssetLoader;
 import space_resistance.assets.Colors;
 import space_resistance.assets.FontBook;
 import space_resistance.assets.SoundEffects;
@@ -14,26 +13,27 @@ import space_resistance.ui.screens.ScreenIdentifier;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
-import tengine.physics.collisions.events.CollisionEvent;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
 public class GameOverScreen implements Screen {
     private final Consumer<ScreenIdentifier> screenChangeCallback;
-    private final Game engine;
     private final TGraphicCompound graphic;
 
     private final ButtonGroup buttonGroup;
     private final Button playAgain;
     private final Button quit;
-    private final String BACKGROUND = "SpaceBackground.png";
-    private static final Dimension DIMENSION = new Dimension(600, 800);
-    Background background = new Background(AssetLoader.load(BACKGROUND), DIMENSION);
-    public GameOverScreen(Game game, Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
-        this.engine = game;
+
+    public GameOverScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.screenChangeCallback = screenChangeCallback;
+
+        // Stop background music
+        SoundEffects.shared().backgroundMusic().stopPlayingLoop();
+
+        // Background
+        Background background = Background.getInstance();
+        background.setIsStatic(true);
 
         // Title
         TLabel title = new TLabel("Game over!");
@@ -53,10 +53,12 @@ public class GameOverScreen implements Screen {
             }
             case MULTIPLAYER -> gameState.winner().ifPresentOrElse(winner -> {
                 // Display two player game over screen
+                        title.setText("The winner was player " + winner.playerNumber() + "!");
+                        title.setOrigin(new TPoint(120, 300));
             },
             () -> {
                 title.setText("It's a draw!");
-                title.setOrigin(new TPoint(140, 180));
+                title.setOrigin(new TPoint(240, 300));
             });
         }
 
@@ -71,8 +73,7 @@ public class GameOverScreen implements Screen {
 
         // Graphic
         graphic = new TGraphicCompound(Game.WINDOW_DIMENSION);
-        graphic.add(background);
-        graphic.addAll(title, score, playAgain, quit);
+        graphic.addAll(background, title, score, playAgain, quit);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class GameOverScreen implements Screen {
                 SoundEffects.shared().menuSelect().play();
                 if (buttonGroup.getFocussed() == playAgain) {
                     screenChangeCallback.accept(ScreenIdentifier.PLAYING);
-                } else if (buttonGroup.getFocussed() == quit){
+                } else if (buttonGroup.getFocussed() == quit) {
                     screenChangeCallback.accept(ScreenIdentifier.SHOWING_MENU);
                 }
             }
@@ -92,13 +93,8 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void handleKeyReleased(KeyEvent event) {
-
-    }
-
-    @Override
-    public void addToCanvas() {
-        engine.graphicsEngine().add(graphic);
+    public void addToCanvas(Game game) {
+        game.graphicsEngine().add(graphic);
     }
 
     @Override
@@ -112,8 +108,12 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void update(double dtMillis) {}
+    public void update(double dtMillis) {
+        // No-op
+    }
 
     @Override
-    public void handleCollisionEvent(CollisionEvent event) {}
+    public void handleKeyReleased(KeyEvent event) {
+        // No-op
+    }
 }

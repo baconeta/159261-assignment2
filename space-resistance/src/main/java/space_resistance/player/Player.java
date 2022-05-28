@@ -8,18 +8,15 @@ public class Player {
 
     private final PlayerNumber playerNumber;
     private final PlayerControls playerControls;
-    private int score;
-    private int health;
-    private boolean shieldsOn;
-    private int shieldValue;
+    private int score = 0;
+    private int health = STARTING_HEALTH;
+    private int shieldValue = STARTING_SHIELD;
+    private boolean shieldsOn = false;
+    private boolean isDead = false;
 
     public Player(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
         this.playerControls = PlayerControls.controlsForPlayer(playerNumber);
-        health = STARTING_HEALTH;
-        score = 0;
-        shieldValue = STARTING_SHIELD;
-        shieldsOn = shieldValue > 0;
     }
 
     public void increaseScore(int increaseAmount) {
@@ -67,16 +64,31 @@ public class Player {
         return playerControls;
     }
 
-    public void handlePickup(PickupType pickupType) {
-        if (pickupType.equals(PickupType.Health)) {
-            addHealth(20);
-        } else if (pickupType.equals(PickupType.Shield)) {
-            shieldsOn = true;
-            shieldValue += 25;
+    public void handlePickup(PickupType type) {
+        switch(type) {
+            case HEALTH -> addHealth(20);
+            case SHIELD -> {
+                shieldsOn = true;
+                shieldValue += 25;
+            }
+            case MISSILE -> {}
         }
     }
 
-    public boolean shieldEnabled() { return shieldsOn; }
+    public boolean shieldEnabled() {
+        return shieldsOn;
+    }
 
-    public int shieldHealth() { return shieldValue; }
+    public int shieldHealth() {
+        return shieldValue;
+    }
+
+    public void playerDied(){
+        isDead = true;
+    }
+
+    public boolean dead() {
+        return isDead;
+    }
+
 }

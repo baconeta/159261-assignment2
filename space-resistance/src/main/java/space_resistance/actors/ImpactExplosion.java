@@ -1,6 +1,5 @@
 package space_resistance.actors;
 
-import space_resistance.assets.SoundEffects;
 import space_resistance.assets.animated_sprites.ImpactExplosionSprite;
 import space_resistance.game.GameWorld;
 import tengine.Actor;
@@ -10,6 +9,7 @@ import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionRect;
 import tengine.physics.kinematics.TVelocity;
 
+// TODO: maybe rename this to PlayerExplosion?
 public class ImpactExplosion extends Actor {
     private final long startTime;
 
@@ -19,13 +19,17 @@ public class ImpactExplosion extends Actor {
     public ImpactExplosion(GameWorld world, TPoint origin) {
         this.world = world;
         graphic = ImpactExplosionSprite.sprite();
+
         ((ImpactExplosionSprite) graphic).setSequenceEndCallback(this::onExplosionEnd);
         physics = initPhysics();
+
+        // TODO: Remove if still unused
         startTime = System.currentTimeMillis();
 
         setOrigin(origin);
     }
 
+    // TODO: check what this is used for, if unused remove
     public void update() {
         currentTime = System.currentTimeMillis();
     }
@@ -44,6 +48,7 @@ public class ImpactExplosion extends Actor {
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
 
+    // TODO: Remove if still unused
     public long timeExisted(){
         return currentTime - startTime;
     }

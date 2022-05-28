@@ -39,6 +39,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     private GraphicsEngine graphicsEngine;
     private final PhysicsEngine physicsEngine = new PhysicsEngine();
     private World activeWorld = null;
+    private boolean isPaused = false;
 
     long lastUpdateMillis = 0;
 
@@ -121,20 +122,20 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     }
 
     public void unloadWorld() {
-        activeWorld.canvas().removeFromParent();
         activeWorld = null;
     }
 
     //------------------------------------------------------------------------------------------------ Tick Methods --//
 
     public void update(double dtMillis) {
-        if (activeWorld != null) {
+        if (activeWorld != null && !isPaused) {
             List<Actor> actors = new ArrayList<>(activeWorld.actors());
             for (Iterator<Actor> iterator = actors.iterator(); iterator.hasNext(); ) {
                 Actor actor = iterator.next();
                 if (actor.destroyWhenOffScreen && !isOnScreen(actor)) {
                     actor.removeFromWorld();
                 }
+
                 if (actor.pendingKill) {
                     iterator.remove();
                     actor.destroy();
@@ -145,6 +146,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
             physicsEngine.processCollisions(actors, dtMillis);
         }
+
         // Allow graphical objects, e.g. AnimatedSprite, to make time-based updates if necessary
         graphicsEngine.update(dtMillis);
     }
@@ -199,18 +201,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         jFrame.setSize(dimension.width + insets.left + insets.right, dimension.height + insets.top + insets.bottom);
     }
 
-    public void setWindowProperties(Dimension dimension, String title) {
-        SwingUtilities.invokeLater(() -> {
-            Insets insets = jFrame.getInsets();
-            this.dimension = dimension;
-            jFrame.setSize(dimension.width + insets.left + insets.right, dimension.height + insets.top + insets.bottom);
-            gamePanel.setSize(dimension.width, dimension.height);
-            jFrame.setTitle(title);
-
-            // TODO: Set the size of the GraphicsEngine canvas
-        });
-    }
-
     public int windowWidth() {
         return dimension.width;
     }
@@ -233,6 +223,24 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         Dimension actorSize = actor.graphic().dimension();
         return actorPos.x >= 0 && actorPos.x + actorSize.width <= windowWidth()
                 && actorPos.y >= 0 && actorPos.y + actorSize.height <= windowHeight();
+    }
+
+    //----------------------------------------------------------------------------------------------- Game Settings --//
+
+    public void setWindowProperties(Dimension dimension, String title) {
+        SwingUtilities.invokeLater(() -> {
+            Insets insets = jFrame.getInsets();
+            this.dimension = dimension;
+            jFrame.setSize(dimension.width + insets.left + insets.right, dimension.height + insets.top + insets.bottom);
+            gamePanel.setSize(dimension.width, dimension.height);
+            jFrame.setTitle(title);
+
+            // TODO: Set the size of the GraphicsEngine canvas
+        });
+    }
+
+    public void setPaused(boolean isPaused) {
+        this.isPaused = isPaused;
     }
 
     //------------------------------------------------------------------------------ Methods that can be overridden --//

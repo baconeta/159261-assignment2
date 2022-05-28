@@ -22,10 +22,10 @@ public class EnemyShot extends Sprite {
 
     public static EnemyShot shotFor(EnemyType type) {
         return switch(type) {
-            case MITE -> MITE_SHOT;
+            case MITE        -> MITE_SHOT;
             case GRASSHOPPER -> GRASSHOPPER_SHOT;
-            case TARANTULA -> TARANTULA_SHOT;
-            case GOLIATH -> GOLIATH_SHOT;
+            case TARANTULA   -> TARANTULA_SHOT;
+            case GOLIATH     -> GOLIATH_SHOT;
         };
     }
 
@@ -38,7 +38,7 @@ public class EnemyShot extends Sprite {
             case MITE        -> MITE_ASSET;
             case GRASSHOPPER -> GRASSHOPPER_ASSET;
             case TARANTULA   -> TARANTULA_ASSET;
-            case GOLIATH -> GOLIATH_ASSET;
+            case GOLIATH     -> GOLIATH_ASSET;
         };
     }
 }

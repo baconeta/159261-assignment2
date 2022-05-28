@@ -41,10 +41,19 @@ public final class FontBook {
         return new Font(gameFont.getFontName(), Font.BOLD, 32);
     }
 
-    public Font scoreBoardFont() {
+    public Font levelLabelFont() {
+        return new Font(gameFont.getFontName(), Font.BOLD, 30);
+    }
+
+    public Font pauseFont() {
+        return new Font(gameFont.getFontName(), Font.ITALIC, 16);
+    }
+
+    public Font hudFont() {
         return new Font(gameFont.getFontName(), Font.BOLD, 20);
     }
 
+    // TODO: remove if still unused before submitting
     public Font buttonFont() {
         return new Font(gameFont.getFontName(), Font.PLAIN, 18);
     }

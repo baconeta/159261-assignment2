@@ -11,9 +11,10 @@ import tengine.graphics.components.text.TLabel;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
-class MainMenu extends Menu {
+class MainMenu extends SubMenu {
     private final ButtonGroup buttons;
     private final Button onePlayer;
+    private final Button twoPlayer;
     private final Button howToPlay;
     private final Button credits;
 
@@ -30,16 +31,19 @@ class MainMenu extends Menu {
         onePlayer = new Button("ONE PLAYER");
         onePlayer.setOrigin(new TPoint(240, 300));
 
+        twoPlayer = new Button("TWO PLAYER");
+        twoPlayer.setOrigin(new TPoint(240, 350));
+
         howToPlay = new Button("HOW TO PLAY");
-        howToPlay.setOrigin(new TPoint(240, 350));
+        howToPlay.setOrigin(new TPoint(240, 400));
 
         credits = new Button("CREDITS");
-        credits.setOrigin(new TPoint(250, 400));
+        credits.setOrigin(new TPoint(250, 450));
 
         // The button group manages which button is currently selected and moving between buttons
-        buttons = new ButtonGroup(onePlayer, howToPlay, credits/*, twoPlayer, highscores*/);
+        buttons = new ButtonGroup(onePlayer, twoPlayer, howToPlay, credits);
 
-        addAll(title, onePlayer, howToPlay, credits/*, twoPlayer, highscores*/);
+        addAll(title, onePlayer, twoPlayer, howToPlay, credits);
     }
 
     @Override
@@ -52,6 +56,8 @@ class MainMenu extends Menu {
                 Button focussed = buttons.getFocussed();
                 if (focussed.equals(onePlayer)) {
                    submenuSelectionNotifier.accept(SubmenuOption.ONE_PLAYER);
+                } else if (focussed.equals(twoPlayer)) {
+                    submenuSelectionNotifier.accept(SubmenuOption.TWO_PLAYER);
                 } else if (focussed.equals(howToPlay)) {
                     submenuSelectionNotifier.accept(SubmenuOption.HOW_TO_PLAY);
                 } else if (focussed.equals(credits)) {

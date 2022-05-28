@@ -17,8 +17,7 @@ public class AnimatedSprite extends TGraphicObject {
     protected SpriteSequence currentSequence;
     protected int currentFrame;
     protected Consumer<SpriteSequence> sequenceEnd = null;
-
-    protected boolean pausedAnimation = false;
+    protected boolean isPaused = false;
 
     protected AnimatedSprite(InputStream is, Dimension frameDimension, int fps, SpriteSequence currentSequence) {
         super(frameDimension);
@@ -31,7 +30,7 @@ public class AnimatedSprite extends TGraphicObject {
 
     @Override
     public void update(double dtSecs) {
-        if (!pausedAnimation){
+        if (!isPaused) {
             elapsedSecs += dtSecs;
 
             if (currentSequence.loops() || currentFrame != currentSequence.lastFrame()) {
@@ -79,7 +78,7 @@ public class AnimatedSprite extends TGraphicObject {
     }
 
     public void setPaused(boolean paused){
-        pausedAnimation = paused;
+        isPaused = paused;
     }
 
     // TODO: Add to engine

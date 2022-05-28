@@ -2,7 +2,6 @@ package space_resistance.actors.pickup;
 
 import space_resistance.assets.sprites.PickupSprite;
 import space_resistance.game.Game;
-import space_resistance.game.GameWorld;
 import tengine.Actor;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
@@ -16,14 +15,19 @@ import tengine.physics.kinematics.TVelocity;
 import java.awt.*;
 
 public class Pickup extends Actor {
+    // TODO: consider moving to this a utility class
+    public static final Dimension DIMENSION = new Dimension(32, 32);
+    private static final int SPEED = 27;
+    private static final TVector DIRECTION = new TVector(0, 1);
+
     private final Dimension dimension;
     private final PickupType type;
 
-    public Pickup(PickupType type, GameWorld world, TPoint origin, Dimension dimension) {
-        this.world = world;
+    public Pickup(PickupType type, TPoint origin) {
         this.type = type;
-        this.dimension = dimension;
+        this.dimension = DIMENSION;
         destroyWhenOffScreen = true;
+
         graphic = initSprite();
         physics = initPhysics();
 
@@ -34,21 +38,25 @@ public class Pickup extends Actor {
         boolean isStatic = false;
         boolean hasCollisions = true;
         CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(27, new TVector(0, 1));
+        velocity = new TVelocity(SPEED, DIRECTION);
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
 
+    // TODO: Convert this to a simple sprite instead of a TGraphicCompound (unnecessary bloat) before submitting
     private TGraphicObject initSprite() {
         // Pickup Sprite
         TGraphicCompound pickup = new TGraphicCompound(dimension);
-        PickupSprite pickupSprite = new PickupSprite(type, this.dimension);
-        pickup.add(pickupSprite);
+        pickup.add(PickupSprite.pickupFor(type));
+
         if (Game.DEBUG_MODE) {
             pickup.add(new TRect(new Dimension(dimension.width, dimension.height)));
         }
+
         return pickup;
     }
 
-    public PickupType pickupType() { return type; }
+    public PickupType type() {
+        return type;
+    }
 }
