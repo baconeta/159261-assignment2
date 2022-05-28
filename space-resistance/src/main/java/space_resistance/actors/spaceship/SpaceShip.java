@@ -28,6 +28,7 @@ public class SpaceShip extends Actor {
     private static final int DELAY_BETWEEN_BULLETS = 50;
     private static final int SPEED = 200;
     private static final int THRUSTER_Y_OFFSET = 30;
+    private static final int MISSILES_ACTIVE_MS = 10000;
     private final TVector INITIAL_DIRECTION = new TVector();
 
     private final AnimatedSprite spaceshipThrusters = PlayerThruster.sprite();
@@ -121,6 +122,18 @@ public class SpaceShip extends Actor {
             world.add(bullet1, bullet2);
 
             lastBulletFired  = currentTime;
+            if (player.missileActive()) {
+                fireMissiles();
+            }
+        }
+    }
+
+    private void fireMissiles() {
+        var bullet1 = new PlayerBullet(new TPoint(this.origin.x + 23, this.origin.y - 5), player);
+        var bullet2 = new PlayerBullet(new TPoint(this.origin.x + 36, this.origin.y - 5), player);
+        world.add(bullet1, bullet2);
+        if (System.currentTimeMillis() - player.missileTimer() >= MISSILES_ACTIVE_MS) {
+            player.deactivateMissile();
         }
     }
 
