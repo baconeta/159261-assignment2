@@ -42,7 +42,11 @@ public class GameWorld extends World {
     // Players
     private SpaceShip playerOne;
     private SpaceShip playerTwo = null;
+
+    // Boss targeting
     private SpaceShip bossTarget = null;
+    private final double BOSS_TARGET_RESET_SECS = 2.5;
+    private double resetTimeLeft;
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
@@ -74,9 +78,23 @@ public class GameWorld extends World {
         }
     }
 
-    public void update(double dtMillis) {
-        hud.update(dtMillis);
+    public void update(double dt) {
+        hud.update(dt);
+        playerUpdates(dt);
 
+        for (Actor a : actors) {
+            // TODO: Instead of iterating over all actors, have the enemySpawningSystem call update on its list
+            //  of enemies?
+            if (a instanceof Enemy enemy) {
+                enemy.update();
+            }
+        }
+
+        handleBossTargeting(dt);
+        enemySpawningSystem.update();
+    }
+
+    private void playerUpdates(double dtMillis) {
         playerOne.update();
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
@@ -100,16 +118,6 @@ public class GameWorld extends World {
                 setGameOver();
             }
         }
-
-        for (Actor a : actors) {
-            // TODO: Instead of iterating over all actors, have the enemySpawningSystem call update on its list
-            //  of enemies?
-            if (a instanceof Enemy enemy) {
-                enemy.update();
-            }
-        }
-
-        enemySpawningSystem.update();
     }
 
     private void setGameOver() {
@@ -186,19 +194,29 @@ public class GameWorld extends World {
         }
     }
 
-    public SpaceShip getBossTarget() {
+    public SpaceShip bossTarget() {
         if (gameConfig.multiplayerMode() == MultiplayerMode.SINGLE_PLAYER) {
             return playerOne;
         } else {
             if (bossTarget == null) {
-                if (RANDOM.nextInt(2) == 0) {
-                    bossTarget = playerOne;
-                    return playerOne;
-                }
-                bossTarget = playerTwo;
-                return playerTwo;
+                bossTarget = getNewBossTarget();
             }
             return bossTarget;
+        }
+    }
+
+    private SpaceShip getNewBossTarget() {
+        resetTimeLeft = BOSS_TARGET_RESET_SECS;
+        if (RANDOM.nextInt(2) == 0) {
+            return playerOne;
+        }
+        return playerTwo;
+    }
+
+    private void handleBossTargeting(double dtMillis) {
+        resetTimeLeft -= dtMillis;
+        if (bossTarget != null && resetTimeLeft <= 0.0) {
+            bossTarget = null;
         }
     }
 }
