@@ -54,7 +54,7 @@ class Credits extends SubMenu {
                 "Multiplayer tidy up and implementation\n" +
                 "\nTessa Power:\n\n" +
                 "Engine and Tools Lead Developer\n" +
-                "Completely designed ECS Game Engine from the ground up including elements such as:\n" +
+                "Completely designed ECS Game Engine from the ground up including:\n" +
                 " Physics engine with momentum and collisions system\n" +
                 " Actor system for game world objects requiring components and control\n" +
                 " Abstracted Graphical system used for visual elements, animations and Actors.\n" +
