@@ -25,7 +25,7 @@ public class GameOverScreen implements Screen {
     private final Button playAgain;
     private final Button quit;
 
-    private final int GAMEOVER_LABEL_OFFSET = 235, SCORE_LABEL_OFFSET = 235, PLAY_AGAIN_OFFSET = 65, QUIT_OFFSET = 455;
+    private final int GAMEOVER_LABEL_OFFSET = 235, SCORE_LABEL_OFFSET = 235, PLAY_AGAIN_OFFSET = 65, QUIT_OFFSET = 405;
     public GameOverScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.screenChangeCallback = screenChangeCallback;
 
