@@ -73,14 +73,14 @@ A window should appear for you to play the game:
 
 The rules are simple:
 
-#### Single player
+#### _Single player_
 
 - Use the arrow keys to control the ship, and the enter key to fire.
 - Hold down the fire key for rapid fire.
 - Dodge the enemy fire and take down the enemies.
 - Some enemies will drop pickups, such as health and shields. Fly into them to pick them up.
 
-#### Multiplayer
+#### _Multiplayer_
 
 - The single player controls remain the same in multiplayer mode - controlling the purple ship.
 - The second player uses WASD to move around and SHIFT to fire.
@@ -88,11 +88,17 @@ The rules are simple:
 
 ### Space Resistance Features
 
-- [ ] Fill this out 
+- Level system getting gradually more difficult over time
+- Boss fights with player-chasing AI
+- Multiplayer mode for competitive gameplay
+- Fully integrated pause menu and system
+- Completely custom design, graphics, code and sounds
 
 ### Future Improvements
 
-- [ ] Fill this out 
+- Implementation of high-scores
+- Implementation of other objects (instead of only ships) flying towards the player
+- Implementation of other weapons or ammo system
 
 ---
 
