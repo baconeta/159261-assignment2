@@ -42,6 +42,7 @@ public class GameWorld extends World {
     // Players
     private SpaceShip playerOne;
     private SpaceShip playerTwo = null;
+    private SpaceShip bossTarget = null;
 
     public GameWorld(Dimension dimension, Notifier gameOverNotifier, GameState gameState) {
         super(dimension);
@@ -185,12 +186,19 @@ public class GameWorld extends World {
         }
     }
 
-    public SpaceShip getPlayer() {
+    public SpaceShip getBossTarget() {
         if (gameConfig.multiplayerMode() == MultiplayerMode.SINGLE_PLAYER) {
             return playerOne;
         } else {
-            if (RANDOM.nextInt(2) == 0) { return playerOne; }
-            return playerTwo;
+            if (bossTarget == null) {
+                if (RANDOM.nextInt(2) == 0) {
+                    bossTarget = playerOne;
+                    return playerOne;
+                }
+                bossTarget = playerTwo;
+                return playerTwo;
+            }
+            return bossTarget;
         }
     }
 }
