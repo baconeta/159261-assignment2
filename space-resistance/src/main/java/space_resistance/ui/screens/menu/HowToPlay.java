@@ -17,50 +17,44 @@ class HowToPlay extends SubMenu {
         TLabel title = new TLabel("How to play");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
-        title.setOrigin(new TPoint(175, 180));
+        title.setOrigin(new TPoint(175, 120));
 
         initContent();
 
         Button close = new Button("Close");
         close.setState(Button.State.FOCUSSED);
-        close.setOrigin(new TPoint(275, 490));
+        close.setOrigin(new TPoint(265, 650));
 
         addAll(title, close);
     }
 
     public void initContent() {
-        TLabel howToPlay                 = defaultText("Single Player: Defeat as many enemies as possible while surviving their attacks.");
-        TLabel howToPlayMultiplayer      = defaultText("Multiplayer: Defeat as many enemies as possible to get a higher score than the");
-        TLabel howToPlayMultiplayerLine2 = defaultText("                   opposing player and surviving enemy attacks.");
-        howToPlay.setOrigin(new TPoint(80, 220));
-        howToPlayMultiplayer.setOrigin(new TPoint(80, 240));
-        howToPlayMultiplayerLine2.setOrigin(new TPoint(80, 260));
+        TLabel howToPlay = bodyText("Single Player:\nDefeat as many enemies as possible while surviving\nthrough their attacks.");
+        TLabel howToPlayMultiplayer = bodyText("Multiplayer:\nDefeat as many enemies as possible to get a higher score\nthan the opposing player while surviving enemy attacks.");
+        howToPlay.setOrigin(new TPoint(20, 230));
+        howToPlayMultiplayer.setOrigin(new TPoint(20, 300));
+        howToPlay.setFontSize(14);
+        howToPlayMultiplayer.setFontSize(14);
 
         TLabel onePlayer = bodyText("PLAYER 1");
         TLabel onePlayerKeys = bodyText("Use the arrow keys to move.  Press Enter to shoot.");
-        onePlayer.setOrigin(new TPoint(255, 300));
-        onePlayerKeys.setOrigin(new TPoint(25, 320));
+        onePlayer.setOrigin(new TPoint(255, 380));
+        onePlayerKeys.setOrigin(new TPoint(25, 400));
+        onePlayer.setColor(Colors.DARK_VIOLET);
 
         TLabel twoPlayer = bodyText("PLAYER 2");
-        TLabel twoPlayerKeys = bodyText("Use the W-A-S-D keys to move. Press Shift to fire.");
-        twoPlayer.setOrigin(new TPoint(255, 350));
-        twoPlayerKeys.setOrigin(new TPoint(30, 370));
+        TLabel twoPlayerKeys = bodyText("Use the W-A-S-D keys to move. Press Shift to shoot.");
+        twoPlayer.setOrigin(new TPoint(255, 450));
+        twoPlayerKeys.setOrigin(new TPoint(30, 470));
+        twoPlayer.setColor(Colors.TERRIFYING_TEAL);
 
-        addAll(onePlayer, onePlayerKeys, twoPlayer, twoPlayerKeys, howToPlay, howToPlayMultiplayer, howToPlayMultiplayerLine2);
+        addAll(onePlayer, onePlayerKeys, twoPlayer, twoPlayerKeys, howToPlay, howToPlayMultiplayer);
     }
 
     private TLabel bodyText(String str) {
         TLabel line = new TLabel(str);
         line.setColor(Colors.Text.PRIMARY);
         line.setFont(FontBook.shared().bodyFont());
-
-        return line;
-    }
-
-    private TLabel defaultText(String str) {
-        TLabel line = new TLabel(str);
-        line.setColor(Colors.Text.PRIMARY);
-        line.setFont(FontBook.shared().defaultFont());
 
         return line;
     }
