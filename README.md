@@ -152,6 +152,8 @@ configuration.
 
 ### Screen Management
 
+- [ ] TODO: shorten this, it is too long and prominent.
+
 At a higher level than the `GameWorld` is the `PlayGameScreen`, which is, as the name suggests, the screen that is
 loaded when the user starts playing the game. We also have the `MenuScreen`, which internally is made up of
 smaller `Menu`s, and the `GameOverScreen`. To manage moving between all of these screens at yet another higher level,
@@ -161,6 +163,8 @@ each of these screens. It then listens for callbacks from each screen to know wh
 to load next.
 
 ![`GameWorld` managing interactions](docs/images/screen-management.png)
+
+- [ ] TODO: shorten this, it is too long and prominent.
 
 The first screen loaded is the `MenuScreen`, which lets the player select the game configuration and makes
 that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is loaded, it updates the
