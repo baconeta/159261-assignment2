@@ -55,16 +55,18 @@ public class Enemy extends Actor {
     }
 
     private TGraphicCompound initSprite() {
-        TGraphicCompound enemySprite = new TGraphicCompound(dimension);
-        EnemyShip enemy = EnemyShip.shipFor(type);
-        enemySprite.add(enemy);
+        var sprite = new TGraphicCompound(dimension);
+        var ship = EnemyShip.shipFor(type);
+        sprite.add(ship);
 
         // TODO: Remove before submitting, replace this whole method with simple call to EnemyShip.shipFor()
         if (Game.DEBUG_MODE) {
-            enemySprite.add(new TRect(new Dimension(dimension.width, dimension.height)));
+            TRect debugRect = new TRect(dimension);
+            debugRect.outlineColor = Color.RED;
+            sprite.add(debugRect);
         }
 
-        return enemySprite;
+        return sprite;
     }
 
     public void spawnInWorld(GameWorld world) {

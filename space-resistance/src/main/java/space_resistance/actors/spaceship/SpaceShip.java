@@ -65,16 +65,20 @@ public class SpaceShip extends Actor {
     }
 
     private TGraphicCompound initSprite() {
-        TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
+        var sprite = new TGraphicCompound(DIMENSION);
 
         // Thruster
         spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + THRUSTER_Y_OFFSET));
 
-        playerSprite.add(spaceshipThrusters);
-        playerSprite.add(PlayerShip.shipSprite(playerNumber()));
-        if (Game.DEBUG_MODE) { playerSprite.add(new TRect(DIMENSION)); }
+        sprite.add(spaceshipThrusters);
+        sprite.add(PlayerShip.shipSprite(playerNumber()));
+        if (Game.DEBUG_MODE) {
+            TRect debugRect = new TRect(DIMENSION);
+            debugRect.outlineColor = Color.RED;
+            sprite.add(debugRect);
+        }
 
-        return playerSprite;
+        return sprite;
     }
 
     protected TPhysicsComponent initPhysics() {

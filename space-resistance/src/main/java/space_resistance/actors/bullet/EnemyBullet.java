@@ -35,7 +35,11 @@ public class EnemyBullet extends Bullet {
          var sprite = new TGraphicCompound(EnemyConstants.enemyBulletDimension(type));
          sprite.add(EnemyShot.shotFor(type));
          // TODO: Remove before submitting
-         if (Game.DEBUG_MODE) { sprite.add(new TRect(EnemyConstants.enemyBulletDimension(type))); }
+         if (Game.DEBUG_MODE) {
+            TRect debugRect = new TRect(EnemyConstants.enemyBulletDimension(type));
+            debugRect.outlineColor = Color.RED;
+            sprite.add(debugRect);
+         }
 
          return sprite;
     }
