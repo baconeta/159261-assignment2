@@ -17,7 +17,7 @@ public class World {
 
     public void add(Actor actor) {
         actors.add(actor);
-        actor.addToWorld(this);
+        actor.setWorld(this);
         canvas.add(actor.graphic());
     }
 

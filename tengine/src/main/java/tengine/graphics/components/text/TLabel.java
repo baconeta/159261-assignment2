@@ -14,6 +14,7 @@ public class TLabel extends TGraphicObject {
     private String text;
     private Font font = DEFAULT_FONT;
     private Color color = DEFAULT_COLOR;
+    private int lineHeight = (int) (DEFAULT_SIZE * 1.1);
 
     public TLabel(String text) {
         this(text, new TPoint(0, 0));
@@ -51,6 +52,7 @@ public class TLabel extends TGraphicObject {
 
     public void setFontSize(int fontSize) {
         font = new Font(font.getFontName(), font.getStyle(), fontSize);
+        lineHeight = (int) (fontSize * 1.1);
     }
 
     public Color color() {
@@ -63,16 +65,14 @@ public class TLabel extends TGraphicObject {
 
     @Override
     protected void draw(GraphicsCtx ctx) {
-        int lineHeight = (int) (font.getSize() * 1.1);
         int textY = 0;
         int i = 0;
-        for (String stringLine : text.split("\n")) {
-            if (i != 0){
-                ctx.drawText(new Point(0, textY += lineHeight), stringLine, font, color);
+        for (String line : text.split("\n")) {
+            if (i++ == 0) {
+                ctx.drawText(new Point(0, textY), line, font, color);
             } else {
-                ctx.drawText(new Point(0, textY), stringLine, font, color);
+                ctx.drawText(new Point(0, textY += lineHeight), line, font, color);
             }
-            i ++;
         }
     }
 
