@@ -88,7 +88,7 @@ enemies that are killed.
 
 ### Graphics
 
-All game graphics and animations are original works of Ali using Blender. The inspiration for the design of the 
+All game graphics and animations are original works of Ali Soltanian Fard Jahromi using Blender. The inspiration for the design of the 
 graphics for each enemy ship was from real world insects, e.g. the Goliath boss was inspired by the Goliath beetle. 
 
 A few nice touches to look out for:
@@ -98,8 +98,10 @@ A few nice touches to look out for:
 
 ### Audio
 
-Ali created most of the game audio by modifying and mixing sounds recorded by Josh. If you listen closely, you'll 
+Ali Soltanian Fard Jahromi created the game audio by modifying and mixing sounds recorded by Josh. If you listen closely, you'll 
 hear Josh shouting "pew pew!" as the player fires bullets!
+
+Background Music by: [Steven Melin](https://stevenmelin.com)
 
 ---
 
@@ -177,17 +179,19 @@ display the results.
 
 - In-game music by [Steven Melin](https://stevenmelin.com), free for personal and commercial use.
 
-### Ali Soltanian Fard Jahromi: Game/Level Design and Development
+### Ali Soltanian Fard Jahromi: Lead Game and Level Designer
 
-- Game art and animations for all sprites and scrolling background
-- Custom sound effects and music
-- Gameplay design and implementation
-- Firing systems for enemies, bosses, and players design and implementation
-- HUD system design
+- Game art and animations, including Sprites and UI elements
+- Player setup, including player controls, systems and gameplay design
+- Firing systems for both the enemies and players, including bosses
+- All background elements including scrolling system
+- HUD system design and programming
 - Explosions system for enemies and bosses
-- Main menu, pause menu, and game over screen designs
-- Boundary system for players
-- Enemies and Boss design and implementation 
+- Pausing system and pause menu design
+- Created and added all sound effects
+- Boundary system for player
+- Enemy type and class system design and programming
+- Level system implementation
 
 ### Joshua Pearson: Producer, Project Lead, and Development
 
@@ -198,7 +202,9 @@ display the results.
 - Pickup system, shield system and functionality
 - Boss AI system that tracks player movement
 - Enemies and Boss design and implementation
-- Multiplayer mode design and implementation 
+- Multiplayer mode design and implementation
+- Level system implementation
+- Firing systems for enemies, including bosses
 
 ### Tessa Power: Engine, Tools, and Game Development
 
