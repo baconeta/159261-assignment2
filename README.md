@@ -175,7 +175,7 @@ display the results.
 
 ## Attributions
 
-- Music: ... ?
+- In-game music by [Steven Melin](https://stevenmelin.com), free for personal and commercial use.
 
 ### Ali Soltanian Fard Jahromi: Game/Level Design and Development
 
