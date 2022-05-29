@@ -65,19 +65,28 @@ public abstract class Actor {
         return destroyWhenOffScreen;
     }
 
-    // TODO: document the difference between this and destroy
-    public void removeFromWorld() {
+    /**
+     * Mark this Actor to be destroyed on the next update.
+     */
+    public void markPendingKill() {
         pendingKill = true;
     }
 
-    public void addToWorld(World world) {
+    public void setWorld(World world) {
         this.world = world;
     }
 
-    // TODO: Document when this should be used compared to removeFromWorld()
+    /**
+     * Remove this Actor's graphic from anywhere it is displayed, and remove it from the assigned world if necessary.
+     */
     public void destroy() {
-        graphic.removeFromParent();
-        world.remove(this);
+        if (graphic != null) {
+            graphic.removeFromParent();
+        }
+
+        if (world != null) {
+            world.remove(this);
+        }
         world = null;
     }
 

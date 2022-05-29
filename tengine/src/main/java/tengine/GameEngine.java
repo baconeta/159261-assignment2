@@ -133,7 +133,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             for (Iterator<Actor> iterator = actors.iterator(); iterator.hasNext(); ) {
                 Actor actor = iterator.next();
                 if (actor.destroyWhenOffScreen && !isOnScreen(actor)) {
-                    actor.removeFromWorld();
+                    actor.markPendingKill();
                 }
 
                 if (actor.pendingKill) {
@@ -159,7 +159,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //------------------------------------------------------------------------------------------------------ Window --//
 
     private void setupWindow(Dimension dimension) {
-        // TODO: Eventually replace with graphicsEngine = new GraphicsEngine(Graphics2D)
         graphicsEngine = new GraphicsEngine(dimension);
 
         jFrame = new JFrame();
@@ -234,8 +233,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             jFrame.setSize(dimension.width + insets.left + insets.right, dimension.height + insets.top + insets.bottom);
             gamePanel.setSize(dimension.width, dimension.height);
             jFrame.setTitle(title);
-
-            // TODO: Set the size of the GraphicsEngine canvas
         });
     }
 
@@ -296,10 +293,6 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             graphics2D.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 
             if (initialized) {
-                // TODO: We should not be wrapping the entire engine, we should only be wrapping (Java) Graphics context
-                //  Step 2: Introduce a Java Graphics Context which implements
-                //  my Graphics Context and wraps the passed Graphics object
-                //  Step 3: Remove Massey GameEngine
                 GraphicsCtx ctx = new MasseyGraphicsCtx(GameEngine.this);
                 GameEngine.this.paint(ctx);
             }
@@ -519,6 +512,4 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     public void shear(double x, double y) {
         graphics2D.shear(x, y);
     }
-
-    // TODO: Create a helper class for degrees <-> radians conversions?
 }

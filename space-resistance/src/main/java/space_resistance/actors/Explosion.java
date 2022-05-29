@@ -48,7 +48,7 @@ public class Explosion extends Actor {
 
     private void onExplosionEnd(SpriteSequence sequence) {
         ((ExplosionSprite) graphic).resetAnimation();
-        this.removeFromWorld();
+        this.markPendingKill();
     }
 
     private TPhysicsComponent initPhysics() {
