@@ -20,6 +20,7 @@ public class Colors {
     public static class Text {
         // Primary color for most UI text elements
         public static final Color PRIMARY = BEAU_BLUE;
+        public static final Color DEV_NAMES = DENIM;
         public static final Color SHIELD_ENABLED = GRASSHOPPER_GREEN;
         public static final Color PLAYER_DEAD = SPACESHIP_PURPLE;
         public static final Color PLAYER_ONE_SCORE = DARK_VIOLET;

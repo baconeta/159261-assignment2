@@ -30,7 +30,7 @@ public class IntroStoryScreen implements Screen {
 
         // Buttons
         continueToGame = new Button("PRESS ENTER TO CONTINUE");
-        continueToGame.setOrigin(new TPoint(220, 690));
+        continueToGame.setOrigin(new TPoint(155, 690));
 
         buttonGroup = new ButtonGroup(continueToGame);
 
