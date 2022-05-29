@@ -3,7 +3,6 @@ package space_resistance.ui.screens.gameplay;
 import space_resistance.assets.Colors;
 import space_resistance.assets.FontBook;
 import space_resistance.player.Player;
-import space_resistance.player.PlayerNumber;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.text.TLabel;
