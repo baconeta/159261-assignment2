@@ -1,11 +1,11 @@
 package space_resistance.game;
 
 import space_resistance.actors.enemy.Enemy;
+import space_resistance.actors.enemy.EnemyConstants;
 import space_resistance.actors.enemy.EnemyType;
 import space_resistance.actors.enemy.GoliathEnemy;
 import tengine.geom.TPoint;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,8 +23,7 @@ public class EnemyWave {
     private static final int minSpawnX = 25;
     private static final int maxSpawnX = 575;
     private static final int spawnY = 20;
-    private static final int spawnWidth = 72;
-    private static final int spawnHeight = 72;
+
     private static final double TARANTULA_RATE_BY_LEVEL = 0.01;
     private static final double TARANTULA_BASE_RATE = 0.05;
     private static final double GRASSHOPPER_RATE_BY_LEVEL = 0.02;
@@ -61,14 +60,24 @@ public class EnemyWave {
         int totalEnemies = RANDOM.nextInt(minEnemiesPerWave, minEnemiesPerWave + level);
 
         for (int i = 0; i < totalEnemies; i++) {
-            wave.add(new Enemy(randomEnemyType(),
-                new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX - spawnWidth), spawnY),
-                new Dimension(spawnWidth, spawnHeight), level));
+            var enemyType = randomEnemyType();
+            wave.add(new Enemy(
+                enemyType,
+                new TPoint(
+                    RANDOM.nextInt(minSpawnX, maxSpawnX - EnemyConstants.dimension(enemyType).width),
+                    spawnY
+                ),
+                level)
+            );
         }
 
-        boss = new GoliathEnemy(GOLIATH,
-                 new TPoint(RANDOM.nextInt(minSpawnX,maxSpawnX - spawnWidth * 2), spawnY),
-                 new Dimension(spawnWidth * 2, spawnHeight * 2), level);
+        boss = new GoliathEnemy(
+                GOLIATH,
+                 new TPoint(
+                    RANDOM.nextInt(minSpawnX, maxSpawnX - EnemyConstants.dimension(GOLIATH).width),
+                    spawnY
+                 ),
+                 level);
     }
 
     private EnemyType randomEnemyType() {

@@ -39,7 +39,7 @@ public class Enemy extends Actor {
     private long lastBarrageTime;
     private long lastBulletFired;
 
-    public Enemy(EnemyType type, TPoint origin, Dimension dimension, int level) {
+    public Enemy(EnemyType type, TPoint origin, int level) {
         this.type = type;
         this.level = level;
         this.dimension = EnemyConstants.dimension(type);
