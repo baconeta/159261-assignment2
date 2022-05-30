@@ -53,7 +53,7 @@ public class SoundEffects {
         return menuSelect;
     }
 
-    public AudioClip defaultPlayerShootingSound() {
+    public AudioClip shoot() {
         return playerShootingSound;
     }
 
