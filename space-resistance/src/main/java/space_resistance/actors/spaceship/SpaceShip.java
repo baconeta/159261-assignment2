@@ -25,6 +25,12 @@ import java.util.Optional;
 
 public class SpaceShip extends Actor {
     private static final Dimension DIMENSION = new Dimension(64, 64);
+    private static final Dimension COLLISION_DIM = new Dimension((int) (DIMENSION.width * 0.9),
+     (int) (DIMENSION.height * 0.6));
+    private static final TPoint COLLISION_SHAPE_OFFSET = new TPoint(
+        (DIMENSION.width - COLLISION_DIM.width) * 0.5,
+        COLLISION_DIM.height * 0.3
+    );
     private static final int DELAY_BETWEEN_BULLETS = 50;
     private static final int SPEED = 200;
     private static final int THRUSTER_Y_OFFSET = 30;
@@ -65,27 +71,36 @@ public class SpaceShip extends Actor {
     }
 
     private TGraphicCompound initSprite() {
-        TGraphicCompound playerSprite = new TGraphicCompound(DIMENSION);
+        var sprite = new TGraphicCompound(DIMENSION);
 
         // Thruster
         spaceshipThrusters.setOrigin(new TPoint(this.origin.x, this.origin.y + THRUSTER_Y_OFFSET));
 
-        playerSprite.add(spaceshipThrusters);
-        playerSprite.add(PlayerShip.shipSprite(playerNumber()));
-        if (Game.DEBUG_MODE) { playerSprite.add(new TRect(DIMENSION)); }
+        sprite.add(spaceshipThrusters);
+        sprite.add(PlayerShip.shipSprite(playerNumber()));
+        if (Game.DEBUG_MODE) {
+            TRect debugRect = new TRect(COLLISION_DIM);
+            debugRect.setOrigin(COLLISION_SHAPE_OFFSET);
+            debugRect.outlineColor = Color.RED;
+            sprite.add(debugRect);
+        }
 
-        return playerSprite;
+        return sprite;
     }
 
     protected TPhysicsComponent initPhysics() {
+        // Movement
         boolean isStatic = false;
-        boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, DIMENSION);
-
-        // Feel free to change this if the speed isn't right
         velocity = new TVelocity(SPEED, INITIAL_DIRECTION);
 
-        return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
+        // Collisions
+        boolean hasCollisions = true;
+        var collisionRect = new CollisionRect(COLLISION_SHAPE_OFFSET, COLLISION_DIM);
+
+        var physics = new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
+        physics.setCollisionShapeOffset(COLLISION_SHAPE_OFFSET);
+
+        return physics;
     }
 
     // TODO: Reduce calculations here, maybe use a boundary to be able to easily check if player is within it

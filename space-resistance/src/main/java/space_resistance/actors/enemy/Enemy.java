@@ -39,12 +39,12 @@ public class Enemy extends Actor {
     private long lastBarrageTime;
     private long lastBulletFired;
 
-    public Enemy(EnemyType type, TPoint origin, Dimension dimension, int level) {
+    public Enemy(EnemyType type, TPoint origin, int level) {
         this.type = type;
-        this.dimension = dimension;
-        this.scoreWorth = EnemyConstants.scoreValue(type);
         this.level = level;
-        this.health = EnemyConstants.enemyHealth(type, level);
+        this.dimension = EnemyConstants.dimension(type);
+        this.scoreWorth = EnemyConstants.scoreValue(type);
+        this.health = EnemyConstants.initialHealth(type, level);
 
         destroyWhenOffScreen = true;
 
@@ -55,16 +55,23 @@ public class Enemy extends Actor {
     }
 
     private TGraphicCompound initSprite() {
-        TGraphicCompound enemySprite = new TGraphicCompound(dimension);
-        EnemyShip enemy = EnemyShip.shipFor(type);
-        enemySprite.add(enemy);
+        var sprite = new TGraphicCompound(dimension);
+        var ship = EnemyShip.shipFor(type);
+        sprite.add(ship);
 
         // TODO: Remove before submitting, replace this whole method with simple call to EnemyShip.shipFor()
         if (Game.DEBUG_MODE) {
-            enemySprite.add(new TRect(new Dimension(dimension.width, dimension.height)));
+            TRect debugRect = new TRect(EnemyConstants.collisionShapeDimension(type));
+            var collisionOffset = new TPoint(
+                    (dimension.width - debugRect.dimension().width) * 0.5,
+                    (dimension.height - debugRect.dimension().height) * 0.5
+            );
+            debugRect.setOrigin(collisionOffset);
+            debugRect.outlineColor = Color.RED;
+            sprite.add(debugRect);
         }
 
-        return enemySprite;
+        return sprite;
     }
 
     public void spawnInWorld(GameWorld world) {
@@ -72,15 +79,27 @@ public class Enemy extends Actor {
     }
 
     protected TPhysicsComponent initPhysics() {
+        // Movement
         boolean isStatic = false;
-        boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(EnemyConstants.enemySpeed(type, level), DIRECTION);
+        velocity = new TVelocity(EnemyConstants.speed(type, level), DIRECTION);
 
-        return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
+        // Collisions
+        boolean hasCollisions = true;
+        var collisionDimension = EnemyConstants.collisionShapeDimension(type);
+        var collisionOffset = new TPoint(
+                (dimension.width - collisionDimension.width) * 0.5,
+                (dimension.height - collisionDimension.height) * 0.5
+        );
+        var collisionRect = new CollisionRect(collisionOffset, collisionDimension);
+
+        var physics = new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
+        physics.setCollisionShapeOffset(collisionOffset);
+
+        return physics;
     }
 
     public void update() {
+        if (world == null) { return; }
         long currentTime = System.currentTimeMillis();
 
         if (bulletsThisBarrage <= 0) {
@@ -92,7 +111,7 @@ public class Enemy extends Actor {
         if (currentTime > lastBarrageTime + barrageCoolDown) {
             // we can start next barrage of bullets
             if (currentTime > lastBulletFired + (BASE_TIME_BETWEEN_BULLETS - level * 2L)) {
-                TPoint bulletOffset = EnemyConstants.enemyBulletSpawnOffset(type);
+                TPoint bulletOffset = EnemyConstants.bulletSpawnOffset(type);
                 var bullet = new EnemyBullet(
                     type,
                     new TPoint(this.origin.x + bulletOffset.x, this.origin.y + bulletOffset.y)
@@ -106,14 +125,13 @@ public class Enemy extends Actor {
     }
 
     public int scoreValue() {
-        // Ensures we only add the score one time regardless of number of collisions before destruction frame
+        // Ensure we only add the score one time regardless of number of collisions before destruction frame
         int scoreToAdd = scoreWorth;
         scoreWorth = 0;
 
         return scoreToAdd;
     }
 
-    // lets this enemy take damage and returns whether the enemy died ?
     public boolean takeDamage(int damageToTake) {
         health -= damageToTake;
 

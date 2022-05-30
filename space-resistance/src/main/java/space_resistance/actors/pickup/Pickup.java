@@ -46,14 +46,16 @@ public class Pickup extends Actor {
     // TODO: Convert this to a simple sprite instead of a TGraphicCompound (unnecessary bloat) before submitting
     private TGraphicObject initSprite() {
         // Pickup Sprite
-        TGraphicCompound pickup = new TGraphicCompound(dimension);
-        pickup.add(PickupSprite.pickupFor(type));
+        var sprite = new TGraphicCompound(dimension);
+        sprite.add(PickupSprite.pickupFor(type));
 
         if (Game.DEBUG_MODE) {
-            pickup.add(new TRect(new Dimension(dimension.width, dimension.height)));
+            TRect debugRect = new TRect(dimension);
+            debugRect.outlineColor = Color.RED;
+            sprite.add(debugRect);
         }
 
-        return pickup;
+        return sprite;
     }
 
     public PickupType type() {

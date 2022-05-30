@@ -36,7 +36,11 @@ public class PlayerBullet extends Bullet {
     protected TGraphicCompound initSprite() {
         var sprite = new TGraphicCompound(dimension());
         sprite.add(DefaultShot.fetchSprite());
-        if (Game.DEBUG_MODE) { sprite.add(new TRect(dimension())); }
+        if (Game.DEBUG_MODE) {
+            TRect debugRect = new TRect(dimension());
+            debugRect.outlineColor = Color.RED;
+            sprite.add(debugRect);
+        }
 
         return sprite;
     }

@@ -30,7 +30,7 @@ public class EnemyShot extends Sprite {
     }
 
     private EnemyShot(EnemyType type) {
-        super(shotSpriteFor(type), EnemyConstants.enemyBulletDimension(type));
+        super(shotSpriteFor(type), EnemyConstants.bulletDimensions(type));
     }
 
     private static InputStream shotSpriteFor(EnemyType type) {

@@ -29,7 +29,7 @@ public abstract class Actor {
         }
 
         if (physics != null) {
-            physics.collisionShape().setOrigin(origin);
+            physics.setOrigin(origin);
         }
     }
 
