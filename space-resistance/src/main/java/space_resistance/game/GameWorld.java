@@ -8,11 +8,13 @@ import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.pickup.Pickup;
 import space_resistance.actors.pickup.PickupType;
 import space_resistance.actors.spaceship.SpaceShip;
+import space_resistance.assets.SoundEffects;
 import space_resistance.assets.sprites.Background;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
 import space_resistance.utils.Notifier;
 import tengine.Actor;
+import tengine.audio.AudioClip;
 import tengine.geom.TPoint;
 import tengine.physics.collisions.events.CollisionEvent;
 import tengine.world.World;
@@ -22,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GameWorld extends World {
+    private static final AudioClip BACKGROUND_MUSIC = SoundEffects.shared().backgroundMusic();
     private static final Random RANDOM = new Random();
     private static final TPoint PLAYER_ONE_SPAWN_POS = new TPoint(270, 600);
     private static final TPoint PLAYER_TWO_SPAWN_POS = new TPoint(420, 600);
@@ -79,6 +82,11 @@ public class GameWorld extends World {
     }
 
     public void update(double dt) {
+        // Ugly hack to fix the audio stopping mid-game
+        if (!BACKGROUND_MUSIC.getLoopClip().isRunning()) {
+            BACKGROUND_MUSIC.playOnLoop();
+        }
+
         hud.update(dt);
         playerUpdates();
         handleBossTargeting(dt);
