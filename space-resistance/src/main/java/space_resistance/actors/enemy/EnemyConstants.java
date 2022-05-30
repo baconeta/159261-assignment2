@@ -31,7 +31,7 @@ public class EnemyConstants {
         };
     }
 
-    public static int enemyHealth(EnemyType type, int level) {
+    public static int initialHealth(EnemyType type, int level) {
         return switch (type) {
             case MITE        -> 50 + (level * 25);
             case GRASSHOPPER -> 100 + (level * 40);
@@ -40,12 +40,31 @@ public class EnemyConstants {
         };
     }
 
-    public static int enemySpeed(EnemyType type, int level) {
+    public static int speed(EnemyType type, int level) {
         return switch (type) {
             case MITE        -> 25 + (level * 5);
             case GRASSHOPPER -> 30 + (level * 10);
             case TARANTULA   -> 35 + (level * 10);
             case GOLIATH     -> 35 + (level * 5);
+        };
+    }
+
+    public static Dimension bulletDimensions(EnemyType type) {
+        return switch (type) {
+            case MITE        -> new Dimension(4, 40);
+            case GRASSHOPPER -> new Dimension(45, 40);
+            case TARANTULA   -> new Dimension(20, 40);
+            case GOLIATH     -> new Dimension(60, 40);
+        };
+    }
+
+
+    public static TPoint bulletSpawnOffset(EnemyType type) {
+        return switch (type) {
+            case MITE        -> new TPoint(35, 55);
+            case GRASSHOPPER -> new TPoint(15, 40);
+            case TARANTULA   -> new TPoint(26, 60);
+            case GOLIATH     -> new TPoint(45, 130);
         };
     }
 

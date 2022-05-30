@@ -32,11 +32,11 @@ public class EnemyBullet extends Bullet {
 
     @Override
     protected TGraphicCompound initSprite() {
-         var sprite = new TGraphicCompound(EnemyConstants.enemyBulletDimension(type));
+         var sprite = new TGraphicCompound(EnemyConstants.bulletDimensions(type));
          sprite.add(EnemyShot.shotFor(type));
          // TODO: Remove before submitting
          if (Game.DEBUG_MODE) {
-            TRect debugRect = new TRect(EnemyConstants.enemyBulletDimension(type));
+            TRect debugRect = new TRect(EnemyConstants.bulletDimensions(type));
             debugRect.outlineColor = Color.RED;
             sprite.add(debugRect);
          }
@@ -48,7 +48,7 @@ public class EnemyBullet extends Bullet {
     protected TPhysicsComponent initPhysics() {
         boolean isStatic = false;
         boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, EnemyConstants.enemyBulletDimension(type));
+        CollisionRect collisionRect = new CollisionRect(origin, EnemyConstants.bulletDimensions(type));
         velocity = new TVelocity(EnemyConstants.bulletSpeed(type), DIRECTION);
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
@@ -56,7 +56,7 @@ public class EnemyBullet extends Bullet {
 
     @Override
     protected Dimension dimension() {
-        return EnemyConstants.enemyBulletDimension(type);
+        return EnemyConstants.bulletDimensions(type);
     }
 
     public int bulletDamage() { return damage; }

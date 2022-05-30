@@ -41,10 +41,10 @@ public class Enemy extends Actor {
 
     public Enemy(EnemyType type, TPoint origin, Dimension dimension, int level) {
         this.type = type;
-        this.dimension = dimension;
-        this.scoreWorth = EnemyConstants.scoreValue(type);
         this.level = level;
-        this.health = EnemyConstants.enemyHealth(type, level);
+        this.dimension = EnemyConstants.dimension(type);
+        this.scoreWorth = EnemyConstants.scoreValue(type);
+        this.health = EnemyConstants.initialHealth(type, level);
 
         destroyWhenOffScreen = true;
 
@@ -94,7 +94,7 @@ public class Enemy extends Actor {
         if (currentTime > lastBarrageTime + barrageCooldown) {
             // we can start next barrage of bullets
             if (currentTime > lastBulletFired + (BASE_TIME_BETWEEN_BULLETS - level * 2L)) {
-                TPoint bulletOffset = EnemyConstants.enemyBulletSpawnOffset(type);
+                TPoint bulletOffset = EnemyConstants.bulletSpawnOffset(type);
                 var bullet = new EnemyBullet(
                     type,
                     new TPoint(this.origin.x + bulletOffset.x, this.origin.y + bulletOffset.y)
