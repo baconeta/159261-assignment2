@@ -35,7 +35,7 @@ public class Enemy extends Actor {
     private int bulletsThisBarrage = 0;
     private int bulletsPerBarrageMin = 3;
     private int bulletsPerBarrageMax = 8;
-    private int barrageCooldown;
+    private int barrageCoolDown;
     private long lastBarrageTime;
     private long lastBulletFired;
 
@@ -103,11 +103,11 @@ public class Enemy extends Actor {
 
         if (bulletsThisBarrage <= 0) {
             bulletsThisBarrage = RANDOM.nextInt(bulletsPerBarrageMin, bulletsPerBarrageMax);
-            barrageCooldown = RANDOM.nextInt(BARRAGE_CD_MIN, BARRAGE_CD_MAX);
+            barrageCoolDown = RANDOM.nextInt(BARRAGE_CD_MIN, BARRAGE_CD_MAX);
             lastBarrageTime = currentTime;
         }
 
-        if (currentTime > lastBarrageTime + barrageCooldown) {
+        if (currentTime > lastBarrageTime + barrageCoolDown) {
             // we can start next barrage of bullets
             if (currentTime > lastBulletFired + (BASE_TIME_BETWEEN_BULLETS - level * 2L)) {
                 TPoint bulletOffset = EnemyConstants.bulletSpawnOffset(type);
@@ -135,11 +135,6 @@ public class Enemy extends Actor {
         health -= damageToTake;
 
         return health <= 0;
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
     }
 
     public void setBulletsPerBarrageMin(int bulletsPerBarrageMin){

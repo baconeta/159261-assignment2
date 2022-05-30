@@ -13,12 +13,11 @@ public class World {
 
     public World(Dimension dimension) {
         canvas = new TGraphicCompound(dimension);
-        actors = new CopyOnWriteArrayList<>();
     }
 
     public void add(Actor actor) {
         actors.add(actor);
-        actor.addToWorld(this);
+        actor.setWorld(this);
         canvas.add(actor.graphic());
     }
 
