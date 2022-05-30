@@ -25,6 +25,12 @@ import java.util.Optional;
 
 public class SpaceShip extends Actor {
     private static final Dimension DIMENSION = new Dimension(64, 64);
+    private static final Dimension COLLISION_DIM = new Dimension((int) (DIMENSION.width * 0.9),
+     (int) (DIMENSION.height * 0.6));
+    private static final TPoint COLLISION_SHAPE_OFFSET = new TPoint(
+        (DIMENSION.width - COLLISION_DIM.width) * 0.5,
+        COLLISION_DIM.height * 0.3
+    );
     private static final int DELAY_BETWEEN_BULLETS = 50;
     private static final int SPEED = 200;
     private static final int THRUSTER_Y_OFFSET = 30;
@@ -73,7 +79,8 @@ public class SpaceShip extends Actor {
         sprite.add(spaceshipThrusters);
         sprite.add(PlayerShip.shipSprite(playerNumber()));
         if (Game.DEBUG_MODE) {
-            TRect debugRect = new TRect(DIMENSION);
+            TRect debugRect = new TRect(COLLISION_DIM);
+            debugRect.setOrigin(COLLISION_SHAPE_OFFSET);
             debugRect.outlineColor = Color.RED;
             sprite.add(debugRect);
         }

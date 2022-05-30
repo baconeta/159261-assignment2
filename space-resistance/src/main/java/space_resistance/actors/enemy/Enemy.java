@@ -61,7 +61,12 @@ public class Enemy extends Actor {
 
         // TODO: Remove before submitting, replace this whole method with simple call to EnemyShip.shipFor()
         if (Game.DEBUG_MODE) {
-            TRect debugRect = new TRect(dimension);
+            TRect debugRect = new TRect(EnemyConstants.collisionShapeDimension(type));
+            var collisionOffset = new TPoint(
+                    (dimension.width - debugRect.dimension().width) * 0.5,
+                    (dimension.height - debugRect.dimension().height) * 0.5
+            );
+            debugRect.setOrigin(collisionOffset);
             debugRect.outlineColor = Color.RED;
             sprite.add(debugRect);
         }
