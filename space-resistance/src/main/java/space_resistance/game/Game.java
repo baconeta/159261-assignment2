@@ -20,7 +20,7 @@ public class Game extends GameEngine {
     // TODO: remove if still unused before submitting
     public static final TPoint WINDOW_CENTER = new TPoint(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Space Resistance by Team Pew Pew!";
-    public static boolean DEBUG_MODE = true;
+    public static boolean DEBUG_MODE = false;
 
     private Screen activeScreen = null;
     private PlayGameScreen activeGame = null;
