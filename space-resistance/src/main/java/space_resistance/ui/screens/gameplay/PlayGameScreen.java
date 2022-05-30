@@ -29,11 +29,9 @@ public class PlayGameScreen implements Screen {
         screenChangeCallback.accept(ScreenIdentifier.SHOWING_GAME_OVER);
     }
 
-
     @Override
     public void handleKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
-            SoundEffects.shared().backgroundMusic().stopPlayingLoop();
             screenChangeCallback.accept(ScreenIdentifier.SHOWING_PAUSE);
         } else {
             world.handleKeyPressed(keyEvent);

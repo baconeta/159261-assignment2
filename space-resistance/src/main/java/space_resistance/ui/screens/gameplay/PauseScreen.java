@@ -30,6 +30,9 @@ public class PauseScreen implements Screen {
     public PauseScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;
 
+        // Stop background music
+        SoundEffects.shared().backgroundMusic().stopPlayingLoop();
+
         // Background
         background.setIsStatic(true);
 
@@ -62,7 +65,6 @@ public class PauseScreen implements Screen {
             case KeyEvent.VK_ENTER -> {
                 SoundEffects.shared().menuSelect().play();
                 if (buttonGroup.getFocussed() == resume) {
-                    SoundEffects.shared().backgroundMusic().playOnLoop();
                     // We set isStatic on the background to reset the changes we made when this PauseScreen was created
                     background.setIsStatic(false);
                     screenChangeCallback.accept(ScreenIdentifier.PLAYING);
