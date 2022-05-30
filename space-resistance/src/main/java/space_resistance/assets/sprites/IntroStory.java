@@ -1,7 +1,6 @@
 package space_resistance.assets.sprites;
 
 import space_resistance.assets.AssetLoader;
-import space_resistance.game.Game;
 import tengine.geom.TPoint;
 import tengine.graphics.components.TGraphicCompound;
 import tengine.graphics.components.sprites.Sprite;

@@ -3,7 +3,6 @@ package space_resistance.assets;
 import tengine.audio.AudioClip;
 
 public class SoundEffects {
-    // TODO: replace these with Ali's sound effects
     private static final String GAME_OVER = "game-over.wav";
     private static final AudioClip gameOver = new AudioClip(AssetLoader.load(GAME_OVER));
 
@@ -54,7 +53,7 @@ public class SoundEffects {
         return menuSelect;
     }
 
-    public AudioClip defaultPlayerShootingSound() {
+    public AudioClip shoot() {
         return playerShootingSound;
     }
 

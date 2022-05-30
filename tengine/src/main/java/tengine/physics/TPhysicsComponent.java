@@ -1,11 +1,13 @@
 package tengine.physics;
 
 import tengine.Actor;
+import tengine.geom.TPoint;
 import tengine.physics.collisions.shapes.CollisionRect;
 
 public class TPhysicsComponent {
     private final Actor actor;
 
+    private TPoint collisionShapeOffset = new TPoint();
     private CollisionRect collisionShape;
     private boolean isStatic;
     private boolean hasCollisions;
@@ -31,12 +33,20 @@ public class TPhysicsComponent {
         }
     }
 
+    public void setOrigin(TPoint origin) {
+        this.collisionShape.setOrigin(new TPoint(origin.x + collisionShapeOffset.x, origin.y + collisionShapeOffset.y));
+    }
+
     public CollisionRect collisionShape() {
         return collisionShape;
     }
 
     public void setCollisionShape(CollisionRect collisionShape) {
         this.collisionShape = collisionShape;
+    }
+
+    public void setCollisionShapeOffset(TPoint offset) {
+        collisionShapeOffset = offset;
     }
 
     public void setStatic(boolean b) {

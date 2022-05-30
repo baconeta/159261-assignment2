@@ -1,33 +1,7 @@
 # Space Resistance
 
-A classic Shoot 'em up game, built in Java using the TEngine designed almost entirely by Tessa.
-
-## Game Design
-
-Space Resistance is a classic shoot’em up game where the aim is to defeat as many enemy ships as possible.  The game is played in a 600px x 800px window.  Game score increases as they destroy enemy ships.  Moving up levels is achieved through destroying a certain number of enemy ships and defeating the boss.
-The player can move up, down, left, right and diagonally to position itself on the screen.  There are three different types of enemy ships in addition to the boss:
-- Mite (worth 100 points)
-- Grasshopper (worth 300 points)
-- Tarantula (worth 500 points)
-
-The boss, known as the Goliath, is worth 1000 points.
-
-As a player continues through the game, they will encounter a randomly generated set of enemies and a boss for each level in the game. After the boss is killed, the game gets more difficult and the next wave begins.
-The aim as a player is to achieve a high score, by surviving as long as possible. 
-
-There are pickup elements to help increase the players' survivability, including shields and health restoration modules. These are spawned randomly as enemies are killed
-
-### Game Graphics
-
-All game graphics and animations are original works of Ali Soltanian Fard Jahromi.  The inspiration for the design of the graphics for each enemy ship was from real world insects.  Hence, mite ships are inspired from mites, grasshoppers from grasshoppers, tarantula ships from tarantulas and the goliath ships from goliath beetles.
-Game graphics and animations were created with Blender (an open-source 3D computer graphics software).
-
-Visual cues were considered for letting the player know that each bullet has hit an enemy ship.  Animation and code was added so minor explosions are displayed when bullets impact the enemy ships which are different to the explosions for enemy ships being destroyed.
-
-### Game Audio
-
-Most of the game audio was created by Ali Soltanian Fard Jahromi by modifying audios recorded by the developers creating sounds using their mouths.  The sounds were modified to give the sound effects.
-
+A classic Shoot 'em up game with a rogue-like level system, built in Java, made by Ali Soltanian Fard Jahromi, Josh 
+Pearson, and Tessa Power.
 
 ## Requirements
 
@@ -73,32 +47,61 @@ A window should appear for you to play the game:
 
 The rules are simple:
 
-#### _Single player_
-
-- Use the arrow keys to control the ship, and the enter key to fire.
-- Hold down the fire key for rapid fire.
-- Dodge the enemy fire and take down the enemies.
-- Some enemies will drop pickups, such as health and shields. Fly into them to pick them up.
-
-#### _Multiplayer_
-
-- The single player controls remain the same in multiplayer mode - controlling the purple ship.
-- The second player uses WASD to move around and SHIFT to fire.
-- Players cannot shoot each other but must compete to survive and gain a higher score than their opponent.
+- Use the arrow keys to control the ship. In multiplayer mode, player two uses the W-A-S-D keys.
+- Press the enter key to fire (shift for player two), and hold down the fire key for rapid fire.
+- Dodge the enemy bullets and take down the enemies.
+- Some enemies will drop items, such as health and shields; fly into them to pick them up.
 
 ### Space Resistance Features
 
 - Level system getting gradually more difficult over time
+- Multiple different enemies, including bosses!
 - Boss fights with player-chasing AI
 - Multiplayer mode for competitive gameplay
-- Fully integrated pause menu and system
-- Completely custom design, graphics, code and sounds
+- Custom graphics, animations, and sound effects
 
 ### Future Improvements
 
 - Implementation of high-scores
 - Implementation of other objects (instead of only ships) flying towards the player
 - Implementation of other weapons or ammo system
+
+---
+
+## Game Design
+
+Space Resistance is a classic shoot’em-up style game with a rogue-like level system. The aim is to defeat as many 
+enemy ships as possible and get the highest score by surviving as long as possible!
+
+There are three different types of enemy ships, Mites, Grasshoppers, and Tarantulas:
+
+- [ ] Add images of enemies here
+
+There's also a boss, known as the "Goliath":
+
+- [ ] Add image of boss here, in different colors
+
+As the player continues through the game, they will encounter enemies and a Goliath. After the Goliath is killed, the 
+player advances to the next level. The next wave begins immediately, where the enemies will be tougher to beat. 
+Players can watch out for pickup items on their mission, including shields and health. These are dropped randomly by 
+enemies that are killed.
+
+### Graphics
+
+All game graphics and animations are original works of Ali Soltanian Fard Jahromi using Blender. The inspiration for the design of the 
+graphics for each enemy ship was from real world insects, e.g. the Goliath boss was inspired by the Goliath beetle. 
+
+A few nice touches to look out for:
+
+- Subtle impact explosions as bullets hit an enemy ship
+- Epic explosions as the enemies are finally destroyed!
+
+### Audio
+
+Ali Soltanian Fard Jahromi created the game audio by modifying and mixing sounds recorded by Josh. If you listen closely, you'll 
+hear Josh shouting "pew pew!" as the player fires bullets!
+
+Background Music by: [Steven Melin](https://stevenmelin.com)
 
 ---
 
@@ -136,6 +139,10 @@ pattern. It's a work in progress, so the following is only a brief summary:
 - Actors & Actor Management: Supported ✅
 - World Management: Supported ✅
 
+### The `EnemySpawningSystem`
+
+- [ ] Write up something about the ESS and how it manages the enemies
+
 ### The `GameWorld`
 
 The `GameWorld` coordinates the gameplay and manages the interactions between actors depending on the game 
@@ -147,26 +154,33 @@ configuration.
 
 ### Screen Management
 
+- [ ] TODO: shorten this, it is too long and prominent.
+
 At a higher level than the `GameWorld` is the `PlayGameScreen`, which is, as the name suggests, the screen that is
 loaded when the user starts playing the game. We also have the `MenuScreen`, which internally is made up of
-smaller `Menu`s, and the `GameOverScreen`. To manage moving between all of these screens at a higher level, we have the
-`Game` class, which extends the `TEngine` game engine, and is the entry point for the program. The `Game` is where we
-initially set up everything needed for Space Resistance, and then it manages loading and unloading each of these 
-screens. It then listens for callbacks from each screen to know when to transition and which screen to load next.
+smaller `Menu`s, and the `GameOverScreen`. To manage moving between all of these screens at yet another higher level,
+we have the `Game` class, which extends the `TEngine` game engine, and is the entry point for the program. The 
+`Game` is where we initially set up everything needed for Space Resistance, and then it manages loading and unloading
+each of these screens. It then listens for callbacks from each screen to know when to transition and which screen 
+to load next.
 
 ![`GameWorld` managing interactions](docs/images/screen-management.png)
+
+- [ ] TODO: shorten this, it is too long and prominent.
 
 The first screen loaded is the `MenuScreen`, which lets the player select the game configuration and makes
 that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is loaded, it updates the
 `GameState` so that when the game is over and the `GameOverScreen` is loaded, it can be passed the `GameState` and
 display the results.
 
-
+---
 
 ## Attributions
 
-### Ali Soltanian Fard Jahromi:
-#### Lead Game and Level Designer
+- In-game music by [Steven Melin](https://stevenmelin.com), free for personal and commercial use.
+
+### Ali Soltanian Fard Jahromi: Lead Game and Level Designer
+
 - Game art and animations, including Sprites and UI elements
 - Player setup, including player controls, systems and gameplay design
 - Firing systems for both the enemies and players, including bosses
@@ -174,30 +188,32 @@ display the results.
 - HUD system design and programming
 - Explosions system for enemies and bosses
 - Pausing system and pause menu design
-- Created and added all sound effects and music
-- World handling for out of screen actors and boundary system for player
+- Created and added all sound effects
+- Boundary system for player
 - Enemy type and class system design and programming
+- Level system implementation
 
-### Joshua Pearson:
-#### Producer and Project Lead
-- VCS, organisation and production processes
-- Enemy Spawning system
-- Enemy Wave design and functionality including boss transitions
-- Class refactoring and consistency 
-- Collision management and optimisation (game level)
+### Joshua Pearson: Producer, Project Lead, and Development
+
+- VCS, organisation, and production processes
+- Enemy spawning system design and implementation
+- Enemy wave and boss transitions design and implementation
+- Collision management and optimisation
 - Pickup system, shield system and functionality
-- Simple boss AI system
-- Enemy type and class system programming
-- Multiplayer tidy up and implementation
+- Boss AI system that tracks player movement
+- Enemies and Boss design and implementation
+- Multiplayer mode design and implementation
+- Level system implementation
+- Firing systems for enemies, including bosses
 
-### Tessa Power:
-#### Engine and Tools Lead Developer
-- Completely designed ECS Game Engine from the ground up including elements such as:
-  1. Physics engine with momentum and collisions system
-  2. Actor system for game world objects requiring components and control
-  3. Abstracted Graphical system used for visual elements, animations and Actors.
-  4. Flyweight design for asset optimisation
-  5. Mediator pattern for screen systems and data handling
-- Global system code control plus all quality checks and fixes
-- Complete game backend optimisation
-- Game foundation and system set up
+### Tessa Power: Engine, Tools, and Game Development
+
+- Initial game structure (menu, screens, and transitions) design and implementation
+- TEngine design and implementation including:
+  - Broad-phase collision detection
+  - Collision events notifier
+  - Offset collision shapes
+  - ECS for Actors to represent game objects
+- HUD system implementation
+- Flyweight pattern for asset optimisation
+- Mediator pattern for screen systems and data handling

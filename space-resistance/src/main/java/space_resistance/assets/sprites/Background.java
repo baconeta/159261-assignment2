@@ -33,7 +33,6 @@ public class Background extends TGraphicCompound {
     this.isStatic = isStatic;
   }
 
-  // update method
   @Override
   public void update(double dtMillis) {
     if (!isStatic) {

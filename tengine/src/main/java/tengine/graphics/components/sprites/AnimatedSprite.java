@@ -17,7 +17,6 @@ public class AnimatedSprite extends TGraphicObject {
     protected SpriteSequence currentSequence;
     protected int currentFrame;
     protected Consumer<SpriteSequence> sequenceEnd = null;
-    protected boolean isPaused = false;
 
     protected AnimatedSprite(InputStream is, Dimension frameDimension, int fps, SpriteSequence currentSequence) {
         super(frameDimension);
@@ -30,24 +29,22 @@ public class AnimatedSprite extends TGraphicObject {
 
     @Override
     public void update(double dtSecs) {
-        if (!isPaused) {
-            elapsedSecs += dtSecs;
+        elapsedSecs += dtSecs;
 
-            if (currentSequence.loops() || currentFrame != currentSequence.lastFrame()) {
-                int framesToSkip = (int) (elapsedSecs / (1.0 / fps));
-                if (!currentSequence.loops()) {
-                    framesToSkip = Math.min(framesToSkip, currentSequence.lastFrame() - currentFrame);
-                }
-                currentFrame = (currentFrame + framesToSkip) % currentSequence.numFrames();
+        if (currentSequence.loops() || currentFrame != currentSequence.lastFrame()) {
+            int framesToSkip = (int) (elapsedSecs / (1.0 / fps));
+            if (!currentSequence.loops()) {
+                framesToSkip = Math.min(framesToSkip, currentSequence.lastFrame() - currentFrame);
             }
-
-            // TODO: only notify once if not looping
-            if (currentFrame == currentSequence.lastFrame() && sequenceEnd != null) {
-                sequenceEnd.accept(currentSequence);
-            }
-
-            elapsedSecs %= (1.0 / fps);
+            currentFrame = (currentFrame + framesToSkip) % currentSequence.numFrames();
         }
+
+        // TODO: only notify once if not looping
+        if (currentFrame == currentSequence.lastFrame() && sequenceEnd != null) {
+            sequenceEnd.accept(currentSequence);
+        }
+
+        elapsedSecs %= (1.0 / fps);
     }
 
     @Override
@@ -77,11 +74,6 @@ public class AnimatedSprite extends TGraphicObject {
         return buffered.getSubimage((int)point.x, (int)point.y, dimension.width, dimension.height);
     }
 
-    public void setPaused(boolean paused){
-        isPaused = paused;
-    }
-
-    // TODO: Add to engine
     public void resetAnimation() {
         currentFrame = 0;
     }

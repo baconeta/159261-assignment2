@@ -8,11 +8,13 @@ import space_resistance.actors.enemy.Enemy;
 import space_resistance.actors.pickup.Pickup;
 import space_resistance.actors.pickup.PickupType;
 import space_resistance.actors.spaceship.SpaceShip;
+import space_resistance.assets.SoundEffects;
 import space_resistance.assets.sprites.Background;
 import space_resistance.settings.MultiplayerMode;
 import space_resistance.ui.screens.gameplay.HeadsUpDisplay;
 import space_resistance.utils.Notifier;
 import tengine.Actor;
+import tengine.audio.AudioClip;
 import tengine.geom.TPoint;
 import tengine.physics.collisions.events.CollisionEvent;
 import tengine.world.World;
@@ -22,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GameWorld extends World {
+    private static final AudioClip BACKGROUND_MUSIC = SoundEffects.shared().backgroundMusic();
     private static final Random RANDOM = new Random();
     private static final TPoint PLAYER_ONE_SPAWN_POS = new TPoint(270, 600);
     private static final TPoint PLAYER_TWO_SPAWN_POS = new TPoint(420, 600);
@@ -79,6 +82,11 @@ public class GameWorld extends World {
     }
 
     public void update(double dt) {
+        // Ugly hack to fix the audio stopping mid-game
+        if (!BACKGROUND_MUSIC.getLoopClip().isRunning()) {
+            BACKGROUND_MUSIC.playOnLoop();
+        }
+
         hud.update(dt);
         playerUpdates();
         handleBossTargeting(dt);
@@ -92,14 +100,14 @@ public class GameWorld extends World {
             playerTwo.update();
             if (gameState.playerTwo().healthRemaining() <= 0) {
                 playerTwo.getPlayer().playerDied();
-                playerTwo.removeFromWorld();
+                playerTwo.markPendingKill();
                 if (playerOne.getPlayer().dead()) {
                     setGameOver();
                 }
             }
             if (gameState.playerOne().healthRemaining() <= 0) {
                 playerOne.getPlayer().playerDied();
-                playerOne.removeFromWorld();
+                playerOne.markPendingKill();
                 if (playerTwo.getPlayer().dead()) {
                     setGameOver();
                 }
@@ -142,10 +150,10 @@ public class GameWorld extends World {
 
         if (a instanceof SpaceShip player && (b instanceof Enemy || b instanceof EnemyBullet || b instanceof Pickup)) {
             player.collision(b);
-            b.removeFromWorld();
+            b.markPendingKill();
         } else if (b instanceof SpaceShip player && (a instanceof Enemy || a instanceof EnemyBullet || a instanceof Pickup)) {
             player.collision(a);
-            a.removeFromWorld();
+            a.markPendingKill();
         } else if (a instanceof Enemy enemy && b instanceof PlayerBullet playerBullet) {
             handleEnemyDamage(playerBullet, enemy);
         } else if (a instanceof PlayerBullet playerBullet && b instanceof Enemy enemy) {
@@ -165,12 +173,12 @@ public class GameWorld extends World {
                 enemy.origin().y + enemy.graphic().height() * 0.25);
             trySpawnPickup(possiblePickupLocation);
 
-            enemy.removeFromWorld();
+            enemy.markPendingKill();
         }
 
         add(new ImpactExplosion(this, new TPoint(playerBullet.origin().x - 15, playerBullet.origin().y - 20)));
 
-        playerBullet.removeFromWorld();
+        playerBullet.markPendingKill();
     }
 
     private void trySpawnPickup(TPoint locationToSpawn) {

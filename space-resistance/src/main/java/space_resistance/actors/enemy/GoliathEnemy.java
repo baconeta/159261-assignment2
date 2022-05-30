@@ -13,8 +13,8 @@ public class GoliathEnemy extends Enemy {
 
     private EnemySpawningSystem enemySpawningSystem;
 
-    public GoliathEnemy(EnemyType type, TPoint origin, Dimension dimension, int level) {
-        super(type, origin, dimension, level);
+    public GoliathEnemy(EnemyType type, TPoint origin, int level) {
+        super(type, origin, level);
     }
 
     public void spawnBoss(EnemySpawningSystem ess) {

@@ -18,18 +18,15 @@ public class IntroStoryScreen implements Screen {
     private final TGraphicCompound graphic;
 
     private final ButtonGroup buttonGroup;
-    private final Button continueToGame;
-
-    private final IntroStory introStoryAsset = IntroStory.getInstance();
 
     public IntroStoryScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;
 
         // Background
-        introStoryAsset.setIsStatic(true);
+        IntroStory introStoryAsset = IntroStory.getInstance();
 
         // Buttons
-        continueToGame = new Button("PRESS ENTER TO CONTINUE");
+        Button continueToGame = new Button("PRESS ENTER TO CONTINUE");
         continueToGame.setOrigin(new TPoint(155, 690));
 
         buttonGroup = new ButtonGroup(continueToGame);
@@ -46,11 +43,14 @@ public class IntroStoryScreen implements Screen {
             case KeyEvent.VK_RIGHT -> buttonGroup.next();
             case KeyEvent.VK_ENTER -> {
                 SoundEffects.shared().menuSelect().play();
-                SoundEffects.shared().backgroundMusic().playOnLoop();
-                introStoryAsset.setIsStatic(false);
                 screenChangeCallback.accept(ScreenIdentifier.PLAYING);
             }
         }
+    }
+
+    @Override
+    public void handleKeyReleased(KeyEvent event) {
+        // No-op
     }
 
     @Override
@@ -66,11 +66,6 @@ public class IntroStoryScreen implements Screen {
     @Override
     public ScreenIdentifier screen() {
         return ScreenIdentifier.SHOWING_GAME_OVER;
-    }
-
-    @Override
-    public void handleKeyReleased(KeyEvent event) {
-        // No-op
     }
 
     @Override

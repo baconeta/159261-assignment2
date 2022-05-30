@@ -20,7 +20,7 @@ public class Game extends GameEngine {
     // TODO: remove if still unused before submitting
     public static final TPoint WINDOW_CENTER = new TPoint(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Space Resistance by Team Pew Pew!";
-    public static boolean DEBUG_MODE = false;
+    public static boolean DEBUG_MODE = true;
 
     private Screen activeScreen = null;
     private PlayGameScreen activeGame = null;
@@ -45,18 +45,22 @@ public class Game extends GameEngine {
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        activeScreen.handleKeyPressed(keyEvent);
+        if (activeScreen != null) {
+            activeScreen.handleKeyPressed(keyEvent);
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        activeScreen.handleKeyReleased(keyEvent);
+        if (activeScreen != null) {
+            activeScreen.handleKeyReleased(keyEvent);
+        }
     }
 
     @Override
     public void onCollision(CollisionEvent event) {
-        if (activeScreen instanceof PlayGameScreen playGameScreen) {
-            playGameScreen.handleCollisionEvent(event);
+        if (activeScreen == activeGame) {
+            activeGame.handleCollisionEvent(event);
         }
     }
 
