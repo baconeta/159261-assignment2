@@ -45,18 +45,22 @@ public class Game extends GameEngine {
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        activeScreen.handleKeyPressed(keyEvent);
+        if (activeScreen != null) {
+            activeScreen.handleKeyPressed(keyEvent);
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        activeScreen.handleKeyReleased(keyEvent);
+        if (activeScreen != null) {
+            activeScreen.handleKeyReleased(keyEvent);
+        }
     }
 
     @Override
     public void onCollision(CollisionEvent event) {
-        if (activeScreen instanceof PlayGameScreen playGameScreen) {
-            playGameScreen.handleCollisionEvent(event);
+        if (activeScreen == activeGame) {
+            activeGame.handleCollisionEvent(event);
         }
     }
 
