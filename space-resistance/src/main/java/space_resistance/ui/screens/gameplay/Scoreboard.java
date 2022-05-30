@@ -44,12 +44,15 @@ class Scoreboard extends TGraphicCompound {
 
     @Override
     public void update(double dtMillis) {
-        if (player.shieldEnabled()) {
-            healthLabel.setText("Health: " + (player.healthRemaining() + player.shieldHealth()));
-            healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
-        } else if (player.dead()) {
+        if (player.dead()) {
             healthLabel.setText("Health: DEAD");
             healthLabel.setColor(Colors.Text.PLAYER_DEAD);
+        } else if (player.missileActive()) {
+            healthLabel.setText("Health: " + player.healthRemaining());
+            healthLabel.setColor(Colors.VIOLENT_PINK);
+        } else if (player.shieldEnabled()) {
+            healthLabel.setText("Health: " + (player.healthRemaining() + player.shieldHealth()));
+            healthLabel.setColor(Colors.Text.SHIELD_ENABLED);
         } else {
             healthLabel.setText("Health: " + player.healthRemaining());
             healthLabel.setColor(Colors.Text.PRIMARY);

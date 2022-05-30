@@ -13,6 +13,8 @@ public class Player {
     private int shieldValue = STARTING_SHIELD;
     private boolean shieldsOn = false;
     private boolean isDead = false;
+    private boolean hasMissile = false;
+    private long missileStartTime;
 
     public Player(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
@@ -71,7 +73,7 @@ public class Player {
                 shieldsOn = true;
                 shieldValue += 25;
             }
-            case MISSILE -> {}
+            case MISSILE -> pickupMissile();
         }
     }
 
@@ -89,6 +91,23 @@ public class Player {
 
     public boolean dead() {
         return isDead;
+    }
+
+    public void pickupMissile() {
+        hasMissile = true;
+        missileStartTime = System.currentTimeMillis();
+    }
+
+    public boolean missileActive() {
+        return hasMissile;
+    }
+
+    public void deactivateMissile() {
+        hasMissile = false;
+    }
+
+    public long missileTimer() {
+        return missileStartTime;
     }
 
 }

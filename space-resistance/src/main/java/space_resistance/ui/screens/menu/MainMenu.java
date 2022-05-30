@@ -24,7 +24,6 @@ class MainMenu extends SubMenu {
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
 
-
         title.setOrigin(new TPoint(100, 230));
 
         onePlayer = new Button("SINGLE PLAYER");

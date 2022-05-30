@@ -30,6 +30,7 @@ public class GoliathEnemy extends Enemy {
 
     @Override
     public void update() {
+        if (world == null) { return; }
         super.update();
 
         if (origin.y >= MAX_TRAVEL_DISTANCE && velocity.speed() > 0) {
