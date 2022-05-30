@@ -124,14 +124,13 @@ public class Enemy extends Actor {
     }
 
     public int scoreValue() {
-        // Ensures we only add the score one time regardless of number of collisions before destruction frame
+        // Ensure we only add the score one time regardless of number of collisions before destruction frame
         int scoreToAdd = scoreWorth;
         scoreWorth = 0;
 
         return scoreToAdd;
     }
 
-    // lets this enemy take damage and returns whether the enemy died ?
     public boolean takeDamage(int damageToTake) {
         health -= damageToTake;
 
