@@ -99,6 +99,7 @@ public class Enemy extends Actor {
     }
 
     public void update() {
+        if (world == null) { return; }
         long currentTime = System.currentTimeMillis();
 
         if (bulletsThisBarrage <= 0) {
