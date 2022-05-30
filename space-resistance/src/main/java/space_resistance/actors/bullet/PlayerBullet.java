@@ -23,7 +23,7 @@ public class PlayerBullet extends Bullet {
 
     public PlayerBullet(TPoint origin, Player instigator) {
         super(origin);
-        SoundEffects.shared().defaultPlayerShootingSound().play(5);
+        SoundEffects.shared().shoot().play(5);
         this.instigator = instigator;
 
         graphic = initSprite();
