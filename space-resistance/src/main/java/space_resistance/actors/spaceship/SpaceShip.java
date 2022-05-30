@@ -89,14 +89,18 @@ public class SpaceShip extends Actor {
     }
 
     protected TPhysicsComponent initPhysics() {
+        // Movement
         boolean isStatic = false;
-        boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, DIMENSION);
-
-        // Feel free to change this if the speed isn't right
         velocity = new TVelocity(SPEED, INITIAL_DIRECTION);
 
-        return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
+        // Collisions
+        boolean hasCollisions = true;
+        var collisionRect = new CollisionRect(COLLISION_SHAPE_OFFSET, COLLISION_DIM);
+
+        var physics = new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
+        physics.setCollisionShapeOffset(COLLISION_SHAPE_OFFSET);
+
+        return physics;
     }
 
     // TODO: Reduce calculations here, maybe use a boundary to be able to easily check if player is within it

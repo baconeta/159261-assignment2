@@ -79,12 +79,23 @@ public class Enemy extends Actor {
     }
 
     protected TPhysicsComponent initPhysics() {
+        // Movement
         boolean isStatic = false;
-        boolean hasCollisions = true;
-        CollisionRect collisionRect = new CollisionRect(origin, graphic.dimension());
-        velocity = new TVelocity(EnemyConstants.enemySpeed(type, level), DIRECTION);
+        velocity = new TVelocity(EnemyConstants.speed(type, level), DIRECTION);
 
-        return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
+        // Collisions
+        boolean hasCollisions = true;
+        var collisionDimension = EnemyConstants.collisionShapeDimension(type);
+        var collisionOffset = new TPoint(
+                (dimension.width - collisionDimension.width) * 0.5,
+                (dimension.height - collisionDimension.height) * 0.5
+        );
+        var collisionRect = new CollisionRect(collisionOffset, collisionDimension);
+
+        var physics = new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
+        physics.setCollisionShapeOffset(collisionOffset);
+
+        return physics;
     }
 
     public void update() {
