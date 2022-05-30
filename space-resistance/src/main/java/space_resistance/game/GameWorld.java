@@ -31,9 +31,9 @@ public class GameWorld extends World {
     private static final TPoint PLAYER_ONE_SPAWN_POS_MP = new TPoint(120, 600);
 
     // Pickups
-    private static final double chanceHealth = 0.05;
+    private static final double chanceHealth = 0.06;
     private static final double chanceShield = 0.04;
-    private static final double chanceMissiles = 0.03;
+    private static final double chanceMissiles = 0.04;
 
     private final Notifier gameOverNotifier;
     private final GameState gameState;
