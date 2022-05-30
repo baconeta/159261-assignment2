@@ -5,22 +5,20 @@ import tengine.geom.TPoint;
 import java.awt.*;
 
 public class EnemyConstants {
-
-    public static Dimension enemyBulletDimension(EnemyType type) {
+    public static Dimension dimension(EnemyType type) {
         return switch (type) {
-            case MITE -> new Dimension(4, 40);
-            case GRASSHOPPER -> new Dimension(45, 40);
-            case TARANTULA -> new Dimension(20, 40);
-            case GOLIATH -> new Dimension(60, 40);
+            case MITE, GRASSHOPPER, TARANTULA -> new Dimension(72, 72);
+            case GOLIATH                      -> new Dimension(144, 144);
         };
     }
 
-    public static TPoint enemyBulletSpawnOffset(EnemyType type) {
+    public static Dimension collisionShapeDimension(EnemyType type) {
+        var spriteDim = dimension(type);
         return switch (type) {
-            case MITE -> new TPoint(35, 55);
-            case GRASSHOPPER -> new TPoint(15, 40);
-            case TARANTULA -> new TPoint(26, 60);
-            case GOLIATH -> new TPoint(45, 130);
+            case MITE        -> new Dimension((int) (spriteDim.width * 0.7), (int) (spriteDim.height * 0.3));
+            case GRASSHOPPER -> new Dimension((int) (spriteDim.width * 0.7), (int)(spriteDim.height * 0.4));
+            case TARANTULA   -> new Dimension((int) (spriteDim.width * 0.6), (int) (spriteDim.height * 0.6));
+            case GOLIATH     -> new Dimension((int) (spriteDim.width * 0.7), (int) (spriteDim.height * 0.6));
         };
     }
 
