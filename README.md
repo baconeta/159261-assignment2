@@ -74,18 +74,22 @@ Space Resistance is a classic shoot’em-up style game with a rogue-like level s
 enemy ships as possible and get the highest score by surviving as long as possible!
 
 There are three different types of enemy ships, Mites, Grasshoppers, and Tarantulas:
-
+<p float="left"> 
 <img src="space-resistance/src/main/resources/MiteEnemy.png" alt="drawing" width="200"/>
 <img src="space-resistance/src/main/resources/GrasshopperEnemy.png" alt="drawing" width="200"/>
 <img src="space-resistance/src/main/resources/TarantulaEnemy.png" alt="drawing" width="200"/>
+</p>
+
 
 There's also a boss, known as the "Goliath":
 
-
+<p float="left"> 
 <img src="space-resistance/src/main/resources/GoliathBlack.png" alt="drawing" width="200"/>
 <img src="space-resistance/src/main/resources/GoliathRed.png" alt="drawing" width="200"/>
 <img src="space-resistance/src/main/resources/GoliathBlue.png" alt="drawing" width="200"/>
 <img src="space-resistance/src/main/resources/GoliathOrange.png" alt="drawing" width="200"/>
+</p>
+
 
 As the player continues through the game, they will encounter enemies and a Goliath. After the Goliath is killed, the 
 player advances to the next level. The next wave begins immediately, where the enemies will be tougher to beat. 
