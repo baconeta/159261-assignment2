@@ -75,11 +75,17 @@ enemy ships as possible and get the highest score by surviving as long as possib
 
 There are three different types of enemy ships, Mites, Grasshoppers, and Tarantulas:
 
-- [ ] Add images of enemies here
+<img src="space-resistance/src/main/resources/MiteEnemy.png" alt="drawing" width="200"/>
+<img src="space-resistance/src/main/resources/GrasshopperEnemy.png" alt="drawing" width="200
+<img src="space-resistance/src/main/resources/TarantulaEnemy.png" alt="drawing" width="200"/>
 
 There's also a boss, known as the "Goliath":
 
-- [ ] Add image of boss here, in different colors
+
+<img src="space-resistance/src/main/resources/GoliathBlack.png" alt="drawing" width="200"/>
+<img src="space-resistance/src/main/resources/GoliathRed.png" alt="drawing" width="200"/>
+<img src="space-resistance/src/main/resources/GoliathBlue.png" alt="drawing" width="200"/>
+<img src="space-resistance/src/main/resources/GoliathOrange.png" alt="drawing" width="200"/>
 
 As the player continues through the game, they will encounter enemies and a Goliath. After the Goliath is killed, the 
 player advances to the next level. The next wave begins immediately, where the enemies will be tougher to beat. 
