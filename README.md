@@ -18,7 +18,7 @@ This project was developed using the Maven build system. When first opening the 
 plugins and dependencies being downloaded. It may take a minute for the project to process and index all the build
 files.
 
-⚠️ Please do **not** delete the `.idea` directory—it contains the "Run Game" configuration necessary for you to
+⚠️ Please do **not** delete the `.run` directory—it contains the "Run Game" configuration necessary for you to
 build and run the game.
 
 When the project has loaded, you will find the Run Game configuration in the menu bar
@@ -126,7 +126,7 @@ external `TEngine` project, which has been included locally as a module to simpl
 The project is organised to work with the Maven build system—you can find all the source code in 
 `./space-resistance/src/main/java/`.
 
-Within the source files, there are the following packages:
+Within the source files, there are two packages, `space-resistance` and `tengine`:
 
 ![`Packages` basic package diagram](docs/images/basic-package-diagram.PNG)
 
@@ -176,7 +176,7 @@ to load next.
 ![`GameWorld` managing interactions](docs/images/screen-management.png)
 
 The first screen loaded is the `MenuScreen`, which lets the player select the game configuration and makes
-that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is loaded, it updates the
+that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is active, it updates the
 `GameState` so that when the game is over and the `GameOverScreen` is loaded, it can be passed the `GameState` and
 display the results.
 
