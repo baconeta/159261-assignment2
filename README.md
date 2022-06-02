@@ -62,7 +62,7 @@ The rules are simple:
 
 ### Future Improvements
 
-- Implementation of high-scores
+- Implementation of a high-scores system
 - Implementation of other objects (instead of only ships) flying towards the player
 - Implementation of other weapons or ammo system
 
@@ -130,7 +130,7 @@ The project is organised to work with the Maven build system—you can find all 
 
 Within the source files, there are the following packages:
 
-- [ ] Add package diagram
+![`Packages` basic package diagram](docs/images/basic-package-diagram.PNG)
 
 ### `TEngine`
 
@@ -151,20 +151,21 @@ pattern. It's a work in progress, so the following is only a brief summary:
 
 ### The `EnemySpawningSystem`
 
-- [ ] Write up something about the ESS and how it manages the enemies
+- The Enemy Spawning System was designed from the ground up to be flexible and as abstract as possible while 
+fitting the constraints of the game. It is created with a STATE that handles the processing of everything within the 
+system, including all enemies that it spawns into the world. This also passes update calls from the game world to each 
+relevant actor inside the system (enemies and bosses). An EnemyWave object (part of system) is made up of some static 
+constants for game design and a list of enemies which is generated when a new Wave is instantiated with difficulty and 
+level variables.
 
 ### The `GameWorld`
 
 The `GameWorld` coordinates the gameplay and manages the interactions between actors depending on the game 
 configuration.
 
-- [ ] Insert image of `GameWorld` class overview
-
-- [ ] Insert image of sequence diagram for `GameWorld` managing interactions
+- ![`GameWorld` class overview](docs/images/gameworld.png)[ ] Insert image of `GameWorld` class overview
 
 ### Screen Management
-
-- [ ] TODO: shorten this, it is too long and prominent.
 
 At a higher level than the `GameWorld` is the `PlayGameScreen`, which is, as the name suggests, the screen that is
 loaded when the user starts playing the game. We also have the `MenuScreen`, which internally is made up of
@@ -176,8 +177,6 @@ to load next.
 
 ![`GameWorld` managing interactions](docs/images/screen-management.png)
 
-- [ ] TODO: shorten this, it is too long and prominent.
-
 The first screen loaded is the `MenuScreen`, which lets the player select the game configuration and makes
 that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is loaded, it updates the
 `GameState` so that when the game is over and the `GameOverScreen` is loaded, it can be passed the `GameState` and
@@ -188,6 +187,7 @@ display the results.
 ## Attributions
 
 - In-game music by [Steven Melin](https://stevenmelin.com), free for personal and commercial use.
+- Revamped font by [Chequered Ink](https://www.dafont.com/revamped.font), free for personal and commercial use.
 
 ### Ali Soltanian Fard Jahromi: Lead Game and Level Designer
 
