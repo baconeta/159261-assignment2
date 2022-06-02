@@ -23,7 +23,7 @@ class HowToPlay extends SubMenu {
 
         Button close = new Button("Close");
         close.setState(Button.State.FOCUSSED);
-        close.setOrigin(new TPoint(265, 650));
+        close.setOrigin(new TPoint(260, 650));
 
         addAll(title, close);
     }

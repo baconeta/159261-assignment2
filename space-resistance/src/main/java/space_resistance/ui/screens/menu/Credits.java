@@ -23,7 +23,7 @@ class Credits extends SubMenu {
 
         Button close = new Button("Close");
         close.setState(Button.State.FOCUSSED);
-        close.setOrigin(new TPoint(290, 550));
+        close.setOrigin(new TPoint(260, 550));
 
         addAll(title, close);
     }
