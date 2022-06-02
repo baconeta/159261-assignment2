@@ -177,7 +177,7 @@ public class GameWorld extends World {
             enemy.markPendingKill();
         }
 
-        add(new ImpactExplosion(this, new TPoint(playerBullet.origin().x - 15, playerBullet.origin().y - 20)));
+        add(new ImpactExplosion(this, new TPoint(playerBullet.origin().x - 15, playerBullet.origin().y - 5)));
 
         playerBullet.markPendingKill();
     }
