@@ -23,8 +23,6 @@ build and run the game.
 
 When the project has loaded, you will find the Run Game configuration in the menu bar
 
-- [ ] Replace this with an image showing the current project
-
 !["Run Game" run configuration](docs/images/run-game-config.png)
 
 ### Run from Commandline
