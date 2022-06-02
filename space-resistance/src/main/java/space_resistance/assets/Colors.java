@@ -3,7 +3,7 @@ package space_resistance.assets;
 import java.awt.*;
 
 public class Colors {
-    // TODO: Remove any unused colors before submitting
+    // Colours chosen using a complementary colour picker only and matched with graphic colours
     public static final Color MITE_GREEN = new Color(55, 66, 24);
     private static final Color GRASSHOPPER_GREEN = new Color(188, 196, 14);
     public static final Color SPACESHIP_PURPLE = new Color(84, 47, 80);
@@ -15,25 +15,15 @@ public class Colors {
     public static final Color VIOLENT_PINK = new Color(239, 0, 255);
 
 
-    // We centrally manage all text colors here, so we can swap out
-    // a color once, and it will update everywhere.
-    // Tweak these however you like! These are just placeholders.
     public static class Text {
-        // Primary color for most UI text elements
         public static final Color PRIMARY = BEAU_BLUE;
         public static final Color DEV_NAMES = DENIM;
         public static final Color SHIELD_ENABLED = GRASSHOPPER_GREEN;
         public static final Color PLAYER_DEAD = SPACESHIP_PURPLE;
         public static final Color PLAYER_ONE_SCORE = DARK_VIOLET;
         public static final Color PLAYER_TWO_SCORE = TERRIFYING_TEAL;
-
-        // Add other categories of font colors here
     }
 
-    // TODO: Remove unnecessary comments before submitting
-    // We centrally manage all button colors here, so we can swap out
-    // a color once, and it will update everywhere.
-    // Tweak these however you like! These are just placeholders.
     public static class Button {
         // Primary color for button elements which are not selected/active
         public static final Color PRIMARY = BEAU_BLUE;

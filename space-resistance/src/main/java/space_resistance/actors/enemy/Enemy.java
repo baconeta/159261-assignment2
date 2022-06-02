@@ -59,7 +59,6 @@ public class Enemy extends Actor {
         var ship = EnemyShip.shipFor(type);
         sprite.add(ship);
 
-        // TODO: Remove before submitting, replace this whole method with simple call to EnemyShip.shipFor()
         if (Game.DEBUG_MODE) {
             TRect debugRect = new TRect(EnemyConstants.collisionShapeDimension(type));
             var collisionOffset = new TPoint(
