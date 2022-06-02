@@ -8,7 +8,6 @@ import space_resistance.ui.screens.gameplay.PauseScreen;
 import space_resistance.ui.screens.gameplay.PlayGameScreen;
 import space_resistance.ui.screens.menu.MenuScreen;
 import tengine.GameEngine;
-import tengine.geom.TPoint;
 import tengine.physics.collisions.events.CollisionEvent;
 
 import java.awt.*;
