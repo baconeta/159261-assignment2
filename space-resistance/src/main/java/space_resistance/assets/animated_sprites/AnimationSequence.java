@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 class AnimationSequence {
-    static ArrayList<GridSquare> getGridSquares(Dimension sequenceGrid) {
+    protected static ArrayList<GridSquare> getGridSquares(Dimension sequenceGrid) {
         int numFrames = sequenceGrid.width * sequenceGrid.height;
         ArrayList<GridSquare> sequence = new ArrayList<>(numFrames);
         for (int i = 0; i < numFrames; ++i) {

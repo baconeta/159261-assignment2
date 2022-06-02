@@ -17,7 +17,7 @@ import java.awt.event.KeyEvent;
 public class Game extends GameEngine {
     public static final Dimension WINDOW_DIMENSION = new Dimension(600, 800);
     private static final String TITLE = "Space Resistance by Team Pew Pew!";
-    public static boolean DEBUG_MODE = false;
+    public static final boolean DEBUG_MODE = false;
 
     private Screen activeScreen = null;
     private PlayGameScreen activeGame = null;

@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
 public abstract class SubMenu extends TGraphicCompound {
-    final Consumer<SubmenuOption> submenuSelectionNotifier;
+    protected final Consumer<SubmenuOption> submenuSelectionNotifier;
 
     public SubMenu(Consumer<SubmenuOption> submenuSelectionNotifier) {
         super(new Dimension());
