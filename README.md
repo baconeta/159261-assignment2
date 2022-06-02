@@ -161,7 +161,7 @@ level variables.
 The `GameWorld` coordinates the gameplay and manages the interactions between actors depending on the game 
 configuration.
 
-- ![`GameWorld` class overview](docs/images/gameworld.PNG)
+![`GameWorld` class overview](docs/images/gameworld.PNG)
 
 ### Screen Management
 
