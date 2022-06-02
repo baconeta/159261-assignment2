@@ -27,15 +27,7 @@ public class Settings {
         return new GameConfig(Settings.multiplayerMode, Settings.gameMode);
     }
 
-    public void setGameMode(GameMode gameMode) {
-        Settings.gameMode = gameMode;
-    }
-
     public void setPlayerMode(MultiplayerMode multiplayerMode) {
         Settings.multiplayerMode = multiplayerMode;
-    }
-
-    public GameMode gameMode() {
-        return gameMode;
     }
 }

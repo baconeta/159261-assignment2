@@ -4,10 +4,8 @@ import java.awt.*;
 
 public class Colors {
     // Colours chosen using a complementary colour picker only and matched with graphic colours
-    public static final Color MITE_GREEN = new Color(55, 66, 24);
     private static final Color GRASSHOPPER_GREEN = new Color(188, 196, 14);
     public static final Color SPACESHIP_PURPLE = new Color(84, 47, 80);
-    public static final Color TARANTULA_GREY = new Color(97, 96, 101);
     public static final Color BEAU_BLUE = new Color(200, 218, 226);
     public static final Color DARK_VIOLET = new Color(114, 14, 196);
     public static final Color DENIM = new Color(14, 96, 196);
