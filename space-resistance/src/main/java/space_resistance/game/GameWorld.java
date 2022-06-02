@@ -120,6 +120,7 @@ public class GameWorld extends World {
     }
 
     private void setGameOver() {
+        SoundEffects.shared().gameOver().play(5);
         gameOverNotifier.sendNotify();
     }
 

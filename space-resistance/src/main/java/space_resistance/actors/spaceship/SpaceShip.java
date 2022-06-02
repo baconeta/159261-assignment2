@@ -123,10 +123,6 @@ public class SpaceShip extends Actor {
         }
     }
 
-    public AnimatedSprite spaceshipThrusters() {
-        return spaceshipThrusters;
-    }
-
     public void update() {
         checkBoundaries();
 
