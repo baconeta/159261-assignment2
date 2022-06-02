@@ -149,7 +149,7 @@ pattern. It's a work in progress, so the following is only a brief summary:
 
 ### The `EnemySpawningSystem`
 
-- The Enemy Spawning System was designed from the ground up to be flexible and as abstract as possible while 
+The Enemy Spawning System was designed from the ground up to be flexible and as abstract as possible while 
 fitting the constraints of the game. It is created with a STATE that handles the processing of everything within the 
 system, including all enemies that it spawns into the world. This also passes update calls from the game world to each 
 relevant actor inside the system (enemies and bosses). An EnemyWave object (part of system) is made up of some static 
@@ -161,7 +161,7 @@ level variables.
 The `GameWorld` coordinates the gameplay and manages the interactions between actors depending on the game 
 configuration.
 
-- ![`GameWorld` class overview](docs/images/gameworld.png)[ ] Insert image of `GameWorld` class overview
+- ![`GameWorld` class overview](docs/images/gameworld.PNG)
 
 ### Screen Management
 
