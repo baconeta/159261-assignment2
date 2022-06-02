@@ -9,6 +9,8 @@ import java.awt.*;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static space_resistance.assets.animated_sprites.AnimationSequence.getGridSquares;
+
 public class PlayerThruster extends AnimatedSprite {
     public static final int DEFAULT_FPS = 60;
     private static final double SCALE = 0.125;
@@ -31,14 +33,7 @@ public class PlayerThruster extends AnimatedSprite {
         super(is, frameDimension, fps, currentSequence);
     }
 
-    // TODO: Maybe extract out into package-private helper class
     private static ArrayList<GridSquare> generateSequence() {
-        int numFrames = SEQUENCE_GRID.width * SEQUENCE_GRID.height;
-        ArrayList<GridSquare> sequence = new ArrayList<>(numFrames);
-        for (int i = 0; i < numFrames; ++i) {
-            sequence.add(new GridSquare(i / SEQUENCE_GRID.width, i % SEQUENCE_GRID.width));
-        }
-
-        return sequence;
+        return getGridSquares(SEQUENCE_GRID);
     }
 }

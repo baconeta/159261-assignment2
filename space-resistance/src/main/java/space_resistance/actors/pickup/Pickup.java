@@ -43,7 +43,6 @@ public class Pickup extends Actor {
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
     }
 
-    // TODO: Convert this to a simple sprite instead of a TGraphicCompound (unnecessary bloat) before submitting
     private TGraphicObject initSprite() {
         // Pickup Sprite
         var sprite = new TGraphicCompound(dimension);
