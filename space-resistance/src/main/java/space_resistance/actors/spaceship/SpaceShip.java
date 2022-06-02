@@ -104,7 +104,6 @@ public class SpaceShip extends Actor {
         return physics;
     }
 
-    // TODO: Reduce calculations here, maybe use a boundary to be able to easily check if player is within it
     public void checkBoundaries() {
         if (this.origin.x < 0) {
             this.origin.x = 0;
