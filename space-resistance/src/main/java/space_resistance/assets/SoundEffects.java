@@ -40,11 +40,6 @@ public class SoundEffects {
         return background;
     }
 
-    // TODO: remove if still unused before submitting
-    public AudioClip gameOver() {
-        return gameOver;
-    }
-
     public AudioClip menuMove() {
         return menuMove;
     }

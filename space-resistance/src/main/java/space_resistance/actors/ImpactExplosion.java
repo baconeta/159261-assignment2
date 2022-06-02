@@ -9,13 +9,7 @@ import tengine.physics.TPhysicsComponent;
 import tengine.physics.collisions.shapes.CollisionRect;
 import tengine.physics.kinematics.TVelocity;
 
-// TODO: maybe rename this to PlayerExplosion?
 public class ImpactExplosion extends Actor {
-    private final long startTime;
-
-    // Keeps track of how long explosion has existed
-    private long currentTime = 0;
-
     public ImpactExplosion(GameWorld world, TPoint origin) {
         this.world = world;
         graphic = ImpactExplosionSprite.sprite();
@@ -23,15 +17,7 @@ public class ImpactExplosion extends Actor {
         ((ImpactExplosionSprite) graphic).setSequenceEndCallback(this::onExplosionEnd);
         physics = initPhysics();
 
-        // TODO: Remove if still unused
-        startTime = System.currentTimeMillis();
-
         setOrigin(origin);
-    }
-
-    // TODO: check what this is used for, if unused remove
-    public void update() {
-        currentTime = System.currentTimeMillis();
     }
 
     private void onExplosionEnd(SpriteSequence sequence) {
@@ -46,10 +32,5 @@ public class ImpactExplosion extends Actor {
         velocity = new TVelocity();
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
-    }
-
-    // TODO: Remove if still unused
-    public long timeExisted(){
-        return currentTime - startTime;
     }
 }
