@@ -5,8 +5,6 @@ import space_resistance.game.EnemySpawningSystem;
 import space_resistance.game.GameWorld;
 import tengine.geom.TPoint;
 
-import java.awt.*;
-
 public class GoliathEnemy extends Enemy {
     private static final int MAX_TRAVEL_DISTANCE = 150;
     private static final int BORDER_SPACING = 5;
