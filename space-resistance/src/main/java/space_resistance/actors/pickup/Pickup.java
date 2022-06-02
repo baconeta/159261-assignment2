@@ -15,7 +15,6 @@ import tengine.physics.kinematics.TVelocity;
 import java.awt.*;
 
 public class Pickup extends Actor {
-    // TODO: consider moving to this a utility class
     public static final Dimension DIMENSION = new Dimension(32, 32);
     private static final int SPEED = 27;
     private static final TVector DIRECTION = new TVector(0, 1);
