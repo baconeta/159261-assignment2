@@ -16,15 +16,8 @@ public class Explosion extends Actor {
     private static final double SCALE = 0.125;
     private static final double GOLIATH_SCALE = 0.3;
 
-    private final long startTime;
-
-    // Keeps track of how long explosion has existed
-    private long currentTime = 0;
-
-
     public Explosion(GameWorld world, TPoint origin, EnemyType type) {
         this.world = world;
-        startTime = System.currentTimeMillis();
 
         if (type == EnemyType.GOLIATH) {
             SoundEffects.shared().goliathExplosionSound().play(VOLUME);
@@ -41,11 +34,6 @@ public class Explosion extends Actor {
         setOrigin(origin);
     }
 
-    // TODO: check what this is used for, if unused remove
-    public void update() {
-        currentTime = System.currentTimeMillis();
-    }
-
     private void onExplosionEnd(SpriteSequence sequence) {
         ((ExplosionSprite) graphic).resetAnimation();
         this.markPendingKill();
@@ -58,10 +46,5 @@ public class Explosion extends Actor {
         velocity = new TVelocity();
 
         return new TPhysicsComponent(this, isStatic, collisionRect, hasCollisions);
-    }
-
-    // TODO: Remove if still unused
-    public long timeExisted() {
-        return currentTime - startTime;
     }
 }
