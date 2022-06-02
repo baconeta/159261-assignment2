@@ -14,8 +14,8 @@ public class Background extends TGraphicCompound {
   private static final Dimension BACKGROUND_DIMENSION = new Dimension(600, 1600);
   private static final Background BACKGROUND = new Background();
 
-  boolean isStatic = false;
-  Sprite background;
+  private boolean isStatic = false;
+  private Sprite background;
 
   public static Background getInstance() {
     return BACKGROUND;

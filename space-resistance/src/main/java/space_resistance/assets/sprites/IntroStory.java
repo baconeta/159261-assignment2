@@ -13,8 +13,8 @@ public class IntroStory extends TGraphicCompound {
   private static final Dimension STORY_SCREEN_DIMENSION = new Dimension(600, 800);
   private static final IntroStory INTRO_STORY = new IntroStory();
 
-  boolean isStatic = false;
-  Sprite introStory;
+  private boolean isStatic = false;
+  private Sprite introStory;
 
   public static IntroStory getInstance() {
     return INTRO_STORY;
