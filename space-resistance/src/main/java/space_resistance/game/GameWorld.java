@@ -141,10 +141,6 @@ public class GameWorld extends World {
         }
     }
 
-    public GameConfig gameConfig() {
-        return gameConfig;
-    }
-
     public void handleCollisions(CollisionEvent event) {
         Actor a = event.actorA();
         Actor b = event.actorB();

@@ -17,6 +17,10 @@ import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
 public class PauseScreen implements Screen {
+    private static final int PAUSED_LABEL_OFFSET = 210;
+    private static final int RESUME_OFFSET = 65;
+
+    private static final int QUIT_OFFSET = 385;
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final TGraphicCompound graphic;
 
@@ -25,7 +29,6 @@ public class PauseScreen implements Screen {
     private final Button quit;
 
     private final Background background = Background.getInstance();
-    private final int PAUSED_LABEL_OFFSET = 210, RESUME_OFFSET = 65, QUIT_OFFSET = 385;
 
     public PauseScreen(Consumer<ScreenIdentifier> screenChangeCallback) {
         this.screenChangeCallback = screenChangeCallback;

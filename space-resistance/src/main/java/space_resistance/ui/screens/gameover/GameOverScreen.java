@@ -18,17 +18,17 @@ import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
 
 public class GameOverScreen implements Screen {
+    private static final int GAME_OVER_LABEL_OFFSET = 235;
+    private static final int SCORE_LABEL_OFFSET = 235;
+    private static final int PLAY_AGAIN_OFFSET = 65;
+    private static final int QUIT_OFFSET = 405;
+
     private final Consumer<ScreenIdentifier> screenChangeCallback;
     private final TGraphicCompound graphic;
 
     private final ButtonGroup buttonGroup;
     private final Button playAgain;
     private final Button quit;
-
-    private final int GAMEOVER_LABEL_OFFSET = 235;
-    private final int SCORE_LABEL_OFFSET = 235;
-    private final int PLAY_AGAIN_OFFSET = 65;
-    private final int QUIT_OFFSET = 405;
 
     public GameOverScreen(Consumer<ScreenIdentifier> screenChangeCallback, GameState gameState) {
         this.screenChangeCallback = screenChangeCallback;
@@ -44,7 +44,7 @@ public class GameOverScreen implements Screen {
         TLabel title = new TLabel("Game over!");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().bodyFont());
-        title.setOrigin(new TPoint(GAMEOVER_LABEL_OFFSET, 300));
+        title.setOrigin(new TPoint(GAME_OVER_LABEL_OFFSET, 300));
 
         // Score
         TLabel score = new TLabel("Score: " + gameState.maxScore());

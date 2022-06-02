@@ -20,8 +20,8 @@ public class PickupSprite extends Sprite {
 
     public static PickupSprite pickupFor(PickupType type) {
         return switch(type) {
-            case HEALTH -> HEALTH;
-            case SHIELD -> SHIELD;
+            case HEALTH  -> HEALTH;
+            case SHIELD  -> SHIELD;
             case MISSILE -> MISSILE;
         };
     }
@@ -32,8 +32,8 @@ public class PickupSprite extends Sprite {
 
     private static InputStream pickupSpriteFor(PickupType type) {
         return switch (type) {
-            case HEALTH -> HEALTH_ASSET;
-            case SHIELD -> SHIELD_ASSET;
+            case HEALTH  -> HEALTH_ASSET;
+            case SHIELD  -> SHIELD_ASSET;
             case MISSILE -> MISSILE_ASSET;
         };
     }

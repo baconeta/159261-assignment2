@@ -13,9 +13,6 @@ public class IntroStory extends TGraphicCompound {
   private static final Dimension STORY_SCREEN_DIMENSION = new Dimension(600, 800);
   private static final IntroStory INTRO_STORY = new IntroStory();
 
-  private boolean isStatic = false;
-  private Sprite introStory;
-
   public static IntroStory getInstance() {
     return INTRO_STORY;
   }
@@ -23,17 +20,13 @@ public class IntroStory extends TGraphicCompound {
   private IntroStory() {
     super(STORY_SCREEN_DIMENSION);
 
-    introStory = new Sprite(STORY_ASSET, STORY_SCREEN_DIMENSION);
-    introStory.setOrigin(new TPoint(0, 0));
+    Sprite introStory = new Sprite(STORY_ASSET, STORY_SCREEN_DIMENSION);
+    introStory.setOrigin(new TPoint());
     add(introStory);
   }
 
-  public void setIsStatic(boolean isStatic) {
-    this.isStatic = isStatic;
-  }
-
-  // update method
   @Override
   public void update(double dtMillis) {
+    // No-op
   }
 }

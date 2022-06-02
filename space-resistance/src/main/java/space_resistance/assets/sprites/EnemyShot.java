@@ -17,7 +17,7 @@ public class EnemyShot extends Sprite {
     private static final InputStream TARANTULA_ASSET = AssetLoader.load("TarantulaEnemyShot.png");
     private static final EnemyShot TARANTULA_SHOT = new EnemyShot(EnemyType.TARANTULA);
 
-    private static final InputStream GOLIATH_ASSET = AssetLoader.load("GoliathShots.png"); // TODO temporary
+    private static final InputStream GOLIATH_ASSET = AssetLoader.load("GoliathShots.png");
     private static final EnemyShot GOLIATH_SHOT = new EnemyShot(EnemyType.GOLIATH);
 
     public static EnemyShot shotFor(EnemyType type) {

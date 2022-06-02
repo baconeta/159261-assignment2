@@ -38,7 +38,6 @@ public class EnemyWave {
     private final List<Enemy> wave = new ArrayList<>();
     private int enemiesRemaining;
     private final int level;
-    private final int enemiesPerSpawn;
 
     private final double tarantulaSpawningRate;
     private final double grasshopperSpawningRate;
@@ -47,7 +46,6 @@ public class EnemyWave {
 
     public EnemyWave(int currentLevel) {
         level = currentLevel;
-        enemiesPerSpawn = level;
 
         grasshopperSpawningRate = GRASSHOPPER_BASE_RATE + (currentLevel * GRASSHOPPER_RATE_BY_LEVEL);
         tarantulaSpawningRate = TARANTULA_BASE_RATE + (currentLevel * TARANTULA_RATE_BY_LEVEL);
@@ -120,9 +118,5 @@ public class EnemyWave {
 
     public int delayBeforeWave() {
         return initialMillisecondsBeforeWave;
-    }
-
-    public int enemiesPerSpawn() {
-        return enemiesPerSpawn;
     }
 }

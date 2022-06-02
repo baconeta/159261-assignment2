@@ -1,7 +1,7 @@
 package space_resistance.settings;
 
-// This is just an example. It presumes there is a menu button
-// that toggles the game mode, for instance between easy and hard.
+// Support for future updates of game difficulty. It presumes there is a menu button
+// that toggles the game mode, for instance between normal and hard.
 public enum GameMode {
     NORMAL, HARD;
 

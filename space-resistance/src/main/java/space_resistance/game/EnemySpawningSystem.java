@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class EnemySpawningSystem {
+    private enum SpawnState {
+        PRE_WAVE, SPAWNING, BOSS, POST_WAVE, DEFAULT
+    }
+
     private static final TPoint NEW_LEVEL_LABEL_ORIGIN = new TPoint(245, 280);
     private final GameWorld gameWorld;
     private EnemyWave currentWave;
@@ -105,9 +109,5 @@ public class EnemySpawningSystem {
         }
 
         timeLastEnemySpawned = System.currentTimeMillis();
-    }
-
-    private enum SpawnState {
-        PRE_WAVE, SPAWNING, BOSS, POST_WAVE, DEFAULT
     }
 }
